@@ -22,15 +22,15 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7390815902625144832?collapsed=1',
-      title: 'Update van Kyle'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7405274545223323648?collapsed=1',
+      title: 'Belastingwijzigingen 2026: wat betekent het voor jou als zzp\'er?'
     },
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7379458376025452544?collapsed=1',
-      title: 'Update Moneybird'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7390822552698310656?collapsed=1',
+      title: 'Technologie staat niet stil, ook niet in de boekhouding. 🤖'
     }
   ];
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
