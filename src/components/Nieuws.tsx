@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7416803919345106944?collapsed=1',
-      title: 'Belastingvrij verdienen als startende ondernemer in 2026: zo werkt het'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7420044904619319296?collapsed=1',
+      title: 'Zo bereid je je voor op een boekenonderzoek'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7413991999038722048?collapsed=1',
-      title: 'Pensioenbeleggen: fiscaal voordeel dat veel zzp\'ers missen'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7416803919345106944?collapsed=1',
+      title: 'Belastingvrij verdienen als startende ondernemer in 2026: zo werkt het'
     }
   ];
   
