@@ -1038,10 +1038,10 @@ const IntakeForm = () => {
             <div className="bg-gray-50 rounded p-4 text-sm text-gray-700 mb-4">
               <h3 className="font-semibold text-gray-900 mb-4">Voor een correcte overdracht ontvangen we graag onderstaande gegevens:</h3>
               <ol className="space-y-3 text-sm text-gray-700">
-                <li><strong>1. Verkoop- & inkoopfacturen die op 1 januari 2025 nog openstonden</strong><br />Factuurnummer, datum, bedrag incl. btw, klant/leverancier, betaald/onbetaald</li>
-                <li><strong>2. Bankstand per 1 januari 2025</strong><br />Rekeningnummer + saldo per 1 januari 2025 (Je mag dit ook aanleveren via een bankoverzicht of screenshot)</li>
-                <li><strong>3. Btw-positie per 31 december 2024</strong><br />Btw-aangifte van Q4 (okt-dec)<br />– Of een balansrapport van 31 december met te betalen/vorderen btw</li>
-                <li><strong>4. Begin- of eindbalans per 31 december 2024 (optioneel, maar handig)</strong><br />Balans met activa/passiva (bv. kas, inventaris etc.)</li>
+                <li><strong>1. Verkoop- & inkoopfacturen die op 1 januari 2026 nog openstonden</strong><br />Factuurnummer, datum, bedrag incl. btw, klant/leverancier, betaald/onbetaald</li>
+                <li><strong>2. Bankstand per 1 januari 2026</strong><br />Rekeningnummer + saldo per 1 januari 2026 (Je mag dit ook aanleveren via een bankoverzicht of screenshot)</li>
+                <li><strong>3. Btw-positie per 31 december 2025</strong><br />Btw-aangifte van Q4 (okt-dec)<br />– Of een balansrapport van 31 december met te betalen/vorderen btw</li>
+                <li><strong>4. Begin- of eindbalans per 31 december 2025 (optioneel, maar handig)</strong><br />Balans met activa/passiva (bv. kas, inventaris etc.)</li>
                 <li><strong>5. Klanten- of leverancierslijst (optioneel)</strong><br />Naam, e-mail, adres, IBAN (indien van toepassing)</li>
               </ol>
               <p className="text-gray-600 text-sm mt-4">👇 Laat hieronder weten wat jij het liefste doet. Uitleg volgt.</p>
@@ -1103,10 +1103,10 @@ const IntakeForm = () => {
             <div className="bg-gray-50 rounded p-4 text-sm text-gray-700 mb-4">
               <h3 className="font-semibold text-gray-900 mb-4">De volgende gegevens zullen we exporteren en importeren in je Moneybird omgeving:</h3>
               <ol className="space-y-3 text-sm text-gray-700">
-                <li><strong>1. Verkoop- & inkoopfacturen die op 1 januari 2025 nog openstonden</strong><br />Factuurnummer, datum, bedrag incl. btw, klant/leverancier, betaald/onbetaald</li>
-                <li><strong>2. Bankstand per 1 januari 2025</strong><br />Rekeningnummer + saldo per 1 januari 2025 (Je mag dit ook aanleveren via een bankoverzicht of screenshot)</li>
-                <li><strong>3. Btw-positie per 31 december 2024</strong><br />Btw-aangifte van Q4 (okt-dec)<br />– Of een balansrapport van 31 december met te betalen/vorderen btw</li>
-                <li><strong>4. Begin- of eindbalans per 31 december 2024 (optioneel, maar handig)</strong><br />Balans met activa/passiva (bv. kas, inventaris etc.)</li>
+                <li><strong>1. Verkoop- & inkoopfacturen die op 1 januari 2026 nog openstonden</strong><br />Factuurnummer, datum, bedrag incl. btw, klant/leverancier, betaald/onbetaald</li>
+                <li><strong>2. Bankstand per 1 januari 2026</strong><br />Rekeningnummer + saldo per 1 januari 2025 (Je mag dit ook aanleveren via een bankoverzicht of screenshot)</li>
+                <li><strong>3. Btw-positie per 31 december 2025</strong><br />Btw-aangifte van Q4 (okt-dec)<br />– Of een balansrapport van 31 december met te betalen/vorderen btw</li>
+                <li><strong>4. Begin- of eindbalans per 31 december 2025 (optioneel, maar handig)</strong><br />Balans met activa/passiva (bv. kas, inventaris etc.)</li>
                 <li><strong>5. Klanten- of leverancierslijst (optioneel)</strong><br />Naam, e-mail, adres, IBAN (indien van toepassing)</li>
               </ol>
 
@@ -1168,16 +1168,16 @@ const IntakeForm = () => {
             <div className="bg-gray-50 rounded p-4 text-sm text-gray-700 mb-4">
               <h3 className="font-semibold text-gray-900 mb-4">Graag mailen (CSV, Excel of PDF):</h3>
               <ol className="space-y-3 text-sm text-gray-700">
-                <li><strong>1. Verkoop- & inkoopfacturen die op 1 januari 2025 nog openstonden</strong><br />Factuurnummer, datum, bedrag incl. btw, klant/leverancier, betaald/onbetaald</li>
-                <li><strong>2. Bankstand per 1 januari 2025</strong><br />Rekeningnummer + saldo per 1 januari 2025 (Je mag dit ook aanleveren via een bankoverzicht of screenshot)</li>
-                <li><strong>3. Btw-positie per 31 december 2024</strong><br />Btw-aangifte van Q4 (okt-dec)<br />– Of een balansrapport van 31 december met te betalen/vorderen btw</li>
-                <li><strong>4. Begin- of eindbalans per 31 december 2024 (optioneel, maar handig)</strong><br />Balans met activa/passiva (bv. kas, inventaris etc.)</li>
+                <li><strong>1. Verkoop- & inkoopfacturen die op 1 januari 2026 nog openstonden</strong><br />Factuurnummer, datum, bedrag incl. btw, klant/leverancier, betaald/onbetaald</li>
+                <li><strong>2. Bankstand per 1 januari 2026</strong><br />Rekeningnummer + saldo per 1 januari 2026 (Je mag dit ook aanleveren via een bankoverzicht of screenshot)</li>
+                <li><strong>3. Btw-positie per 31 december 2025</strong><br />Btw-aangifte van Q4 (okt-dec)<br />– Of een balansrapport van 31 december met te betalen/vorderen btw</li>
+                <li><strong>4. Begin- of eindbalans per 31 december 2025 (optioneel, maar handig)</strong><br />Balans met activa/passiva (bv. kas, inventaris etc.)</li>
                 <li><strong>5. Klanten- of leverancierslijst (optioneel)</strong><br />Naam, e-mail, adres, IBAN (indien van toepassing)</li>
               </ol>
             </div>
             <div className="space-y-4">
               <div className="bg-white rounded-lg border border-gray-300 p-6">
-                <label className="block text-sm font-semibold text-gray-900 mb-3">1. Heb je de verkoop- & inkoopfacturen die op 31 december 2024 nog openstonden kunnen verzamelen? *</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-3">1. Heb je de verkoop- & inkoopfacturen die op 31 december 2025 nog openstonden kunnen verzamelen? *</label>
                 <div className="border border-gray-200 rounded-lg p-4 mb-3 text-sm text-gray-700">
                   <p className="mb-2">Mail het naar:</p>
                   <p className="text-blue-600 font-semibold mb-3">intake.slimgeregeld@gmail.com</p>
@@ -1226,14 +1226,14 @@ const IntakeForm = () => {
                 </div>
               </div>
               <div className="bg-white rounded-lg border border-gray-300 p-6">
-                <label className="block text-sm font-semibold text-gray-900 mb-3">2. Heb je een overzicht van je bankstand (saldo) per 31 december 2024? *</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-3">2. Heb je een overzicht van je bankstand (saldo) per 31 december 2025? *</label>
                 <div className="border border-gray-200 rounded-lg p-4 mb-3 text-sm text-gray-700">
                   <p className="mb-2">Mail het naar:</p>
                   <p className="text-blue-600 font-semibold mb-3">intake.slimgeregeld@gmail.com</p>
                   <p className="mb-2">Je mag dit aanleveren als export uit je boekhouding of als PDF/screenshot uit je bankomgeving. Graag inclusief:</p>
                   <ul className="space-y-1">
                     <li>- Bankrekeningnummer</li>
-                    <li>- Saldo per 31 december 2024</li>
+                    <li>- Saldo per 31 december 2025</li>
                   </ul>
                 </div>
                 <div className="space-y-2">
@@ -1270,13 +1270,13 @@ const IntakeForm = () => {
                 </div>
               </div>
               <div className="bg-white rounded-lg border border-gray-300 p-6">
-                <label className="block text-sm font-semibold text-gray-900 mb-3">3. Heb je je btw-positie per 31 december 2024 inzichtelijk? *</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-3">3. Heb je je btw-positie per 31 december 2025 inzichtelijk? *</label>
                 <div className="border border-gray-200 rounded-lg p-4 mb-3 text-sm text-gray-700">
                   <p className="mb-2">Mail het naar:</p>
                   <p className="text-blue-600 font-semibold mb-3">intake.slimgeregeld@gmail.com</p>
                   <p className="mb-2">Je kunt kiezen uit één van de volgende opties:</p>
                   <ul className="space-y-1">
-                    <li>- De btw-aangifte van Q4 2024 (okt t/m dec)</li>
+                    <li>- De btw-aangifte van Q4 2025 (okt t/m dec)</li>
                     <li>- Of een balansrapport met te betalen / te vorderen btw</li>
                   </ul>
                 </div>
@@ -1314,7 +1314,7 @@ const IntakeForm = () => {
                 </div>
               </div>
               <div className="bg-white rounded-lg border border-gray-300 p-6">
-                <label className="block text-sm font-semibold text-gray-900 mb-3">4. Heb je een begin- of eindbalans per 31 december 2024?</label>
+                <label className="block text-sm font-semibold text-gray-900 mb-3">4. Heb je een begin- of eindbalans per 31 december 2025?</label>
                 <div className="border border-gray-200 rounded-lg p-4 mb-3 text-sm text-gray-700">
                   <p className="mb-2">Mail het naar:</p>
                   <p className="text-blue-600 font-semibold mb-3">intake.slimgeregeld@gmail.com</p>
