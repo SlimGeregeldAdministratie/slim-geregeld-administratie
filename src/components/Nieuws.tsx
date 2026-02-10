@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7424165983893856256?collapsed=1',
-      title: 'Voorkom dure fouten bij het oprichten van je BV als zzp’er'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7426922142929174528?collapsed=1',
+      title: 'Rust en overzicht met potjes: zo simpel kan het zijn'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7421617658321694720?collapsed=1',
-      title: 'Zwangerschapsverlof en ZEZ-uitkering: wat zzp\'ers moeten weten'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7424165983893856256?collapsed=1',
+      title: 'Voorkom dure fouten bij het oprichten van je BV als zzp’er'
     }
   ];
   
