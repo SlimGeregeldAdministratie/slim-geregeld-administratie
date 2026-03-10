@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7434369881468272640?collapsed=1',
-      title: 'Bescherm en groei je vermogen met slimme stappen'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7437121541320028160?collapsed=1',
+      title: 'Pensioen opbouwen? Het is echt geen optie maar een must.'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7426922142929174528?collapsed=1',
-      title: 'Rust en overzicht met potjes: zo simpel kan het zijn'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7434369881468272640?collapsed=1',
+      title: 'Bescherm en groei je vermogen met slimme stappen'
     }
   ];
   
