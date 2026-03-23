@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7439359043900657665?collapsed=1',
-      title: 'Overstappen naar een BV? Niet altijd de beste keuze'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7441893407922360320?collapsed=1',
+      title: 'Hoe bepaal je als zzp’er je omzetdoel?'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7437121541320028160?collapsed=1',
-      title: 'Pensioen opbouwen? Het is echt geen optie maar een must.'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7439359043900657665?collapsed=1',
+      title: 'Overstappen naar een BV? Niet altijd de beste keuze'
     }
   ];
   
