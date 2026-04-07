@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7444469423568125953?collapsed=1',
-      title: 'Welke ondernemer ben jij bij de btw-aangifte?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7447166303100071937?collapsed=1',
+      title: 'Financial lease of private lease – wat past bij jouw zzp-auto?'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7441893407922360320?collapsed=1',
-      title: 'Hoe bepaal je als zzp’er je omzetdoel?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7444469423568125953?collapsed=1',
+      title: 'Welke ondernemer ben jij bij de btw-aangifte?'
     }
   ];
   
