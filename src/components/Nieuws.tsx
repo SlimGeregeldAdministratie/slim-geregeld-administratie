@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7447166303100071937?collapsed=1',
-      title: 'Financial lease of private lease – wat past bij jouw zzp-auto?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7449537564916568064?collapsed=1',
+      title: 'Wat betekent het nieuwe box 3-stelsel voor jou als zzp\'er?'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7444469423568125953?collapsed=1',
-      title: 'Welke ondernemer ben jij bij de btw-aangifte?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7447166303100071937?collapsed=1',
+      title: 'Financial lease of private lease – wat past bij jouw zzp-auto?'
     }
   ];
   
