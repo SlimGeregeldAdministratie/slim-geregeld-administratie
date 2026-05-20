@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7460293830991519744?collapsed=1',
-      title: 'Bescherm en groei je vermogen met slimme stappen'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7462851775038119937?collapsed=1',
+      title: 'Voorkom belastingrente door op tijd je voorlopige aanslag aan te vragen'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7454824618936238080?collapsed=1',
-      title: 'Boekhouder of fiscaal adviseur: wat heb jij echt nodig?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7460293830991519744?collapsed=1',
+      title: 'Bescherm en groei je vermogen met slimme stappen'
     }
   ];
   
