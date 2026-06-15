@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7469774316088524802?collapsed=1',
-      title: 'Betaal niet onnodig te veel bijtelling voor je auto van de zaak'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7472328071858262017?collapsed=1',
+      title: 'Salaris of dividend: wat is fiscaal voordeliger?'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7464753799866281984?collapsed=1',
-      title: 'Eenmanszaak of BV: wat levert meer op bij 150K winst?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7469774316088524802?collapsed=1',
+      title: 'Betaal niet onnodig te veel bijtelling voor je auto van de zaak'
     }
   ];
   
