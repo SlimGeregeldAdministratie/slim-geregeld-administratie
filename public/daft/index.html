@@ -388,6 +388,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <label for="d-planning">When is your IND appointment or deadline? <span class="opt">optional</span></label>
             <input id="d-planning" name="planning" type="text" placeholder="e.g. August 15, or no date yet">
           </div>
+          <div class="veld-rij">
+            <div class="veld">
+              <label for="d-storting">Cash deposit into the business <span class="opt">optional</span></label>
+              <input id="d-storting" name="storting" type="text" inputmode="numeric" placeholder="e.g. €4,500">
+            </div>
+            <div class="veld">
+              <label for="d-inbreng">Other assets you are bringing in <span class="opt">optional</span></label>
+              <input id="d-inbreng" name="inbreng" type="text" placeholder="e.g. laptop, camera gear">
+            </div>
+          </div>
           <div class="veld">
             <label for="d-bericht">Anything we should know? <span class="opt">optional</span></label>
             <textarea id="d-bericht" name="bericht"></textarea>
@@ -444,6 +454,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         bedrijf:document.getElementById('d-bedrijf').value.trim(),
         kvk:document.getElementById('d-kvk').value.trim(),
         planning:document.getElementById('d-planning').value.trim(),
+        storting:document.getElementById('d-storting').value.trim(),
+        inbreng:document.getElementById('d-inbreng').value.trim(),
         optie:document.getElementById('d-optie').value,
         bericht:document.getElementById('d-bericht').value.trim(),
         website2:document.getElementById('d-website2').value
