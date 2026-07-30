@@ -424,6 +424,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </div>
             </div>
             <div class="veld">
+              <label for="d-herkomst">Where does the money come from?</label>
+              <select id="d-herkomst" name="herkomst">
+                <option value="savings">My own savings</option>
+                <option value="gift">A gift from family or friends</option>
+                <option value="loan">A loan I need to repay</option>
+                <option value="mix">A mix, or something else</option>
+              </select>
+            </div>
+            <div class="veld">
               <label for="d-optie">Your option</label>
               <select id="d-optie" name="optie">
                 <option value="standard">Standard, €495, 2 working days</option>
@@ -533,6 +542,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         planning:document.getElementById('d-planning').value.trim(),
         storting:document.getElementById('d-storting').value.trim(),
         inbreng:document.getElementById('d-inbreng').value.trim(),
+        herkomst:document.getElementById('d-herkomst').value,
         optie:document.getElementById('d-optie').value,
         bericht:document.getElementById('d-bericht').value.trim(),
         website2:document.getElementById('d-website2').value
