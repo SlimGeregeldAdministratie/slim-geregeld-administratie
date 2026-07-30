@@ -396,6 +396,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </div>
             </div>
             <div class="veld">
+              <label for="d-status">Where are you in the process?</label>
+              <select id="d-status" name="status">
+                <option value="exploring">Just exploring, still in the US</option>
+                <option value="nokvk">Moving soon, no KVK registration yet</option>
+                <option value="nobank">KVK registered, no Dutch bank account yet</option>
+                <option value="nodeposit">Bank account open, deposit not made yet</option>
+                <option value="ready">Deposit done, ready to go</option>
+              </select>
+            </div>
+            <div class="veld">
               <label for="d-planning">When is your IND appointment or deadline? <span class="opt">optional</span></label>
               <input id="d-planning" name="planning" type="text" placeholder="e.g. August 15, or no date yet">
             </div>
@@ -519,6 +529,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         telefoon:document.getElementById('d-tel').value.trim(),
         bedrijf:document.getElementById('d-bedrijf').value.trim(),
         kvk:document.getElementById('d-kvk').value.trim(),
+        status:document.getElementById('d-status').value,
         planning:document.getElementById('d-planning').value.trim(),
         storting:document.getElementById('d-storting').value.trim(),
         inbreng:document.getElementById('d-inbreng').value.trim(),
