@@ -136,6 +136,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .melding.ok{display:block;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
   .melding.fout{display:block;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
 
+  .stap-balk{display:flex;gap:.5rem;margin-bottom:1.6rem}
+  .stap-dot{flex:1;text-align:center;font-size:.78rem;font-weight:700;color:var(--muted);padding-bottom:.55rem;border-bottom:3px solid var(--rand);transition:color .15s,border-color .15s}
+  .stap-dot.actief{color:var(--blauw);border-color:var(--blauw)}
+  .stap-dot.klaar{color:var(--ink-soft);border-color:var(--blauw-rand)}
+  .fstap{display:none}
+  .fstap.actief{display:block}
+  .fstap-titel{font-size:.95rem;font-weight:800;margin-bottom:1rem}
+  .fstap-titel small{display:block;font-weight:500;font-size:.82rem;color:var(--muted);margin-top:.15rem}
+
   footer{background:#0b1220;color:#9ca3af;padding:2.4rem 0 1.8rem;margin-top:1rem}
   footer a{color:#9ca3af}
   footer a:hover{color:#fff}
@@ -350,20 +359,59 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <p class="sectie-sub">No payment yet. You get a personal reply within one working day with a payment link and your delivery date.</p>
       <div class="vraagblok">
         <form id="daftform" novalidate>
-          <div class="veld-rij">
-            <div class="veld">
-              <label for="d-naam">Your name</label>
-              <input id="d-naam" name="naam" type="text" autocomplete="name" required>
-            </div>
-            <div class="veld">
-              <label for="d-email">Your email</label>
-              <input id="d-email" name="email" type="email" autocomplete="email" required>
-            </div>
+          <div class="stap-balk" aria-hidden="true">
+            <span class="stap-dot actief" data-dot="1">1 · Contact</span>
+            <span class="stap-dot" data-dot="2">2 · Your business</span>
+            <span class="stap-dot" data-dot="3">3 · Your investment</span>
           </div>
-          <div class="veld-rij">
+
+          <fieldset class="fstap actief" data-stap="1">
+            <legend class="fstap-titel">How can we reach you?<small>The only step that is required.</small></legend>
+            <div class="veld-rij">
+              <div class="veld">
+                <label for="d-naam">Your name</label>
+                <input id="d-naam" name="naam" type="text" autocomplete="name" required>
+              </div>
+              <div class="veld">
+                <label for="d-email">Your email</label>
+                <input id="d-email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
             <div class="veld">
               <label for="d-tel">Phone or WhatsApp <span class="opt">optional</span></label>
               <input id="d-tel" name="telefoon" type="tel" autocomplete="tel">
+            </div>
+          </fieldset>
+
+          <fieldset class="fstap" data-stap="2">
+            <legend class="fstap-titel">Your business<small>Skip anything you do not have yet, that is normal at this stage.</small></legend>
+            <div class="veld-rij">
+              <div class="veld">
+                <label for="d-bedrijf">Business name <span class="opt">optional</span></label>
+                <input id="d-bedrijf" name="bedrijf" type="text" autocomplete="organization">
+              </div>
+              <div class="veld">
+                <label for="d-kvk">KVK number <span class="opt">optional</span></label>
+                <input id="d-kvk" name="kvk" type="text" inputmode="numeric">
+              </div>
+            </div>
+            <div class="veld">
+              <label for="d-planning">When is your IND appointment or deadline? <span class="opt">optional</span></label>
+              <input id="d-planning" name="planning" type="text" placeholder="e.g. August 15, or no date yet">
+            </div>
+          </fieldset>
+
+          <fieldset class="fstap" data-stap="3">
+            <legend class="fstap-titel">Your investment<small>This lets us prepare your draft balance sheet right away.</small></legend>
+            <div class="veld-rij">
+              <div class="veld">
+                <label for="d-storting">Cash deposit into the business <span class="opt">optional</span></label>
+                <input id="d-storting" name="storting" type="text" inputmode="numeric" placeholder="e.g. €4,500">
+              </div>
+              <div class="veld">
+                <label for="d-inbreng">Other assets you are bringing in <span class="opt">optional</span></label>
+                <input id="d-inbreng" name="inbreng" type="text" placeholder="e.g. laptop, camera gear">
+              </div>
             </div>
             <div class="veld">
               <label for="d-optie">Your option</label>
@@ -373,41 +421,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <option value="plan">Compliance Plan, €59/month, sheet included</option>
               </select>
             </div>
-          </div>
-          <div class="veld-rij">
             <div class="veld">
-              <label for="d-bedrijf">Business name <span class="opt">optional</span></label>
-              <input id="d-bedrijf" name="bedrijf" type="text" autocomplete="organization">
+              <label for="d-bericht">Anything we should know? <span class="opt">optional</span></label>
+              <textarea id="d-bericht" name="bericht"></textarea>
             </div>
-            <div class="veld">
-              <label for="d-kvk">KVK number <span class="opt">optional</span></label>
-              <input id="d-kvk" name="kvk" type="text" inputmode="numeric">
-            </div>
-          </div>
-          <div class="veld">
-            <label for="d-planning">When is your IND appointment or deadline? <span class="opt">optional</span></label>
-            <input id="d-planning" name="planning" type="text" placeholder="e.g. August 15, or no date yet">
-          </div>
-          <div class="veld-rij">
-            <div class="veld">
-              <label for="d-storting">Cash deposit into the business <span class="opt">optional</span></label>
-              <input id="d-storting" name="storting" type="text" inputmode="numeric" placeholder="e.g. €4,500">
-            </div>
-            <div class="veld">
-              <label for="d-inbreng">Other assets you are bringing in <span class="opt">optional</span></label>
-              <input id="d-inbreng" name="inbreng" type="text" placeholder="e.g. laptop, camera gear">
-            </div>
-          </div>
-          <div class="veld">
-            <label for="d-bericht">Anything we should know? <span class="opt">optional</span></label>
-            <textarea id="d-bericht" name="bericht"></textarea>
-          </div>
+          </fieldset>
+
           <div class="hp" aria-hidden="true">
             <label for="d-website2">Website</label>
             <input id="d-website2" name="website2" type="text" tabindex="-1" autocomplete="off">
           </div>
           <div class="vraag-voet">
-            <button class="knop" type="submit" id="d-verstuur">Send request →</button>
+            <button class="knop omlijnd" type="button" id="d-terug" style="display:none">← Back</button>
+            <button class="knop" type="button" id="d-verder">Next →</button>
+            <button class="knop" type="submit" id="d-verstuur" style="display:none">Send request →</button>
             <span class="privacy">Your details are only used to handle this request. <a href="https://slim-geregeld.nl">Privacy</a></span>
           </div>
           <p class="melding" id="d-melding"></p>
@@ -436,6 +463,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   });
   var form=document.getElementById('daftform');
   var melding=document.getElementById('d-melding');
+
+  // stappen
+  var stap=1;
+  var terug=document.getElementById('d-terug');
+  var verder=document.getElementById('d-verder');
+  var verstuur=document.getElementById('d-verstuur');
+  function toonStap(n){
+    stap=n;
+    document.querySelectorAll('.fstap').forEach(function(f){
+      f.classList.toggle('actief',f.getAttribute('data-stap')==String(n));
+    });
+    document.querySelectorAll('.stap-dot').forEach(function(d){
+      var i=Number(d.getAttribute('data-dot'));
+      d.classList.toggle('actief',i===n);
+      d.classList.toggle('klaar',i<n);
+    });
+    terug.style.display=n>1?'inline-flex':'none';
+    verder.style.display=n<3?'inline-flex':'none';
+    verstuur.style.display=n===3?'inline-flex':'none';
+  }
+  verder.addEventListener('click',function(){
+    melding.className='melding';
+    if(stap===1){
+      var naam=document.getElementById('d-naam').value.trim();
+      var email=document.getElementById('d-email').value.trim();
+      if(!naam||!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)){
+        melding.textContent='Please fill in your name and a valid email address.';
+        melding.className='melding fout';return;
+      }
+      window.dataLayer=window.dataLayer||[];
+      window.dataLayer.push({event:'daft_form_stap2'});
+    }
+    toonStap(stap+1);
+  });
+  terug.addEventListener('click',function(){
+    melding.className='melding';
+    toonStap(stap-1);
+  });
+
   form.addEventListener('submit',async function(e){
     e.preventDefault();
     melding.className='melding';
@@ -443,9 +509,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var email=document.getElementById('d-email').value.trim();
     if(!naam||!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)){
       melding.textContent='Please fill in your name and a valid email address.';
-      melding.className='melding fout';return;
+      melding.className='melding fout';toonStap(1);return;
     }
-    var knop=document.getElementById('d-verstuur');
+    var knop=verstuur;
     knop.disabled=true;knop.textContent='Sending...';
     try{
       var r=await fetch('https://n8n.slim-geregeld.nl/webhook/daft-aanvraag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
@@ -462,6 +528,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       })});
       if(!r.ok)throw new Error('status '+r.status);
       form.reset();
+      toonStap(1);
       melding.textContent='Sent! Check your inbox: a confirmation with the next steps is on its way, and you will get a personal reply within one working day.';
       melding.className='melding ok';
       knop.disabled=false;knop.textContent='Send request →';
