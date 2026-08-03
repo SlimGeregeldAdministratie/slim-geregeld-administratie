@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask a question about your DAFT balance sheet | Slim Geregeld</title>
+<meta name="description" content="Not ready to send a request yet? Ask your question about the DAFT or Dutch-Japanese Treaty opening balance sheet and get a personal reply from a Becon-registered Dutch bookkeeper within one working day.">
+<link rel="canonical" href="https://slim-geregeld.nl/daft/contact/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://slim-geregeld.nl/daft/contact/">
+<meta property="og:title" content="Ask a question about your DAFT balance sheet">
+<meta property="og:description" content="One question, one honest answer, within one working day. No obligation and no sales call.">
+<meta property="og:image" content="https://slim-geregeld.nl/slim-geregeld-preview.jpg">
+<style>
+  :root{
+    --ink:#0b1220; --ink-2:#1f2937; --body:#4b5563; --muted:#6b7280;
+    --blauw:#2563eb; --blauw-donker:#1d4ed8; --blauw-tint:#eff6ff; --blauw-rand:#bfdbfe;
+    --bg:#ffffff; --bg-zacht:#f8fafc; --rand:#e5e7eb;
+    --r-groot:20px; --r-xl:28px;
+    --schaduw:0 1px 2px rgba(11,18,32,.04), 0 8px 24px rgba(11,18,32,.06);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--body);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,strong,b{color:var(--ink)}
+  h1,h2{text-wrap:balance;line-height:1.1;letter-spacing:-.028em;font-weight:800}
+  p,li{text-wrap:pretty}
+  a{color:var(--blauw);text-decoration:none}
+  a:hover{text-decoration:underline}
+  img{max-width:100%;height:auto;display:block}
+  .container{max-width:1120px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--rand)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.4rem}
+  .merk{display:flex;align-items:center;gap:.65rem;font-weight:800;font-size:1.05rem;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+  .merk:hover{text-decoration:none}
+  .merk .beeld{width:36px;height:36px;flex-shrink:0}
+  .merk small{display:block;font-size:.64rem;font-weight:700;color:var(--blauw);letter-spacing:.09em}
+  .nav-rechts{display:flex;align-items:center;gap:1.5rem;font-size:.92rem}
+  .nav-links{display:flex;align-items:center;gap:1.4rem}
+  .nav-links a{color:var(--ink-2);font-weight:550;white-space:nowrap}
+  .nav-links a:hover{color:var(--blauw);text-decoration:none}
+  .nav-links a.hier{color:var(--blauw)}
+  @media(max-width:900px){.nav-links{display:none}}
+  .knop{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--blauw);color:#fff;padding:.8em 1.7em;border-radius:12px;font-weight:650;font-size:.97rem;letter-spacing:-.01em;border:none;cursor:pointer;font-family:inherit;transition:background .15s,transform .15s,box-shadow .15s;white-space:nowrap}
+  .knop:hover{background:var(--blauw-donker);color:#fff;text-decoration:none;transform:translateY(-1px);box-shadow:0 10px 24px rgba(37,99,235,.24)}
+  .knop.klein{padding:.62em 1.25em;font-size:.9rem}
+
+  section{padding:clamp(2.6rem,6vw,4.5rem) 0}
+  .kop{max-width:40rem;margin-bottom:2.2rem}
+  h1{font-size:clamp(1.9rem,4vw,2.7rem)}
+  .kop p{margin-top:1rem;font-size:1.05rem}
+
+  .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.6rem,4vw,3rem);align-items:start}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+
+  .vraagblok{background:#fff;border:1px solid var(--rand);border-radius:var(--r-xl);padding:clamp(1.6rem,3.5vw,2.3rem);box-shadow:var(--schaduw)}
+  .opt{font-weight:500;font-size:.78rem;color:var(--muted)}
+  .veld{margin-bottom:1.05rem}
+  .veld label{display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem}
+  .veld input,.veld textarea{width:100%;border:1.5px solid var(--rand);border-radius:11px;padding:.72em .95em;font:inherit;font-size:.95rem;background:var(--bg-zacht);color:var(--ink);transition:border-color .15s,background .15s}
+  .veld input::placeholder,.veld textarea::placeholder{color:#9ca3af}
+  .veld input:focus,.veld textarea:focus{outline:none;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+  .veld textarea{resize:vertical;min-height:7em}
+  .veld-rij{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:620px){.veld-rij{grid-template-columns:1fr}}
+  .hp{position:absolute;left:-9999px;top:-9999px}
+  .voet{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:.4rem}
+  .voet .privacy{font-size:.8rem;color:var(--muted);flex:1;min-width:11rem}
+  .melding{display:none;border-radius:11px;padding:.9rem 1.15rem;font-size:.93rem;margin-top:1.1rem}
+  .melding.ok{display:block;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+  .melding.fout{display:block;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+
+  .zij{display:grid;gap:1.1rem}
+  .kaart{background:var(--bg-zacht);border:1px solid var(--rand);border-radius:var(--r-groot);padding:1.4rem 1.4rem}
+  .kaart h3{font-size:.98rem;font-weight:750;margin-bottom:.4rem}
+  .kaart p{font-size:.92rem}
+  .kaart a{font-weight:600}
+  .wie{display:flex;gap:1rem;align-items:center}
+  .wie .foto{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#fff}
+  .wie .foto img{width:100%;height:100%;object-fit:cover}
+  .wie b{display:block;font-size:.95rem;color:var(--ink)}
+  .wie span{font-size:.85rem;color:var(--muted)}
+  .direct{display:grid;gap:.45rem;font-size:.93rem;margin-top:.7rem}
+
+  footer{background:var(--ink);color:#9ca3af;padding:2.6rem 0 1.9rem;font-size:.87rem;margin-top:1rem}
+  footer a{color:#cbd5e1}
+  footer a:hover{color:#fff}
+  .f-grid{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid #1f2937}
+  .f-merk b{color:#fff;font-size:1rem;letter-spacing:-.02em;display:block}
+  .f-merk p{margin-top:.35rem;max-width:22rem;line-height:1.6}
+  .f-kol{display:grid;gap:.4rem;align-content:start}
+  .f-onder{padding-top:1.3rem;font-size:.8rem;color:#6b7280}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="/daft/" class="merk">
+      <span class="beeld"><img src="/favicon.png" alt="Slim Geregeld"></span>
+      <span>Slim Geregeld<small>TREATY SERVICES</small></span>
+    </a>
+    <div class="nav-rechts">
+      <nav class="nav-links">
+        <a href="/daft/#who">Who can apply</a>
+        <a href="/daft/#how">How it works</a>
+        <a href="/daft/#pricing">Pricing</a>
+        <a href="/daft/#faq">FAQ</a>
+        <a href="/daft/contact/" class="hier">Contact</a>
+      </nav>
+      <a class="knop klein" href="/daft/#request">Request yours →</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="container">
+      <div class="kop">
+        <h1>Just have a question?</h1>
+        <p>Not everyone is ready to send a request, and that is fine. Ask whatever you need to know about the opening balance sheet, the €4,500, or whether this route even applies to you. You get a straight answer from me personally, usually the same day and always within one working day.</p>
+      </div>
+
+      <div class="grid">
+        <div class="vraagblok">
+          <form id="vraagform" novalidate>
+            <div class="veld-rij">
+              <div class="veld">
+                <label for="v-naam">Your name</label>
+                <input id="v-naam" name="naam" type="text" autocomplete="name" required>
+              </div>
+              <div class="veld">
+                <label for="v-email">Your email</label>
+                <input id="v-email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
+            <div class="veld">
+              <label for="v-tel">Phone or WhatsApp <span class="opt">optional</span></label>
+              <input id="v-tel" name="telefoon" type="tel" autocomplete="tel">
+            </div>
+            <div class="veld">
+              <label for="v-vraag">Your question</label>
+              <textarea id="v-vraag" name="vraag" placeholder="For example: I am moving in October and have not registered anything yet. What should I do first?" required></textarea>
+            </div>
+            <div class="hp" aria-hidden="true">
+              <label for="v-website2">Website</label>
+              <input id="v-website2" name="website2" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="voet">
+              <button class="knop" type="submit" id="v-verstuur">Send your question →</button>
+              <span class="privacy">No sales call, no mailing list. Your details are only used to answer you.</span>
+            </div>
+            <p class="melding" id="v-melding"></p>
+          </form>
+        </div>
+
+        <aside class="zij">
+          <div class="kaart">
+            <div class="wie">
+              <span class="foto"><img src="/Pofielfoto%20Kyle.jpg" alt="Kyle Bouwmeester"></span>
+              <div>
+                <b>Kyle Bouwmeester</b>
+                <span>Becon-registered bookkeeper</span>
+              </div>
+            </div>
+            <p style="margin-top:.9rem">I read and answer everything myself. Prefer email or a message instead of a form? That works just as well.</p>
+            <div class="direct">
+              <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a>
+              <a href="https://wa.me/31621311043">WhatsApp +31 6 21 31 10 43</a>
+            </div>
+          </div>
+
+          <div class="kaart">
+            <h3>Already know what you need?</h3>
+            <p>Skip the questions and send a request. It takes two minutes, you pay nothing yet, and you get your delivery date in the reply.</p>
+            <p style="margin-top:.6rem"><a href="/daft/#request">Request your balance sheet →</a></p>
+          </div>
+
+          <div class="kaart">
+            <h3>Maybe it is already answered</h3>
+            <p>The most common questions are covered on the main page: what the €4,500 really means, who may sign, what happens with a loan or a gift, and how fast it can be done.</p>
+            <p style="margin-top:.6rem"><a href="/daft/#faq">Read the questions →</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div class="f-merk">
+        <b>Slim Geregeld Administratie</b>
+        <p>Dutch bookkeeping for freelancers and small business owners, including opening balance sheets and renewal statements for DAFT and Dutch-Japanese Treaty residence permits.</p>
+      </div>
+      <div class="f-kol">
+        <a href="/daft/#who">Who can apply</a>
+        <a href="/daft/#how">How it works</a>
+        <a href="/daft/#pricing">Pricing</a>
+        <a href="/daft/#request">Request yours</a>
+      </div>
+      <div class="f-kol">
+        <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a>
+        <a href="tel:+31621311043">+31 6 21 31 10 43</a>
+        <a href="https://slim-geregeld.nl">slim-geregeld.nl</a>
+      </div>
+    </div>
+    <div class="f-onder">
+      © 2026 Slim Geregeld Administratie · KVK 92596991 · Becon-registered · This page provides bookkeeping services, not legal or immigration advice.
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form=document.getElementById('vraagform');
+  var melding=document.getElementById('v-melding');
+  var knop=document.getElementById('v-verstuur');
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    melding.className='melding';
+    var naam=document.getElementById('v-naam').value.trim();
+    var email=document.getElementById('v-email').value.trim();
+    var vraag=document.getElementById('v-vraag').value.trim();
+    if(!naam||!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)||!vraag){
+      melding.textContent='Please fill in your name, a valid email address and your question.';
+      melding.className='melding fout';return;
+    }
+    knop.disabled=true;knop.textContent='Sending...';
+    try{
+      var r=await fetch('https://n8n.slim-geregeld.nl/webhook/daft-vraag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        naam:naam,email:email,
+        telefoon:document.getElementById('v-tel').value.trim(),
+        vraag:vraag,
+        website2:document.getElementById('v-website2').value
+      })});
+      if(!r.ok)throw new Error('status '+r.status);
+      form.reset();
+      melding.textContent='Sent. I read every message myself and you will have an answer within one working day, usually sooner.';
+      melding.className='melding ok';
+      knop.disabled=false;knop.textContent='Send your question →';
+      window.dataLayer=window.dataLayer||[];
+      window.dataLayer.push({event:'daft_vraag_verstuurd'});
+    }catch(err){
+      melding.textContent='Sending failed. Please email kyle@slim-geregeld.nl directly and you will get the same fast reply.';
+      melding.className='melding fout';
+      knop.disabled=false;knop.textContent='Send your question →';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

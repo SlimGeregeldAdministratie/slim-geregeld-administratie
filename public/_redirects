@@ -1,3 +1,10 @@
+# Schone deelbare URLs voor de DAFT-pagina. Deze moeten boven de catch-all staan,
+# want die vangt anders alles op naar de React-app.
+/daft/request     /daft/#request     301
+/daft/request/    /daft/#request     301
+/daft/pricing     /daft/#pricing     301
+/daft/faq         /daft/#faq         301
+
 /bedankt       /index.html   200
 /sitemap.xml   /sitemap.xml  200
 /favicon.png   /favicon.png  200

@@ -119,6 +119,10 @@ const Footer = () => {
               <li className="hover:text-white transition-colors cursor-pointer">
                 <a href="/nettocheck">NettoCheck</a>
               </li>
+              <li className="hover:text-white transition-colors cursor-pointer">
+                {/* statische pagina buiten de router, dus een gewone link */}
+                <a href="/daft/">DAFT balance sheet (English)</a>
+              </li>
               <li className="text-green-400 font-medium">✓ Al onze diensten met 30 dagen gratis proefperiode</li>
             </ul>
           </div>
