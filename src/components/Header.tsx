@@ -195,7 +195,8 @@ const Header = () => {
             </div>
 
             <button onClick={() => handleNavClick('pakketten')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Pakketten</button>
-            <button onClick={() => handleNavClick('reviews')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Reviews</button>
+            {/* /daft/ is een statische pagina buiten de router, dus geen <Link> */}
+            <a href="/daft/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">DAFT</a>
             <button onClick={() => handleNavClick('contact')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contact</button>
 
             {/* Over Ons Dropdown */}
@@ -364,7 +365,7 @@ const Header = () => {
               </div>
               
               <button onClick={() => handleNavClick('pakketten')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Pakketten</button>
-              <button onClick={() => handleNavClick('reviews')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Reviews</button>
+              <a href="/daft/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">DAFT</a>
               <button onClick={() => handleNavClick('contact')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Contact</button>
 
               {/* Mobile Over Ons */}
