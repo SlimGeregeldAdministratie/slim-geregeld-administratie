@@ -5,6 +5,11 @@
 /daft/pricing     /daft/#pricing     301
 /daft/faq         /daft/#faq         301
 
+# Meetlinks in de DAFT-mails. /start/<naam> gaat via n8n, dat de klik logt en
+# daarna doorstuurt naar het aanvraagformulier. Zo staat er een eigen domein in
+# de mail in plaats van een webhook-URL.
+/start/*   https://n8n.slim-geregeld.nl/webhook/daft-start?r=:splat&m=2   302!
+
 /bedankt       /index.html   200
 /sitemap.xml   /sitemap.xml  200
 /favicon.png   /favicon.png  200
