@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAFT-lead aanmelden | Slim Geregeld</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+  :root{
+    --ink:#0b1220; --body:#4b5563; --muted:#6b7280;
+    --blauw:#2563eb; --blauw-donker:#1d4ed8; --blauw-tint:#eff6ff; --blauw-rand:#bfdbfe;
+    --bg:#ffffff; --bg-zacht:#f8fafc; --rand:#e5e7eb;
+    --groen:#047857; --groen-tint:#ecfdf5; --rood:#b91c1c; --rood-tint:#fef2f2;
+    --r:14px; --schaduw:0 1px 2px rgba(11,18,32,.04), 0 8px 24px rgba(11,18,32,.06);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg-zacht); color:var(--body);
+    font:16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:660px; margin:0 auto; padding:40px 20px 80px}
+  .kaart{background:var(--bg); border:1px solid var(--rand); border-radius:var(--r); box-shadow:var(--schaduw); padding:28px}
+  h1{font-size:26px; line-height:1.25; color:var(--ink); margin:0 0 8px}
+  .lead{margin:0 0 24px}
+  .merk{font-size:13px; font-weight:600; color:var(--blauw); letter-spacing:.02em; margin:0 0 18px}
+  label{display:block; font-weight:600; color:var(--ink); font-size:14px; margin:18px 0 6px}
+  .hint{font-weight:400; color:var(--muted); font-size:13px}
+  input[type=text], input[type=email], input[type=date], select, textarea{
+    width:100%; padding:11px 12px; border:1px solid var(--rand); border-radius:10px;
+    font:inherit; color:var(--ink); background:var(--bg);
+  }
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--blauw); box-shadow:0 0 0 3px var(--blauw-tint)}
+  textarea{min-height:130px; resize:vertical}
+  button{
+    margin-top:24px; width:100%; padding:13px 18px; border:0; border-radius:10px;
+    background:var(--blauw); color:#fff; font:600 16px/1 inherit; cursor:pointer;
+  }
+  button:hover{background:var(--blauw-donker)}
+  button[disabled]{opacity:.6; cursor:default}
+  .melding{margin-top:20px; padding:14px 16px; border-radius:10px; font-size:15px; display:none}
+  .melding.goed{display:block; background:var(--groen-tint); border:1px solid #a7f3d0; color:var(--groen)}
+  .melding.fout{display:block; background:var(--rood-tint); border:1px solid #fecaca; color:var(--rood)}
+  .uitleg{margin-top:26px; padding-top:20px; border-top:1px solid var(--rand); font-size:14px; color:var(--muted)}
+  .uitleg ol{margin:8px 0 0; padding-left:20px}
+  .verstopt{position:absolute; left:-9999px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kaart">
+    <p class="merk">Slim Geregeld Administratie</p>
+    <h1>Nieuwe DAFT-lead doorgeven</h1>
+    <p class="lead">Vul dit in en de rest gaat automatisch: de lead komt in de gedeelde lijst en Kyle krijgt een kant-en-klare mail klaargezet. Hij kijkt hem na en verstuurt hem, met jou in bcc.</p>
+
+    <form id="f" novalidate>
+      <label for="naam">Naam <span class="hint">zoals die persoon zich noemt</span></label>
+      <input id="naam" name="naam" type="text" autocomplete="off" required>
+
+      <label for="email">E-mailadres</label>
+      <input id="email" name="email" type="email" autocomplete="off" required>
+
+      <label for="soort">Waar vraagt deze persoon om?</label>
+      <select id="soort" name="soort">
+        <option value="balans">Een openingsbalans voor de aanvraag</option>
+        <option value="verlenging">Verlenging na vijf jaar</option>
+        <option value="boekhouding">Een boekhouder, breder dan alleen het document</option>
+        <option value="nationaliteit">Twijfel over de nationaliteit of de route</option>
+        <option value="onbekend">Weet ik niet</option>
+      </select>
+
+      <label for="datum">Wanneer kwam de vraag binnen? <span class="hint">mag leeg blijven</span></label>
+      <input id="datum" name="datum" type="date">
+
+      <label for="vraag">De vraag zoals die persoon hem stelde <span class="hint">plak hem hier, dit komt niet in de mail terug</span></label>
+      <textarea id="vraag" name="vraag" placeholder="Hello, I need to provide an opening balance statement for my DAFT visa..."></textarea>
+
+      <input class="verstopt" type="text" name="hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <button type="submit" id="knop">Doorgeven</button>
+    </form>
+
+    <div class="melding" id="melding"></div>
+
+    <div class="uitleg">
+      <b>Wat er daarna gebeurt</b>
+      <ol>
+        <li>De lead komt in de gedeelde pijplijn, met een eigen meetlink.</li>
+        <li>Kyle krijgt een melding met jouw tekst erbij en een concept dat klaarstaat.</li>
+        <li>Zodra hij verstuurt, staat jij in bcc en zie je of er geklikt wordt.</li>
+      </ol>
+      Kloppen de gegevens niet meer, of wil je iets erbij vertellen? Stuur Kyle een bericht.
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('f');
+  var knop = document.getElementById('knop');
+  var melding = document.getElementById('melding');
+  // De code zit in de link die Kyle stuurt, dus Savio hoeft niets te onthouden.
+  var code = new URLSearchParams(location.search).get('code') || '';
+
+  function zeg(tekst, goed){
+    melding.className = 'melding ' + (goed ? 'goed' : 'fout');
+    melding.textContent = tekst;
+  }
+
+  if(!code){
+    zeg('Er zit geen code in deze link. Gebruik de link die Kyle je heeft gestuurd.', false);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var naam = document.getElementById('naam').value.trim();
+    var email = document.getElementById('email').value.trim();
+    if(!naam){ zeg('Vul de naam in.', false); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ zeg('Dat e-mailadres ziet er niet goed uit.', false); return; }
+
+    knop.disabled = true;
+    knop.textContent = 'Bezig...';
+    melding.className = 'melding';
+
+    fetch('https://n8n.slim-geregeld.nl/webhook/daft-lead', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        code: code,
+        naam: naam,
+        email: email,
+        soort: document.getElementById('soort').value,
+        datum: document.getElementById('datum').value,
+        vraag: document.getElementById('vraag').value.trim(),
+        hp: document.getElementById('hp').value
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      zeg(d.bericht || 'Onbekend antwoord.', !!d.ok);
+      if(d.ok){ form.reset(); }
+    })
+    .catch(function(){
+      zeg('Het versturen lukte niet. Probeer het nog een keer of stuur Kyle een bericht.', false);
+    })
+    .then(function(){
+      knop.disabled = false;
+      knop.textContent = 'Doorgeven';
+    });
+  });
+})();
+</script>
+</body>
+</html>
