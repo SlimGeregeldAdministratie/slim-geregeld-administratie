@@ -1,0 +1,9 @@
+{
+  "name": "DAFT-cockpit",
+  "short_name": "Cockpit",
+  "start_url": "/cockpit/",
+  "scope": "/cockpit/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#f8fafc"
+}
