@@ -190,12 +190,13 @@
   .prijs .bedrag{font-size:2.1rem;font-weight:800;letter-spacing:-.035em;color:var(--ink);margin:1rem 0 .1rem;line-height:1}
   .prijs .bedrag small{font-size:.9rem;font-weight:650;color:var(--muted);letter-spacing:0}
   .prijs .per{font-size:.82rem;color:var(--muted);margin-bottom:1.3rem}
-  .schakel{display:inline-flex;background:var(--bg-zacht);border:1px solid var(--rand);border-radius:99px;padding:3px;gap:2px;margin-top:.9rem;max-width:100%}
-  .schakel button{border:0;background:transparent;font:inherit;font-size:.78rem;font-weight:700;color:var(--muted);padding:.42em .95em;border-radius:99px;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s;white-space:nowrap}
+  .kop-rij{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+  .schakel{display:inline-flex;flex:none;background:var(--bg-zacht);border:1px solid var(--rand);border-radius:99px;padding:3px;gap:2px}
+  .schakel button{border:0;background:transparent;font:inherit;font-size:.8rem;font-weight:700;color:var(--muted);padding:.34em .7em;border-radius:99px;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s;white-space:nowrap}
   .schakel button:hover{color:var(--ink)}
   .schakel button.aan{background:#fff;color:var(--blauw-donker);box-shadow:0 1px 4px rgba(11,18,32,.13)}
-  .prijs .wanneer{font-size:.82rem;color:var(--muted);margin:-.9rem 0 1.3rem;min-height:1.2em}
-  @media (max-width:420px){.schakel{flex-direction:column;border-radius:var(--r)}.schakel button{border-radius:var(--r);text-align:left}}
+  .prijs .wanneer{font-size:.82rem;color:var(--muted);margin:-.9rem 0 1.3rem;min-height:2.4em}
+
   .prijs ul{list-style:none;display:grid;gap:.55rem;font-size:.93rem;flex:1;margin-bottom:1.5rem}
   /* display:grid wint anders van het hidden-attribuut, dan staan beide tredes tegelijk */
   .prijs ul[hidden]{display:none}
@@ -561,30 +562,34 @@
         </div>
         <div class="prijs">
           <span class="tag blauw">Best value long term</span>
-          <span class="naam">Compliance Plan</span>
-          <span class="voor">For an eenmanszaak or VOF</span>
-          <div class="schakel" id="plan-schakel">
-            <button type="button" class="aan" data-trede="rustig" aria-pressed="true">Registered but quiet</button>
-            <button type="button" data-trede="handel" aria-pressed="false">Actually trading</button>
+          <div class="kop-rij">
+            <span class="naam">Compliance Plan</span>
+            <div class="schakel" id="plan-schakel" role="group" aria-label="Which level fits you">
+              <button type="button" class="aan" data-trede="rustig" aria-pressed="true">€79</button>
+              <button type="button" data-trede="handel" aria-pressed="false">€149</button>
+            </div>
           </div>
+          <span class="voor">For an eenmanszaak or VOF</span>
           <span class="bedrag" id="plan-bedrag">€79<small>/month</small></span>
           <span class="per">12 months, excl. VAT</span>
-          <p class="wanneer" id="plan-wanneer">Little or no turnover yet.</p>
+          <p class="wanneer" id="plan-wanneer">Little or no turnover yet, usually on the KOR.</p>
           <ul data-trede="rustig">
+            <li>Balance sheet at no extra cost</li>
+            <li>Quarterly VAT returns, if you file them</li>
+            <li>Annual Dutch income tax return</li>
+            <li>Equity checked every quarter</li>
+            <li>Your statement for the 5-year renewal</li>
+          </ul>
+          <ul data-trede="handel" hidden>
             <li>Balance sheet at no extra cost</li>
             <li>Quarterly VAT returns filed for you</li>
             <li>Annual Dutch income tax return</li>
-            <li>Equity checked every quarter, so renewal is never a surprise</li>
-            <li>Your statement for the 5-year renewal included</li>
+            <li>Equity checked every quarter</li>
+            <li>Your statement for the 5-year renewal</li>
+            <li>The VAT on your rent, supplies and equipment claimed back</li>
+            <li>Your equipment written off, so your taxable profit drops</li>
+            <li>The right VAT rate on everything you sell</li>
           </ul>
-          <ul data-trede="handel" hidden>
-            <li>Everything in the quiet plan</li>
-            <li>Card and cash takings checked</li>
-            <li>VAT on rent, supplies and equipment claimed</li>
-            <li>Depreciation kept current</li>
-            <li>A short call before every return</li>
-          </ul>
-          <p class="opt" style="margin:-.8rem 0 1.2rem">Either way you keep your records in Moneybird, we check and file. Clearing a backlog is quoted separately.</p>
           <p class="opt" style="margin:-.8rem 0 1.2rem">BV or NV gets its own quote. With a VOF, one income tax return per partner.</p>
           <a class="knop omlijnd" href="#request" data-optie="plan">Choose the plan →</a>
         </div>
@@ -792,7 +797,7 @@
               <div class="addon" id="d-plan-blok">
                 <label>
                   <input type="checkbox" id="d-plan">
-                  <span><span class="a-naam">Also keep my bookkeeping in order, €79 per month</span><span class="a-uitleg">Quarterly VAT returns, your annual income tax return and the statement for your 5-year renewal. Your balance sheet is then included at no extra cost. For an eenmanszaak or VOF; a BV gets its own quote.</span></span>
+                  <span><span class="a-naam">Also keep my bookkeeping in order, from €79 per month</span><span class="a-uitleg">Quarterly VAT returns, your annual income tax return and the statement for your 5-year renewal. Your balance sheet is then included at no extra cost. For an eenmanszaak or VOF; a BV gets its own quote.</span></span>
                 </label>
               </div>
               <p class="opt" style="margin-top:.5rem">Prices exclude 21% Dutch VAT.</p>
@@ -946,8 +951,8 @@
     var bedrag=document.getElementById('plan-bedrag');
     var wanneer=document.getElementById('plan-wanneer');
     var teksten={
-      rustig:{prijs:'\u20ac79',uitleg:'Little or no turnover yet.'},
-      handel:{prijs:'\u20ac149',uitleg:'A shop or studio, staff, or card and cash takings.'}
+      rustig:{prijs:'\u20ac79',uitleg:'Little or no turnover yet, usually on the KOR.'},
+      handel:{prijs:'\u20ac149',uitleg:'Real turnover, so VAT returns every quarter.'}
     };
     schakel.querySelectorAll('button').forEach(function(k){
       k.addEventListener('click',function(){
