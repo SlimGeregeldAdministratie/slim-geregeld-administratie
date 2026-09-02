@@ -781,6 +781,26 @@
               <label for="d-bericht">Anything I should know? <span class="opt">optional</span></label>
               <textarea id="d-bericht" name="bericht"></textarea>
             </div>
+
+            <div class="veld">
+              <label for="d-gevonden">How did you find me? <span class="opt">optional</span></label>
+              <select id="d-gevonden" name="gevonden">
+                <option value="">Rather not say</option>
+                <option value="ai">An AI assistant like ChatGPT</option>
+                <option value="zoekmachine">A search engine like Google</option>
+                <option value="reddit">Reddit</option>
+                <option value="facebook">A Facebook group for expats</option>
+                <option value="bekend">Friends, family or a colleague</option>
+                <option value="adviseur">My immigration lawyer or adviser</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="mail">An email from you</option>
+                <option value="anders">Somewhere else</option>
+              </select>
+              <div class="verborgen" id="d-gevonden-blok" style="margin-top:.7rem">
+                <label for="d-gevonden-tekst" id="d-gevonden-label" style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">Which one? <span class="opt">optional</span></label>
+                <input id="d-gevonden-tekst" name="gevondenTekst" type="text">
+              </div>
+            </div>
           </fieldset>
 
           <div class="hp" aria-hidden="true">
@@ -911,6 +931,27 @@
     document.getElementById('d-herkomst-blok').classList.toggle('verborgen',v!=='mix');
   });
 
+  // Hoe iemand hier terechtkwam. Optioneel, en de vervolgvraag komt alleen bij
+  // de antwoorden waar het detail iets waard is: welk model, welke groep, en
+  // vooral wie de adviseur was, want die kun je bedanken.
+  var gevonden=document.getElementById('d-gevonden');
+  var gevondenBlok=document.getElementById('d-gevonden-blok');
+  var gevondenLabel=document.getElementById('d-gevonden-label');
+  var gevondenTekst=document.getElementById('d-gevonden-tekst');
+  var VRAAG={
+    ai:['Which one? <span class="opt">optional</span>','ChatGPT, Claude, Gemini, Copilot'],
+    reddit:['Which subreddit, if you remember? <span class="opt">optional</span>','r/Netherlands'],
+    facebook:['Which group? <span class="opt">optional</span>','Americans in the Netherlands'],
+    adviseur:['Who was it? I would like to thank them. <span class="opt">optional</span>','Name of the lawyer or adviser'],
+    anders:['Where was it? <span class="opt">optional</span>','']
+  };
+  gevonden.addEventListener('change',function(){
+    var v=VRAAG[gevonden.value];
+    gevondenBlok.classList.toggle('verborgen',!v);
+    if(v){ gevondenLabel.innerHTML=v[0]; gevondenTekst.placeholder=v[1]; }
+    else { gevondenTekst.value=''; }
+  });
+
   document.querySelectorAll('#d-keuze input, #d-checklist input, #d-plan').forEach(function(i){
     i.addEventListener('change',markeer);
   });
@@ -1009,12 +1050,15 @@
         snelheid:(document.querySelector('#d-keuze input:checked')||{value:'standard'}).value,
         plan:planVink.checked,
         bericht:document.getElementById('d-bericht').value.trim(),
+        gevonden:document.getElementById('d-gevonden').value,
+        gevondenTekst:document.getElementById('d-gevonden-tekst').value.trim(),
         website2:document.getElementById('d-website2').value
       })});
       if(!r.ok)throw new Error('status '+r.status);
       form.reset();
       document.getElementById('d-inbreng-blok').classList.add('verborgen');
       document.getElementById('d-herkomst-blok').classList.add('verborgen');
+      document.getElementById('d-gevonden-blok').classList.add('verborgen');
       document.getElementById('d-hint-laag').classList.add('verborgen');
       document.getElementById('d-hint-lening').classList.add('verborgen');
       document.getElementById('d-hint-deadline').classList.add('verborgen');
