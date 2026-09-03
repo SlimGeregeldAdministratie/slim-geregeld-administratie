@@ -10,6 +10,11 @@
 # de mail in plaats van een webhook-URL.
 /start/*   https://n8n.slim-geregeld.nl/webhook/daft-start?r=:splat&m=2   302!
 
+# Klantportaal. De code achter /portal/ is per klant en staat in de sheet; de
+# pagina leest hem uit de URL en haalt daarmee zijn eigen gegevens op bij n8n.
+# 200 en niet 301, want de code moet in de adresbalk blijven staan.
+/portal/*  /portal/index.html  200
+
 /bedankt       /index.html   200
 /sitemap.xml   /sitemap.xml  200
 /favicon.png   /favicon.png  200
