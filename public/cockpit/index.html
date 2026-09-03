@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://n8n.slim-geregeld.nl" crossorigin>
+<link rel="manifest" href="/cockpit/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="DAFT-cockpit">
+<meta name="theme-color" content="#f8fafc">
+<title>Cockpit &middot; Slim Geregeld</title>
+<style>
+  :root{--ink:#0b1220;--body:#4b5563;--muted:#6b7280;--blauw:#2563eb;--blauw-donker:#1d4ed8;
+    --rand:#e5e7eb;--bg:#fff;--bg-zacht:#f8fafc;--rood:#b91c1c}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg-zacht);color:var(--ink);min-height:100dvh;display:flex;
+    align-items:center;justify-content:center;padding:24px}
+  .kaart{background:var(--bg);border:1px solid var(--rand);border-radius:20px;padding:40px 34px;
+    max-width:380px;width:100%;box-shadow:0 1px 2px rgba(11,18,32,.04),0 8px 24px rgba(11,18,32,.06);
+    text-align:center}
+  .blok{width:34px;height:34px;margin:0 auto 16px;border-radius:10px;background:var(--blauw);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+  h1{font-size:1.25rem;letter-spacing:-.02em;margin-bottom:.3rem}
+  p.sub{font-size:.88rem;color:var(--muted);margin-bottom:1.4rem}
+  input[type=password]{width:100%;padding:.8rem 1rem;font-size:16px;font-family:inherit;
+    border:1px solid var(--rand);border-radius:12px;background:var(--bg-zacht);text-align:center}
+  input[type=password]:focus{outline:2px solid var(--blauw);outline-offset:2px}
+  label.onthoud{display:flex;align-items:center;justify-content:center;gap:.45rem;
+    font-size:.8rem;color:var(--muted);margin:.8rem 0 .2rem}
+  button{width:100%;margin-top:.6rem;padding:.8rem 1rem;font:inherit;font-size:.95rem;font-weight:600;
+    border:0;border-radius:12px;background:var(--blauw);color:#fff;cursor:pointer}
+  button:hover{background:var(--blauw-donker)}
+  button[disabled]{opacity:.6;cursor:default}
+  .fout{color:var(--rood);font-size:.85rem;margin-top:.9rem;min-height:1.2em}
+</style>
+</head>
+<body>
+<div class="kaart">
+  <div class="blok">SG</div>
+  <h1>DAFT-cockpit</h1>
+  <p class="sub">Alleen voor Kyle en Savio.</p>
+  <form id="f">
+    <input id="ww" type="password" autocomplete="current-password" autofocus placeholder="Wachtwoord">
+    <label class="onthoud"><input type="checkbox" id="onthoud" checked> Onthoud mij op dit apparaat</label>
+    <button id="knop" type="submit">Open de cockpit</button>
+  </form>
+  <div class="fout" id="fout"></div>
+</div>
+<script type="application/json" id="data">[{"s":"QzAoyeYEL8hSI9A6cviG7g==","i":"D47m3TC0cOFa0aGF","d":"MUMMOENLmfBYbmT0wkj6Zg/JQp3tXaEg3kCXS39fVnw93dOXqFBlnFF9Pwn08OMt4ZqAuyiluwW3WrOo9hpvbeT2TZuBI1m5/HdBM+vs7aHZDaoociv8VR2hDf3Lyceb9AsV8fMMKH5t2CF/RXmhB/edSIcHY7MjwokCVqw9sO8F5FIxXgKUbTI=","it":310000},{"s":"7zOqYxsZQInt/G3qGZ4Y8g==","i":"s/cNmMW7xJzNekX0","d":"/dACWFw8EIVN8FFJ45wA1mjkcZzxM/a5g86m2GxUKv5UDjJ566+atdOtHNcZzg4s3h8k0LbvhHPW/pgywmlepK+qv6rE2AYNPBNxMCgQ8nnoYArYmbmdFqWHDq10MhrHIk345owDFc/rrfDdTHHprV//spDBItrsh2Gi0f4tYAFqvv65zOhNtGJq","it":310000}]</script>
+<script>
+(function(){
+  var P = JSON.parse(document.getElementById('data').textContent);
+  var fout = document.getElementById('fout');
+  var knop = document.getElementById('knop');
+  var b = function(x){ var r = atob(x), u = new Uint8Array(r.length);
+    for (var i=0;i<r.length;i++) u[i]=r.charCodeAt(i); return u; };
+
+  async function open1(pak, ww){
+    var mat = await crypto.subtle.importKey('raw', new TextEncoder().encode(ww),
+      'PBKDF2', false, ['deriveKey']);
+    var sl = await crypto.subtle.deriveKey(
+      { name:'PBKDF2', salt:b(pak.s), iterations:pak.it, hash:'SHA-256' },
+      mat, { name:'AES-GCM', length:256 }, false, ['decrypt']);
+    var klaar = await crypto.subtle.decrypt({ name:'AES-GCM', iv:b(pak.i) }, sl, b(pak.d));
+    return new TextDecoder().decode(klaar);
+  }
+
+  async function probeer(ww, onthouden){
+    for (var i=0;i<P.length;i++){
+      try {
+        var link = await open1(P[i], ww);
+        if (link.indexOf('https://n8n.slim-geregeld.nl/') !== 0) continue;
+        if (onthouden) { try { localStorage.setItem('sg-cockpit', ww); } catch(e){} }
+        location.replace(link);
+        return true;
+      } catch(e){ /* volgende pakketje */ }
+    }
+    return false;
+  }
+
+  document.getElementById('f').addEventListener('submit', async function(e){
+    e.preventDefault();
+    fout.textContent = ''; knop.disabled = true; knop.textContent = 'Even kijken...';
+    var ok = await probeer(document.getElementById('ww').value,
+                           document.getElementById('onthoud').checked);
+    if (!ok){
+      try { localStorage.removeItem('sg-cockpit'); } catch(e){}
+      fout.textContent = 'Dat wachtwoord klopt niet.';
+      knop.disabled = false; knop.textContent = 'Open de cockpit';
+      document.getElementById('ww').select();
+    }
+  });
+
+  // onthouden: meteen doorsturen, maar wel de knop laten staan als het mislukt
+  try {
+    var bewaard = localStorage.getItem('sg-cockpit');
+    if (bewaard) probeer(bewaard, false);
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
