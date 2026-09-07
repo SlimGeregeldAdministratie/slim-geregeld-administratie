@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your DAFT balance sheet | Slim Geregeld</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+  :root{
+    --ink:#0b1220; --ink-2:#1f2937; --body:#4b5563; --muted:#6b7280;
+    --blauw:#2563eb; --blauw-donker:#1d4ed8; --blauw-tint:#eff6ff; --blauw-rand:#bfdbfe;
+    --bg:#ffffff; --bg-zacht:#f8fafc; --rand:#e5e7eb;
+    --groen:#047857; --groen-tint:#ecfdf5; --groen-rand:#a7f3d0;
+    --amber:#b45309; --amber-tint:#fffbeb; --amber-rand:#fde68a;
+    --r:14px; --r-groot:20px;
+    --schaduw:0 1px 2px rgba(11,18,32,.04), 0 8px 24px rgba(11,18,32,.06);
+  }
+  *{box-sizing:border-box}
+  /* a.knop en button.knop zetten display, en dat wint van het display:none dat
+     de browser aan [hidden] hangt. Zonder deze regel blijft een verborgen knop
+     zichtbaar. */
+  [hidden]{display:none !important}
+  body{margin:0;background:var(--bg-zacht);color:var(--body);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
+  .merk{font-size:13px;font-weight:600;color:var(--blauw);letter-spacing:.02em;margin:0 0 20px}
+  h1{font-size:26px;line-height:1.25;color:var(--ink);margin:0 0 6px}
+  .sub{margin:0 0 28px;color:var(--muted);font-size:15px}
+  .kaart{background:var(--bg);border:1px solid var(--rand);border-radius:var(--r);
+    box-shadow:var(--schaduw);padding:22px 24px;margin-bottom:16px}
+  .kaart h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+    margin:0 0 16px;font-weight:600}
+
+  /* stappen */
+  ol.stappen{list-style:none;margin:0;padding:0}
+  ol.stappen li{display:flex;gap:14px;padding:0 0 18px;position:relative}
+  ol.stappen li:last-child{padding-bottom:0}
+  ol.stappen li::before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--rand)}
+  ol.stappen li:last-child::before{display:none}
+  .bol{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;
+    font-size:13px;font-weight:700;background:var(--bg-zacht);color:var(--muted);
+    border:2px solid var(--rand);position:relative;z-index:1}
+  li.done .bol{background:var(--groen);border-color:var(--groen);color:#fff}
+  li.current .bol{background:var(--blauw);border-color:var(--blauw);color:#fff}
+  .stapnaam{font-weight:600;color:var(--ink-2);font-size:15px}
+  li.todo .stapnaam{color:var(--muted);font-weight:500}
+  .stapinfo{font-size:14px;color:var(--muted)}
+
+  /* documenten */
+  .doc{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--rand)}
+  .doc:first-of-type{border-top:0;padding-top:0}
+  .vink{flex:0 0 20px;height:20px;border-radius:50%;display:grid;place-items:center;
+    font-size:12px;font-weight:700;color:#fff;margin-top:2px}
+  .ok .vink{background:var(--groen)}
+  .attention .vink{background:var(--amber)}
+  .missing .vink{background:#9ca3af}
+  .docnaam{font-weight:600;color:var(--ink-2);font-size:15px}
+  .docnote{font-size:14px;color:var(--muted)}
+
+  .balk{border-radius:10px;padding:14px 16px;font-size:15px;margin:0 0 16px}
+  .balk.groen{background:var(--groen-tint);border:1px solid var(--groen-rand);color:var(--groen)}
+  .balk.amber{background:var(--amber-tint);border:1px solid var(--amber-rand);color:var(--amber)}
+
+  .rij{display:flex;justify-content:space-between;gap:16px;padding:8px 0;font-size:15px}
+  .rij span:first-child{color:var(--muted)}
+  .rij span:last-child{color:var(--ink-2);font-weight:600;text-align:right}
+
+  a.knop,button.knop{display:inline-block;margin-top:14px;padding:12px 18px;border:0;border-radius:10px;
+    background:var(--blauw);color:#fff;font:600 15px/1 inherit;cursor:pointer;text-decoration:none}
+  a.knop:hover,button.knop:hover{background:var(--blauw-donker)}
+  button.knop[disabled]{opacity:.5;cursor:default}
+  .knop.rustig{background:var(--bg-zacht);color:var(--ink-2);border:1px solid var(--rand)}
+  .knop.rustig:hover{background:#f1f5f9}
+
+  input[type=file]{display:block;width:100%;font:inherit;color:var(--body);margin-bottom:6px}
+  .hint{font-size:13px;color:var(--muted)}
+  .melding{margin-top:12px;font-size:14px}
+  .melding.goed{color:var(--groen)}
+  .melding.fout{color:#b91c1c}
+  .voet{margin-top:28px;font-size:14px;color:var(--muted);text-align:center}
+  .voet a{color:var(--blauw)}
+  .demo{background:#1f2937;color:#fff;font-size:13px;padding:8px 12px;border-radius:8px;margin-bottom:20px}
+  #laden,#onbekend{text-align:center;padding:60px 20px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="merk">Slim Geregeld Administratie</p>
+
+  <div id="laden">Loading your file...</div>
+
+  <div id="onbekend" hidden>
+    <h1>We cannot find this page</h1>
+    <p class="sub">The link may be incomplete or out of date. Please use the most recent link from my email, or reply to that email and I will send you a new one.</p>
+    <a class="knop" href="mailto:kyle@slim-geregeld.nl">Email me</a>
+  </div>
+
+  <main id="inhoud" hidden>
+    <div class="demo" id="demobalk" hidden>Preview with sample data. Nothing here is real.</div>
+
+    <h1 id="titel">Your DAFT balance sheet</h1>
+    <p class="sub" id="ondertitel"></p>
+
+    <div class="balk" id="hoofdmelding" hidden></div>
+
+    <section class="kaart">
+      <h2>Where we are</h2>
+      <ol class="stappen" id="stappen"></ol>
+    </section>
+
+    <section class="kaart" id="docblok">
+      <h2>Documents</h2>
+      <div id="docs"></div>
+      <form id="uploadform">
+        <p class="hint" id="uploadhint">You can add a document here, or simply reply to my email.</p>
+        <input type="file" id="bestand" accept=".pdf,.png,.jpg,.jpeg" multiple>
+        <button class="knop" type="submit" id="uploadknop">Upload</button>
+        <div class="melding" id="uploadmelding"></div>
+      </form>
+    </section>
+
+    <section class="kaart" id="factuurblok" hidden>
+      <h2>Invoice</h2>
+      <div id="factuurrijen"></div>
+      <a class="knop" id="factuurknop" target="_blank" rel="noopener">View and pay invoice</a>
+    </section>
+
+    <section class="kaart" id="leverblok" hidden>
+      <h2>Your signed document</h2>
+      <p id="levertekst"></p>
+      <a class="knop" id="leverknop">Download PDF</a>
+    </section>
+
+    <p class="voet">
+      Questions? Reply to my email or write to
+      <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a>.<br>
+      Kyle Bouwmeester, Slim Geregeld Administratie, authorised independent bookkeeper, KVK 92596991
+    </p>
+  </main>
+</div>
+
+<script>
+(function(){
+  // De code van de klant staat in het pad: /portal/<code>. Hij gaat nooit in een
+  // querystring, want die belandt in logs en in verwijzende headers.
+  var pad = location.pathname.replace(/^\/portal\/?/,'').replace(/\/$/,'');
+  var code = decodeURIComponent(pad || '');
+  // Een code is lang en heeft geen punt erin. Zo valt /portal/index.html er
+  // uit en zijn te korte codes per definitie ongeldig.
+  if (code.indexOf('.') !== -1 || code.length < 8) code = '';
+  var demo = new URLSearchParams(location.search).has('demo');
+
+  var API = 'https://n8n.slim-geregeld.nl/webhook/daft-portal';
+
+  var el = function(id){ return document.getElementById(id); };
+  function toon(id){ el(id).hidden = false; }
+  function verberg(id){ el(id).hidden = true; }
+
+  var voorbeeld = {
+    ok: true,
+    client: { firstName:'Orlando', business:'AeroRanger Imaging & Mapping', kvk:'42123342' },
+    message: { tone:'amber', text:'One document still needs replacing. As soon as that is in, I can prepare and sign your balance sheet.' },
+    steps: [
+      { label:'Request received', info:'26 August 2026', state:'done' },
+      { label:'Documents complete', info:'One statement still needed', state:'current' },
+      { label:'Invoice paid', info:'', state:'todo' },
+      { label:'Signed balance sheet delivered', info:'', state:'todo' }
+    ],
+    documents: [
+      { label:'KVK registration', state:'ok', note:'Received, business name and number check out.' },
+      { label:'Business bank statement', state:'attention', note:'Received, but it covers a single day and does not show the transfer. Please export a statement that runs from the opening of the account up to and including the deposit.' },
+      { label:'Purchase invoices for assets', state:'missing', note:'Only needed if you put equipment into the business instead of cash.' }
+    ],
+    invoice: { number:'2026-0042', amount:'EUR 598.95 including VAT', due:'9 September 2026', state:'open', url:'#' },
+    deliverable: { available:false, text:'Your signed balance sheet appears here as soon as the invoice is paid and the documents are complete.' },
+    updated: '26 August 2026, 19:45'
+  };
+
+  function render(d){
+    verberg('laden');
+    toon('inhoud');
+    if (demo) toon('demobalk');
+
+    el('titel').textContent = 'Your DAFT balance sheet';
+    el('ondertitel').textContent = [d.client.business, d.client.kvk ? 'KVK ' + d.client.kvk : '']
+      .filter(Boolean).join(' · ') + (d.updated ? ' · updated ' + d.updated : '');
+
+    if (d.message && d.message.text) {
+      var m = el('hoofdmelding');
+      m.className = 'balk ' + (d.message.tone === 'green' ? 'groen' : 'amber');
+      m.textContent = d.message.text;
+      m.hidden = false;
+    }
+
+    el('stappen').innerHTML = (d.steps||[]).map(function(s,i){
+      return '<li class="'+s.state+'"><div class="bol">'+(s.state==='done'?'✓':(i+1))+'</div>'+
+             '<div><div class="stapnaam">'+esc(s.label)+'</div>'+
+             (s.info?'<div class="stapinfo">'+esc(s.info)+'</div>':'')+'</div></li>';
+    }).join('');
+
+    el('docs').innerHTML = (d.documents||[]).map(function(x){
+      var teken = x.state==='ok' ? '✓' : (x.state==='attention' ? '!' : '–');
+      return '<div class="doc '+x.state+'"><div class="vink">'+teken+'</div>'+
+             '<div><div class="docnaam">'+esc(x.label)+'</div>'+
+             (x.note?'<div class="docnote">'+esc(x.note)+'</div>':'')+'</div></div>';
+    }).join('');
+
+    if (d.invoice && d.invoice.state !== 'none') {
+      el('factuurrijen').innerHTML =
+        rij('Invoice', d.invoice.number) +
+        rij('Amount', d.invoice.amount) +
+        rij('Due', d.invoice.due) +
+        rij('Status', d.invoice.state === 'paid' ? 'Paid, thank you' : 'Open');
+      var fk = el('factuurknop');
+      if (d.invoice.state === 'paid' || !d.invoice.url) { fk.hidden = true; }
+      else { fk.href = d.invoice.url; }
+      toon('factuurblok');
+    }
+
+    if (d.deliverable) {
+      el('levertekst').textContent = d.deliverable.text || '';
+      var lk = el('leverknop');
+      if (d.deliverable.available && d.deliverable.url) { lk.href = d.deliverable.url; }
+      else { lk.hidden = true; }
+      toon('leverblok');
+    }
+  }
+
+  function rij(k,v){ return '<div class="rij"><span>'+esc(k)+'</span><span>'+esc(v||'–')+'</span></div>'; }
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  if (demo) { render(voorbeeld); }
+  else if (!code) { verberg('laden'); toon('onbekend'); }
+  else {
+    fetch(API, { method:'POST', headers:{'Content-Type':'application/json'},
+                 body: JSON.stringify({ code: code }) })
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if (d && d.ok) render(d); else { verberg('laden'); toon('onbekend'); } })
+      .catch(function(){ verberg('laden'); toon('onbekend'); });
+  }
+
+  el('uploadform').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = el('bestand').files;
+    var mel = el('uploadmelding');
+    if (!f.length) { mel.className='melding fout'; mel.textContent='Choose a file first.'; return; }
+    if (demo) { mel.className='melding goed'; mel.textContent='In the preview nothing is actually uploaded.'; return; }
+    var fd = new FormData();
+    fd.append('code', code);
+    for (var i=0;i<f.length;i++) fd.append('file'+i, f[i]);
+    el('uploadknop').disabled = true;
+    mel.className='melding'; mel.textContent='Uploading...';
+    fetch('https://n8n.slim-geregeld.nl/webhook/daft-portal-upload', { method:'POST', body: fd })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        mel.className = 'melding ' + (d && d.ok ? 'goed' : 'fout');
+        mel.textContent = (d && d.message) || 'Thank you, I have received it and will check it.';
+        el('bestand').value = '';
+      })
+      .catch(function(){
+        mel.className='melding fout';
+        mel.textContent='That did not go through. Please reply to my email with the file instead.';
+      })
+      .then(function(){ el('uploadknop').disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
