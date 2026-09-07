@@ -54,6 +54,7 @@ const IntakeForm = () => {
     kvkVerificationOther: '',
     moneybirdLicense: '',
     moneybirdLicenseOther: '',
+    moneybirdGeenBankAkkoord: false,
     moneybirdAppDownloaded: '',
     moneybirdAppDownloadedOther: '',
 
@@ -151,6 +152,7 @@ const IntakeForm = () => {
                formData.quoteHeaderText && formData.quoteFooterText && formData.quoteEmailText;
       case 5:
         if (formData.currentBookkeeping === 'Moneybird') return true;
+        if (formData.moneybirdLicense === 'Start — €18 p/m' && !formData.moneybirdGeenBankAkkoord) return false;
         return formData.moneybirdAccountSetup && formData.kvkVerification && 
                formData.moneybirdLicense && formData.moneybirdAppDownloaded;
       case 6:
@@ -926,29 +928,59 @@ const IntakeForm = () => {
                 </div>
               </div>
               <div className="bg-white rounded-lg border border-gray-300 p-6">
-                <label className="block text-sm font-semibold text-gray-900 mb-3">Welke Moneybird-licentie past volgens jou het beste bij jouw administratie? *</label>
-                <p className="text-sm text-gray-600 mb-3">We koppelen standaard je zakelijke bankrekening aan Moneybird. Dit kost €4 per maand extra.</p>
+                <label className="block text-sm font-semibold text-gray-900 mb-3">Welk Moneybird-pakket past bij jouw administratie? *</label>
+                <p className="text-sm text-gray-600 mb-3">
+                  Dit abonnement staat op jouw naam en betaal je rechtstreeks aan Moneybird. Jaarlijks
+                  betalen scheelt ongeveer 20%.
+                </p>
                 <div className="space-y-2">
                   {[
-                    'Tot 20 banktransacties p/m = Moneybird €14 + €4 p/m',
-                    'Tot 50 banktransacties p/m = Moneybird €25 + €4 p/m',
-                    'Onbeperkt banktransacties p/m = Moneybird €35 + €4 p/m',
-                    'Ik weet het nog niet / overleg ik graag',
-                    'Anders…'
-                  ].map((option) => (
-                    <label key={option} className="flex items-center cursor-pointer">
+                    { waarde: 'Groei — €35 p/m', uitleg: 'Aanbevolen. Automatische bankkoppeling, dus wij leggen je boekhouding tegen je bankrekening aan. Tot 50 verwerkte transacties per maand.' },
+                    { waarde: 'Compleet — €49 p/m', uitleg: 'Als elke betaling los binnenkomt en je boven de 50 transacties per maand uitkomt.' },
+                    { waarde: 'Start — €18 p/m', uitleg: 'Geen automatische bankkoppeling. Wij kunnen je boekhouding doen en je aangiftes indienen, maar niet tegen je bankrekening controleren.', beperkt: true },
+                    { waarde: 'Ik weet het nog niet / overleg ik graag', uitleg: '' },
+                    { waarde: 'Anders…', uitleg: '' }
+                  ]
+                    .filter((optie) => !(optie.beperkt && formData.legalForm === 'Besloten Vennootschap (BV)'))
+                    .map((optie) => (
+                    <label key={optie.waarde} className="flex items-start cursor-pointer">
                       <input
                         type="radio"
                         name="moneybirdLicense"
-                        value={option}
-                        checked={formData.moneybirdLicense === option}
+                        value={optie.waarde}
+                        checked={formData.moneybirdLicense === optie.waarde}
                         onChange={(e) => handleRadioChange('moneybirdLicense', e.target.value)}
-                        className="mr-3"
+                        className="mr-3 mt-1"
                         required
                       />
-                      <span className="text-gray-700 text-sm">{option}</span>
+                      <span className="text-gray-700 text-sm">
+                        {optie.waarde}
+                        {optie.uitleg && <span className="block text-gray-500 text-xs mt-0.5">{optie.uitleg}</span>}
+                      </span>
                     </label>
                   ))}
+                  {formData.legalForm === 'Besloten Vennootschap (BV)' && (
+                    <p className="text-xs text-gray-500 pt-1">
+                      Voor een BV begint het bij Groei, omdat een jaarrekening zonder bankkoppeling niet te
+                      onderbouwen is.
+                    </p>
+                  )}
+                  {formData.moneybirdLicense === 'Start — €18 p/m' && (
+                    <label className="flex items-start cursor-pointer bg-amber-50 border border-amber-200 rounded p-3 mt-2">
+                      <input
+                        type="checkbox"
+                        name="moneybirdGeenBankAkkoord"
+                        checked={formData.moneybirdGeenBankAkkoord}
+                        onChange={(e) => setFormData({ ...formData, moneybirdGeenBankAkkoord: e.target.checked })}
+                        className="mr-3 mt-1"
+                        required
+                      />
+                      <span className="text-gray-700 text-sm">
+                        Ik weet dat mijn boekhouding op dit pakket niet tegen mijn bankrekening wordt
+                        gecontroleerd en dus niet volledig sluitend is.
+                      </span>
+                    </label>
+                  )}
                   {formData.moneybirdLicense === 'Anders…' && (
                     <div className="ml-6 mt-2">
                       <input
@@ -1651,6 +1683,7 @@ const IntakeForm = () => {
           <input type="hidden" name="kvkVerificationOther" value={formData.kvkVerificationOther} />
           <input type="hidden" name="moneybirdLicense" value={formData.moneybirdLicense} />
           <input type="hidden" name="moneybirdLicenseOther" value={formData.moneybirdLicenseOther} />
+          <input type="hidden" name="moneybirdGeenBankAkkoord" value={formData.moneybirdGeenBankAkkoord ? 'ja' : ''} />
           <input type="hidden" name="moneybirdAppDownloaded" value={formData.moneybirdAppDownloaded} />
           <input type="hidden" name="moneybirdAppDownloadedOther" value={formData.moneybirdAppDownloadedOther} />
           <input type="hidden" name="transferMethod" value={formData.transferMethod} />
