@@ -37,15 +37,28 @@
   input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
     width:100%;font:inherit;font-size:.95rem;padding:.6rem .75rem;border:1px solid var(--rand);
     border-radius:10px;background:var(--bg);color:var(--ink-2)}
-  textarea{min-height:84px;resize:vertical}
+  /* Een datumveld is uit zichzelf twee pixels hoger dan een tekstveld, waardoor
+     twee velden naast elkaar net niet gelijk staan. Vaste hoogte lost dat op. */
+  input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select{height:2.875rem}
+  textarea{height:auto;min-height:84px;resize:vertical}
   input:focus,select:focus,textarea:focus{outline:2px solid var(--blauw);outline-offset:1px;border-color:var(--blauw)}
-  .twee{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  /* align-items:end laat de invoervelden op één lijn staan, ook als het label
+     ernaast een uitleg van twee regels heeft. Zonder dit zakt het ene veld weg. */
+  .twee{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:end}
   @media (max-width:560px){.twee{grid-template-columns:1fr}}
-  .keuze{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem .7rem;border:1px solid var(--rand);
-    border-radius:10px;margin-top:.45rem;cursor:pointer;background:var(--bg)}
+  /* .veld > label is specifieker dan .keuze en zette deze labels op display:block,
+     waardoor de gap hieronder nooit werkte en de afstand tot het bolletje afhing
+     van de toevallige spatie in de HTML. Vandaar dit zwaardere selectorpaar. */
+  .keuze,.veld > label.keuze{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem .8rem;
+    border:1px solid var(--rand);border-radius:10px;margin-top:.45rem;cursor:pointer;background:var(--bg)}
   .keuze:hover{border-color:var(--blauw-rand);background:var(--blauw-tint)}
-  .keuze input{margin-top:.25rem;flex:none}
-  .keuze .titel{font-size:.92rem;color:var(--ink-2)}
+  /* Eigen maat en geen eigen marge, anders bepaalt de browser de afstand tot de
+     tekst en verschilt die per veld. Nu doet alleen de gap hierboven dat werk. */
+  .keuze input{flex:none;width:1.05rem;height:1.05rem;margin:.15rem 0 0 0}
+  /* .titel moet een blok zijn: hij bevat een blok-uitleg, en een inline element
+     met een blok erin levert een kapotte doos op waardoor de tekst tegen het
+     bolletje aan kruipt. */
+  .keuze .titel{display:block;flex:1 1 auto;font-size:.92rem;color:var(--ink-2)}
   .keuze .uitleg{display:block;font-size:.82rem;color:var(--muted);margin-top:.1rem}
   .keuze:has(input:checked){border-color:var(--blauw);background:var(--blauw-tint)}
   .let-op{background:var(--amber-tint);border:1px solid var(--amber-rand);border-radius:10px;
@@ -75,14 +88,16 @@
   differs. A few questions so I can open your administration and know where to start. Ten minutes, and
   you only fill in what you know.</p>
 
-  <form id="f" novalidate>
+  <form id="f" name="intake-en" method="POST" data-netlify="true"
+          data-netlify-honeypot="bot-field" novalidate>
+    <input type="hidden" name="form-name" value="intake-en">
 
     <fieldset>
       <legend>1. You and your business</legend>
       <p class="hint">The basics, so I can find you at the Chamber of Commerce and the tax authority.</p>
       <div class="veld" style="position:absolute;left:-9999px" aria-hidden="true">
-        <label for="website2">Leave this empty</label>
-        <input id="website2" name="website2" type="text" tabindex="-1" autocomplete="off"></div>
+        <label for="bot-field">Leave this empty</label>
+        <input id="bot-field" name="bot-field" type="text" tabindex="-1" autocomplete="off"></div>
       <div class="twee">
         <div class="veld"><label for="naam">Your full name, as registered *</label>
           <input id="naam" name="naam" type="text" required autocomplete="name"></div>
@@ -92,15 +107,25 @@
       <div class="twee">
         <div class="veld"><label for="telefoon">Phone or WhatsApp</label>
           <input id="telefoon" name="telefoon" type="tel" autocomplete="tel"></div>
+        <div class="veld"><label for="geboortedatum">Date of birth *
+          <span class="bij">Needed for your income tax return, and I am required to verify your identity.</span></label>
+          <input id="geboortedatum" name="geboortedatum" type="date" required></div>
+      </div>
+      <div class="twee">
         <div class="veld"><label for="bedrijf">Business name</label>
           <input id="bedrijf" name="bedrijf" type="text"></div>
+        <div class="veld"><label for="website">Website</label>
+          <input id="website" name="website" type="text" placeholder="optional"></div>
       </div>
       <div class="twee">
         <div class="veld"><label for="kvk">KVK number</label>
           <input id="kvk" name="kvk" type="text" inputmode="numeric"></div>
-        <div class="veld"><label for="start">Date your business started</label>
-          <input id="start" name="start" type="date"></div>
+        <div class="veld"><label for="btw">VAT number (btw-id)
+          <span class="bij">Starts with NL. I cannot file a VAT return without it.</span></label>
+          <input id="btw" name="btw" type="text" placeholder="NL001234567B01"></div>
       </div>
+      <div class="veld"><label for="start">Date your business started</label>
+        <input id="start" name="start" type="date"></div>
       <div class="veld"><label>Legal form *</label>
         <label class="keuze"><input type="radio" name="rechtsvorm" value="Eenmanszaak" required>
           <span class="titel">Eenmanszaak (sole proprietorship)</span></label>
@@ -223,6 +248,20 @@
       </div>
       <div class="veld"><label for="omzet">What turnover do you expect in your first twelve months?</label>
         <input id="omzet" name="omzet" type="text" placeholder="EUR 40,000 to 50,000"></div>
+      <div class="veld"><label>Who do you sell to, and are your prices with or without VAT?
+        <span class="bij">Consumers usually see prices including VAT, businesses excluding. It changes how your invoices are set up.</span></label>
+        <label class="keuze"><input type="radio" name="facturatie" value="Particulieren incl">
+          <span class="titel">Consumers, prices including VAT</span></label>
+        <label class="keuze"><input type="radio" name="facturatie" value="Bedrijven excl">
+          <span class="titel">Businesses, prices excluding VAT</span></label>
+        <label class="keuze"><input type="radio" name="facturatie" value="Beide">
+          <span class="titel">Both</span></label>
+        <label class="keuze"><input type="radio" name="facturatie" value="Geen facturen">
+          <span class="titel">I do not send invoices at all
+            <span class="uitleg">You are paid on the spot, or a platform like Etsy handles it.</span></span></label>
+      </div>
+      <div class="veld"><label for="betaaltermijn">Your standard payment term, if you invoice</label>
+        <input id="betaaltermijn" name="betaaltermijn" type="text" placeholder="14 days, 30 days..."></div>
     </fieldset>
 
     <fieldset>
@@ -255,6 +294,17 @@
         <label class="keuze"><input type="radio" name="heeft_moneybird" value="Nee"><span class="titel">No, please set it up for me</span></label>
         <label class="keuze"><input type="radio" name="heeft_moneybird" value="Ja"><span class="titel">Yes, I will invite you as my bookkeeper</span></label>
       </div>
+      <div class="veld"><label>Shall we arrange your KVK verification inside Moneybird?
+        <span class="bij">Moneybird requires this before VAT returns can be filed from it. It is a one-off step and we can do it for you.</span></label>
+        <label class="keuze"><input type="radio" name="kvkverificatie" value="Ja, regel het"><span class="titel">Yes, please arrange it</span></label>
+        <label class="keuze"><input type="radio" name="kvkverificatie" value="Al gedaan"><span class="titel">Already done</span></label>
+        <label class="keuze"><input type="radio" name="kvkverificatie" value="Doe ik zelf"><span class="titel">I will do it myself</span></label>
+      </div>
+      <div class="veld"><label>Have you installed the Moneybird app on your phone?
+        <span class="bij">It is how you photograph a receipt in five seconds instead of keeping a shoebox. Worth doing now.</span></label>
+        <label class="keuze"><input type="radio" name="app" value="Ja"><span class="titel">Yes</span></label>
+        <label class="keuze"><input type="radio" name="app" value="Nog niet"><span class="titel">Not yet, I will install it</span></label>
+      </div>
     </fieldset>
 
     <fieldset>
@@ -267,11 +317,29 @@
         <label class="keuze"><input type="radio" name="bestaand" value="Zelf bijgehouden"><span class="titel">I have kept my own records, in a spreadsheet or on paper</span></label>
         <label class="keuze"><input type="radio" name="bestaand" value="Ander programma"><span class="titel">It is in another bookkeeping program</span></label>
       </div>
+      <div id="overdracht-blok" class="verborgen">
+        <div class="veld"><label for="programma">Which program, and can you still get into it?</label>
+          <input id="programma" name="programma" type="text" placeholder="e-Boekhouden, Exact, Wave, a spreadsheet..."></div>
+        <div class="veld"><label>Which of these can you supply for the start date?
+          <span class="bij">Tick what you have. Missing items are not a problem, it just tells me where to begin.</span></label>
+          <label class="keuze"><input type="checkbox" name="over_facturen" value="ja"><span class="titel">Sales and purchase invoices that were still unpaid</span></label>
+          <label class="keuze"><input type="checkbox" name="over_saldo" value="ja"><span class="titel">Your bank balance on that date</span></label>
+          <label class="keuze"><input type="checkbox" name="over_btw" value="ja"><span class="titel">Your VAT position on that date</span></label>
+          <label class="keuze"><input type="checkbox" name="over_balans" value="ja"><span class="titel">An opening or closing balance sheet</span></label>
+          <label class="keuze"><input type="checkbox" name="over_lijst" value="ja"><span class="titel">A list of regular customers or suppliers</span></label>
+        </div>
+      </div>
       <div class="veld"><label>Do you keep a record of your hours?
         <span class="bij">1,225 hours in a calendar year gives you the self-employed deduction, and in your first years the starter's deduction on top. Setting up and admin hours count.</span></label>
         <label class="keuze"><input type="radio" name="uren" value="Ja"><span class="titel">Yes</span></label>
         <label class="keuze"><input type="radio" name="uren" value="Nee"><span class="titel">No, not yet</span></label>
         <label class="keuze"><input type="radio" name="uren" value="Weet niet"><span class="titel">I did not know this mattered</span></label>
+      </div>
+      <div class="veld"><label>Shall we set up the wording on your invoices and quotes?
+        <span class="bij">Payment terms, the email that goes with an invoice, the text above and below your quotes. If you want this, I will send you the questions separately rather than ask them all here.</span></label>
+        <label class="keuze"><input type="radio" name="teksten" value="Ja"><span class="titel">Yes, send me those questions</span></label>
+        <label class="keuze"><input type="radio" name="teksten" value="Standaard"><span class="titel">No, standard wording is fine</span></label>
+        <label class="keuze"><input type="radio" name="teksten" value="Niet nodig"><span class="titel">I do not send invoices, so not needed</span></label>
       </div>
       <div class="veld"><label for="opmerking">Anything else I should know?</label>
         <textarea id="opmerking" name="opmerking" placeholder="Deadlines, an accountant you are leaving, a letter from the tax authority, anything."></textarea></div>
@@ -329,6 +397,11 @@
     var start = gekozen('pakket') === 'Start 18';
     startAkkoord.classList.toggle('verborgen', !start);
     if (!start) startAkkoord.querySelector('input').checked = false;
+
+    // De overdrachtvragen alleen tonen als er al iets ligt. Wie vandaag begint
+    // hoeft niet langs vijf vragen over een balans die niet bestaat.
+    var over = document.getElementById('overdracht-blok');
+    if (over) over.classList.toggle('verborgen', gekozen('bestaand') === 'Niets' || !gekozen('bestaand'));
   }
   form.addEventListener('change', bijwerken);
   bijwerken();
@@ -356,11 +429,15 @@
 
     knop.disabled = true;
     knop.textContent = 'Sending...';
-    var data = {};
-    new FormData(form).forEach(function(v, k){ data[k] = v; });
+    // Netlify Forms: een gewone urlencoded POST naar de site zelf, precies zoals
+    // het Nederlandse intakeformulier het doet. De inzending staat daarmee in het
+    // Netlify-dashboard; de doorzetting naar n8n loopt via de uitgaande webhook
+    // die daar is ingesteld, zodat er niets verloren gaat als n8n eruit ligt.
     try {
-      var r = await fetch('https://n8n.slim-geregeld.nl/webhook/intake-en', {
-        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)
+      var r = await fetch('/en/intake/', {
+        method:'POST',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body: new URLSearchParams(new FormData(form)).toString()
       });
       if (!r.ok) throw new Error('http ' + r.status);
       form.innerHTML = '<fieldset><legend>Thank you</legend><p class="hint" style="margin:0">' +
