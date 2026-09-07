@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Getting started | Slim Geregeld Administratie</title>
+<style>
+  :root{
+    --ink:#0b1220; --ink-2:#1f2937; --body:#4b5563; --muted:#6b7280;
+    --blauw:#2563eb; --blauw-donker:#1d4ed8; --blauw-tint:#eff6ff; --blauw-rand:#bfdbfe;
+    --amber-tint:#fffbeb; --amber-rand:#fde68a; --amber:#92400e;
+    --bg:#ffffff; --bg-zacht:#f8fafc; --rand:#e5e7eb;
+    --r:14px; --r-groot:20px;
+    --schaduw:0 1px 2px rgba(11,18,32,.04), 0 8px 24px rgba(11,18,32,.06);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg-zacht);color:var(--ink-2);line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+  .kop{background:var(--bg);border-bottom:1px solid var(--rand)}
+  .kop .binnen{max-width:760px;margin:0 auto;padding:1rem clamp(1rem,4vw,1.5rem);display:flex;align-items:center;gap:.6rem}
+  .merk{font-weight:700;color:var(--ink);font-size:.98rem}
+  .merk small{display:block;font-weight:500;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blauw)}
+  .blok{width:28px;height:28px;flex:none;border-radius:8px;background:var(--blauw);color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700}
+  main{max-width:760px;margin:0 auto;padding:clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,1.5rem) 4rem}
+  h1{color:var(--ink);font-size:clamp(1.6rem,4.5vw,2.1rem);letter-spacing:-.02em;line-height:1.2}
+  .lead{color:var(--body);margin-top:.6rem;max-width:60ch}
+  fieldset{border:0;background:var(--bg);border:1px solid var(--rand);border-radius:var(--r-groot);
+    padding:1.4rem clamp(1rem,3vw,1.5rem);box-shadow:var(--schaduw);margin-top:1.2rem}
+  legend{float:left;width:100%;font-weight:700;color:var(--ink);font-size:1.02rem;margin-bottom:.2rem}
+  legend + .hint{clear:both}
+  .hint{font-size:.86rem;color:var(--muted);margin-bottom:1rem;max-width:62ch}
+  .veld{margin-top:1rem}
+  .veld > label{display:block;font-size:.88rem;font-weight:600;color:var(--ink-2);margin-bottom:.3rem}
+  .veld .bij{font-weight:400;font-size:.82rem;color:var(--muted);display:block;margin-top:.15rem}
+  input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
+    width:100%;font:inherit;font-size:.95rem;padding:.6rem .75rem;border:1px solid var(--rand);
+    border-radius:10px;background:var(--bg);color:var(--ink-2)}
+  textarea{min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--blauw);outline-offset:1px;border-color:var(--blauw)}
+  .twee{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:560px){.twee{grid-template-columns:1fr}}
+  .keuze{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem .7rem;border:1px solid var(--rand);
+    border-radius:10px;margin-top:.45rem;cursor:pointer;background:var(--bg)}
+  .keuze:hover{border-color:var(--blauw-rand);background:var(--blauw-tint)}
+  .keuze input{margin-top:.25rem;flex:none}
+  .keuze .titel{font-size:.92rem;color:var(--ink-2)}
+  .keuze .uitleg{display:block;font-size:.82rem;color:var(--muted);margin-top:.1rem}
+  .keuze:has(input:checked){border-color:var(--blauw);background:var(--blauw-tint)}
+  .let-op{background:var(--amber-tint);border:1px solid var(--amber-rand);border-radius:10px;
+    padding:.8rem .9rem;margin-top:.7rem}
+  .let-op .keuze{border:0;background:transparent;margin:0;padding:0}
+  .let-op .titel{color:var(--amber)}
+  .verborgen{display:none}
+  button{font:inherit;font-size:.98rem;font-weight:700;border:0;background:var(--blauw);color:#fff;
+    border-radius:12px;padding:.8rem 1.6rem;cursor:pointer;margin-top:1.4rem}
+  button:hover{background:var(--blauw-donker)}
+  button:disabled{opacity:.55;cursor:not-allowed}
+  .melding{margin-top:1rem;font-size:.9rem}
+  .melding.fout{color:#b91c1c}
+  .voet{font-size:.82rem;color:var(--muted);margin-top:1.4rem}
+</style>
+</head>
+<body>
+<div class="kop"><div class="binnen">
+  <span class="blok">SG</span>
+  <span class="merk">Slim Geregeld<small>Administratie</small></span>
+</div></div>
+
+<main>
+  <h1>Let's get your bookkeeping set up.</h1>
+  <p class="lead">Dutch bookkeeping, VAT returns and your income tax return, handled in English. Whether
+  you moved here from Milan, Manila or Minneapolis, the Dutch rules are the same; only your paperwork
+  differs. A few questions so I can open your administration and know where to start. Ten minutes, and
+  you only fill in what you know.</p>
+
+  <form id="f" novalidate>
+
+    <fieldset>
+      <legend>1. You and your business</legend>
+      <p class="hint">The basics, so I can find you at the Chamber of Commerce and the tax authority.</p>
+      <div class="veld" style="position:absolute;left:-9999px" aria-hidden="true">
+        <label for="website2">Leave this empty</label>
+        <input id="website2" name="website2" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="twee">
+        <div class="veld"><label for="naam">Your full name, as registered *</label>
+          <input id="naam" name="naam" type="text" required autocomplete="name"></div>
+        <div class="veld"><label for="email">Email *</label>
+          <input id="email" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="twee">
+        <div class="veld"><label for="telefoon">Phone or WhatsApp</label>
+          <input id="telefoon" name="telefoon" type="tel" autocomplete="tel"></div>
+        <div class="veld"><label for="bedrijf">Business name</label>
+          <input id="bedrijf" name="bedrijf" type="text"></div>
+      </div>
+      <div class="twee">
+        <div class="veld"><label for="kvk">KVK number</label>
+          <input id="kvk" name="kvk" type="text" inputmode="numeric"></div>
+        <div class="veld"><label for="start">Date your business started</label>
+          <input id="start" name="start" type="date"></div>
+      </div>
+      <div class="veld"><label>Legal form *</label>
+        <label class="keuze"><input type="radio" name="rechtsvorm" value="Eenmanszaak" required>
+          <span class="titel">Eenmanszaak (sole proprietorship)</span></label>
+        <label class="keuze"><input type="radio" name="rechtsvorm" value="VOF">
+          <span class="titel">VOF (general partnership)</span></label>
+        <label class="keuze"><input type="radio" name="rechtsvorm" value="BV">
+          <span class="titel">BV (private limited company)</span></label>
+        <label class="keuze"><input type="radio" name="rechtsvorm" value="Nog niet ingeschreven">
+          <span class="titel">Not registered yet</span></label>
+      </div>
+      <div class="veld"><label for="nationaliteit">Your nationality</label>
+        <input id="nationaliteit" name="nationaliteit" type="text" placeholder="Italian, American, Japanese..."></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Your situation in the Netherlands</legend>
+      <p class="hint">This decides which rules apply to you. Most of it is one click, and the permit
+      questions only appear if they are relevant.</p>
+      <div class="veld"><label>Are you registered as living in the Netherlands? *
+        <span class="bij">Registration in the BRP at your municipality. It decides whether you file here as a resident.</span></label>
+        <label class="keuze"><input type="radio" name="ingeschreven" value="Ja" required>
+          <span class="titel">Yes</span></label>
+        <label class="keuze"><input type="radio" name="ingeschreven" value="Nog niet">
+          <span class="titel">Not yet, it is in progress</span></label>
+        <label class="keuze"><input type="radio" name="ingeschreven" value="Nee, woon buitenland">
+          <span class="titel">No, I live abroad and only have a business here</span></label>
+      </div>
+      <div class="veld"><label>Do you need a residence permit to work here? *</label>
+        <label class="keuze"><input type="radio" name="vergunningNodig" value="Nee, EU" required>
+          <span class="titel">No, I am an EU, EEA or Swiss citizen
+            <span class="uitleg">Then you can work here freely and there is nothing to renew.</span></span></label>
+        <label class="keuze"><input type="radio" name="vergunningNodig" value="Ja, heb ik">
+          <span class="titel">Yes, and I have one</span></label>
+        <label class="keuze"><input type="radio" name="vergunningNodig" value="Ja, aanvragen">
+          <span class="titel">Yes, and I am still applying</span></label>
+      </div>
+      <div id="permit-blok" class="verborgen">
+        <div class="veld"><label>Which permit?</label>
+          <label class="keuze"><input type="radio" name="permit" value="DAFT">
+            <span class="titel">DAFT, the Dutch American Friendship Treaty</span></label>
+          <label class="keuze"><input type="radio" name="permit" value="Japans verdrag">
+            <span class="titel">The Dutch-Japanese trade treaty</span></label>
+          <label class="keuze"><input type="radio" name="permit" value="Zelfstandige">
+            <span class="titel">Self-employed person (the points-based route)</span></label>
+          <label class="keuze"><input type="radio" name="permit" value="Anders">
+            <span class="titel">Something else, or I do not know the name</span></label>
+        </div>
+        <div class="veld"><label for="permitStart">When did your permit start, or when do you expect it?
+          <span class="bij">Roughly is fine.</span></label>
+          <input id="permitStart" name="permitStart" type="date"></div>
+        <p class="hint verborgen" id="verdrag-let-op" style="margin:.6rem 0 0">
+          On a treaty permit the IND checks again, about three months before it ends, that your business
+          still holds at least EUR 4,500 of your own money. I prepare and sign that statement, and I work
+          backwards from your start date so it is never a rush.
+        </p>
+      </div>
+      <div class="veld"><label>Do you have tax obligations in another country? *
+        <span class="bij">I do the Dutch side. If another country also wants a return, I will say so rather than take it on.</span></label>
+        <label class="keuze"><input type="radio" name="buitenlandsFiscaal" value="Nee" required>
+          <span class="titel">No, only the Netherlands</span></label>
+        <label class="keuze"><input type="radio" name="buitenlandsFiscaal" value="VS">
+          <span class="titel">Yes, I am a US citizen or green card holder
+            <span class="uitleg">Then you keep filing a US return wherever you live. That needs a preparer licensed there.</span></span></label>
+        <label class="keuze"><input type="radio" name="buitenlandsFiscaal" value="Ander land">
+          <span class="titel">Yes, in another country</span></label>
+        <label class="keuze"><input type="radio" name="buitenlandsFiscaal" value="Weet niet">
+          <span class="titel">I do not know</span></label>
+      </div>
+      <div class="veld verborgen" id="welk-land"><label for="anderLand">Which country, and do you still file there?</label>
+        <input id="anderLand" name="anderLand" type="text"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. What you need from me</legend>
+      <div class="veld"><label>Which of these fits? *</label>
+        <label class="keuze"><input type="radio" name="wat" value="Plan" required>
+          <span class="titel">Bookkeeping, VAT returns and my income tax return
+            <span class="uitleg">The monthly arrangement. I check your figures and file everything.</span></span></label>
+        <label class="keuze"><input type="radio" name="wat" value="Alleen aangifte">
+          <span class="titel">Only my annual income tax return</span></label>
+        <label class="keuze"><input type="radio" name="wat" value="Weet niet">
+          <span class="titel">I am not sure yet, tell me what makes sense</span></label>
+      </div>
+      <div class="veld"><label>Are you on the KOR, the small business scheme? *
+        <span class="bij">On the KOR you charge no VAT and file no quarterly returns. It only covers Dutch VAT.</span></label>
+        <label class="keuze"><input type="radio" name="kor" value="Ja" required><span class="titel">Yes</span></label>
+        <label class="keuze"><input type="radio" name="kor" value="Nee"><span class="titel">No</span></label>
+        <label class="keuze"><input type="radio" name="kor" value="Weet niet"><span class="titel">I do not know</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. How money comes in and goes out</legend>
+      <p class="hint">This decides which Moneybird package you need, so it is worth a moment.</p>
+      <div class="twee">
+        <div class="veld"><label for="bank">Your business bank</label>
+          <input id="bank" name="bank" type="text" placeholder="Rabobank, ING, bunq…"></div>
+        <div class="veld"><label for="iban">IBAN of your business account</label>
+          <input id="iban" name="iban" type="text" placeholder="NL.."></div>
+      </div>
+      <div class="veld"><label>How do customer payments reach your account? *</label>
+        <label class="keuze"><input type="radio" name="betalingen" value="Los per klant" required>
+          <span class="titel">Each payment arrives separately
+            <span class="uitleg">Typical for a card reader or payment link per customer.</span></span></label>
+        <label class="keuze"><input type="radio" name="betalingen" value="Gebundeld">
+          <span class="titel">My provider pays out in batches
+            <span class="uitleg">One daily or weekly transfer covering several customers. Etsy, Mollie and SumUp often work this way.</span></span></label>
+        <label class="keuze"><input type="radio" name="betalingen" value="Facturen">
+          <span class="titel">I invoice and customers transfer the money</span></label>
+      </div>
+      <div class="veld"><label for="transacties">Roughly how many bank transactions a month?
+        <span class="bij">Everything in and out, so payments, rent, supplies and subscriptions. A guess is fine.</span></label>
+        <input id="transacties" name="transacties" type="number" min="0" placeholder="30"></div>
+      <div class="veld"><label>Do you sell outside the Netherlands?
+        <span class="bij">Selling to consumers in other EU countries has its own VAT rules above a threshold, and the KOR does not cover that.</span></label>
+        <label class="keuze"><input type="radio" name="buitenland" value="Nee"><span class="titel">No, only in the Netherlands</span></label>
+        <label class="keuze"><input type="radio" name="buitenland" value="EU consumenten"><span class="titel">Yes, to consumers in other EU countries</span></label>
+        <label class="keuze"><input type="radio" name="buitenland" value="Buiten EU"><span class="titel">Yes, mostly outside the EU</span></label>
+        <label class="keuze"><input type="radio" name="buitenland" value="Beide"><span class="titel">Both</span></label>
+      </div>
+      <div class="veld"><label for="omzet">What turnover do you expect in your first twelve months?</label>
+        <input id="omzet" name="omzet" type="text" placeholder="EUR 40,000 to 50,000"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Your Moneybird package</legend>
+      <p class="hint">Moneybird is where your administration lives. The subscription is in your own name and
+      you pay Moneybird directly. Paying yearly saves about 20%.</p>
+      <div class="veld"><label>Which package? *</label>
+        <label class="keuze"><input type="radio" name="pakket" value="Groei 35" required checked>
+          <span class="titel">Groei, EUR 35 a month <strong>(recommended)</strong>
+            <span class="uitleg">Automatic bank connection, so I reconcile your bookkeeping against your bank account. Up to 50 processed transactions a month.</span></span></label>
+        <label class="keuze"><input type="radio" name="pakket" value="Compleet 49">
+          <span class="titel">Compleet, EUR 49 a month
+            <span class="uitleg">If payments arrive separately and you go over 50 transactions a month.</span></span></label>
+        <label class="keuze" id="keuze-start"><input type="radio" name="pakket" value="Start 18">
+          <span class="titel">Start, EUR 18 a month
+            <span class="uitleg">No automatic bank connection. I can still do your bookkeeping and file your returns, but I cannot check them against your bank account.</span></span></label>
+        <label class="keuze"><input type="radio" name="pakket" value="Overleggen">
+          <span class="titel">I would rather talk it through first</span></label>
+      </div>
+      <p class="hint verborgen" id="bv-let-op" style="margin:.6rem 0 0">
+        For a BV the lowest package is Groei. Annual accounts that are not reconciled against the bank
+        account cannot be substantiated, so Start is not an option there.
+      </p>
+      <div class="let-op verborgen" id="start-akkoord">
+        <label class="keuze"><input type="checkbox" name="geen_bank_akkoord" value="ja">
+          <span class="titel">I understand that on this package my bookkeeping is not reconciled against my
+          bank account, and is therefore not fully complete.</span></label>
+      </div>
+      <div class="veld"><label>Do you already use Moneybird?</label>
+        <label class="keuze"><input type="radio" name="heeft_moneybird" value="Nee"><span class="titel">No, please set it up for me</span></label>
+        <label class="keuze"><input type="radio" name="heeft_moneybird" value="Ja"><span class="titel">Yes, I will invite you as my bookkeeper</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Where we start</legend>
+      <div class="veld"><label for="vanaf">From which date should the bookkeeping be built up?
+        <span class="bij">Usually the day your business started, even if there was no income yet.</span></label>
+        <input id="vanaf" name="vanaf" type="date"></div>
+      <div class="veld"><label>Has anything been recorded so far?</label>
+        <label class="keuze"><input type="radio" name="bestaand" value="Niets"><span class="titel">Nothing yet, we start from scratch</span></label>
+        <label class="keuze"><input type="radio" name="bestaand" value="Zelf bijgehouden"><span class="titel">I have kept my own records, in a spreadsheet or on paper</span></label>
+        <label class="keuze"><input type="radio" name="bestaand" value="Ander programma"><span class="titel">It is in another bookkeeping program</span></label>
+      </div>
+      <div class="veld"><label>Do you keep a record of your hours?
+        <span class="bij">1,225 hours in a calendar year gives you the self-employed deduction, and in your first years the starter's deduction on top. Setting up and admin hours count.</span></label>
+        <label class="keuze"><input type="radio" name="uren" value="Ja"><span class="titel">Yes</span></label>
+        <label class="keuze"><input type="radio" name="uren" value="Nee"><span class="titel">No, not yet</span></label>
+        <label class="keuze"><input type="radio" name="uren" value="Weet niet"><span class="titel">I did not know this mattered</span></label>
+      </div>
+      <div class="veld"><label for="opmerking">Anything else I should know?</label>
+        <textarea id="opmerking" name="opmerking" placeholder="Deadlines, an accountant you are leaving, a letter from the tax authority, anything."></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>7. Two things I will send you</legend>
+      <p class="hint">Nothing to do here, just so you know what is coming. To file with the Dutch tax
+      authority I need your signature on an authorisation, and as a registered bookkeeper I am required to
+      verify your identity, so I will ask for a copy of your ID. Both come by email once we start.</p>
+    </fieldset>
+
+    <button type="submit" id="verstuur">Send this in</button>
+    <p class="melding" id="melding" role="status"></p>
+    <p class="voet">No payment and no commitment. You get a personal reply within one working day with the
+    price for your situation and the first steps.</p>
+  </form>
+</main>
+
+<script>
+(function(){
+  var form = document.getElementById('f');
+  var melding = document.getElementById('melding');
+  var knop = document.getElementById('verstuur');
+  var startKeuze = document.getElementById('keuze-start');
+  var startAkkoord = document.getElementById('start-akkoord');
+  var bvLetOp = document.getElementById('bv-let-op');
+
+  function gekozen(naam){
+    var el = form.querySelector('input[name="' + naam + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  // Voor een BV is Start geen optie: een jaarrekening zonder bankkoppeling is niet
+  // te onderbouwen. Verbergen in plaats van uitgrijzen, met een regel die zegt waarom.
+  function bijwerken(){
+    // De vergunningvragen alleen tonen als iemand er een nodig heeft. Voor een
+    // EU-burger bestaat die hele wereld niet, en dan hoort hij ook niet in beeld.
+    var nodig = gekozen('vergunningNodig');
+    var permitBlok = document.getElementById('permit-blok');
+    permitBlok.classList.toggle('verborgen', nodig === '' || nodig === 'Nee, EU');
+    // De EUR 4.500 geldt alleen op een verdragsvergunning, niet op de puntenroute.
+    var permit = gekozen('permit');
+    document.getElementById('verdrag-let-op').classList.toggle('verborgen',
+      !(permit === 'DAFT' || permit === 'Japans verdrag'));
+    var ander = gekozen('buitenlandsFiscaal');
+    document.getElementById('welk-land').classList.toggle('verborgen', ander !== 'Ander land');
+
+    var bv = gekozen('rechtsvorm') === 'BV';
+    startKeuze.classList.toggle('verborgen', bv);
+    bvLetOp.classList.toggle('verborgen', !bv);
+    if (bv && gekozen('pakket') === 'Start 18'){
+      form.querySelector('input[name="pakket"][value="Groei 35"]').checked = true;
+    }
+    var start = gekozen('pakket') === 'Start 18';
+    startAkkoord.classList.toggle('verborgen', !start);
+    if (!start) startAkkoord.querySelector('input').checked = false;
+  }
+  form.addEventListener('change', bijwerken);
+  bijwerken();
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    melding.className = 'melding';
+    melding.textContent = '';
+
+    if (!form.checkValidity()){
+      melding.className = 'melding fout';
+      melding.textContent = 'A few required questions are still open. They are marked with an asterisk.';
+      var eerste = form.querySelector(':invalid');
+      if (eerste) eerste.scrollIntoView({ block:'center', behavior:'smooth' });
+      return;
+    }
+    // Kiest iemand Start, dan moet de bevestiging staan. Dat is geen drempel maar het
+    // dossier: er wordt aangifte gedaan op cijfers die niet tegen de bank zijn gelegd.
+    if (gekozen('pakket') === 'Start 18' && !startAkkoord.querySelector('input').checked){
+      melding.className = 'melding fout';
+      melding.textContent = 'Please tick the box confirming what Start means for your bookkeeping.';
+      startAkkoord.scrollIntoView({ block:'center', behavior:'smooth' });
+      return;
+    }
+
+    knop.disabled = true;
+    knop.textContent = 'Sending...';
+    var data = {};
+    new FormData(form).forEach(function(v, k){ data[k] = v; });
+    try {
+      var r = await fetch('https://n8n.slim-geregeld.nl/webhook/intake-en', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)
+      });
+      if (!r.ok) throw new Error('http ' + r.status);
+      form.innerHTML = '<fieldset><legend>Thank you</legend><p class="hint" style="margin:0">' +
+        'This is with me. You get a personal reply within one working day with the price for your ' +
+        'situation and the first steps. If anything is urgent, email kyle@slim-geregeld.nl.</p></fieldset>';
+      window.scrollTo({ top:0, behavior:'smooth' });
+    } catch(err){
+      knop.disabled = false;
+      knop.textContent = 'Send this in';
+      melding.className = 'melding fout';
+      melding.textContent = 'That did not go through. Please email kyle@slim-geregeld.nl and I will pick it up from there.';
+    }
+  });
+})();
+</script>
+</body>
+</html>
