@@ -32,6 +32,8 @@
   legend + .hint{clear:both}
   .hint{font-size:.86rem;color:var(--muted);margin-bottom:1rem;max-width:62ch}
   .veld{margin-top:1rem}
+  ul.kader{margin:.3rem 0 0;padding-left:1.15rem;font-size:.88rem;color:var(--body)}
+  ul.kader li{margin-bottom:.3rem}
   .veld > label{display:block;font-size:.88rem;font-weight:600;color:var(--ink-2);margin-bottom:.3rem}
   .veld .bij{font-weight:400;font-size:.82rem;color:var(--muted);display:block;margin-top:.15rem}
   input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
@@ -346,10 +348,30 @@
     </fieldset>
 
     <fieldset>
-      <legend>7. Two things I will send you</legend>
-      <p class="hint">Nothing to do here, just so you know what is coming. To file with the Dutch tax
-      authority I need your signature on an authorisation, and as a registered bookkeeper I am required to
-      verify your identity, so I will ask for a copy of your ID. Both come by email once we start.</p>
+      <legend>7. Before we start</legend>
+      <p class="hint">Nothing to fill in here. This is so we agree on the same thing from day one.</p>
+      <div class="veld"><label>What the monthly plan covers</label>
+        <ul class="kader">
+          <li>Your bookkeeping checked every quarter and your VAT returns filed</li>
+          <li>Your annual Dutch income tax return and your year figures</li>
+          <li>Your equity watched, and the statement for your permit renewal if you need one</li>
+          <li>Questions by email while it runs</li>
+        </ul>
+      </div>
+      <div class="veld"><label>What is quoted separately, always before I start and never on the invoice</label>
+        <ul class="kader">
+          <li>Bringing an existing or neglected administration up to date, and sorting or entering a backlog
+              of loose receipts</li>
+          <li>One-off advisory work, such as an opening balance for a business plan, a cash-flow forecast or
+              a calculation on switching to a BV</li>
+          <li>Anything for a BV or NV, which is a different product with its own quote</li>
+          <li>Correspondence with the tax authority beyond the normal returns, such as an objection, a
+              payment arrangement or an audit</li>
+        </ul>
+      </div>
+      <p class="hint" style="margin-bottom:0">The plan runs for twelve months. Two things I will send you
+      once we start: an authorisation to sign, which lets me file with the tax authority on your behalf, and
+      a request for a copy of your ID, which I am required to verify as a registered bookkeeper.</p>
     </fieldset>
 
     <button type="submit" id="verstuur">Send this in</button>
