@@ -119,13 +119,25 @@
         <div class="veld"><label for="website">Website</label>
           <input id="website" name="website" type="text" placeholder="optional"></div>
       </div>
-      <div class="twee">
-        <div class="veld"><label for="kvk">KVK number</label>
-          <input id="kvk" name="kvk" type="text" inputmode="numeric"></div>
-        <div class="veld"><label for="btw">VAT number (btw-id)
-          <span class="bij">Starts with NL. I cannot file a VAT return without it.</span></label>
-          <input id="btw" name="btw" type="text" placeholder="NL001234567B01"></div>
+      <div class="veld"><label>Do you have a logo?
+        <span class="bij">Your invoices carry it. Plain text works too, it just looks like a letter.</span></label>
+        <label class="keuze"><input type="radio" name="logo" value="Ja, mail ik">
+          <span class="titel">Yes, I will email it to you</span></label>
+        <label class="keuze"><input type="radio" name="logo" value="Nee">
+          <span class="titel">No, I do not have one</span></label>
       </div>
+      <div class="veld"><label for="kvk">KVK number</label>
+        <input id="kvk" name="kvk" type="text" inputmode="numeric"></div>
+      <div class="twee">
+        <div class="veld"><label for="btw">VAT identification number (btw-id)
+          <span class="bij">The one that goes on your invoices. Your customers see it.</span></label>
+          <input id="btw" name="btw" type="text" placeholder="NL123456789B01"></div>
+        <div class="veld"><label for="omzetbelasting">Turnover tax number (omzetbelastingnummer)
+          <span class="bij">The one returns are filed under. Never on an invoice, because it holds your BSN.</span></label>
+          <input id="omzetbelasting" name="omzetbelasting" type="text" placeholder="NL123456789B01"></div>
+      </div>
+      <p class="hint" style="margin-top:-.4rem">Both numbers are on the letters the tax authority sent when you
+        registered, and they are not the same number. Without the second one I cannot file for you.</p>
       <div class="veld"><label for="start">Date your business started</label>
         <input id="start" name="start" type="date"></div>
       <div class="veld"><label>Legal form *</label>
