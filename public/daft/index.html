@@ -728,26 +728,30 @@
               </select>
             </div>
             <div class="veld">
+              <label>Which one is this?</label>
+              <div class="checklist" id="d-soort">
+                <label><input type="radio" name="soort" value="eerste" id="d-soort-eerste" checked> <span>A first application<small>Your first treaty permit. The IND wants the deposit and an opening balance sheet.</small></span></label>
+                <label><input type="radio" name="soort" value="verlenging" id="d-soort-verlenging"> <span>A 5-year renewal<small>You already have the permit. The IND wants figures showing the capital stayed in the business.</small></span></label>
+              </div>
+            </div>
+            <div class="veld" id="d-lijst-eerste">
               <label>Tick whatever you have done already</label>
-              <div class="checklist" id="d-checklist">
+              <div class="checklist">
                 <label><input type="checkbox" id="d-kvk-done"> <span>My business is registered with the KVK</span></label>
                 <label><input type="checkbox" id="d-bank-done"> <span>I have a Dutch business bank account</span></label>
                 <label><input type="checkbox" id="d-deposit-done"> <span>The €4,500 is in the business<small>This is the one that decides when your document can be signed.</small></span></label>
                 <label><input type="checkbox" id="d-appointment-done"> <span>My IND appointment is booked</span></label>
-                <label><input type="checkbox" id="d-renewal"> <span>This is for my 5-year renewal, not a first application</span></label>
               </div>
               <p class="opt" style="margin-top:.5rem">Nothing ticked is completely fine. It just tells me where to start.</p>
             </div>
-            <div class="veld verborgen" id="d-verleng-blok">
-              <label for="d-boeken">Is your bookkeeping up to date for this year and last year?</label>
-              <p class="opt" style="margin:-.2rem 0 .6rem">For a renewal the IND wants a balance sheet and a profit and loss account for both years. A bank statement is not enough on its own, so this answer decides how long it takes.</p>
-              <select id="d-boeken" name="boeken">
-                <option value="">Choose one</option>
-                <option value="bij">Yes, both years are done</option>
-                <option value="deels">Partly, last year is done but this year is not</option>
-                <option value="niet">No, not yet</option>
-                <option value="weet-niet">I am not sure</option>
-              </select>
+            <div class="veld verborgen" id="d-lijst-verleng">
+              <label>Tick whatever is already in place</label>
+              <div class="checklist">
+                <label><input type="checkbox" id="d-vorigjaar-done"> <span>Last year's figures are finished<small>A balance sheet and a profit and loss account, not just the tax return.</small></span></label>
+                <label><input type="checkbox" id="d-ditjaar-done"> <span>This year's bookkeeping is up to date</span></label>
+                <label><input type="checkbox" id="d-appointment-done-v"> <span>My IND appointment is booked, or I have the renewal letter</span></label>
+              </div>
+              <p class="opt" style="margin-top:.5rem">The IND asks for both years, and says in so many words that a bank statement is not enough. Nothing ticked is fine, it just tells me where to start.</p>
             </div>
             <div class="veld">
               <label for="d-planning">When is your IND appointment or deadline? <span class="opt">optional, leave empty if you have no date yet</span></label>
@@ -757,8 +761,34 @@
           </fieldset>
 
           <fieldset class="fstap" data-stap="3">
-            <legend class="fstap-titel">Your investment<small>This lets me prepare your draft balance sheet straight away.</small></legend>
+            <legend class="fstap-titel" id="d-stap3-titel">Your investment<small id="d-stap3-sub">This lets me prepare your draft balance sheet straight away.</small></legend>
 
+            <div class="verborgen" id="d-inv-verleng">
+              <div class="veld">
+                <label for="d-boeken">Who keeps your books, and in what?</label>
+                <p class="opt" style="margin:-.2rem 0 .6rem">This decides how quickly I can work. With figures that already exist I check and sign them; without them they have to be drawn up first, and that is separate work I quote after a look.</p>
+                <select id="d-boeken" name="boeken">
+                  <option value="">Choose one</option>
+                  <option value="boekhouder">A bookkeeper or accountant does it</option>
+                  <option value="pakket">I do it myself in accounting software</option>
+                  <option value="sheet">I do it myself in a spreadsheet</option>
+                  <option value="niemand">Nobody yet, it still has to be done</option>
+                </select>
+              </div>
+              <div class="veld">
+                <label for="d-opnames">Have you taken money out of the business for private use?</label>
+                <p class="opt" style="margin:-.2rem 0 .6rem">Not a problem in itself, it is what most people do. It matters because the IND withdraws the permit if the equity in your business drops below €4,500, and private withdrawals are the usual reason it does.</p>
+                <select id="d-opnames" name="opnames">
+                  <option value="">Choose one</option>
+                  <option value="nee">No, or only small amounts</option>
+                  <option value="regelmatig">Yes, regularly, as my income</option>
+                  <option value="groot">Yes, and there were larger ones</option>
+                  <option value="weet-niet">I am not sure</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="d-inv-eerste">
             <div class="veld">
               <label for="d-storting">How much money are you putting into the business? <span class="opt" id="d-storting-opt">optional</span></label>
               <input id="d-storting" name="storting" type="text" inputmode="numeric" placeholder="e.g. 4500">
@@ -789,6 +819,8 @@
                 <label for="d-herkomst-tekst" style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">Tell me briefly where each part comes from</label>
                 <input id="d-herkomst-tekst" name="herkomstTekst" type="text" placeholder="e.g. €3,000 savings and €1,500 from my parents">
               </div>
+            </div>
+
             </div>
 
             <div class="veld">
@@ -924,13 +956,27 @@
       stortingVerplicht() ? 'required' : 'optional';
   });
 
-  // verlengingsvraag tonen zodra iemand aangeeft dat het een verlenging is.
-  // Bij een verlenging vraagt de IND een balans en winst-en-verliesrekening over
-  // twee boekjaren en zegt erbij dat een bankafschrift niet volstaat, dus of de
-  // boekhouding bij is bepaalt de doorlooptijd en de prijs.
-  var renewalVink=document.getElementById('d-renewal');
-  renewalVink.addEventListener('change',function(){
-    document.getElementById('d-verleng-blok').classList.toggle('verborgen',!renewalVink.checked);
+  // Eerste aanvraag of verlenging. De IND vraagt bij een verlenging andere stukken
+  // (balans en W&V over twee boekjaren, bankafschrift volstaat niet), dus de halve
+  // vragenlijst van een eerste aanvraag is dan niet van toepassing. In plaats van
+  // die vragen te laten staan wisselt het formulier van inhoud.
+  function isVerlenging(){
+    return document.getElementById('d-soort-verlenging').checked;
+  }
+  function wisselSoort(){
+    var v=isVerlenging();
+    document.getElementById('d-lijst-eerste').classList.toggle('verborgen',v);
+    document.getElementById('d-lijst-verleng').classList.toggle('verborgen',!v);
+    document.getElementById('d-inv-eerste').classList.toggle('verborgen',v);
+    document.getElementById('d-inv-verleng').classList.toggle('verborgen',!v);
+    document.getElementById('d-stap3-titel').childNodes[0].nodeValue=v?'Your figures':'Your investment';
+    document.getElementById('d-stap3-sub').textContent=v
+      ? 'This tells me whether the statement is a check on figures that exist, or whether they have to be drawn up first.'
+      : 'This lets me prepare your draft balance sheet straight away.';
+    markeer();
+  }
+  document.querySelectorAll('input[name="soort"]').forEach(function(r){
+    r.addEventListener('change',wisselSoort);
   });
 
   // inbreng-blok tonen zodra iemand aangeeft spullen in te brengen
@@ -1113,9 +1159,14 @@
         kvkDone:document.getElementById('d-kvk-done').checked,
         bankDone:document.getElementById('d-bank-done').checked,
         depositDone:document.getElementById('d-deposit-done').checked,
-        appointmentDone:document.getElementById('d-appointment-done').checked,
-        renewal:document.getElementById('d-renewal').checked,
+        appointmentDone:isVerlenging()
+          ? document.getElementById('d-appointment-done-v').checked
+          : document.getElementById('d-appointment-done').checked,
+        renewal:isVerlenging(),
+        vorigJaarDone:document.getElementById('d-vorigjaar-done').checked,
+        ditJaarDone:document.getElementById('d-ditjaar-done').checked,
         boeken:document.getElementById('d-boeken').value,
+        opnames:document.getElementById('d-opnames').value,
         planning:document.getElementById('d-planning').value.trim(),
         storting:document.getElementById('d-storting').value.trim(),
         inbrengJa:document.getElementById('d-inbreng-ja').checked,
