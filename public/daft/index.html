@@ -773,16 +773,20 @@
                   <option value="pakket">I do it myself in accounting software</option>
                   <option value="sheet">I do it myself in a spreadsheet</option>
                   <option value="niemand">Nobody yet, it still has to be done</option>
+                  <option value="anders">Something else</option>
                 </select>
+                <div class="verborgen" id="d-boeken-blok" style="margin-top:.7rem">
+                  <label for="d-boeken-tekst" style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">Tell me briefly how it is done</label>
+                  <input id="d-boeken-tekst" name="boekenTekstVrij" type="text" placeholder="e.g. my partner does it, or an accountant in the US">
+                </div>
               </div>
               <div class="veld">
-                <label for="d-opnames">Have you taken money out of the business for private use?</label>
-                <p class="opt" style="margin:-.2rem 0 .6rem">Not a problem in itself, it is what most people do. It matters because the IND withdraws the permit if the equity in your business drops below €4,500, and private withdrawals are the usual reason it does.</p>
-                <select id="d-opnames" name="opnames">
+                <label for="d-vermogen">Has the business always had at least €4,500 of its own money in it?</label>
+                <p class="opt" style="margin:-.2rem 0 .6rem">Its own money is what is left when you subtract the debts from what the business owns: the bank balance, equipment and unpaid invoices, minus what you still owe. Money you take out for yourself is the usual reason it drops. The IND withdraws the permit if it goes below €4,500, so an honest "not sure" helps me more than a guess.</p>
+                <select id="d-vermogen" name="vermogen">
                   <option value="">Choose one</option>
-                  <option value="nee">No, or only small amounts</option>
-                  <option value="regelmatig">Yes, regularly, as my income</option>
-                  <option value="groot">Yes, and there were larger ones</option>
+                  <option value="altijd">Yes, it never went below that</option>
+                  <option value="gezakt">It probably dipped at some point</option>
                   <option value="weet-niet">I am not sure</option>
                 </select>
               </div>
@@ -979,6 +983,10 @@
   document.querySelectorAll('input[name="soort"]').forEach(function(r){
     r.addEventListener('change',wisselSoort);
   });
+  var boekenKeuze=document.getElementById('d-boeken');
+  boekenKeuze.addEventListener('change',function(){
+    document.getElementById('d-boeken-blok').classList.toggle('verborgen',boekenKeuze.value!=='anders');
+  });
 
   // inbreng-blok tonen zodra iemand aangeeft spullen in te brengen
   var inbrengJa=document.getElementById('d-inbreng-ja');
@@ -1167,7 +1175,8 @@
         vorigJaarDone:document.getElementById('d-vorigjaar-done').checked,
         ditJaarDone:document.getElementById('d-ditjaar-done').checked,
         boeken:document.getElementById('d-boeken').value,
-        opnames:document.getElementById('d-opnames').value,
+        boekenTekstVrij:document.getElementById('d-boeken-tekst').value.trim(),
+        vermogen:document.getElementById('d-vermogen').value,
         planning:document.getElementById('d-planning').value.trim(),
         storting:document.getElementById('d-storting').value.trim(),
         inbrengJa:document.getElementById('d-inbreng-ja').checked,
