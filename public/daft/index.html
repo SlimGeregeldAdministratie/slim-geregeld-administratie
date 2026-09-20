@@ -31,7 +31,7 @@
 {"@type":"Question","name":"Do prices include VAT?","acceptedAnswer":{"@type":"Answer","text":"Both amounts are shown, because it depends on your situation. Once your Dutch business is registered you are a business customer: 21% goes on the invoice and you reclaim it in your first VAT return, so the real cost is €495. If you order before registering and you are still living outside the EU, Dutch VAT normally does not apply to a service like this. If you already live in the Netherlands but are not registered yet, the VAT does apply. You get it confirmed in writing before you pay."}},
 {"@type":"Question","name":"Do I need to deposit the €4,500 before you can start?","acceptedAnswer":{"@type":"Answer","text":"The money needs to be in the business before the final version can be signed, because the balance sheet has to reflect your actual position. You can send your request before that. Your file is prepared in the meantime and the signed PDF follows as soon as your deposit is visible."}},
 {"@type":"Question","name":"Can equipment count towards the €4,500?","acceptedAnswer":{"@type":"Answer","text":"Yes, business assets such as a laptop or camera gear can be part of your equity, but be careful. Equipment is valued at its business worth and starts depreciating immediately, so buying gear right after depositing can push your equity below the threshold. Tell us what you are bringing in and it is valued and listed correctly."}},
-{"@type":"Question","name":"Can you also do the statement for my 5-year renewal?","acceptedAnswer":{"@type":"Answer","text":"Yes, and it is the same service at the same price. At renewal the IND checks again that the required equity is still in your business, which needs a statement based on your actual figures. If your bookkeeping needs catching up first, that is quoted separately after a look at your records."}},
+{"@type":"Question","name":"Can you also do the statement for my 5-year renewal?","acceptedAnswer":{"@type":"Answer","text":"Yes, same price for the statement itself. The IND asks for more at renewal than at a first application: a balance sheet and a profit and loss account for this financial year and the one before it, showing that the invested capital is still there. It states explicitly that a bank statement is not enough on its own. So this only works if your bookkeeping for both years is done. If it is not, that work comes first and is quoted separately once I have seen what is there."}},
 {"@type":"Question","name":"Do I need to visit your office?","acceptedAnswer":{"@type":"Answer","text":"No. The whole process is remote: you fill in the form, send your documents by email and receive the signed balance sheet as a PDF. It works from abroad as well as from the Netherlands."}},
 {"@type":"Question","name":"Should I just hire a bookkeeper for everything instead?","acceptedAnswer":{"@type":"Answer","text":"For many treaty entrepreneurs a monthly arrangement is genuinely the better call, because VAT returns and depreciation are exactly what push equity below the threshold by accident. That is what the Compliance Plan is for, at €79 or €149 a month depending on whether you actually trade, and it includes the balance sheet. To be clear about what that plan is: you keep your invoices and receipts in Moneybird, which we set up with you, and we check the figures, file your returns and sign your statements. What it is not is someone who sorts and types in a year of loose receipts. If that is what you need, say so and you get a separate quote for it. And you are never pushed into the plan: the one-off balance sheet is a real standalone service at a fixed price, and if that is all you need, that is what you get."}},
 {"@type":"Question","name":"Does the Compliance Plan work for any kind of business?","acceptedAnswer":{"@type":"Answer","text":"The plan is built for an eenmanszaak or a VOF, which is what almost every treaty entrepreneur starts with: quarterly VAT returns, the annual income tax return and the equity statement for your renewal. With a VOF the income tax return is per partner, so a two-partner firm needs two. A BV or NV has different obligations, including corporate tax, annual accounts filed with the KVK and payroll for yourself as director, so that gets a separate quote."}}
@@ -646,7 +646,7 @@
         </details>
         <details>
           <summary>Can you also do the statement for my 5-year renewal?</summary>
-          <p>Yes, and it is the same service at the same price. At renewal the IND checks again that the required equity is still in your business, which needs a statement based on your actual figures. If your bookkeeping needs catching up first, that is quoted separately after a look at your records.</p>
+          <p>Yes, same price for the statement itself. The IND asks for more at renewal than at a first application: a balance sheet and a profit and loss account for this financial year and the one before it, showing that the invested capital is still there. It states explicitly that a bank statement is not enough on its own. So this only works if your bookkeeping for both years is done. If it is not, that work comes first and is quoted separately once I have seen what is there.</p>
         </details>
         <details>
           <summary>Do I need to visit your office?</summary>
@@ -675,7 +675,7 @@
           <div class="stap-balk" aria-hidden="true">
             <span class="stap-dot actief" data-dot="1">1 · Contact</span>
             <span class="stap-dot" data-dot="2">2 · Your business</span>
-            <span class="stap-dot" data-dot="3">3 · Your investment</span>
+            <span class="stap-dot" data-dot="3" id="d-dot3">3 · Your investment</span>
           </div>
 
           <fieldset class="fstap actief" data-stap="1">
@@ -728,15 +728,30 @@
               </select>
             </div>
             <div class="veld">
+              <label>Which one is this?</label>
+              <div class="checklist" id="d-soort">
+                <label><input type="radio" name="soort" value="eerste" id="d-soort-eerste" checked> <span>A first application<small>Your first treaty permit. The IND wants the deposit and an opening balance sheet.</small></span></label>
+                <label><input type="radio" name="soort" value="verlenging" id="d-soort-verlenging"> <span>A 5-year renewal<small>You already have the permit. The IND wants figures showing the capital stayed in the business.</small></span></label>
+              </div>
+            </div>
+            <div class="veld" id="d-lijst-eerste">
               <label>Tick whatever you have done already</label>
-              <div class="checklist" id="d-checklist">
+              <div class="checklist">
                 <label><input type="checkbox" id="d-kvk-done"> <span>My business is registered with the KVK</span></label>
                 <label><input type="checkbox" id="d-bank-done"> <span>I have a Dutch business bank account</span></label>
                 <label><input type="checkbox" id="d-deposit-done"> <span>The €4,500 is in the business<small>This is the one that decides when your document can be signed.</small></span></label>
                 <label><input type="checkbox" id="d-appointment-done"> <span>My IND appointment is booked</span></label>
-                <label><input type="checkbox" id="d-renewal"> <span>This is for my 5-year renewal, not a first application</span></label>
               </div>
               <p class="opt" style="margin-top:.5rem">Nothing ticked is completely fine. It just tells me where to start.</p>
+            </div>
+            <div class="veld verborgen" id="d-lijst-verleng">
+              <label>Tick whatever is already in place</label>
+              <div class="checklist">
+                <label><input type="checkbox" id="d-vorigjaar-done"> <span>Last year's figures are finished<small>A balance sheet and a profit and loss account, not just the tax return.</small></span></label>
+                <label><input type="checkbox" id="d-ditjaar-done"> <span>This year's bookkeeping is up to date</span></label>
+                <label><input type="checkbox" id="d-appointment-done-v"> <span>My IND appointment is booked, or I have the renewal letter</span></label>
+              </div>
+              <p class="opt" style="margin-top:.5rem">The IND asks for both years, and says in so many words that a bank statement is not enough. Nothing ticked is fine, it just tells me where to start.</p>
             </div>
             <div class="veld">
               <label for="d-planning">When is your IND appointment or deadline? <span class="opt">optional, leave empty if you have no date yet</span></label>
@@ -746,8 +761,38 @@
           </fieldset>
 
           <fieldset class="fstap" data-stap="3">
-            <legend class="fstap-titel">Your investment<small>This lets me prepare your draft balance sheet straight away.</small></legend>
+            <legend class="fstap-titel" id="d-stap3-titel">Your investment<small id="d-stap3-sub">This lets me prepare your draft balance sheet straight away.</small></legend>
 
+            <div class="verborgen" id="d-inv-verleng">
+              <div class="veld">
+                <label for="d-boeken">Who keeps your books, and in what?</label>
+                <p class="opt" style="margin:-.2rem 0 .6rem">This decides how quickly I can work. With figures that already exist I check and sign them; without them they have to be drawn up first, and that is separate work I quote after a look.</p>
+                <select id="d-boeken" name="boeken">
+                  <option value="">Choose one</option>
+                  <option value="boekhouder">A bookkeeper or accountant does it</option>
+                  <option value="pakket">I do it myself in accounting software</option>
+                  <option value="sheet">I do it myself in a spreadsheet</option>
+                  <option value="niemand">Nobody yet, it still has to be done</option>
+                  <option value="anders">Something else</option>
+                </select>
+                <div class="verborgen" id="d-boeken-blok" style="margin-top:.7rem">
+                  <label for="d-boeken-tekst" style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">Tell me briefly how it is done</label>
+                  <input id="d-boeken-tekst" name="boekenTekstVrij" type="text" placeholder="e.g. my partner does it, or an accountant in the US">
+                </div>
+              </div>
+              <div class="veld">
+                <label for="d-vermogen">Has the business always had at least €4,500 of its own money in it?</label>
+                <p class="opt" style="margin:-.2rem 0 .6rem">Its own money is what is left when you subtract the debts from what the business owns: the bank balance, equipment and unpaid invoices, minus what you still owe. Money you take out for yourself is the usual reason it drops. The IND withdraws the permit if it goes below €4,500, so an honest "not sure" helps me more than a guess.</p>
+                <select id="d-vermogen" name="vermogen">
+                  <option value="">Choose one</option>
+                  <option value="altijd">Yes, it never went below that</option>
+                  <option value="gezakt">It probably dipped at some point</option>
+                  <option value="weet-niet">I am not sure</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="d-inv-eerste">
             <div class="veld">
               <label for="d-storting">How much money are you putting into the business? <span class="opt" id="d-storting-opt">optional</span></label>
               <input id="d-storting" name="storting" type="text" inputmode="numeric" placeholder="e.g. 4500">
@@ -778,6 +823,8 @@
                 <label for="d-herkomst-tekst" style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">Tell me briefly where each part comes from</label>
                 <input id="d-herkomst-tekst" name="herkomstTekst" type="text" placeholder="e.g. €3,000 savings and €1,500 from my parents">
               </div>
+            </div>
+
             </div>
 
             <div class="veld">
@@ -911,6 +958,34 @@
   depositVink.addEventListener('change',function(){
     document.getElementById('d-storting-opt').textContent =
       stortingVerplicht() ? 'required' : 'optional';
+  });
+
+  // Eerste aanvraag of verlenging. De IND vraagt bij een verlenging andere stukken
+  // (balans en W&V over twee boekjaren, bankafschrift volstaat niet), dus de halve
+  // vragenlijst van een eerste aanvraag is dan niet van toepassing. In plaats van
+  // die vragen te laten staan wisselt het formulier van inhoud.
+  function isVerlenging(){
+    return document.getElementById('d-soort-verlenging').checked;
+  }
+  function wisselSoort(){
+    var v=isVerlenging();
+    document.getElementById('d-lijst-eerste').classList.toggle('verborgen',v);
+    document.getElementById('d-lijst-verleng').classList.toggle('verborgen',!v);
+    document.getElementById('d-inv-eerste').classList.toggle('verborgen',v);
+    document.getElementById('d-inv-verleng').classList.toggle('verborgen',!v);
+    document.getElementById('d-stap3-titel').childNodes[0].nodeValue=v?'Your figures':'Your investment';
+    document.getElementById('d-dot3').textContent=v?'3 · Your figures':'3 · Your investment';
+    document.getElementById('d-stap3-sub').textContent=v
+      ? 'This tells me whether the statement is a check on figures that exist, or whether they have to be drawn up first.'
+      : 'This lets me prepare your draft balance sheet straight away.';
+    markeer();
+  }
+  document.querySelectorAll('input[name="soort"]').forEach(function(r){
+    r.addEventListener('change',wisselSoort);
+  });
+  var boekenKeuze=document.getElementById('d-boeken');
+  boekenKeuze.addEventListener('change',function(){
+    document.getElementById('d-boeken-blok').classList.toggle('verborgen',boekenKeuze.value!=='anders');
   });
 
   // inbreng-blok tonen zodra iemand aangeeft spullen in te brengen
@@ -1093,8 +1168,15 @@
         kvkDone:document.getElementById('d-kvk-done').checked,
         bankDone:document.getElementById('d-bank-done').checked,
         depositDone:document.getElementById('d-deposit-done').checked,
-        appointmentDone:document.getElementById('d-appointment-done').checked,
-        renewal:document.getElementById('d-renewal').checked,
+        appointmentDone:isVerlenging()
+          ? document.getElementById('d-appointment-done-v').checked
+          : document.getElementById('d-appointment-done').checked,
+        renewal:isVerlenging(),
+        vorigJaarDone:document.getElementById('d-vorigjaar-done').checked,
+        ditJaarDone:document.getElementById('d-ditjaar-done').checked,
+        boeken:document.getElementById('d-boeken').value,
+        boekenTekstVrij:document.getElementById('d-boeken-tekst').value.trim(),
+        vermogen:document.getElementById('d-vermogen').value,
         planning:document.getElementById('d-planning').value.trim(),
         storting:document.getElementById('d-storting').value.trim(),
         inbrengJa:document.getElementById('d-inbreng-ja').checked,
