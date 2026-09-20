@@ -675,7 +675,7 @@
           <div class="stap-balk" aria-hidden="true">
             <span class="stap-dot actief" data-dot="1">1 · Contact</span>
             <span class="stap-dot" data-dot="2">2 · Your business</span>
-            <span class="stap-dot" data-dot="3">3 · Your investment</span>
+            <span class="stap-dot" data-dot="3" id="d-dot3">3 · Your investment</span>
           </div>
 
           <fieldset class="fstap actief" data-stap="1">
@@ -970,6 +970,7 @@
     document.getElementById('d-inv-eerste').classList.toggle('verborgen',v);
     document.getElementById('d-inv-verleng').classList.toggle('verborgen',!v);
     document.getElementById('d-stap3-titel').childNodes[0].nodeValue=v?'Your figures':'Your investment';
+    document.getElementById('d-dot3').textContent=v?'3 · Your figures':'3 · Your investment';
     document.getElementById('d-stap3-sub').textContent=v
       ? 'This tells me whether the statement is a check on figures that exist, or whether they have to be drawn up first.'
       : 'This lets me prepare your draft balance sheet straight away.';
