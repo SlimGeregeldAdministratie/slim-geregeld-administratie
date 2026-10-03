@@ -217,13 +217,13 @@
   .opt{font-weight:500;font-size:.78rem;color:var(--muted)}
   .veld{margin-bottom:1.05rem}
   .veld label{display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem}
-  .veld input,.veld textarea,.veld select{
+  .veld input,.veld textarea,.veld select,#d-omzet{
     width:100%;border:1.5px solid var(--rand);border-radius:11px;padding:.72em .95em;
     font:inherit;font-size:.95rem;background:var(--bg-zacht);color:var(--ink);
     transition:border-color .15s,background .15s;
   }
   .veld input::placeholder{color:#9ca3af}
-  .veld input:focus,.veld textarea:focus,.veld select:focus{outline:none;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+  .veld input:focus,.veld textarea:focus,.veld select:focus,#d-omzet:focus{outline:none;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
   .veld textarea{resize:vertical;min-height:5em}
   .veld-rij{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   @media(max-width:620px){.veld-rij{grid-template-columns:1fr}}
@@ -265,7 +265,7 @@
 
   .addon{margin-top:.7rem;border:1.5px dashed var(--blauw-rand);background:var(--blauw-tint);border-radius:12px}
   .addon label{display:flex;gap:.8rem;align-items:flex-start;padding:1em 1.1em;cursor:pointer;margin:0}
-  .addon input{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.25rem;accent-color:var(--blauw)}
+  .addon input[type="checkbox"]{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.25rem;accent-color:var(--blauw)}
   .addon .a-naam{font-weight:700;font-size:.95rem;color:var(--ink);display:block}
   .addon .a-uitleg{font-size:.85rem;color:var(--ink-2);display:block;margin-top:.15rem}
   .addon.aan{border-style:solid;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
@@ -844,21 +844,16 @@
               <div class="addon" id="d-plan-blok">
                 <label>
                   <input type="checkbox" id="d-plan">
-                  <span><span class="a-naam">Also keep my bookkeeping in order, from €79 per month</span><span class="a-uitleg">Quarterly VAT returns, your annual income tax return and the statement for your 5-year renewal. Your balance sheet is then included at no extra cost. For an eenmanszaak or VOF; a BV gets its own quote.</span></span>
+                  <span><span class="a-naam">Also keep my bookkeeping in order, from €79 per month</span><span class="a-uitleg">Quarterly VAT returns, your annual income tax return and the statement for your 5-year renewal. Your balance sheet is then included at no extra cost. Minimum term 12 months. For an eenmanszaak or VOF; a BV gets its own quote.</span></span>
                 </label>
                 <div class="verborgen" id="d-omzet-blok" style="padding:0 1.1em 1em">
                   <label for="d-omzet" style="display:block;padding:0;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem;cursor:default">What do you expect to invoice in your first year? <span class="opt">roughly, in euros</span></label>
                   <input id="d-omzet" name="omzet" type="text" inputmode="numeric" placeholder="e.g. 15000">
-                  <p class="opt" style="margin-top:.4rem">Under €20,000 I register your business for the small business scheme (KOR): you charge no VAT and file no VAT returns, and the plan is €79 per month. From €20,000 the KOR is not available, your VAT returns are filed every quarter and the plan is €149 per month.</p>
+                  <p class="opt" style="margin-top:.4rem">Under €20,000 I register your business for the small business scheme (KOR): you charge no VAT and file no VAT returns, and the plan is €79 per month. From €20,000 the KOR is not available, your VAT returns are filed every quarter and the plan is €149 per month. Your signed balance sheet is delivered once the first month is paid.</p>
                   <div class="hint verborgen" id="d-omzet-hint"></div>
                 </div>
               </div>
               <p class="opt" style="margin-top:.5rem">Prices exclude 21% Dutch VAT.</p>
-            </div>
-
-            <div class="veld">
-              <label for="d-bericht">Anything I should know? <span class="opt">optional</span></label>
-              <textarea id="d-bericht" name="bericht"></textarea>
             </div>
 
             <div class="veld">
@@ -880,6 +875,11 @@
                 <input id="d-gevonden-tekst" name="gevondenTekst" type="text">
               </div>
             </div>
+            <div class="veld">
+              <label for="d-bericht">Anything I should know? <span class="opt">optional</span></label>
+              <textarea id="d-bericht" name="bericht"></textarea>
+            </div>
+
           </fieldset>
 
           <div class="hp" aria-hidden="true">
@@ -1073,8 +1073,8 @@
     if(!s){ hint.classList.add('verborgen'); return; }
     var n=Number(s);
     hint.innerHTML=n<20000
-      ? '<b>Your plan: €79 per month.</b> With the KOR, until your turnover passes €20,000 in a calendar year.'
-      : '<b>Your plan: €149 per month.</b> With your VAT returns filed every quarter.';
+      ? '<b>Your plan: €79 per month</b> for at least 12 months. With the KOR, until your turnover passes €20,000 in a calendar year.'
+      : '<b>Your plan: €149 per month</b> for at least 12 months. With your VAT returns filed every quarter.';
     hint.classList.remove('verborgen');
   });
 
