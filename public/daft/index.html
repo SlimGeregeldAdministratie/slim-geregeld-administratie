@@ -33,7 +33,7 @@
 {"@type":"Question","name":"Can equipment count towards the €4,500?","acceptedAnswer":{"@type":"Answer","text":"Yes, business assets such as a laptop or camera gear can be part of your equity, but be careful. Equipment is valued at its business worth and starts depreciating immediately, so buying gear right after depositing can push your equity below the threshold. Tell us what you are bringing in and it is valued and listed correctly."}},
 {"@type":"Question","name":"Can you also do the statement for my 5-year renewal?","acceptedAnswer":{"@type":"Answer","text":"Yes, same price for the statement itself. The IND asks for more at renewal than at a first application: a balance sheet and a profit and loss account for this financial year and the one before it, showing that the invested capital is still there. It states explicitly that a bank statement is not enough on its own. So this only works if your bookkeeping for both years is done. If it is not, that work comes first and is quoted separately once I have seen what is there."}},
 {"@type":"Question","name":"Do I need to visit your office?","acceptedAnswer":{"@type":"Answer","text":"No. The whole process is remote: you fill in the form, send your documents by email and receive the signed balance sheet as a PDF. It works from abroad as well as from the Netherlands."}},
-{"@type":"Question","name":"Should I just hire a bookkeeper for everything instead?","acceptedAnswer":{"@type":"Answer","text":"For many treaty entrepreneurs a monthly arrangement is genuinely the better call, because VAT returns and depreciation are exactly what push equity below the threshold by accident. That is what the Compliance Plan is for, at €79 or €149 a month depending on whether you actually trade, and it includes the balance sheet. To be clear about what that plan is: you keep your invoices and receipts in Moneybird, which we set up with you, and we check the figures, file your returns and sign your statements. What it is not is someone who sorts and types in a year of loose receipts. If that is what you need, say so and you get a separate quote for it. And you are never pushed into the plan: the one-off balance sheet is a real standalone service at a fixed price, and if that is all you need, that is what you get."}},
+{"@type":"Question","name":"Should I just hire a bookkeeper for everything instead?","acceptedAnswer":{"@type":"Answer","text":"For many treaty entrepreneurs a monthly arrangement is genuinely the better call, because VAT returns and depreciation are exactly what push equity below the threshold by accident. That is what the Compliance Plan is for, at €79 or €149 a month depending on whether you expect to invoice under or over €20,000 a year, and it includes the balance sheet. To be clear about what that plan is: you keep your invoices and receipts in Moneybird, which we set up with you, and we check the figures, file your returns and sign your statements. What it is not is someone who sorts and types in a year of loose receipts. If that is what you need, say so and you get a separate quote for it. And you are never pushed into the plan: the one-off balance sheet is a real standalone service at a fixed price, and if that is all you need, that is what you get."}},
 {"@type":"Question","name":"Does the Compliance Plan work for any kind of business?","acceptedAnswer":{"@type":"Answer","text":"The plan is built for an eenmanszaak or a VOF, which is what almost every treaty entrepreneur starts with: quarterly VAT returns, the annual income tax return and the equity statement for your renewal. With a VOF the income tax return is per partner, so a two-partner firm needs two. A BV or NV has different obligations, including corporate tax, annual accounts filed with the KVK and payroll for yourself as director, so that gets a separate quote."}}
 ]}
 </script>
@@ -572,10 +572,10 @@
           <span class="voor">For an eenmanszaak or VOF</span>
           <span class="bedrag" id="plan-bedrag">€79<small>/month</small></span>
           <span class="per">12 months, excl. VAT</span>
-          <p class="wanneer" id="plan-wanneer">Little or no turnover yet, usually on the KOR.</p>
+          <p class="wanneer" id="plan-wanneer">Expected turnover under €20,000 a year, on the KOR, so no VAT returns.</p>
           <ul data-trede="rustig">
             <li>Balance sheet at no extra cost</li>
-            <li>Quarterly VAT returns, if you file them</li>
+            <li>No VAT returns while you are on the KOR</li>
             <li>Annual Dutch income tax return</li>
             <li>Equity checked every quarter</li>
             <li>Your statement for the 5-year renewal</li>
@@ -654,7 +654,7 @@
         </details>
         <details>
           <summary>Should I just hire a bookkeeper for everything instead?</summary>
-          <p>For many treaty entrepreneurs a monthly arrangement is genuinely the better call, because VAT returns and depreciation are exactly what push equity below the threshold by accident. That is what the Compliance Plan is for, at €79 or €149 a month depending on whether you actually trade, and it includes the balance sheet. To be clear about what that plan is: you keep your invoices and receipts in Moneybird, which we set up with you, and we check the figures, file your returns and sign your statements. What it is not is someone who sorts and types in a year of loose receipts. If that is what you need, say so and you get a separate quote for it. And you are never pushed into the plan: the one-off balance sheet is a real standalone service at a fixed price, and if that is all you need, that is what you get.</p>
+          <p>For many treaty entrepreneurs a monthly arrangement is genuinely the better call, because VAT returns and depreciation are exactly what push equity below the threshold by accident. That is what the Compliance Plan is for, at €79 or €149 a month depending on whether you expect to invoice under or over €20,000 a year, and it includes the balance sheet. To be clear about what that plan is: you keep your invoices and receipts in Moneybird, which we set up with you, and we check the figures, file your returns and sign your statements. What it is not is someone who sorts and types in a year of loose receipts. If that is what you need, say so and you get a separate quote for it. And you are never pushed into the plan: the one-off balance sheet is a real standalone service at a fixed price, and if that is all you need, that is what you get.</p>
         </details>
         <details>
           <summary>Does the Compliance Plan work for any kind of business?</summary>
@@ -846,6 +846,12 @@
                   <input type="checkbox" id="d-plan">
                   <span><span class="a-naam">Also keep my bookkeeping in order, from €79 per month</span><span class="a-uitleg">Quarterly VAT returns, your annual income tax return and the statement for your 5-year renewal. Your balance sheet is then included at no extra cost. For an eenmanszaak or VOF; a BV gets its own quote.</span></span>
                 </label>
+                <div class="verborgen" id="d-omzet-blok" style="padding:0 1.1em 1em">
+                  <label for="d-omzet" style="display:block;padding:0;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem;cursor:default">What do you expect to invoice in your first year? <span class="opt">roughly, in euros</span></label>
+                  <input id="d-omzet" name="omzet" type="text" inputmode="numeric" placeholder="e.g. 15000">
+                  <p class="opt" style="margin-top:.4rem">Under €20,000 I register your business for the small business scheme (KOR): you charge no VAT and file no VAT returns, and the plan is €79 per month. From €20,000 the KOR is not available, your VAT returns are filed every quarter and the plan is €149 per month.</p>
+                  <div class="hint verborgen" id="d-omzet-hint"></div>
+                </div>
               </div>
               <p class="opt" style="margin-top:.5rem">Prices exclude 21% Dutch VAT.</p>
             </div>
@@ -940,6 +946,7 @@
     // met het Plan zit het document erbij, dus streep de losse prijs door
     var plan=planVink.checked;
     document.getElementById('d-plan-blok').classList.toggle('aan',plan);
+    document.getElementById('d-omzet-blok').classList.toggle('verborgen',!plan);
     document.querySelectorAll('#d-keuze .k-prijs').forEach(function(p){
       p.classList.toggle('door',plan);
       var gratis=p.parentNode.querySelector('.k-gratis');
@@ -1058,6 +1065,19 @@
   });
   markeer();
 
+  // de verwachte omzet bepaalt de versie van het plan: onder 20.000 met KOR 79, daarboven 149
+  var omzetVeld=document.getElementById('d-omzet');
+  omzetVeld.addEventListener('input',function(){
+    var s=omzetVeld.value.replace(/[.,]\d{1,2}$/,'').replace(/\D/g,'');
+    var hint=document.getElementById('d-omzet-hint');
+    if(!s){ hint.classList.add('verborgen'); return; }
+    var n=Number(s);
+    hint.innerHTML=n<20000
+      ? '<b>Your plan: €79 per month.</b> With the KOR, until your turnover passes €20,000 in a calendar year.'
+      : '<b>Your plan: €149 per month.</b> With your VAT returns filed every quarter.';
+    hint.classList.remove('verborgen');
+  });
+
   // prijskaart-knoppen zetten de keuze in het formulier alvast goed
   // De twee tredes van het Compliance Plan. Zonder JavaScript blijft de rustige
   // trede gewoon staan, dat is de trede waar de meeste mensen beginnen.
@@ -1067,8 +1087,8 @@
     var bedrag=document.getElementById('plan-bedrag');
     var wanneer=document.getElementById('plan-wanneer');
     var teksten={
-      rustig:{prijs:'\u20ac79',uitleg:'Little or no turnover yet, usually on the KOR.'},
-      handel:{prijs:'\u20ac149',uitleg:'Real turnover, so VAT returns every quarter.'}
+      rustig:{prijs:'\u20ac79',uitleg:'Expected turnover under €20,000 a year, on the KOR, so no VAT returns.'},
+      handel:{prijs:'\u20ac149',uitleg:'Expected turnover of €20,000 or more a year, so VAT returns every quarter.'}
     };
     schakel.querySelectorAll('button').forEach(function(k){
       k.addEventListener('click',function(){
@@ -1185,6 +1205,7 @@
         herkomstTekst:document.getElementById('d-herkomst-tekst').value.trim(),
         snelheid:(document.querySelector('#d-keuze input:checked')||{value:'standard'}).value,
         plan:planVink.checked,
+        omzet:planVink.checked?document.getElementById('d-omzet').value.trim():'',
         bericht:document.getElementById('d-bericht').value.trim(),
         gevonden:document.getElementById('d-gevonden').value,
         gevondenTekst:document.getElementById('d-gevonden-tekst').value.trim(),
@@ -1193,6 +1214,8 @@
       if(!r.ok)throw new Error('status '+r.status);
       form.reset();
       document.getElementById('d-inbreng-blok').classList.add('verborgen');
+      document.getElementById('d-omzet-blok').classList.add('verborgen');
+      document.getElementById('d-omzet-hint').classList.add('verborgen');
       document.getElementById('d-herkomst-blok').classList.add('verborgen');
       document.getElementById('d-gevonden-blok').classList.add('verborgen');
       document.getElementById('d-hint-laag').classList.add('verborgen');
