@@ -572,7 +572,7 @@
           <span class="voor">For an eenmanszaak or VOF</span>
           <span class="bedrag" id="plan-bedrag">€79<small>/month</small></span>
           <span class="per">12 months, excl. VAT</span>
-          <p class="wanneer" id="plan-wanneer">Quiet: up to 5 invoices and receipts a month, on the KOR so no VAT returns.</p>
+          <p class="wanneer" id="plan-wanneer">Quiet: up to 1 invoice and 3 receipts a month, on the KOR so no VAT returns.</p>
           <ul data-trede="rustig">
             <li>Balance sheet at no extra cost</li>
             <li>No VAT returns while you are on the KOR</li>
@@ -849,8 +849,8 @@
                 <div class="verborgen" id="d-omzet-blok" style="padding:0 1.1em 1em">
                   <span style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">How busy will the business be? <span class="opt">required with the plan</span></span>
                   <div class="checklist" id="d-drukte">
-                    <label><input type="radio" name="drukte" value="rustig"> <span>Quiet: up to 5 invoices and receipts a month, on the KOR so no VAT <b>(€79)</b></span></label>
-                    <label><input type="radio" name="drukte" value="actief"> <span>Active: more than 5 a month and/or you charge VAT <b>(€149)</b></span></label>
+                    <label><input type="radio" name="drukte" value="rustig"> <span>Quiet: up to 1 invoice and 3 receipts a month, on the KOR so no VAT <b>(€79)</b></span></label>
+                    <label><input type="radio" name="drukte" value="actief"> <span>Active: more than that and/or you charge VAT <b>(€149)</b></span></label>
                   </div>
                   <p class="opt" style="margin-top:.4rem">One busier month a year is fine; from the second, the plan moves to €149. Minimum term 12 months, and your signed balance sheet is delivered once the first month is paid.</p>
                 </div>
@@ -1076,8 +1076,8 @@
     var bedrag=document.getElementById('plan-bedrag');
     var wanneer=document.getElementById('plan-wanneer');
     var teksten={
-      rustig:{prijs:'\u20ac79',uitleg:'Quiet: up to 5 invoices and receipts a month, on the KOR so no VAT returns.'},
-      handel:{prijs:'\u20ac149',uitleg:'Active: more than 5 invoices and receipts a month and/or you charge VAT.'}
+      rustig:{prijs:'\u20ac79',uitleg:'Quiet: up to 1 invoice and 3 receipts a month, on the KOR so no VAT returns.'},
+      handel:{prijs:'\u20ac149',uitleg:'Active: more than that and/or you charge VAT.'}
     };
     schakel.querySelectorAll('button').forEach(function(k){
       k.addEventListener('click',function(){
