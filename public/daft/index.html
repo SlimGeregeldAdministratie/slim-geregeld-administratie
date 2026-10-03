@@ -847,7 +847,7 @@
                   <span><span class="a-naam">Also keep my bookkeeping in order, from €79 per month</span><span class="a-uitleg">Quarterly VAT returns, your annual income tax return and the statement for your 5-year renewal. Your balance sheet is then included at no extra cost. Minimum term 12 months. For an eenmanszaak or VOF; a BV gets its own quote.</span></span>
                 </label>
                 <div class="verborgen" id="d-omzet-blok" style="padding:0 1.1em 1em">
-                  <span style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">How busy will the business be?</span>
+                  <span style="display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem">How busy will the business be? <span class="opt">required with the plan</span></span>
                   <div class="checklist" id="d-drukte">
                     <label><input type="radio" name="drukte" value="rustig"> <span>Quiet: up to 5 invoices and receipts a month, on the KOR so no VAT <b>(€79)</b></span></label>
                     <label><input type="radio" name="drukte" value="actief"> <span>Active: more than 5 a month and/or you charge VAT <b>(€149)</b></span></label>
@@ -1157,6 +1157,14 @@
     if(!naam||!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)){
       melding.textContent='Please fill in your name and a valid email address.';
       melding.className='melding fout';toonStap(1,true);return;
+    }
+    // wie het plan kiest, moet kiezen tussen rustig en actief: dat bepaalt de prijs
+    if(planVink.checked&&!document.querySelector('#d-drukte input:checked')){
+      melding.textContent='You ticked the Compliance Plan, so please choose quiet or active. It decides your monthly price.';
+      melding.className='melding fout';
+      toonStap(3,true);
+      setTimeout(function(){document.getElementById('d-drukte').scrollIntoView({block:'center'});},400);
+      return;
     }
     if(stortingVerplicht()&&!storting.value.trim()){
       melding.textContent='You ticked that the €4,500 is in the business, so please fill in the amount. It is what your balance sheet is built on.';
