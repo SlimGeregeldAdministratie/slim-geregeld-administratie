@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7479994088646324225?collapsed=1',
-      title: 'Hoe je geldlekken opspoort en winst verbetert'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7512973023717781506?collapsed=1',
+      title: 'Zakelijke auto: wat zijn de fiscale gevolgen?'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7472328071858262017?collapsed=1',
-      title: 'Salaris of dividend: wat is fiscaal voordeliger?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7479994088646324225?collapsed=1',
+      title: 'Hoe je geldlekken opspoort en winst verbetert'
     }
   ];
   
