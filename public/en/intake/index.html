@@ -217,7 +217,7 @@
       <div class="veld"><label>Which of these fits? *</label>
         <label class="keuze"><input type="radio" name="wat" value="Plan" required>
           <span class="titel">Bookkeeping, VAT returns and my income tax return
-            <span class="uitleg">The monthly arrangement. I check your figures and file everything.</span></span></label>
+            <span class="uitleg">The monthly arrangement, called the Compliance Plan on the DAFT page. I check your figures and file everything.</span></span></label>
         <label class="keuze"><input type="radio" name="wat" value="Alleen aangifte">
           <span class="titel">Only my annual income tax return</span></label>
         <label class="keuze"><input type="radio" name="wat" value="Weet niet">
@@ -227,6 +227,9 @@
         <span class="bij">On the KOR you charge no VAT and file no quarterly returns. It only covers Dutch VAT.</span></label>
         <label class="keuze"><input type="radio" name="kor" value="Ja" required><span class="titel">Yes</span></label>
         <label class="keuze"><input type="radio" name="kor" value="Nee"><span class="titel">No</span></label>
+        <label class="keuze"><input type="radio" name="kor" value="Aanvragen">
+          <span class="titel">Not yet, please apply for it for me
+            <span class="uitleg">It starts at the earliest at the next quarter, if the registration reaches the tax authority four weeks before. Until then the normal VAT returns apply.</span></span></label>
         <label class="keuze"><input type="radio" name="kor" value="Weet niet"><span class="titel">I do not know</span></label>
       </div>
     </fieldset>
@@ -292,6 +295,9 @@
         <label class="keuze" id="keuze-start"><input type="radio" name="pakket" value="Start 18">
           <span class="titel">Start, EUR 18 a month
             <span class="uitleg">No automatic bank connection. I can still do your bookkeeping and file your returns, but I cannot check them against your bank account.</span></span></label>
+        <label class="keuze verborgen" id="keuze-compact"><input type="radio" name="pakket" value="Compact 3">
+          <span class="titel">Compact, EUR 3 a month
+            <span class="uitleg">For a quiet business on the KOR: up to 1 invoice, 3 receipts and 5 bank transactions a month, without a bank connection. This is the package for the EUR 79 Compliance Plan.</span></span></label>
         <label class="keuze"><input type="radio" name="pakket" value="Overleggen">
           <span class="titel">I would rather talk it through first</span></label>
       </div>
@@ -309,7 +315,7 @@
         <label class="keuze"><input type="radio" name="heeft_moneybird" value="Ja"><span class="titel">Yes, I will invite you as my bookkeeper</span></label>
       </div>
       <div class="veld"><label>Shall we arrange your KVK verification inside Moneybird?
-        <span class="bij">Moneybird requires this before VAT returns can be filed from it. It is a one-off step and we can do it for you.</span></label>
+        <span class="bij">Moneybird requires this before VAT returns can be filed from it. It is a one-off step and we can do it for you. On the KOR there are no VAT returns, so you can skip it.</span></label>
         <label class="keuze"><input type="radio" name="kvkverificatie" value="Ja, regel het"><span class="titel">Yes, please arrange it</span></label>
         <label class="keuze"><input type="radio" name="kvkverificatie" value="Al gedaan"><span class="titel">Already done</span></label>
         <label class="keuze"><input type="radio" name="kvkverificatie" value="Doe ik zelf"><span class="titel">I will do it myself</span></label>
@@ -401,6 +407,7 @@
   var startKeuze = document.getElementById('keuze-start');
   var startAkkoord = document.getElementById('start-akkoord');
   var bvLetOp = document.getElementById('bv-let-op');
+  var compactKeuze = document.getElementById('keuze-compact');
 
   function gekozen(naam){
     var el = form.querySelector('input[name="' + naam + '"]:checked');
@@ -426,6 +433,14 @@
     startKeuze.classList.toggle('verborgen', bv);
     bvLetOp.classList.toggle('verborgen', !bv);
     if (bv && gekozen('pakket') === 'Start 18'){
+      form.querySelector('input[name="pakket"][value="Groei 35"]').checked = true;
+    }
+    // Compact kan geen btw-aangifte doen en heeft geen bankkoppeling. Het past
+    // alleen bij een rustige eenmanszaak in de KOR, of die de KOR laat aanvragen.
+    var kor = gekozen('kor');
+    var compactKan = !bv && (kor === 'Ja' || kor === 'Aanvragen');
+    compactKeuze.classList.toggle('verborgen', !compactKan);
+    if (!compactKan && gekozen('pakket') === 'Compact 3'){
       form.querySelector('input[name="pakket"][value="Groei 35"]').checked = true;
     }
     var start = gekozen('pakket') === 'Start 18';
