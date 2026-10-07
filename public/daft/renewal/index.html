@@ -528,5 +528,20 @@
   </div>
 </footer>
 
+<script>
+// Partnerlink: ?via=<partner> bewaren voor deze sessie en meegeven aan de knoppen
+// naar het aanvraagformulier.
+(function(){
+  try{
+    var v=(new URLSearchParams(location.search).get('via')||'').toLowerCase();
+    if(/^[a-z0-9-]{2,30}$/.test(v)) sessionStorage.setItem('sg_via',v);
+    var via=sessionStorage.getItem('sg_via');
+    if(!via) return;
+    document.querySelectorAll('a[href^="/daft/?soort=verlenging"]').forEach(function(a){
+      a.href='/daft/?soort=verlenging&via='+encodeURIComponent(via)+'#request';
+    });
+  }catch(e){}
+})();
+</script>
 </body>
 </html>

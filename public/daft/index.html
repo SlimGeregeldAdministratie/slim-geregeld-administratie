@@ -995,6 +995,15 @@
   document.querySelectorAll('input[name="soort"]').forEach(function(r){
     r.addEventListener('change',wisselSoort);
   });
+  // Partnerlink: /daft/?via=<partner>. De bron wordt bewaard voor deze sessie
+  // (ook als iemand eerst de verlengingspagina bekijkt) en gaat mee met de
+  // aanvraag, zodat per verwijzer te tellen is wat er binnenkomt.
+  var via='';
+  try{
+    var viaUrl=(new URLSearchParams(location.search).get('via')||'').toLowerCase();
+    if(/^[a-z0-9-]{2,30}$/.test(viaUrl)) sessionStorage.setItem('sg_via',viaUrl);
+    via=sessionStorage.getItem('sg_via')||'';
+  }catch(e){}
   // De verlengingspagina linkt naar /daft/?soort=verlenging#request.
   try{
     if(new URLSearchParams(location.search).get('soort')==='verlenging'){
@@ -1071,6 +1080,11 @@
     if(v){ gevondenLabel.innerHTML=v[0]; gevondenTekst.placeholder=v[1]; }
     else { gevondenTekst.value=''; }
   });
+  // Kwam iemand binnen via een partnerlink, dan staat de bron al goed.
+  if(via && !gevonden.value){
+    gevonden.value='adviseur';
+    gevonden.dispatchEvent(new Event('change'));
+  }
 
   document.querySelectorAll('#d-keuze input, #d-checklist input, #d-plan').forEach(function(i){
     i.addEventListener('change',markeer);
@@ -1225,6 +1239,7 @@
         bericht:document.getElementById('d-bericht').value.trim(),
         gevonden:document.getElementById('d-gevonden').value,
         gevondenTekst:document.getElementById('d-gevonden-tekst').value.trim(),
+        via:via,
         website2:document.getElementById('d-website2').value
       })});
       if(!r.ok)throw new Error('status '+r.status);
