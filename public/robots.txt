@@ -1,0 +1,8 @@
+# Slim Geregeld Administratie
+# Alle crawlers welkom, ook AI-assistenten: de DAFT-pagina's zijn bedoeld om gevonden en geciteerd te worden.
+User-agent: *
+Allow: /
+
+Disallow: /cockpit/
+
+Sitemap: https://slim-geregeld.nl/sitemap.xml
