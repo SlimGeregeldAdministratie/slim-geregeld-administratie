@@ -176,8 +176,9 @@ const Footer = () => {
       <div className="border-t border-gray-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-gray-400 text-sm">
-              &copy; 2025 Slim Geregeld Administratie. Alle rechten voorbehouden.
+            <div className="text-gray-400 text-sm text-center md:text-left">
+              &copy; {new Date().getFullYear()} Slim Geregeld Administratie. Alle rechten voorbehouden.
+              <span className="block md:inline md:ml-2">KvK 92596991 · btw NL004963420B24</span>
             </div>
             
             <div className="flex items-center space-x-6 text-sm text-gray-400">
