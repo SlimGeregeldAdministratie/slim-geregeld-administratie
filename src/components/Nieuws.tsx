@@ -22,12 +22,12 @@ const Nieuws = () => {
 
   const linkedInPosts = [
     {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7512973023717781506?collapsed=1',
-      title: 'Zakelijke auto: wat zijn de fiscale gevolgen?'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7515857764628320257?collapsed=1',
+      title: 'Je vermogen beschermen en fiscaal optimaliseren met een holdingstructuur'
     },
 {
-      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7479994088646324225?collapsed=1',
-      title: 'Hoe je geldlekken opspoort en winst verbetert'
+      url: 'https://www.linkedin.com/embed/feed/update/urn:li:share:7512973023717781506?collapsed=1',
+      title: 'Zakelijke auto: wat zijn de fiscale gevolgen?'
     }
   ];
   
