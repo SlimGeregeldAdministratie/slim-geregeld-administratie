@@ -5,15 +5,16 @@
 /daft/pricing     /daft/#pricing     301
 /daft/faq         /daft/#faq         301
 
-# DJFT (Japans verdrag, doel 510) en de verlenging als eigen aanbod.
-/djft/request     /djft/#request     301
-/djft/request/    /djft/#request     301
-/djft/pricing     /djft/#pricing     301
-/djft/faq         /djft/#faq         301
-/djtt             /djft/             301
-/djtt/            /djft/             301
-/daft/japan       /djft/             301
-/daft/japan/      /djft/             301
+# DJTT (Japans verdrag, doel 510) en de verlenging als eigen aanbod. /djft is de
+# eerdere werknaam en stuurt door, net als /daft/japan.
+/djtt/request     /djtt/#request     301
+/djtt/request/    /djtt/#request     301
+/djtt/pricing     /djtt/#pricing     301
+/djtt/faq         /djtt/#faq         301
+/djft             /djtt/             301
+/djft/*           /djtt/:splat       301
+/daft/japan       /djtt/             301
+/daft/japan/      /djtt/             301
 /daft/renewal/request    /daft/renewal/#request    301
 /daft/renewal/pricing    /daft/renewal/#pricing    301
 /renewal          /daft/renewal/     301

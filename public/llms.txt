@@ -13,8 +13,8 @@ Key facts for the treaty route:
 ## Treaty permits (English)
 
 - [DAFT opening balance sheet](https://slim-geregeld.nl/daft/): for US citizens (IND purpose 453); who can apply, what the IND wants, pricing, FAQ and the request form
-- [DJFT opening balance sheet](https://slim-geregeld.nl/djft/): for Japanese nationals under the Dutch-Japanese Trade Treaty (IND purpose 510), same requirements and prices, with its own request form
-- [DJFT opening balance sheet, Japanese](https://slim-geregeld.nl/djft/ja/): the same page in Japanese; the form and all communication are in English
+- [DJTT opening balance sheet](https://slim-geregeld.nl/djtt/): for Japanese nationals under the Dutch-Japanese Trade Treaty (IND purpose 510), same requirements and prices, with its own request form
+- [DJTT opening balance sheet, Japanese](https://slim-geregeld.nl/djtt/ja/): the same page in Japanese; the form and all communication are in English
 - [Permit renewal statement](https://slim-geregeld.nl/daft/renewal/): what the IND asks for at renewal under either treaty, pricing and the request form
 - [Ask a question](https://slim-geregeld.nl/daft/contact/): contact form, personal reply within one working day
 

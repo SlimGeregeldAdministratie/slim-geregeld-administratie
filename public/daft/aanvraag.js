@@ -1,8 +1,10 @@
-// Gedeeld aanvraagformulier. Staat op /daft/ (DAFT, doel 453), /djft/ (Japans
+// Gedeeld aanvraagformulier. Staat op /daft/ (DAFT, doel 453), /djtt/ (Japans
 // verdrag, doel 510) en /daft/renewal/ (verlenging). Alle drie posten naar
 // dezelfde n8n-webhook daft-aanvraag; het veld 'aanbod' zegt welk product het is.
 // Instellingen per pagina staan als data-attributen op het formulier:
-//   data-pagina="daft|djft|renewal"  welke landingspagina dit is
+//   data-pagina="daft|djft|djft-ja|renewal"  welke landingspagina dit is
+// De interne code voor het Japanse verdrag blijft 'djft' (zo kent n8n hem),
+// ook al heet de pagina /djtt/.
 //   data-soort="verlenging"          formulier staat vast op verlenging
 (function(){
   var form=document.getElementById('daftform');

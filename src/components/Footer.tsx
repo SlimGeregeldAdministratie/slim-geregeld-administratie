@@ -124,10 +124,10 @@ const Footer = () => {
                 <a href="/daft/">DAFT balance sheet (English)</a>
               </li>
               <li className="hover:text-white transition-colors cursor-pointer">
-                <a href="/djft/">DJFT balance sheet, Japan (English)</a>
+                <a href="/djtt/">DJTT balance sheet, Japan (English)</a>
               </li>
               <li className="hover:text-white transition-colors cursor-pointer">
-                <a href="/daft/renewal/">DAFT/DJFT renewal (English)</a>
+                <a href="/daft/renewal/">DAFT/DJTT renewal (English)</a>
               </li>
               <li className="text-green-400 font-medium">✓ Al onze diensten met 30 dagen gratis proefperiode</li>
             </ul>
