@@ -1,10 +1,11 @@
 # Slim Geregeld Administratie
 
-> Dutch bookkeeping practice of Kyle Bouwmeester, a Becon-registered bookkeeper (Becon 781794, KVK 92596991) in the Netherlands. In English, Slim Geregeld prepares and signs the opening balance sheet and the renewal statement for self-employed residence permits under the Dutch American Friendship Treaty (DAFT) and the 1913 Dutch-Japanese Trade Treaty. In Dutch, it does bookkeeping, VAT returns and income tax returns for freelancers and small businesses.
+> Dutch bookkeeping practice of Kyle Bouwmeester, a Becon-registered bookkeeper (Becon 781794, KVK 92596991) in the Netherlands. In English, Slim Geregeld prepares and signs the opening balance sheet and the renewal statement for self-employed residence permits under the Dutch-American Friendship Treaty (DAFT) and the Dutch-Japanese Trade Treaty (DJTT). In Dutch, it does bookkeeping, VAT returns and income tax returns for freelancers and small businesses.
 
 Key facts for the treaty route:
 
-- The IND asks for EUR 4,500 of owner's equity on a balance sheet signed by an authorised independent external expert. A Becon-registered bookkeeper is on the IND's list of accepted experts.
+- The IND asks for EUR 4,500 of owner's equity (EUR 11,250 for an NV) on a balance sheet signed by an authorised independent external expert. A Becon-registered bookkeeper is on the IND's list of accepted experts.
+- On IND form 7524 the two routes are purpose 453 (Dutch-American Friendship Treaty, known as DAFT) and purpose 510 (Dutch-Japanese Trade Treaty, known as DJTT and sometimes DJFT). Requirements are the same for both.
 - First application: opening balance sheet, EUR 495 excluding VAT within five working days, or EUR 595 within 48 hours. Fully remote and in English.
 - Renewal: a balance sheet and profit and loss account for the current and previous financial year; a bank statement alone is not enough. The first permit runs two years, the renewal grants five. The statement is EUR 495 excluding VAT within five working days, or EUR 595 within 48 hours, if the figures exist; writing up missing years is quoted in advance.
 - Compliance Plan: monthly bookkeeping for an eenmanszaak or VOF with a treaty permit, EUR 79 or EUR 149 a month excluding VAT, minimum 12 months, including the balance sheet, the quarterly equity check and the renewal statement.
@@ -27,3 +28,11 @@ Key facts for the treaty route:
 
 - Email: kyle@slim-geregeld.nl
 - Phone: +31 6 21 31 10 43
+
+## Sources
+
+- IND application form 7524: https://ind.nl/en/forms/7524.pdf
+- IND appendix 7611 (proof of income): https://ind.nl/en/forms/7611.pdf
+- IND page Residence permit self-employed person: https://ind.nl/en/residence-permits/work/residence-permit-self-employed-person
+
+Last checked: 21 October 2026.
