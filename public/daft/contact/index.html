@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ask a question about your DAFT balance sheet | Slim Geregeld</title>
-<meta name="description" content="Not ready to send a request yet? Ask your question about the DAFT or Dutch-Japanese Treaty opening balance sheet and get a personal reply from a Becon-registered Dutch bookkeeper within one working day.">
+<meta name="description" content="Not ready to send a request yet? Ask your question about the DAFT or Dutch-Japanese Treaty balance sheet or your permit renewal and get a personal reply from a Becon-registered Dutch bookkeeper within one working day.">
 <link rel="canonical" href="https://slim-geregeld.nl/daft/contact/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <meta name="robots" content="index,follow">
@@ -58,11 +58,12 @@
 
   .vraagblok{background:#fff;border:1px solid var(--rand);border-radius:var(--r-xl);padding:clamp(1.6rem,3.5vw,2.3rem);box-shadow:var(--schaduw)}
   .opt{font-weight:500;font-size:.78rem;color:var(--muted)}
+  .verborgen{display:none}
   .veld{margin-bottom:1.05rem}
   .veld label{display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem}
-  .veld input,.veld textarea{width:100%;border:1.5px solid var(--rand);border-radius:11px;padding:.72em .95em;font:inherit;font-size:.95rem;background:var(--bg-zacht);color:var(--ink);transition:border-color .15s,background .15s}
+  .veld input,.veld textarea,.veld select{width:100%;border:1.5px solid var(--rand);border-radius:11px;padding:.72em .95em;font:inherit;font-size:.95rem;background:var(--bg-zacht);color:var(--ink);transition:border-color .15s,background .15s}
   .veld input::placeholder,.veld textarea::placeholder{color:#9ca3af}
-  .veld input:focus,.veld textarea:focus{outline:none;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+  .veld input:focus,.veld textarea:focus,.veld select:focus{outline:none;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
   .veld textarea{resize:vertical;min-height:7em}
   .veld-rij{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   @media(max-width:620px){.veld-rij{grid-template-columns:1fr}}
@@ -105,10 +106,9 @@
     </a>
     <div class="nav-rechts">
       <nav class="nav-links">
-        <a href="/daft/#who">Who can apply</a>
-        <a href="/daft/#how">How it works</a>
-        <a href="/daft/#pricing">Pricing</a>
-        <a href="/daft/#faq">FAQ</a>
+        <a href="/daft/">US (DAFT)</a>
+        <a href="/djft/">Japan (DJFT)</a>
+        <a href="/daft/renewal/">Renewal</a>
         <a href="/daft/contact/" class="hier">Contact</a>
       </nav>
       <a class="knop klein" href="/daft/#request">Request yours →</a>
@@ -142,8 +142,38 @@
               <input id="v-tel" name="telefoon" type="tel" autocomplete="tel">
             </div>
             <div class="veld">
+              <label for="v-over">What is it about?</label>
+              <select id="v-over" name="over">
+                <option value="daft">A first DAFT application (US citizens)</option>
+                <option value="djft">A first application under the Japanese treaty</option>
+                <option value="renewal">Renewing my permit</option>
+                <option value="plan">Monthly bookkeeping (Compliance Plan)</option>
+                <option value="anders">Something else, or not sure yet</option>
+              </select>
+            </div>
+            <div class="veld">
               <label for="v-vraag">Your question</label>
               <textarea id="v-vraag" name="vraag" placeholder="For example: I am moving in October and have not registered anything yet. What should I do first?" required></textarea>
+            </div>
+            <div class="veld">
+              <label for="v-gevonden">How did you find me?</label>
+              <select id="v-gevonden" name="gevonden" required>
+                <option value="" disabled selected>Choose one</option>
+                <option value="zegniet">Rather not say</option>
+                <option value="ai">An AI assistant like ChatGPT</option>
+                <option value="zoekmachine">A search engine like Google</option>
+                <option value="reddit">Reddit</option>
+                <option value="facebook">A Facebook group for expats</option>
+                <option value="bekend">Friends, family or a colleague</option>
+                <option value="adviseur">My immigration lawyer or adviser</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="mail">An email from you</option>
+                <option value="anders">Somewhere else</option>
+              </select>
+              <div class="verborgen" id="v-gevonden-blok" style="margin-top:.7rem">
+                <label for="v-gevonden-tekst" id="v-gevonden-label">Which one? <span class="opt">optional</span></label>
+                <input id="v-gevonden-tekst" name="gevondenTekst" type="text">
+              </div>
             </div>
             <div class="hp" aria-hidden="true">
               <label for="v-website2">Website</label>
@@ -176,7 +206,7 @@
           <div class="kaart">
             <h3>Already know what you need?</h3>
             <p>Skip the questions and send a request. It takes two minutes, you pay nothing yet, and you get your delivery date in the reply.</p>
-            <p style="margin-top:.6rem"><a href="/daft/#request">Request your balance sheet →</a></p>
+            <p style="margin-top:.6rem"><a href="/daft/#request">DAFT balance sheet (US) →</a><br><a href="/djft/#request">DJFT balance sheet (Japan) →</a><br><a href="/daft/renewal/#request">Renewal statement →</a></p>
           </div>
 
           <div class="kaart">
@@ -198,10 +228,9 @@
         <p>Dutch bookkeeping for freelancers and small business owners, including opening balance sheets and renewal statements for DAFT and Dutch-Japanese Treaty residence permits.</p>
       </div>
       <div class="f-kol">
-        <a href="/daft/#who">Who can apply</a>
-        <a href="/daft/#how">How it works</a>
-        <a href="/daft/#pricing">Pricing</a>
-        <a href="/daft/#request">Request yours</a>
+        <a href="/daft/">DAFT balance sheet (US)</a>
+        <a href="/djft/">DJFT balance sheet (Japan)</a>
+        <a href="/daft/renewal/">Permit renewal</a>
       </div>
       <div class="f-kol">
         <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a>
@@ -220,6 +249,42 @@
   var form=document.getElementById('vraagform');
   var melding=document.getElementById('v-melding');
   var knop=document.getElementById('v-verstuur');
+
+  // Onderwerp alvast goed zetten vanaf de DJFT- en verlengingspagina (?over=djft).
+  var over=document.getElementById('v-over');
+  var via='';
+  try{
+    var p=new URLSearchParams(location.search);
+    var o=(p.get('over')||'').toLowerCase();
+    if(over.querySelector('option[value="'+o+'"]')) over.value=o;
+    // Partnerlink ?via=<partner>, ook als die eerder in deze sessie binnenkwam.
+    var v=(p.get('via')||'').toLowerCase();
+    if(/^[a-z0-9-]{2,30}$/.test(v)) sessionStorage.setItem('sg_via',v);
+    via=sessionStorage.getItem('sg_via')||'';
+  }catch(e){}
+
+  // Hoe iemand hier terechtkwam, zelfde keuzes als het aanvraagformulier.
+  var gevonden=document.getElementById('v-gevonden');
+  var gevondenBlok=document.getElementById('v-gevonden-blok');
+  var gevondenLabel=document.getElementById('v-gevonden-label');
+  var gevondenTekst=document.getElementById('v-gevonden-tekst');
+  var VRAAG={
+    ai:['Which one? <span class="opt">optional</span>','ChatGPT, Claude, Gemini, Copilot'],
+    reddit:['Which subreddit, if you remember? <span class="opt">optional</span>','r/Netherlands'],
+    facebook:['Which group? <span class="opt">optional</span>','Americans in the Netherlands'],
+    adviseur:['Who was it? I would like to thank them. <span class="opt">optional</span>','Name of the lawyer or adviser'],
+    anders:['Where was it? <span class="opt">optional</span>','']
+  };
+  gevonden.addEventListener('change',function(){
+    var q=VRAAG[gevonden.value];
+    gevondenBlok.classList.toggle('verborgen',!q);
+    if(q){ gevondenLabel.innerHTML=q[0]; gevondenTekst.placeholder=q[1]; }
+    else { gevondenTekst.value=''; }
+  });
+  if(via){
+    gevonden.value='adviseur';
+    gevonden.dispatchEvent(new Event('change'));
+  }
   form.addEventListener('submit',async function(e){
     e.preventDefault();
     melding.className='melding';
@@ -230,21 +295,32 @@
       melding.textContent='Please fill in your name, a valid email address and your question.';
       melding.className='melding fout';return;
     }
+    if(!gevonden.value){
+      melding.textContent='Please tell me how you found me, or choose Rather not say.';
+      melding.className='melding fout';gevonden.focus();return;
+    }
     knop.disabled=true;knop.textContent='Sending...';
     try{
       var r=await fetch('https://n8n.slim-geregeld.nl/webhook/daft-vraag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
         naam:naam,email:email,
         telefoon:document.getElementById('v-tel').value.trim(),
         vraag:vraag,
+        over:over.value,
+        gevonden:gevonden.value,
+        gevondenTekst:gevondenTekst.value.trim(),
+        via:via,
         website2:document.getElementById('v-website2').value
       })});
       if(!r.ok)throw new Error('status '+r.status);
+      var verstuurdOver=over.value;
       form.reset();
+      gevondenBlok.classList.add('verborgen');
+      over.value=verstuurdOver;
       melding.textContent='Sent. I read every message myself and you will have an answer within one working day, usually sooner.';
       melding.className='melding ok';
       knop.disabled=false;knop.textContent='Send your question →';
       window.dataLayer=window.dataLayer||[];
-      window.dataLayer.push({event:'daft_vraag_verstuurd'});
+      window.dataLayer.push({event:'daft_vraag_verstuurd',aanbod:verstuurdOver});
     }catch(err){
       melding.textContent='Sending failed. Please email kyle@slim-geregeld.nl directly and you will get the same fast reply.';
       melding.className='melding fout';

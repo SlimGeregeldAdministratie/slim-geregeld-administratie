@@ -1,0 +1,61 @@
+/* Gedeeld aanvraagformulier voor /daft/, /djft/ en /daft/renewal/. */
+.vraagblok{background:#fff;border:1px solid var(--rand);border-radius:var(--r-xl);padding:clamp(1.6rem,3.5vw,2.5rem);max-width:50rem;box-shadow:var(--schaduw)}
+.opt{font-weight:500;font-size:.78rem;color:var(--muted)}
+.veld{margin-bottom:1.05rem}
+.veld label{display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem}
+.veld input,.veld textarea,.veld select{
+  width:100%;border:1.5px solid var(--rand);border-radius:11px;padding:.72em .95em;
+  font:inherit;font-size:.95rem;background:var(--bg-zacht);color:var(--ink);
+  transition:border-color .15s,background .15s;
+}
+.veld input::placeholder{color:#9ca3af}
+.veld input:focus,.veld textarea:focus,.veld select:focus{outline:none;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.veld textarea{resize:vertical;min-height:5em}
+.veld-rij{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:620px){.veld-rij{grid-template-columns:1fr}}
+.hp{position:absolute;left:-9999px;top:-9999px}
+.vraag-voet{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:.6rem}
+.vraag-voet .privacy{font-size:.8rem;color:var(--muted);flex:1;min-width:12rem}
+.melding{display:none;border-radius:11px;padding:.9rem 1.15rem;font-size:.93rem;margin-top:1.1rem}
+.melding.ok{display:block;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.melding.fout{display:block;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+
+.stap-balk{display:flex;gap:.45rem;margin-bottom:1.7rem}
+.stap-dot{flex:1;font-size:.76rem;font-weight:700;color:var(--muted);padding-bottom:.6rem;border-bottom:2.5px solid var(--rand);transition:color .15s,border-color .15s}
+.stap-dot.actief{color:var(--blauw);border-color:var(--blauw)}
+.stap-dot.klaar{color:var(--ink-2);border-color:var(--blauw-rand)}
+.fstap{display:none;border:none}
+.fstap.actief{display:block}
+.fstap-titel{font-size:1.02rem;font-weight:750;color:var(--ink);margin-bottom:1.1rem;letter-spacing:-.02em}
+.fstap-titel small{display:block;font-weight:500;font-size:.85rem;color:var(--muted);margin-top:.2rem;letter-spacing:0}
+
+/* checklist en keuzeknoppen */
+.checklist{display:grid;gap:0;border:1.5px solid var(--rand);border-radius:12px;overflow:hidden;background:var(--bg-zacht)}
+.checklist label{display:flex;gap:.75rem;align-items:flex-start;padding:.85em 1em;border-bottom:1px solid var(--rand);cursor:pointer;font-size:.93rem;font-weight:500;color:var(--ink-2);margin:0;transition:background .12s}
+.checklist label:last-child{border-bottom:none}
+.checklist label:hover{background:#fff}
+.checklist input{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.22rem;accent-color:var(--blauw)}
+.checklist label.aan{background:#fff;color:var(--ink);font-weight:600}
+.checklist small{display:block;font-weight:400;font-size:.82rem;color:var(--muted);margin-top:.1rem}
+
+.keuze{display:grid;gap:.6rem}
+.keuze label{display:flex;gap:.8rem;align-items:flex-start;border:1.5px solid var(--rand);border-radius:12px;padding:1em 1.1em;cursor:pointer;background:var(--bg-zacht);transition:border-color .15s,background .15s}
+.keuze label:hover{border-color:#cbd5e1;background:#fff}
+.keuze label.aan{border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.keuze input{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.25rem;accent-color:var(--blauw)}
+.keuze .k-naam{font-weight:700;font-size:.95rem;color:var(--ink);display:block}
+.keuze .k-uitleg{font-size:.85rem;color:var(--muted);display:block;margin-top:.1rem}
+.keuze .k-prijs{font-weight:750;font-size:.95rem;color:var(--blauw);white-space:nowrap;margin-left:auto;padding-left:.6rem}
+.keuze .k-prijs.door{text-decoration:line-through;color:var(--muted)}
+.keuze .k-gratis{display:block;font-size:.74rem;font-weight:700;color:#166534;text-align:right}
+
+.addon{margin-top:.7rem;border:1.5px dashed var(--blauw-rand);background:var(--blauw-tint);border-radius:12px}
+.addon label{display:flex;gap:.8rem;align-items:flex-start;padding:1em 1.1em;cursor:pointer;margin:0}
+.addon > label input[type="checkbox"]{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.25rem;accent-color:var(--blauw)}
+.addon .a-naam{font-weight:700;font-size:.95rem;color:var(--ink);display:block}
+.addon .a-uitleg{font-size:.85rem;color:var(--ink-2);display:block;margin-top:.15rem}
+.addon.aan{border-style:solid;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+
+.verborgen{display:none}
+.hint{font-size:.84rem;color:var(--ink-2);background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:.65em .9em;margin-top:.5rem}
+.hint b{color:var(--ink)}
