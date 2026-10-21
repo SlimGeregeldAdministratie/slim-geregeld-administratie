@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { X } from 'lucide-react';
+import { Globe, X } from 'lucide-react';
 
 // Balk boven de header die verdragsondernemers (VS en Japan) naar de Engelse en
 // Japanse pagina's wijst. Bewust geen automatische doorverwijzing: Google crawlt
@@ -46,44 +46,36 @@ const TreatyBalk = () => {
     }
   };
 
+  // Knoppen in de balk: de eerste is de hoofdkeuze voor deze bezoeker.
+  const knop = 'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition-colors whitespace-nowrap';
+  const hoofd = knop + ' bg-white text-blue-700 hover:bg-blue-50';
+  const neven = knop + ' bg-blue-500/40 text-white ring-1 ring-white/40 hover:bg-blue-500/70';
+  const en = (cls: string) => <a href="/en/" hrefLang="en" lang="en" className={cls}>English →</a>;
+  const ja = (cls: string) => <a href="/djtt/ja/" hrefLang="ja" lang="ja" className={cls}>日本語 →</a>;
+
   let tekst: React.ReactNode;
+  let knoppen: React.ReactNode;
   if (taal === 'ja') {
-    tekst = (
-      <span lang="ja">
-        このサイトはオランダ語です。日本国籍の方の条約ビザ（DJTT）は{' '}
-        <a href="/djtt/ja/" hrefLang="ja" className="font-semibold underline underline-offset-2">日本語ページへ →</a>
-        <span className="mx-2 opacity-60">·</span>
-        <a href="/en/" hrefLang="en" lang="en" className="underline underline-offset-2">English</a>
-      </span>
-    );
+    tekst = <span lang="ja">このサイトはオランダ語です。日本国籍の方の条約ビザ（DJTT）は日本語ページへ。</span>;
+    knoppen = <>{ja(hoofd)}{en(neven)}</>;
   } else if (taal === 'en') {
-    tekst = (
-      <span lang="en">
-        This site is in Dutch. Looking for DAFT or DJTT in English?{' '}
-        <a href="/en/" hrefLang="en" className="font-semibold underline underline-offset-2">English →</a>
-        <span className="mx-2 opacity-60">·</span>
-        <a href="/djtt/ja/" hrefLang="ja" lang="ja" className="underline underline-offset-2">日本語</a>
-      </span>
-    );
+    tekst = <span lang="en">This site is in Dutch. Looking for DAFT or DJTT in English?</span>;
+    knoppen = <>{en(hoofd)}{ja(neven)}</>;
   } else {
-    tekst = (
-      <span lang="en">
-        Treaty entrepreneur from the US or Japan?{' '}
-        <a href="/en/" hrefLang="en" className="font-semibold underline underline-offset-2">English</a>
-        <span className="mx-2 opacity-60">·</span>
-        <a href="/djtt/ja/" hrefLang="ja" lang="ja" className="font-semibold underline underline-offset-2">日本語</a>
-      </span>
-    );
+    tekst = <span lang="en">Treaty entrepreneur from the US or Japan? Start here:</span>;
+    knoppen = <>{en(hoofd)}{ja(neven)}</>;
   }
 
   return (
-    <div className="bg-gray-900 text-gray-100 text-sm">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center gap-3 relative">
-        <p className="text-center pr-6">{tekst}</p>
+    <div className="bg-gradient-to-r from-blue-700 to-blue-600 text-white text-sm">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-2 pr-10 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 relative">
+        <Globe className="h-4 w-4 text-blue-200 shrink-0 hidden sm:block" aria-hidden="true" />
+        <p className="text-center text-blue-50">{tekst}</p>
+        <span className="flex items-center gap-2">{knoppen}</span>
         <button
           onClick={sluit}
           aria-label="Close"
-          className="absolute right-3 sm:right-6 p-1 text-gray-400 hover:text-white transition-colors"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1.5 rounded-full text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
         >
           <X className="h-4 w-4" />
         </button>

@@ -134,6 +134,64 @@
      "url": "https://slim-geregeld.nl/daft/#pricing"
     }
    ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://slim-geregeld.nl/en/#faq",
+   "inLanguage": "en",
+   "isPartOf": {
+    "@id": "https://slim-geregeld.nl/en/#webpage"
+   },
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is the difference between DAFT and DJTT?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "DAFT is the Dutch-American Friendship Treaty, for US citizens, purpose 453 on the IND form. DJTT is the Dutch-Japanese Trade Treaty, for Japanese nationals, purpose 510. The requirements are the same: no points system, at least €4,500 of equity, and a balance sheet checked and signed by an authorised independent expert."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need an accountant for a treaty permit?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You need an authorised independent external expert to check and sign your balance sheet. The IND names a registeraccountant, an accountant-administratieconsulent, a bookkeeper or a financial adviser, so a bookkeeper is enough. For the years after that, nobody is required to keep your books for you, but you do have to file VAT and income tax returns and keep your equity at €4,500 or more."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What does the whole process cost?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The signed opening balance sheet is €495 excluding VAT, or €595 within 48 hours. The renewal statement costs the same. The IND charges its own fee for the application, see the IND fees page. Monthly bookkeeping on the Compliance Plan is €79 or €149 a month excluding VAT, with the balance sheet and the renewal statement included."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I do this from outside the Netherlands?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Everything that happens here is remote: you send your documents by email and receive the signed PDF. The KVK registration, the bank account and the IND application each have their own procedure."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do you also file my US tax return?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Slim Geregeld handles the Dutch side: the balance sheet, the Dutch VAT and income tax returns and the renewal statement. For your US return you need a US tax preparer."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is everything in English?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, every page, email and document. The balance sheet itself is in Dutch and English side by side. There is also a Japanese page for the Japanese treaty, but all communication is in English."
+     }
+    }
+   ]
   }
  ]
 }
@@ -339,6 +397,14 @@
   .tegel .ga{margin-top:.9rem;font-weight:700;color:var(--blauw);font-size:.92rem}
   .tegel .extra{margin-top:.35rem;font-size:.85rem}
   .keuzevraag{font-size:clamp(1.3rem,2.4vw,1.7rem);margin-bottom:1.3rem}
+  .route{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;counter-reset:route}
+  @media(max-width:760px){.route{grid-template-columns:1fr}}
+  .route li{counter-increment:route;display:flex;gap:1rem;background:#fff;border:1px solid var(--rand);border-radius:var(--r-groot);padding:1.3rem 1.4rem;box-shadow:var(--schaduw)}
+  .route li::before{content:counter(route);flex-shrink:0;width:2rem;height:2rem;border-radius:50%;background:var(--blauw-tint);color:var(--blauw-donker);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+  .route li.wij{border-color:var(--blauw-rand);background:linear-gradient(180deg,#fff,var(--blauw-tint))}
+  .route h3{font-size:1rem;margin-bottom:.25rem;font-weight:750}
+  .route p{font-size:.92rem}
+  .route .tag-wij{display:inline-block;margin-top:.45rem;font-size:.72rem;font-weight:750;color:var(--blauw);letter-spacing:.06em;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -455,6 +521,61 @@
         </div>
       </div>
       <p class="prijs-voet">Sources: IND <a href="https://ind.nl/en/forms/7524.pdf" rel="noopener">application form 7524</a> and <a href="https://ind.nl/en/forms/7611.pdf" rel="noopener">appendix 7611</a>, checked on 21 October 2026.</p>
+    </div>
+  </section>
+  <section id="route">
+    <div class="container">
+      <div class="sectie-kop">
+        <h2>Your route, from arrival to renewal</h2>
+        <p>The same seven steps for DAFT and DJTT. The highlighted ones are what Slim Geregeld does for you.</p>
+      </div>
+      <ol class="route">
+        <li><div><h3>Register your business with the KVK</h3><p>Most treaty entrepreneurs start as an eenmanszaak, a sole proprietorship. A VOF or BV is possible too; the paperwork differs per legal form.</p></div></li>
+        <li><div><h3>Open a Dutch business bank account</h3><p>The IND wants a business bank statement showing your business name and the invested amount. Not every Dutch bank takes on US citizens, because of FATCA reporting, so check that first.</p></div></li>
+        <li><div><h3>Put at least €4,500 of your own money in</h3><p>Savings or a genuine gift count. A loan does not, because borrowed money is debt and not equity. For an NV the minimum is €11,250.</p></div></li>
+        <li class="wij"><div><h3>Have the opening balance sheet checked and signed</h3><p>An authorised independent expert checks the figures and signs. That is the document the IND asks for with your application.</p><span class="tag-wij">Done here: <a href="/daft/">DAFT</a> or <a href="/djtt/">DJTT</a></span></div></li>
+        <li><div><h3>Apply with the IND</h3><p>Purpose 453 for DAFT or purpose 510 for DJTT on application form 7524. The first permit runs for two years.</p></div></li>
+        <li class="wij"><div><h3>Keep your books and your equity in order</h3><p>Quarterly VAT returns, a yearly income tax return, and equity that stays at or above €4,500. This is where most renewal problems start.</p><span class="tag-wij">Done here: <a href="/daft/#pricing">Compliance Plan</a></span></div></li>
+        <li class="wij"><div><h3>Renew after two years</h3><p>The IND wants a balance sheet and profit and loss account for two years, checked and signed. The renewal gives you five years.</p><span class="tag-wij">Done here: <a href="/daft/renewal/">Renewal</a></span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="zacht" id="faq">
+    <div class="container">
+      <div class="sectie-kop">
+        <h2>Questions people ask first</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>What is the difference between DAFT and DJTT?</summary>
+          <p>DAFT is the Dutch-American Friendship Treaty, for US citizens, purpose 453 on the IND form. DJTT is the Dutch-Japanese Trade Treaty, for Japanese nationals, purpose 510. The requirements are the same: no points system, at least €4,500 of equity, and a balance sheet checked and signed by an authorised independent expert.</p>
+        </details>
+        <details>
+          <summary>Do I need an accountant for a treaty permit?</summary>
+          <p>You need an authorised independent external expert to check and sign your balance sheet. The IND names a registeraccountant, an accountant-administratieconsulent, a bookkeeper or a financial adviser, so a bookkeeper is enough. For the years after that, nobody is required to keep your books for you, but you do have to file VAT and income tax returns and keep your equity at €4,500 or more.</p>
+        </details>
+        <details>
+          <summary>What does the whole process cost?</summary>
+          <p>The signed opening balance sheet is €495 excluding VAT, or €595 within 48 hours. The renewal statement costs the same. The IND charges its own fee for the application, see the <a href="https://ind.nl/en/fees-costs-of-an-application" rel="noopener">IND fees page</a>. Monthly bookkeeping on the Compliance Plan is €79 or €149 a month excluding VAT, with the balance sheet and the renewal statement included.</p>
+        </details>
+        <details>
+          <summary>Can I do this from outside the Netherlands?</summary>
+          <p>Everything that happens here is remote: you send your documents by email and receive the signed PDF. The KVK registration, the bank account and the IND application each have their own procedure.</p>
+        </details>
+        <details>
+          <summary>Do you also file my US tax return?</summary>
+          <p>No. Slim Geregeld handles the Dutch side: the balance sheet, the Dutch VAT and income tax returns and the renewal statement. For your US return you need a US tax preparer.</p>
+        </details>
+        <details>
+          <summary>Is everything in English?</summary>
+          <p>Yes, every page, email and document. The balance sheet itself is in Dutch and English side by side. There is also a <a href="/djtt/ja/" lang="ja" hreflang="ja">Japanese page</a> for the Japanese treaty, but all communication is in English.</p>
+        </details>
+      </div>
+      <div class="hero-cta" style="margin-top:2rem">
+        <a class="knop" href="#choose">Which permit are you applying for? ↑</a>
+        <a class="knop omlijnd" href="/daft/contact/">Ask a question</a>
+      </div>
     </div>
   </section>
 </main>
