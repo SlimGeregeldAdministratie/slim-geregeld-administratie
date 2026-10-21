@@ -156,7 +156,7 @@
               <textarea id="v-vraag" name="vraag" placeholder="For example: I am moving in October and have not registered anything yet. What should I do first?" required></textarea>
             </div>
             <div class="veld">
-              <label for="v-gevonden">How did you find me?</label>
+              <label for="v-gevonden">How did you find us?</label>
               <select id="v-gevonden" name="gevonden" required>
                 <option value="" disabled selected>Choose one</option>
                 <option value="zegniet">Rather not say</option>
@@ -272,7 +272,7 @@
     ai:['Which one? <span class="opt">optional</span>','ChatGPT, Claude, Gemini, Copilot'],
     reddit:['Which subreddit, if you remember? <span class="opt">optional</span>','r/Netherlands'],
     facebook:['Which group? <span class="opt">optional</span>','Americans in the Netherlands'],
-    adviseur:['Who was it? I would like to thank them. <span class="opt">optional</span>','Name of the lawyer or adviser'],
+    adviseur:['Who was it? We would like to thank them. <span class="opt">optional</span>','Name of the lawyer or adviser'],
     anders:['Where was it? <span class="opt">optional</span>','']
   };
   gevonden.addEventListener('change',function(){
@@ -296,7 +296,7 @@
       melding.className='melding fout';return;
     }
     if(!gevonden.value){
-      melding.textContent='Please tell me how you found me, or choose Rather not say.';
+      melding.textContent='Please tell us how you found us, or choose Rather not say.';
       melding.className='melding fout';gevonden.focus();return;
     }
     knop.disabled=true;knop.textContent='Sending...';

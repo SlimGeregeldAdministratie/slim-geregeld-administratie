@@ -11,11 +11,11 @@
   var vasteSoort=form.getAttribute('data-soort')||'';
   var planVink=document.getElementById('d-plan');
 
-  // Prijzen excl. btw per soort aanvraag. De verlenging heeft een eigen prijs,
-  // want daar gaan twee boekjaren balans en W&V doorheen in plaats van één storting.
+  // Prijzen excl. btw per soort aanvraag. Verlenging staat voorlopig gelijk aan
+  // een eerste aanvraag (besluit Kyle 21-10-2026); hier aanpassen als dat verandert.
   var PRIJZEN={
     eerste:{standard:'€495',rush:'€595'},
-    verlenging:{standard:'€695',rush:'€795'}
+    verlenging:{standard:'€495',rush:'€595'}
   };
 
   function zetOptie(v){
@@ -166,7 +166,7 @@
     ai:['Which one? <span class="opt">optional</span>','ChatGPT, Claude, Gemini, Copilot'],
     reddit:['Which subreddit, if you remember? <span class="opt">optional</span>','r/Netherlands'],
     facebook:['Which group? <span class="opt">optional</span>','Americans in the Netherlands'],
-    adviseur:['Who was it? I would like to thank them. <span class="opt">optional</span>','Name of the lawyer or adviser'],
+    adviseur:['Who was it? We would like to thank them. <span class="opt">optional</span>','Name of the lawyer or adviser'],
     anders:['Where was it? <span class="opt">optional</span>','']
   };
   gevonden.addEventListener('change',function(){
@@ -287,7 +287,7 @@
     // Het bronveld is verplicht, met 'Rather not say' als uitweg. Zo weet Kyle bij
     // elke aanvraag waar die vandaan kwam, of in elk geval dat iemand het niet zegt.
     if(!gevonden.value){
-      melding.textContent='Please tell me how you found me, or choose Rather not say.';
+      melding.textContent='Please tell us how you found us, or choose Rather not say.';
       melding.className='melding fout';
       toonStap(3,true);
       setTimeout(function(){gevonden.focus();},400);
