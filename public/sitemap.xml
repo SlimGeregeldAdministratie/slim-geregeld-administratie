@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Alleen pagina's met eigen inhoud. Niet opgenomen: /bedankt (na een formulier),
+<!-- Alleen pagina's met eigen inhoud. Niet opgenomen: /bedankt (na een formulier), /intake (klantformulier),
      /slim-chatbot-instellingen, /belastingformulier-2024, en routes die de homepage
      tonen met een sprong naar een sectie (/pakketten, /reviews, /contact, enz.) of
      de branchesecties (/bouw/faq en dergelijke), want dat is dubbele inhoud. -->
@@ -12,75 +12,69 @@
   </url>
   <url>
     <loc>https://slim-geregeld.nl/branches</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/bouw</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/creatief</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/persoonlijk</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/tech</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/ecommerce</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/gratis-tools</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/nettocheck</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/slim-chatbot</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/over-ons</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/nieuws</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://slim-geregeld.nl/intake</loc>
-    <lastmod>2026-09-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/en/</loc>
@@ -126,13 +120,13 @@
   </url>
   <url>
     <loc>https://slim-geregeld.nl/privacybeleid</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://slim-geregeld.nl/algemene-voorwaarden</loc>
-    <lastmod>2025-12-31</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

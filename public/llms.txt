@@ -22,8 +22,11 @@ Key facts for the treaty route:
 
 ## Bookkeeping (Dutch)
 
-- [Slim Geregeld Administratie](https://slim-geregeld.nl/): bookkeeping, VAT and income tax for freelancers and small businesses
-- [Intake](https://slim-geregeld.nl/intake): start as a bookkeeping client
+- [Slim Geregeld Administratie](https://slim-geregeld.nl/): bookkeeping, VAT and income tax for zzp'ers and small businesses. Volledige Service EUR 95 a month (introductory price, normally EUR 125), Alleen Slim (WhatsApp chatbot only) EUR 75 a month, income tax return for entrepreneurs EUR 235 fixed, custom work for BV and VOF on request. Every package has a 30-day free trial.
+- [Bookkeeping per sector](https://slim-geregeld.nl/branches): construction and installation, creative professions, personal services, tech and IT, e-commerce
+- [NettoCheck](https://slim-geregeld.nl/nettocheck): free calculator for a Dutch self-employed person's income tax and net income
+- [Slim chatbot](https://slim-geregeld.nl/slim-chatbot): invoices and quotes via WhatsApp
+- [About Kyle Bouwmeester](https://slim-geregeld.nl/over-ons)
 
 ## Contact
 
