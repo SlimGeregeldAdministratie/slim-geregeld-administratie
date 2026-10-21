@@ -404,7 +404,13 @@
   .route li.wij{border-color:var(--blauw-rand);background:linear-gradient(180deg,#fff,var(--blauw-tint))}
   .route h3{font-size:1rem;margin-bottom:.25rem;font-weight:750}
   .route p{font-size:.92rem}
-  .route .tag-wij{display:inline-block;margin-top:.45rem;font-size:.72rem;font-weight:750;color:var(--blauw);letter-spacing:.06em;text-transform:uppercase}
+  .route .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+  .route .tag-wij{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:750;color:var(--blauw-donker);letter-spacing:.06em;text-transform:uppercase;background:#fff;border:1.5px solid var(--blauw-rand);border-radius:99px;padding:.3em .8em;transition:border-color .15s,background .15s}
+  .route .tag-wij:hover{text-decoration:none;border-color:var(--blauw);background:var(--blauw-tint)}
+  /* knoppen in de hero naast elkaar zolang het past */
+  .hero-cta.een-rij{flex-wrap:nowrap}
+  .hero-cta.een-rij .knop{padding:.8em 1.25em}
+  @media(max-width:560px){.hero-cta.een-rij{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -437,7 +443,7 @@
         <span class="kicker">Bookkeeping in English for treaty entrepreneurs</span>
         <h1>Starting a business in the Netherlands under a treaty? <span class="blauw">Everything for your permit, in English.</span></h1>
         <p class="sub">US citizens under the Dutch-American Friendship Treaty (DAFT) and Japanese nationals under the Dutch-Japanese Trade Treaty (DJTT) need a signed balance sheet for the IND, and good books to keep the permit. Slim Geregeld does both, remotely, with a Becon-registered Dutch bookkeeper you deal with directly.</p>
-        <div class="hero-cta">
+        <div class="hero-cta een-rij">
           <a class="knop" href="#choose">Which permit are you applying for? ↓</a>
           <a class="knop omlijnd" href="/daft/contact/">Ask a question first</a>
         </div>
@@ -533,10 +539,10 @@
         <li><div><h3>Register your business with the KVK</h3><p>Most treaty entrepreneurs start as an eenmanszaak, a sole proprietorship. A VOF or BV is possible too; the paperwork differs per legal form.</p></div></li>
         <li><div><h3>Open a Dutch business bank account</h3><p>The IND wants a business bank statement showing your business name and the invested amount. Not every Dutch bank takes on US citizens, because of FATCA reporting, so check that first.</p></div></li>
         <li><div><h3>Put at least €4,500 of your own money in</h3><p>Savings or a genuine gift count. A loan does not, because borrowed money is debt and not equity. For an NV the minimum is €11,250.</p></div></li>
-        <li class="wij"><div><h3>Have the opening balance sheet checked and signed</h3><p>An authorised independent expert checks the figures and signs. That is the document the IND asks for with your application.</p><span class="tag-wij">Done here: <a href="/daft/">DAFT</a> or <a href="/djtt/">DJTT</a></span></div></li>
+        <li class="wij"><div><h3>Have the opening balance sheet checked and signed</h3><p>An authorised independent expert checks the figures and signs. That is the document the IND asks for with your application.</p><span class="tags"><a class="tag-wij" href="/daft/">Done here: DAFT →</a><a class="tag-wij" href="/djtt/">Done here: DJTT →</a></span></div></li>
         <li><div><h3>Apply with the IND</h3><p>Purpose 453 for DAFT or purpose 510 for DJTT on application form 7524. The first permit runs for two years.</p></div></li>
-        <li class="wij"><div><h3>Keep your books and your equity in order</h3><p>Quarterly VAT returns, a yearly income tax return, and equity that stays at or above €4,500. This is where most renewal problems start.</p><span class="tag-wij">Done here: <a href="/daft/#pricing">Compliance Plan</a></span></div></li>
-        <li class="wij"><div><h3>Renew after two years</h3><p>The IND wants a balance sheet and profit and loss account for two years, checked and signed. The renewal gives you five years.</p><span class="tag-wij">Done here: <a href="/daft/renewal/">Renewal</a></span></div></li>
+        <li class="wij"><div><h3>Keep your books and your equity in order</h3><p>Quarterly VAT returns, a yearly income tax return, and equity that stays at or above €4,500. This is where most renewal problems start.</p><span class="tags"><a class="tag-wij" href="/daft/#pricing">Done here: Compliance Plan →</a></span></div></li>
+        <li class="wij"><div><h3>Renew after two years</h3><p>The IND wants a balance sheet and profit and loss account for two years, checked and signed. The renewal gives you five years.</p><span class="tags"><a class="tag-wij" href="/daft/renewal/">Done here: Renewal →</a></span></div></li>
       </ol>
     </div>
   </section>
