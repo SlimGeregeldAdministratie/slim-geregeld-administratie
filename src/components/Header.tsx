@@ -195,8 +195,6 @@ const Header = () => {
             </div>
 
             <button onClick={() => handleNavClick('pakketten')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Pakketten</button>
-            {/* /daft/ is een statische pagina buiten de router, dus geen <Link> */}
-            <a href="/daft/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">DAFT</a>
             <button onClick={() => handleNavClick('contact')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contact</button>
 
             {/* Over Ons Dropdown */}
@@ -276,6 +274,14 @@ const Header = () => {
               )}
             </div>
           </nav>
+
+          {/* Taalkeuze: de Engelse en Japanse pagina's zijn statisch, dus gewone links.
+              Op smallere schermen staan ze in het menu en in de balk bovenaan. */}
+          <span className="hidden lg:flex items-center whitespace-nowrap rounded-full border border-gray-200 text-sm font-semibold overflow-hidden">
+            <a href="/en/" hrefLang="en" lang="en" className="px-3 py-1 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors">EN</a>
+            <span className="w-px h-4 bg-gray-200" aria-hidden="true"></span>
+            <a href="/djtt/ja/" hrefLang="ja" lang="ja" className="px-3 py-1 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-colors">日本語</a>
+          </span>
 
           {/* Desktop Contact Button - Always visible when menu is closed */}
           <div className="hidden md:block">
@@ -365,7 +371,8 @@ const Header = () => {
               </div>
               
               <button onClick={() => handleNavClick('pakketten')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Pakketten</button>
-              <a href="/daft/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">DAFT</a>
+              <a href="/en/" hrefLang="en" lang="en" className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">English: DAFT and DJTT</a>
+              <a href="/djtt/ja/" hrefLang="ja" lang="ja" className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">日本語</a>
               <button onClick={() => handleNavClick('contact')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Contact</button>
 
               {/* Mobile Over Ons */}

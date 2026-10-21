@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
+import TreatyBalk from './components/TreatyBalk';
 import Hero from './components/Hero';
 import Problems from './components/Problems';
 import Solution from './components/Solution';
@@ -115,6 +116,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className="min-h-screen">
+        <TreatyBalk />
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
