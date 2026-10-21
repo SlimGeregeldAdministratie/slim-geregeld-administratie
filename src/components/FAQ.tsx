@@ -29,15 +29,15 @@ const FAQ = () => {
     },
     {
       question: "Hoe moeilijk is het om over te stappen naar jullie midden in het boekjaar?",
-      answer: "Helemaal niet moeilijk. We regelen de overstap gratis voor je – inclusief het overnemen van je vorige administratie. Jij hoeft alleen je gegevens aan te leveren, de rest doen wij. Binnen vijf werkdagen ben je up and running en kun jij ondernemen in nieuwe stijl zonder gedoe."
+      answer: "Helemaal niet moeilijk. We regelen de overstap gratis voor je, inclusief het overnemen van je vorige administratie. Jij hoeft alleen je gegevens aan te leveren, de rest doen wij. Binnen vijf werkdagen ben je up and running en kun jij ondernemen in nieuwe stijl zonder gedoe."
     },
     {
       question: "Hou ik zelf nog wel controle en inzicht als jullie alles doen?",
-      answer: "Jazeker. Jij blijft 100% inzicht houden in je financiën. Je krijgt toegang tot de online omgeving en app, waar je op elk moment grafieken en rapportages kunt zien over omzet, kosten, winst, noem maar op. Daarnaast houden wij je op de hoogte – je krijgt een seintje bij elke belangrijke deadline. Het is jouw bedrijf, wij zorgen er alleen voor dat jij altijd up-to-date én in control bent."
+      answer: "Jazeker. Jij blijft 100% inzicht houden in je financiën. Je krijgt toegang tot de online omgeving en app, waar je op elk moment grafieken en rapportages kunt zien over omzet, kosten, winst, noem maar op. Daarnaast houden wij je op de hoogte: je krijgt een seintje bij elke belangrijke deadline. Het is jouw bedrijf, wij zorgen er alleen voor dat jij altijd up-to-date én in control bent."
     },
     {
       question: "Doen jullie ook de aangifte inkomstenbelasting voor ondernemers?",
-      answer: "Ja, zeker! We verzorgen ook de inkomstenbelasting voor zzp'ers en ondernemers. Deze zit alleen niet standaard in onze pakketten inbegrepen. Wil je dat wij dit voor je regelen? Geen probleem – voor een vast bedrag van €235 nemen we de hele aangifte uit handen. Wel zo makkelijk."
+      answer: "Ja, zeker! We verzorgen ook de inkomstenbelasting voor zzp'ers en ondernemers. Deze zit alleen niet standaard in onze pakketten inbegrepen. Wil je dat wij dit voor je regelen? Geen probleem: voor een vast bedrag van €235 nemen we de hele aangifte uit handen. Wel zo makkelijk."
     },
     {
       question: "Hoe werkt de 30 dagen gratis proefperiode?",

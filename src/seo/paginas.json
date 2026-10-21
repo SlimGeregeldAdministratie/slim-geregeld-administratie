@@ -1,0 +1,447 @@
+{
+ "basis": "https://slim-geregeld.nl",
+ "gewijzigd": "2026-10-21",
+ "faq_home": [
+  [
+   "Wat is het verschil tussen Alleen Slim en de Volledige Service?",
+   "De Slim Chatbot is perfect voor ondernemers die zelf hun administratie willen doen maar hulp nodig hebben. Je krijgt toegang tot onze AI-chatbot via WhatsApp voor facturen, offertes en basis vragen. De Volledige Service neemt je complete administratie uit handen - inclusief boekhouding, BTW-aangiftes en persoonlijk contact met Kyle."
+  ],
+  [
+   "Hoe werkt Slim (de WhatsApp-chatbot) precies?",
+   "Slim is onze AI-chatbot die je helpt via WhatsApp. Je kunt facturen laten maken, instructies krijgen voor het uploaden van bonnetjes, klanten toevoegen en vragen stellen over je administratie. Slim werkt 24/7 en geeft direct antwoord op je vragen."
+  ],
+  [
+   "Welke kosten kan ik aftrekken als ZZP'er?",
+   "Als ZZP'er kun je veel zakelijke kosten aftrekken: kantoorkosten, telefoon, internet, zakelijke reizen, cursussen, software, marketing en nog veel meer. Slim helpt je deze kosten te herkennen en correct te verwerken."
+  ],
+  [
+   "Hoe moeilijk is het om over te stappen naar jullie midden in het boekjaar?",
+   "Helemaal niet moeilijk. We regelen de overstap gratis voor je, inclusief het overnemen van je vorige administratie. Jij hoeft alleen je gegevens aan te leveren, de rest doen wij. Binnen vijf werkdagen ben je up and running en kun jij ondernemen in nieuwe stijl zonder gedoe."
+  ],
+  [
+   "Hou ik zelf nog wel controle en inzicht als jullie alles doen?",
+   "Jazeker. Jij blijft 100% inzicht houden in je financiën. Je krijgt toegang tot de online omgeving en app, waar je op elk moment grafieken en rapportages kunt zien over omzet, kosten, winst, noem maar op. Daarnaast houden wij je op de hoogte: je krijgt een seintje bij elke belangrijke deadline. Het is jouw bedrijf, wij zorgen er alleen voor dat jij altijd up-to-date én in control bent."
+  ],
+  [
+   "Doen jullie ook de aangifte inkomstenbelasting voor ondernemers?",
+   "Ja, zeker! We verzorgen ook de inkomstenbelasting voor zzp'ers en ondernemers. Deze zit alleen niet standaard in onze pakketten inbegrepen. Wil je dat wij dit voor je regelen? Geen probleem: voor een vast bedrag van €235 nemen we de hele aangifte uit handen. Wel zo makkelijk."
+  ],
+  [
+   "Hoe werkt de 30 dagen gratis proefperiode?",
+   "Heel simpel: je kunt 30 dagen lang geheel vrijblijvend gebruik maken van onze services. Geen verborgen kosten, geen verplichtingen. Als je na 30 dagen tevreden bent, gaan we verder. Zo niet? Dan stoppen we gewoon, zonder gedoe. We zijn er zo van overtuigd dat je tevreden zult zijn, dat we dit risico graag nemen."
+  ]
+ ],
+ "paginas": [
+  {
+   "pad": "/",
+   "titel": "Boekhouder voor zzp'ers | €95 p/m | Slim Geregeld",
+   "omschrijving": "Boekhouding, btw-aangifte en jaarrekening voor zzp'ers en kleine ondernemers, met persoonlijk contact en een WhatsApp-chatbot. 30 dagen gratis proberen.",
+   "kruimel": "Home",
+   "h1": "Nooit meer wakker liggen van je boekhouding",
+   "intro": "Slim Geregeld Administratie combineert persoonlijke aandacht met slimme AI, zodat jij kunt focussen op ondernemen. Voor zzp'ers, zelfstandigen en kleine bedrijven, met Becon-geregistreerd boekhouder Kyle Bouwmeester als vast aanspreekpunt.",
+   "punten": [
+    "Alleen Slim: de WhatsApp-chatbot voor ondernemers die zelf hun administratie doen, €75 per maand",
+    "Volledige Service: boekhouding, btw-aangifte, jaarrekening en persoonlijk contact met Kyle, €95 per maand (introductieprijs, normaal €125)",
+    "Maatwerk voor BV's, VOF's en complexe administraties, prijs op aanvraag",
+    "Aangifte inkomstenbelasting voor ondernemers: €235 vast",
+    "Alle pakketten 30 dagen gratis en vrijblijvend"
+   ],
+   "links": [
+    [
+     "/branches",
+     "Boekhouding per branche"
+    ],
+    [
+     "/gratis-tools",
+     "Gratis tools"
+    ],
+    [
+     "/nettocheck",
+     "NettoCheck"
+    ],
+    [
+     "/en/",
+     "Treaty services in English (DAFT, DJTT)"
+    ]
+   ],
+   "pakketten": true,
+   "faq": true
+  },
+  {
+   "pad": "/branches",
+   "titel": "Boekhouding per branche | Slim Geregeld Administratie",
+   "omschrijving": "Administratie afgestemd op jouw branche: bouw en installatie, creatieve beroepen, persoonlijke dienstverlening, techniek en ICT, e-commerce.",
+   "kruimel": "Branches",
+   "h1": "Boekhouding per branche",
+   "intro": "Maatwerk administratie voor jouw branche. Wij begrijpen de specifieke uitdagingen van jouw sector en leveren gerichte oplossingen.",
+   "links": [
+    [
+     "/bouw",
+     "Bouw en installatie"
+    ],
+    [
+     "/creatief",
+     "Creatieve beroepen"
+    ],
+    [
+     "/persoonlijk",
+     "Persoonlijke dienstverlening"
+    ],
+    [
+     "/tech",
+     "Techniek en ICT"
+    ],
+    [
+     "/ecommerce",
+     "E-commerce en detailhandel"
+    ]
+   ],
+   "collectie": true
+  },
+  {
+   "pad": "/bouw",
+   "titel": "Boekhouder voor aannemers en installateurs | Slim Geregeld",
+   "omschrijving": "Boekhouding voor aannemers, elektriciens, schilders en installateurs: btw-aangifte, jaarrekening en facturen via WhatsApp. €95 per maand, 30 dagen gratis.",
+   "kruimel": "Bouw en installatie",
+   "ouder": "/branches",
+   "h1": "Boekhouding voor aannemers, elektriciens en installateurs",
+   "intro": "Als aannemer, elektricien of schilder heb je geen tijd voor ingewikkelde administratie. Wij regelen je boekhouding, zodat jij kunt focussen op bouwen, installeren en vakwerk leveren.",
+   "punten": [
+    "Volledige Service: boekhouding, btw-aangifte en jaarrekening voor €95 per maand (introductieprijs, normaal €125)",
+    "Facturen en offertes maken via WhatsApp met de chatbot Slim",
+    "Persoonlijk contact met Kyle, Becon-geregistreerd boekhouder",
+    "30 dagen gratis en vrijblijvend proberen"
+   ],
+   "dienst": {
+    "naam": "Boekhouding voor aannemers, elektriciens en installateurs",
+    "doelgroep": "aannemers, elektriciens en installateurs"
+   }
+  },
+  {
+   "pad": "/creatief",
+   "titel": "Boekhouder voor fotografen en creatieven | Slim Geregeld",
+   "omschrijving": "Boekhouding voor fotografen, videomakers en ontwerpers: btw-aangifte, jaarrekening en facturen via WhatsApp. €95 per maand, 30 dagen gratis.",
+   "kruimel": "Creatieve beroepen",
+   "ouder": "/branches",
+   "h1": "Boekhouding voor fotografen, ontwerpers en videomakers",
+   "intro": "Als fotograaf, videomaker of designer heb je geen tijd voor ingewikkelde administratie. Wij regelen je boekhouding, zodat jij kunt focussen op creatieve projecten.",
+   "punten": [
+    "Volledige Service: boekhouding, btw-aangifte en jaarrekening voor €95 per maand (introductieprijs, normaal €125)",
+    "Facturen en offertes maken via WhatsApp met de chatbot Slim",
+    "Persoonlijk contact met Kyle, Becon-geregistreerd boekhouder",
+    "30 dagen gratis en vrijblijvend proberen"
+   ],
+   "dienst": {
+    "naam": "Boekhouding voor fotografen, ontwerpers en videomakers",
+    "doelgroep": "fotografen, ontwerpers en videomakers"
+   }
+  },
+  {
+   "pad": "/persoonlijk",
+   "titel": "Boekhouder voor coaches, kappers en trainers | Slim Geregeld",
+   "omschrijving": "Boekhouding voor coaches, kappers, therapeuten en personal trainers: btw-aangifte, jaarrekening en facturen via WhatsApp. €95 per maand.",
+   "kruimel": "Persoonlijke dienstverlening",
+   "ouder": "/branches",
+   "h1": "Boekhouding voor coaches, kappers en trainers",
+   "intro": "Als coach, kapper of trainer besteed je je tijd liever aan klanten dan aan administratie. Wij regelen je boekhouding, zodat jij kunt focussen op klanten helpen en groeien.",
+   "punten": [
+    "Volledige Service: boekhouding, btw-aangifte en jaarrekening voor €95 per maand (introductieprijs, normaal €125)",
+    "Facturen en offertes maken via WhatsApp met de chatbot Slim",
+    "Persoonlijk contact met Kyle, Becon-geregistreerd boekhouder",
+    "30 dagen gratis en vrijblijvend proberen"
+   ],
+   "dienst": {
+    "naam": "Boekhouding voor coaches, kappers en trainers",
+    "doelgroep": "coaches, kappers en trainers"
+   }
+  },
+  {
+   "pad": "/tech",
+   "titel": "Boekhouder voor developers en IT'ers | Slim Geregeld",
+   "omschrijving": "Boekhouding voor developers, IT-consultants en tech-zzp'ers: btw-aangifte, jaarrekening en facturen via WhatsApp. €95 per maand, 30 dagen gratis.",
+   "kruimel": "Techniek en ICT",
+   "ouder": "/branches",
+   "h1": "Boekhouding voor developers en IT-consultants",
+   "intro": "Als developer of IT-consultant besteed je je tijd liever aan ontwikkelen dan aan administratie. Wij regelen je boekhouding, zodat jij kunt focussen op technologie.",
+   "punten": [
+    "Volledige Service: boekhouding, btw-aangifte en jaarrekening voor €95 per maand (introductieprijs, normaal €125)",
+    "Facturen en offertes maken via WhatsApp met de chatbot Slim",
+    "Persoonlijk contact met Kyle, Becon-geregistreerd boekhouder",
+    "30 dagen gratis en vrijblijvend proberen"
+   ],
+   "dienst": {
+    "naam": "Boekhouding voor developers en IT-consultants",
+    "doelgroep": "developers en IT-consultants"
+   }
+  },
+  {
+   "pad": "/ecommerce",
+   "titel": "Boekhouder voor webshops en bol.com-verkopers | Slim Geregeld",
+   "omschrijving": "Boekhouding voor webshops, Shopify- en bol.com-verkopers: btw-aangifte, jaarrekening en facturen via WhatsApp. €95 per maand, 30 dagen gratis.",
+   "kruimel": "E-commerce en detailhandel",
+   "ouder": "/branches",
+   "h1": "Boekhouding voor webshops en bol.com-verkopers",
+   "intro": "Als Shopify-eigenaar of bol.com-verkoper besteed je je tijd liever aan verkopen dan aan administratie. Wij regelen je boekhouding, zodat jij kunt focussen op groei.",
+   "punten": [
+    "Volledige Service: boekhouding, btw-aangifte en jaarrekening voor €95 per maand (introductieprijs, normaal €125)",
+    "Facturen en offertes maken via WhatsApp met de chatbot Slim",
+    "Persoonlijk contact met Kyle, Becon-geregistreerd boekhouder",
+    "30 dagen gratis en vrijblijvend proberen"
+   ],
+   "dienst": {
+    "naam": "Boekhouding voor webshops en bol.com-verkopers",
+    "doelgroep": "webshops en bol.com-verkopers"
+   }
+  },
+  {
+   "pad": "/gratis-tools",
+   "titel": "Gratis tools voor ondernemers | Slim Geregeld",
+   "omschrijving": "Gratis tools voor zzp'ers: bereken je netto-inkomen met NettoCheck en maak facturen via WhatsApp met de chatbot Slim.",
+   "kruimel": "Gratis tools",
+   "h1": "Gratis tools",
+   "intro": "Handige tools om je als ondernemer te helpen. Helemaal gratis, geen verplichtingen.",
+   "links": [
+    [
+     "/nettocheck",
+     "NettoCheck: bereken je netto-inkomen als ondernemer"
+    ],
+    [
+     "/slim-chatbot",
+     "Slim: de WhatsApp-chatbot voor facturen en offertes"
+    ]
+   ],
+   "collectie": true
+  },
+  {
+   "pad": "/nettocheck",
+   "titel": "NettoCheck: wat hou je netto over als zzp'er? | Slim Geregeld",
+   "omschrijving": "Beantwoord 5 korte vragen en zie direct een schatting van je inkomstenbelasting en netto-inkomen als zelfstandig ondernemer. Gratis.",
+   "kruimel": "NettoCheck",
+   "ouder": "/gratis-tools",
+   "h1": "NettoCheck",
+   "intro": "Ontdek wat je echt overhoudt als zelfstandig ondernemer. Beantwoord 5 korte vragen over omzet, kosten, urencriterium en startersaftrek, en ontvang een schatting van je inkomstenbelasting en netto-inkomen.",
+   "app": {
+    "naam": "NettoCheck",
+    "categorie": "FinanceApplication"
+   }
+  },
+  {
+   "pad": "/slim-chatbot",
+   "titel": "Slim: de WhatsApp-boekhouder voor zzp'ers | Slim Geregeld",
+   "omschrijving": "Facturen en offertes maken in 1 minuut via WhatsApp, vragen over je administratie stellen, 24/7. De boekhoud-chatbot Slim, nu tijdelijk gratis.",
+   "kruimel": "Slim Chatbot",
+   "ouder": "/gratis-tools",
+   "h1": "Ontmoet Slim, jouw WhatsApp-boekhouder",
+   "intro": "Regel je administratie rechtstreeks via WhatsApp. Facturen, offertes, vragen en meer, altijd binnen handbereik. Slim is speciaal gemaakt voor zelfstandigen die minder tijd willen besteden aan administratie.",
+   "punten": [
+    "Facturen en offertes opmaken binnen 1 minuut",
+    "Vragen over administratie en belasting",
+    "24/7 beschikbaar via WhatsApp"
+   ],
+   "dienst": {
+    "naam": "Slim WhatsApp-chatbot",
+    "doelgroep": "zzp'ers en zelfstandigen"
+   }
+  },
+  {
+   "pad": "/over-ons",
+   "titel": "Over Slim Geregeld en boekhouder Kyle Bouwmeester",
+   "omschrijving": "Slim Geregeld Administratie is het boekhoudkantoor van Kyle Bouwmeester, Becon-geregistreerd boekhouder en Moneybird Expert.",
+   "kruimel": "Over ons",
+   "h1": "Over ons",
+   "intro": "Slim Geregeld Administratie is het boekhoudkantoor van Kyle Bouwmeester, Becon-geregistreerd boekhouder en Moneybird Expert. Kyle helpt ondernemers met moderne, efficiënte oplossingen en is zelf je vaste aanspreekpunt.",
+   "links": [
+    [
+     "/nieuws",
+     "Nieuws en tips"
+    ],
+    [
+     "/contact",
+     "Contact"
+    ]
+   ],
+   "over": true
+  },
+  {
+   "pad": "/nieuws",
+   "titel": "Nieuws en belastingtips voor ondernemers | Slim Geregeld",
+   "omschrijving": "Praktische tips over administratie, ondernemerschap en belastingen van boekhouder Kyle Bouwmeester.",
+   "kruimel": "Nieuws",
+   "ouder": "/over-ons",
+   "h1": "Nieuws en updates",
+   "intro": "Praktische tips over administratie, ondernemerschap en belastingen, zoals een holdingstructuur of de fiscale gevolgen van een zakelijke auto."
+  },
+  {
+   "pad": "/intake",
+   "titel": "Intake voor nieuwe klanten | Slim Geregeld Administratie",
+   "omschrijving": "Intakeformulier voor nieuwe klanten van Slim Geregeld Administratie.",
+   "kruimel": "Intake",
+   "noindex": true
+  },
+  {
+   "pad": "/privacybeleid",
+   "titel": "Privacybeleid | Slim Geregeld Administratie",
+   "omschrijving": "Hoe Slim Geregeld Administratie omgaat met je persoonsgegevens: welke gegevens, waarom, hoe lang en welke rechten je hebt.",
+   "kruimel": "Privacybeleid",
+   "h1": "Privacybeleid"
+  },
+  {
+   "pad": "/algemene-voorwaarden",
+   "titel": "Algemene voorwaarden | Slim Geregeld Administratie",
+   "omschrijving": "De algemene voorwaarden van Slim Geregeld Administratie voor alle diensten, offertes en overeenkomsten.",
+   "kruimel": "Algemene voorwaarden",
+   "h1": "Algemene voorwaarden"
+  },
+  {
+   "pad": "/bedankt",
+   "titel": "Bedankt | Slim Geregeld Administratie",
+   "omschrijving": "Bedankt voor je bericht.",
+   "kruimel": "Bedankt",
+   "noindex": true
+  },
+  {
+   "pad": "/slim-chatbot-instellingen",
+   "titel": "Chatbot-instellingen | Slim Geregeld Administratie",
+   "omschrijving": "Instellingen voor de chatbot Slim.",
+   "kruimel": "Instellingen",
+   "noindex": true
+  },
+  {
+   "pad": "/belastingformulier-2024",
+   "titel": "Belastingformulier 2024 | Slim Geregeld Administratie",
+   "omschrijving": "Formulier voor klanten.",
+   "kruimel": "Belastingformulier",
+   "noindex": true
+  },
+  {
+   "pad": "/uniek",
+   "canonical": "/",
+   "kopie_van": "/"
+  },
+  {
+   "pad": "/pakketten",
+   "canonical": "/",
+   "kopie_van": "/"
+  },
+  {
+   "pad": "/reviews",
+   "canonical": "/",
+   "kopie_van": "/"
+  },
+  {
+   "pad": "/over-kyle",
+   "canonical": "/",
+   "kopie_van": "/"
+  },
+  {
+   "pad": "/contact",
+   "canonical": "/",
+   "kopie_van": "/"
+  },
+  {
+   "pad": "/veelgestelde-vragen",
+   "canonical": "/",
+   "kopie_van": "/"
+  },
+  {
+   "pad": "/bouw/pakketten",
+   "canonical": "/bouw",
+   "kopie_van": "/bouw"
+  },
+  {
+   "pad": "/bouw/reviews",
+   "canonical": "/bouw",
+   "kopie_van": "/bouw"
+  },
+  {
+   "pad": "/bouw/contact",
+   "canonical": "/bouw",
+   "kopie_van": "/bouw"
+  },
+  {
+   "pad": "/bouw/faq",
+   "canonical": "/bouw",
+   "kopie_van": "/bouw"
+  },
+  {
+   "pad": "/creatief/pakketten",
+   "canonical": "/creatief",
+   "kopie_van": "/creatief"
+  },
+  {
+   "pad": "/creatief/reviews",
+   "canonical": "/creatief",
+   "kopie_van": "/creatief"
+  },
+  {
+   "pad": "/creatief/contact",
+   "canonical": "/creatief",
+   "kopie_van": "/creatief"
+  },
+  {
+   "pad": "/creatief/faq",
+   "canonical": "/creatief",
+   "kopie_van": "/creatief"
+  },
+  {
+   "pad": "/persoonlijk/pakketten",
+   "canonical": "/persoonlijk",
+   "kopie_van": "/persoonlijk"
+  },
+  {
+   "pad": "/persoonlijk/reviews",
+   "canonical": "/persoonlijk",
+   "kopie_van": "/persoonlijk"
+  },
+  {
+   "pad": "/persoonlijk/contact",
+   "canonical": "/persoonlijk",
+   "kopie_van": "/persoonlijk"
+  },
+  {
+   "pad": "/persoonlijk/faq",
+   "canonical": "/persoonlijk",
+   "kopie_van": "/persoonlijk"
+  },
+  {
+   "pad": "/tech/pakketten",
+   "canonical": "/tech",
+   "kopie_van": "/tech"
+  },
+  {
+   "pad": "/tech/reviews",
+   "canonical": "/tech",
+   "kopie_van": "/tech"
+  },
+  {
+   "pad": "/tech/contact",
+   "canonical": "/tech",
+   "kopie_van": "/tech"
+  },
+  {
+   "pad": "/tech/faq",
+   "canonical": "/tech",
+   "kopie_van": "/tech"
+  },
+  {
+   "pad": "/ecommerce/pakketten",
+   "canonical": "/ecommerce",
+   "kopie_van": "/ecommerce"
+  },
+  {
+   "pad": "/ecommerce/reviews",
+   "canonical": "/ecommerce",
+   "kopie_van": "/ecommerce"
+  },
+  {
+   "pad": "/ecommerce/contact",
+   "canonical": "/ecommerce",
+   "kopie_van": "/ecommerce"
+  },
+  {
+   "pad": "/ecommerce/faq",
+   "canonical": "/ecommerce",
+   "kopie_van": "/ecommerce"
+  }
+ ]
+}
