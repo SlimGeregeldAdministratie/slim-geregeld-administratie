@@ -16,7 +16,7 @@ const TEKSTEN = {
     quote1: '{t.quote1}', quote2: '{t.quote2}', volledigeReview: 'Bekijk volledige review',
     stap1: 'Basisgegevens', stap2: 'Factuurinstellingen', formKop: 'Activeer Slim Chatbot', formSub: 'Stap 1 van 2: vul je basisgegevens in. Je krijgt meteen een mail met hoe je begint.',
     voornaam: 'Voornaam *', achternaam: 'Achternaam *', bedrijf: 'Bedrijfsnaam *', email: 'E-mailadres *', telefoon: 'Telefoonnummer *', phVoornaam: 'Je voornaam', phAchternaam: 'Je achternaam', phBedrijf: 'Je bedrijfsnaam', phEmail: 'je@email.nl', phTelefoon: '06 12 34 56 78 (je WhatsApp-nummer)',
-    moneybirdVraag: 'Werk je al met Moneybird? *', mbJa: 'Ja, Slim mag in mijn Moneybird werken', mbNee: 'Nee, Slim maakt mijn facturen als pdf', mbWeetNiet: 'Weet ik niet',
+    moneybirdVraag: 'Werk je al met Moneybird? *', mbJa: 'Ja, Slim mag in mijn Moneybird werken', mbNee: 'Nee, Slim maakt mijn facturen als pdf', mbWil: 'Nee, maar ik wil wel Moneybird (Kyle zet het voor me klaar)', mbWeetNiet: 'Weet ik niet, help me kiezen',
     verder: 'Ga verder naar stap 2', opgeslagen: 'Mooi, je basisgegevens zijn opgeslagen', nogEen: 'Nog één stap: vul je factuurgegevens in, zodat Slim de juiste gegevens op je facturen en offertes zet.', naarStap2: 'Ga naar stap 2', doorgestuurd: 'Je wordt over 3 seconden automatisch doorgestuurd naar stap 2.',
   },
   en: {
@@ -31,7 +31,7 @@ const TEKSTEN = {
     quote1: 'I use it to make my invoices, among other things. Everything was very clear and it saves a lot of time. Recommended!', quote2: 'Makes bookkeeping much easier and faster. On the road I can send out invoices quickly with a simple message. Great system.', volledigeReview: 'Read the full review',
     stap1: 'Basic details', stap2: 'Invoice settings', formKop: 'Activate Slim Chatbot', formSub: 'Step 1 of 2: fill in your basic details. You get an e-mail right away explaining how to start.',
     voornaam: 'First name *', achternaam: 'Last name *', bedrijf: 'Business name *', email: 'E-mail address *', telefoon: 'Phone number *', phVoornaam: 'Your first name', phAchternaam: 'Your last name', phBedrijf: 'Your business name', phEmail: 'you@email.com', phTelefoon: '+31 6 12 34 56 78 (your WhatsApp number)',
-    moneybirdVraag: 'Do you already use Moneybird? *', mbJa: 'Yes, Slim may work in my Moneybird', mbNee: 'No, Slim makes my invoices as pdf', mbWeetNiet: 'I do not know',
+    moneybirdVraag: 'Do you already use Moneybird? *', mbJa: 'Yes, Slim may work in my Moneybird', mbNee: 'No, Slim makes my invoices as pdf', mbWil: 'No, but I want Moneybird (Kyle sets it up for me)', mbWeetNiet: 'I do not know, help me choose',
     verder: 'Continue to step 2', opgeslagen: 'Great, your basic details are saved', nogEen: 'One more step: fill in your invoice details so Slim puts the right information on your invoices and quotes.', naarStap2: 'Go to step 2', doorgestuurd: 'You will be redirected to step 2 in 3 seconds.',
   },
 };
@@ -494,7 +494,7 @@ const SlimChatbot = ({ lang = 'nl' }: { lang?: 'nl' | 'en' }) => {
                 <div>
                   <p className="block text-sm font-semibold text-gray-900 mb-2">{t.moneybirdVraag}</p>
                   <div className="space-y-2">
-                    {[['ja', t.mbJa], ['nee', t.mbNee], ['weet-niet', t.mbWeetNiet]].map(([waarde, label]) => (
+                    {[['ja', t.mbJa], ['nee', t.mbNee], ['wil', t.mbWil], ['weet-niet', t.mbWeetNiet]].map(([waarde, label]) => (
                       <label key={waarde} className={`flex items-center space-x-3 px-4 py-3 border rounded-xl cursor-pointer transition-colors ${formData.moneybird === waarde ? 'border-blue-600 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`}>
                         <input type="radio" name="moneybird" value={waarde} checked={formData.moneybird === waarde} onChange={handleInputChange} required className="h-4 w-4 text-blue-600" />
                         <span className="text-gray-800">{label}</span>

@@ -3,6 +3,8 @@ import { Check, ArrowRight, Bot, Star, Users } from 'lucide-react';
 
 const Pricing = () => {
   const handlePackageClick = (packageType: string) => {
+    // Alleen Slim heeft een eigen aanmeldpagina (leadmagnet, 180 dagen gratis)
+    if (packageType === 'alleen-slim') { window.location.href = '/slim-chatbot'; return; }
     // Scroll to contact form and set the package
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
@@ -21,21 +23,22 @@ const Pricing = () => {
   const packages = [
     {
       name: "Alleen Slim",
-      description: "Perfect voor ondernemers die zelf hun administratie doen",
-      price: "€75",
+      description: "Voor ondernemers die zelf hun administratie doen, met of zonder Moneybird",
+      price: "€19,95",
       period: "/maand",
-      trialText: "30 dagen gratis",
+      trialText: "180 dagen gratis",
       icon: Bot,
       iconColor: "text-blue-600",
       iconBg: "bg-blue-100",
       packageType: "alleen-slim",
       features: [
-        "Toegang tot Slim WhatsApp-chatbot",
-        "Facturen en offertes opmaken",
-        "24/7 vragen beantwoorden",
-        "Klanten beheer"
+        "Facturen en offertes maken via WhatsApp, in gewone taal",
+        "Bonnetjes als foto doorsturen",
+        "Spraakberichten in plaats van typen",
+        "Vragen over je administratie, dag en nacht",
+        "Werkt in je eigen Moneybird of zonder boekhoudpakket"
       ],
-      buttonText: "Start gratis proef",
+      buttonText: "Start 180 dagen gratis",
       buttonStyle: "bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50",
       cardStyle: "bg-white border border-gray-200 hover:shadow-lg"
     },
@@ -96,7 +99,7 @@ const Pricing = () => {
             Kies het pakket dat bij je past
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Van alleen onze AI-chatbot tot volledige administratieve ondersteuning - we hebben voor elke ondernemer de juiste oplossing. Nu de Volledige Service zelfs met{' '}
+            Van alleen de chatbot tot volledige administratieve ondersteuning, voor elke ondernemer een passende stap. Hoef je geen btw-aangifte te doen (KOR of DAFT-verdrag), dan is er het <a href="/daft/#pricing" className="underline text-blue-600">Compliance-plan vanaf €79 per maand</a>. Nu de Volledige Service zelfs met{' '}
             <span className="relative inline-block">
               introductiekorting van €125 p/m naar €95 p/m.
               <svg 
