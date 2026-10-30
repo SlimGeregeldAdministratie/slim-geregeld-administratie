@@ -177,6 +177,8 @@ function App() {
           <Route path="/nettocheck" element={<NettoCheck />} />
           <Route path="/slim-chatbot" element={<SlimChatbot />} />
           <Route path="/slim-chatbot-instellingen" element={<SlimChatbotInstellingen />} />
+          <Route path="/en/slim-chatbot" element={<SlimChatbot lang="en" />} />
+          <Route path="/en/slim-chatbot-settings" element={<SlimChatbotInstellingen lang="en" />} />
           <Route path="/belastingformulier-2024" element={<TaxForm2024 />} />
 
           {/* Catch-all route - redirect to homepage */}

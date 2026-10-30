@@ -2,7 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const SlimChatbotInstellingen = () => {
+const TEKSTEN = {
+  nl: {
+    terug: 'Terug naar stap 1', titel: 'Jouw', accent: 'factuurinstellingen', sub: 'Stap 2 van 2: vul de gegevens in die automatisch op je facturen en offertes komen te staan.',
+    subMb: 'Stap 2 van 2: je werkt met Moneybird, dus je factuurgegevens staan daar al. Slim heeft alleen een API-token nodig.',
+    stap1: 'Basisgegevens', stap2: 'Factuurinstellingen',
+    mbKop: 'Koppeling met Moneybird', mbUitleg1: 'Maak in Moneybird een API-token aan via moneybird.com/user/applications/new. Kies een naam (bijvoorbeeld Slim) en vink Verkoopfacturen, Offertes en Instellingen aan.', mbUitleg2: 'Plak het token hieronder. Slim controleert het en je krijgt een mail zodra je kunt beginnen, meestal binnen een half uur. Later aanleveren per mail kan ook.',
+    mbToken: 'Moneybird API-token', phToken: 'Plak hier je token',
+    bedrijfKop: 'Bedrijfsgegevens', website: 'Zakelijke website (optioneel)', kvk: 'KVK-nummer *', btw: 'Btw-nummer *', iban: 'IBAN *', tnv: 'Rekening t.n.v. *', adres: 'Adres *', postcode: 'Postcode *', plaats: 'Plaats *',
+    factuurKop: 'Factuurinstellingen', termijn: 'Betalingstermijn (dagen) *', geldig: 'Geldigheid offertes (dagen) *', prijzen: 'Prijzen *', dagen: 'dagen', excl: 'Exclusief btw', incl: 'Inclusief btw',
+    viaMail: 'Facturen na jouw akkoord direct naar je klant mailen? *', viaMailJa: 'Ja, met mij in de cc', viaMailNee: 'Nee, alleen naar mij',
+    templateKop: 'Opmaak', t1: 'Professioneel grijs', t2: 'Accent geel', t3: 'Modern blauw',
+    tekstenKop: 'Standaardteksten', voorwaarden: 'Betalingsvoorwaarden op de factuur', tekstBoven: 'Offertetekst boven de tabel', tekstOnder: 'Offertetekst onder de tabel',
+    phVoorwaarden: 'Leeg laten mag: dan gebruikt Slim een standaardtekst met je betalingstermijn en IBAN.', phBoven: 'Leeg laten mag: "Geachte {naam}, bedankt voor uw aanvraag. Hieronder vindt u onze offerte."', phOnder: 'Leeg laten mag: "Deze offerte is 30 dagen geldig."',
+    extraKop: 'Extra opmerkingen', extra: 'Nog iets wat je kwijt wilt?', phExtra: 'Bijvoorbeeld: specifieke wensen voor facturen, bijzondere situaties, vragen over de service.',
+    opslaan: 'Opslaan en starten', bedankt: 'Bedankt, je instellingen zijn opgeslagen.', klaar: 'Slim staat voor je klaar. Stuur hem een berichtje op +31 6 23818236, het nummer staat ook in je welkomstmail.', klaarMb: 'Zodra je token is gecontroleerd krijg je een mail dat je kunt beginnen, meestal binnen een half uur.', home: 'Terug naar homepage',
+  },
+  en: {
+    terug: 'Back to step 1', titel: 'Your', accent: 'invoice settings', sub: 'Step 2 of 2: fill in the details that go on your invoices and quotes automatically.',
+    subMb: 'Step 2 of 2: you use Moneybird, so your invoice details are already there. Slim only needs an API token.',
+    stap1: 'Basic details', stap2: 'Invoice settings',
+    mbKop: 'Connecting to Moneybird', mbUitleg1: 'In Moneybird, create an API token at moneybird.com/user/applications/new. Choose a name (for example Slim) and tick Sales invoices, Estimates and Settings.', mbUitleg2: 'Paste the token below. Slim checks it and you get an e-mail as soon as you can start, usually within half an hour. Sending it later by e-mail also works.',
+    mbToken: 'Moneybird API token', phToken: 'Paste your token here',
+    bedrijfKop: 'Business details', website: 'Business website (optional)', kvk: 'Chamber of Commerce (KVK) number *', btw: 'VAT number *', iban: 'IBAN *', tnv: 'Account holder *', adres: 'Address *', postcode: 'Postal code *', plaats: 'City *',
+    factuurKop: 'Invoice settings', termijn: 'Payment term (days) *', geldig: 'Quote validity (days) *', prijzen: 'Prices *', dagen: 'days', excl: 'Excluding VAT', incl: 'Including VAT',
+    viaMail: 'E-mail invoices straight to your customer after your approval? *', viaMailJa: 'Yes, with me in cc', viaMailNee: 'No, only to me',
+    templateKop: 'Layout', t1: 'Professional grey', t2: 'Yellow accent', t3: 'Modern blue',
+    tekstenKop: 'Standard texts', voorwaarden: 'Payment terms on the invoice', tekstBoven: 'Quote text above the table', tekstOnder: 'Quote text below the table',
+    phVoorwaarden: 'May be left empty: Slim then uses a standard text with your payment term and IBAN.', phBoven: 'May be left empty: "Dear {name}, thank you for your request. Below you find our quote."', phOnder: 'May be left empty: "This quote is valid for 30 days."',
+    extraKop: 'Anything else', extra: 'Anything you want to tell us?', phExtra: 'For example: specific wishes for invoices, special situations, questions about the service.',
+    opslaan: 'Save and start', bedankt: 'Thank you, your settings are saved.', klaar: 'Slim is ready for you. Send him a message at +31 6 23818236, the number is also in your welcome e-mail.', klaarMb: 'As soon as your token is checked you get an e-mail that you can start, usually within half an hour.', home: 'Back to homepage',
+  },
+};
+
+const leesLead = () => { try { return JSON.parse(sessionStorage.getItem('slimLead') || '{}'); } catch (e) { return {}; } };
+
+const SlimChatbotInstellingen = ({ lang = 'nl' }: { lang?: 'nl' | 'en' }) => {
+  const t = TEKSTEN[lang];
+  const lead = leesLead();
+  const isMb = lead.moneybird === 'ja';
+  const stap1Pad = lang === 'en' ? '/en/slim-chatbot' : '/slim-chatbot';
   const [formData, setFormData] = useState({
     website: '',
     kvkNummer: '',
@@ -18,7 +57,10 @@ const SlimChatbotInstellingen = () => {
     template: 'template1',
     betalingsvoorwaarden: '',
     offerteTekstBoven: '',
-    offerteTekstOnder: ''
+    offerteTekstOnder: '',
+    extraOpmerkingen: '',
+    viaMail: 'ja',
+    moneybirdToken: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -54,6 +96,14 @@ const SlimChatbotInstellingen = () => {
     formDataToSubmit.append('betalingsvoorwaarden', formData.betalingsvoorwaarden);
     formDataToSubmit.append('offerteTekstBoven', formData.offerteTekstBoven);
     formDataToSubmit.append('offerteTekstOnder', formData.offerteTekstOnder);
+    formDataToSubmit.append('extraOpmerkingen', formData.extraOpmerkingen);
+    formDataToSubmit.append('viaMail', formData.viaMail);
+    formDataToSubmit.append('moneybirdToken', formData.moneybirdToken.trim());
+    // koppeling aan stap 1 (zelfde browser): e-mail en telefoon uit sessionStorage
+    formDataToSubmit.append('email', lead.email || '');
+    formDataToSubmit.append('telefoon', lead.telefoon || '');
+    formDataToSubmit.append('taal', lang);
+    formDataToSubmit.append('moneybird', lead.moneybird || '');
 
     fetch('/', {
       method: 'POST',
@@ -70,17 +120,17 @@ const SlimChatbotInstellingen = () => {
   const templates = [
     {
       id: 'template1',
-      name: 'Professioneel Grijs',
+      name: t.t1,
       image: '/Template 1.png'
     },
     {
       id: 'template2',
-      name: 'Accent Geel',
+      name: t.t2,
       image: '/Template 2.png'
     },
     {
       id: 'template3',
-      name: 'Modern Blauw',
+      name: t.t3,
       image: '/Template 3.png'
     }
   ];
@@ -91,11 +141,11 @@ const SlimChatbotInstellingen = () => {
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <Link 
-            to="/slim-chatbot" 
+            to={stap1Pad}
             className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors mb-6 font-medium"
           >
             <ArrowLeft className="h-5 w-5" />
-            <span>Terug naar stap 1</span>
+            <span>{t.terug}</span>
           </Link>
         </div>
       </div>
@@ -105,10 +155,10 @@ const SlimChatbotInstellingen = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Jouw <span className="text-blue-600">factuurinstellingen</span>
+              {t.titel} <span className="text-blue-600">{t.accent}</span>
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              Stap 2 van 2: Vul de gegevens in die automatisch op je facturen en offertes komen te staan.
+              {isMb ? t.subMb : t.sub}
             </p>
           </div>
         </div>
@@ -126,14 +176,14 @@ const SlimChatbotInstellingen = () => {
                   <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
                     ✓
                   </div>
-                  <span className="text-green-600 font-medium">Basisgegevens</span>
+                  <span className="text-green-600 font-medium">{t.stap1}</span>
                 </div>
                 <div className="w-12 h-0.5 bg-blue-600"></div>
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
                     2
                   </div>
-                  <span className="text-blue-600 font-medium">Factuurinstellingen</span>
+                  <span className="text-blue-600 font-medium">{t.stap2}</span>
                 </div>
               </div>
               
@@ -143,7 +193,7 @@ const SlimChatbotInstellingen = () => {
                   <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
                     2
                   </div>
-                  <span className="text-blue-600 font-medium">Factuurinstellingen</span>
+                  <span className="text-blue-600 font-medium">{t.stap2}</span>
                 </div>
               </div>
             </div>
@@ -152,16 +202,29 @@ const SlimChatbotInstellingen = () => {
               <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8">
                 {/* Hidden form name field for Netlify */}
                 <input type="hidden" name="form-name" value="slim-chatbot-instellingen" />
-                
-                {/* Bedrijfsgegevens */}
+
+                {isMb && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-bold text-gray-900 border-b border-gray-200 pb-4">{t.mbKop}</h3>
+                    <p className="text-gray-700 leading-relaxed">{t.mbUitleg1}</p>
+                    <p className="text-gray-700 leading-relaxed">{t.mbUitleg2}</p>
+                    <div>
+                      <label htmlFor="moneybirdToken" className="block text-sm font-semibold text-gray-900 mb-2">{t.mbToken}</label>
+                      <input type="text" id="moneybirdToken" name="moneybirdToken" value={formData.moneybirdToken} onChange={handleInputChange} placeholder={t.phToken} autoComplete="off" className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400 font-mono text-sm" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Bedrijfsgegevens (alleen zonder Moneybird; daar staan ze al in de administratie) */}
+                {!isMb && (<>
                 <div className="space-y-6">
                   <h3 className="text-2xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-                    Bedrijfsgegevens
+                    {t.bedrijfKop}
                   </h3>
                   
                   <div>
                     <label htmlFor="website" className="block text-sm font-semibold text-gray-900 mb-2">
-                      Zakelijke website (optioneel)
+                      {t.website}
                     </label>
                     <input
                       type="url"
@@ -177,7 +240,7 @@ const SlimChatbotInstellingen = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="kvkNummer" className="block text-sm font-semibold text-gray-900 mb-2">
-                        KVK nummer *
+                        {t.kvk}
                       </label>
                       <input
                         type="text"
@@ -187,13 +250,13 @@ const SlimChatbotInstellingen = () => {
                         onChange={handleInputChange}
                         placeholder="12345678"
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400"
-                        required
+                        required={!isMb}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="btwNummer" className="block text-sm font-semibold text-gray-900 mb-2">
-                        BTW nummer *
+                        {t.btw}
                       </label>
                       <input
                         type="text"
@@ -203,7 +266,7 @@ const SlimChatbotInstellingen = () => {
                         onChange={handleInputChange}
                         placeholder="NL123456789B01"
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400"
-                        required
+                        required={!isMb}
                       />
                     </div>
                   </div>
@@ -211,7 +274,7 @@ const SlimChatbotInstellingen = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="iban" className="block text-sm font-semibold text-gray-900 mb-2">
-                        IBAN *
+                        {t.iban}
                       </label>
                       <input
                         type="text"
@@ -221,13 +284,13 @@ const SlimChatbotInstellingen = () => {
                         onChange={handleInputChange}
                         placeholder="NL91 ABNA 0417 1643 00"
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400"
-                        required
+                        required={!isMb}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="rekeningTnv" className="block text-sm font-semibold text-gray-900 mb-2">
-                        Rekening t.n.v. *
+                        {t.tnv}
                       </label>
                       <input
                         type="text"
@@ -237,7 +300,7 @@ const SlimChatbotInstellingen = () => {
                         onChange={handleInputChange}
                         placeholder="Jouw Bedrijfsnaam"
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400"
-                        required
+                        required={!isMb}
                       />
                     </div>
                   </div>
@@ -245,7 +308,7 @@ const SlimChatbotInstellingen = () => {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label htmlFor="adres" className="block text-sm font-semibold text-gray-900 mb-2">
-                        Adres *
+                        {t.adres}
                       </label>
                       <input
                         type="text"
@@ -255,13 +318,13 @@ const SlimChatbotInstellingen = () => {
                         onChange={handleInputChange}
                         placeholder="Straatnaam 123"
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400"
-                        required
+                        required={!isMb}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="postcode" className="block text-sm font-semibold text-gray-900 mb-2">
-                        Postcode *
+                        {t.postcode}
                       </label>
                       <input
                         type="text"
@@ -271,13 +334,13 @@ const SlimChatbotInstellingen = () => {
                         onChange={handleInputChange}
                         placeholder="1234 AB"
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400"
-                        required
+                        required={!isMb}
                       />
                     </div>
 
                     <div>
                       <label htmlFor="plaats" className="block text-sm font-semibold text-gray-900 mb-2">
-                        Plaats *
+                        {t.plaats}
                       </label>
                       <input
                         type="text"
@@ -287,7 +350,7 @@ const SlimChatbotInstellingen = () => {
                         onChange={handleInputChange}
                         placeholder="Amsterdam"
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-400"
-                        required
+                        required={!isMb}
                       />
                     </div>
                   </div>
@@ -296,13 +359,13 @@ const SlimChatbotInstellingen = () => {
                 {/* Factuur instellingen */}
                 <div className="space-y-6">
                   <h3 className="text-2xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-                    Factuur instellingen
+                    {t.factuurKop}
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label htmlFor="betalingstermijn" className="block text-sm font-semibold text-gray-900 mb-2">
-                        Betalingstermijn (dagen) *
+                        {t.termijn}
                       </label>
                       <select
                         id="betalingstermijn"
@@ -310,17 +373,17 @@ const SlimChatbotInstellingen = () => {
                         value={formData.betalingstermijn}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                        required
+                        required={!isMb}
                       >
-                        <option value="7">7 dagen</option>
-                        <option value="14">14 dagen</option>
-                        <option value="30">30 dagen</option>
+                        <option value="7">7 {t.dagen}</option>
+                        <option value="14">14 {t.dagen}</option>
+                        <option value="30">30 {t.dagen}</option>
                       </select>
                     </div>
 
                     <div>
                       <label htmlFor="geldigheidOffertes" className="block text-sm font-semibold text-gray-900 mb-2">
-                        Geldigheid offertes (dagen) *
+                        {t.geldig}
                       </label>
                       <select
                         id="geldigheidOffertes"
@@ -328,17 +391,17 @@ const SlimChatbotInstellingen = () => {
                         value={formData.geldigheidOffertes}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                        required
+                        required={!isMb}
                       >
-                        <option value="14">14 dagen</option>
-                        <option value="30">30 dagen</option>
-                        <option value="60">60 dagen</option>
+                        <option value="14">14 {t.dagen}</option>
+                        <option value="30">30 {t.dagen}</option>
+                        <option value="60">60 {t.dagen}</option>
                       </select>
                     </div>
 
                     <div>
                       <label htmlFor="prijzenInclBtw" className="block text-sm font-semibold text-gray-900 mb-2">
-                        Prijzen *
+                        {t.prijzen}
                       </label>
                       <select
                         id="prijzenInclBtw"
@@ -346,19 +409,27 @@ const SlimChatbotInstellingen = () => {
                         value={formData.prijzenInclBtw}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                        required
+                        required={!isMb}
                       >
-                        <option value="excl">Exclusief BTW</option>
-                        <option value="incl">Inclusief BTW</option>
+                        <option value="excl">{t.excl}</option>
+                        <option value="incl">{t.incl}</option>
                       </select>
                     </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="viaMail" className="block text-sm font-semibold text-gray-900 mb-2">{t.viaMail}</label>
+                    <select id="viaMail" name="viaMail" value={formData.viaMail} onChange={handleInputChange} className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" required>
+                      <option value="ja">{t.viaMailJa}</option>
+                      <option value="nee">{t.viaMailNee}</option>
+                    </select>
                   </div>
                 </div>
 
                 {/* Template keuze */}
                 <div className="space-y-6">
                   <h3 className="text-2xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-                    Template keuze
+                    {t.templateKop}
                   </h3>
 
                   <div className="grid grid-cols-1 gap-6">
@@ -401,12 +472,12 @@ const SlimChatbotInstellingen = () => {
                 {/* Teksten */}
                 <div className="space-y-6">
                   <h3 className="text-2xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-                    Standaard teksten
+                    {t.tekstenKop}
                   </h3>
 
                   <div>
                     <label htmlFor="betalingsvoorwaarden" className="block text-sm font-semibold text-gray-900 mb-2">
-                      Standaard betalingsvoorwaarden factuur
+                      {t.voorwaarden}
                     </label>
                     <textarea
                       id="betalingsvoorwaarden"
@@ -414,14 +485,14 @@ const SlimChatbotInstellingen = () => {
                       value={formData.betalingsvoorwaarden}
                       onChange={handleInputChange}
                       rows={3}
-                      placeholder="Bijvoorbeeld: Wij verzoeken u vriendelijk het totale bedrag binnen 30 dagen op rekeningnummer [REKENINGNUMMER] t.n.v. [BEDRIJFSNAAM] over te maken. Graag het factuurnummer als betalingskenmerk toevoegen."
+                      placeholder={t.phVoorwaarden}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none placeholder-gray-400"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="offerteTekstBoven" className="block text-sm font-semibold text-gray-900 mb-2">
-                      Offerte tekst boven tabel
+                      {t.tekstBoven}
                     </label>
                     <textarea
                       id="offerteTekstBoven"
@@ -429,14 +500,14 @@ const SlimChatbotInstellingen = () => {
                       value={formData.offerteTekstBoven}
                       onChange={handleInputChange}
                       rows={3}
-                      placeholder="Bijvoorbeeld: Geachte klant,&#10;&#10;Hierbij ontvangt u van ons de prijsopgave voor de onderstaande diensten."
+                      placeholder={t.phBoven}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none placeholder-gray-400"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="offerteTekstOnder" className="block text-sm font-semibold text-gray-900 mb-2">
-                      Offerte tekst onder tabel
+                      {t.tekstOnder}
                     </label>
                     <textarea
                       id="offerteTekstOnder"
@@ -444,27 +515,31 @@ const SlimChatbotInstellingen = () => {
                       value={formData.offerteTekstOnder}
                       onChange={handleInputChange}
                       rows={3}
-                      placeholder="Bijvoorbeeld: We hopen u hiermee voldoende geïnformeerd te hebben."
+                      placeholder={t.phOnder}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none placeholder-gray-400"
                     />
                   </div>
                 </div>
 
+                </>)}
+
                 {/* Extra opmerkingen */}
                 <div className="space-y-6">
                   <h3 className="text-2xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-                    Extra opmerkingen
+                    {t.extraKop}
                   </h3>
 
                   <div>
                     <label htmlFor="extraOpmerkingen" className="block text-sm font-semibold text-gray-900 mb-2">
-                      Nog iets wat je kwijt wilt?
+                      {t.extra}
                     </label>
                     <textarea
                       id="extraOpmerkingen"
                       name="extraOpmerkingen"
+                      value={formData.extraOpmerkingen}
+                      onChange={handleInputChange}
                       rows={4}
-                      placeholder="Bijvoorbeeld: specifieke wensen voor facturen, bijzondere situaties, vragen over de service, etc."
+                      placeholder={t.phExtra}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none placeholder-gray-400"
                     />
                   </div>
@@ -474,7 +549,7 @@ const SlimChatbotInstellingen = () => {
                   type="submit"
                   className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  Opslaan & activeren
+                  {t.opslaan}
                 </button>
               </form>
             ) : (
@@ -482,17 +557,17 @@ const SlimChatbotInstellingen = () => {
                 <div className="bg-green-50 rounded-2xl p-8 border border-green-200">
                   <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Bedankt! Je instellingen zijn opgeslagen.
+                    {t.bedankt}
                   </h3>
                   <p className="text-lg text-gray-700 mb-6">
-                    Slim Chatbot is klaar voor gebruik. Je ontvangt binnen 24 uur een WhatsApp-bericht om te starten.
+                    {isMb ? t.klaarMb : t.klaar}
                   </p>
                   
                   <Link
                     to="/"
                     className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl inline-block"
                   >
-                    Terug naar homepage
+                    {t.home}
                   </Link>
                 </div>
               </div>
