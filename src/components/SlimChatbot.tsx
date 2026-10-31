@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 // Teksten in twee talen; de Engelse versie staat op /en/slim-chatbot en meldt taal 'en' mee in het formulier.
 const TEKSTEN = {
   nl: {
+    uitleg: 'Slim is de enige boekhoud-chatbot in Nederland die jouw administratie direct via WhatsApp regelt. Hij is speciaal gemaakt voor zelfstandigen die minder tijd willen besteden aan administratie.',
+    videoTitel: 'Factuur maken in 1 minuut', videoSub: 'Bekijk hoe eenvoudig het is om via WhatsApp een factuur te versturen.',
     terug: 'Terug naar homepage', badge: 'Nu: 180 dagen gratis, daarna 19,95 per maand', heroTitel: 'Ontmoet Slim, jouw', heroAccent: 'WhatsApp-boekhouder',
     heroSub: 'Regel je administratie rechtstreeks via WhatsApp. Facturen, offertes, bonnetjes en vragen, altijd binnen handbereik.',
     activeer: 'Activeer Slim Chatbot', bekijk: 'Bekijk hoe het werkt',
@@ -20,6 +22,8 @@ const TEKSTEN = {
     verder: 'Ga verder naar stap 2', opgeslagen: 'Mooi, je basisgegevens zijn opgeslagen', nogEen: 'Nog één stap: vul je factuurgegevens in, zodat Slim de juiste gegevens op je facturen en offertes zet.', naarStap2: 'Ga naar stap 2', doorgestuurd: 'Je wordt over 3 seconden automatisch doorgestuurd naar stap 2.',
   },
   en: {
+    uitleg: 'Slim is the only bookkeeping chatbot in the Netherlands that handles your administration directly through WhatsApp. Built for self-employed professionals who want to spend less time on admin.',
+    videoTitel: 'Create an invoice in 1 minute', videoSub: 'See how easy it is to send an invoice through WhatsApp.',
     terug: 'Back to homepage', badge: 'Now: 180 days free, then 19.95 per month', heroTitel: 'Meet Slim, your', heroAccent: 'WhatsApp bookkeeper',
     heroSub: 'Run your bookkeeping straight from WhatsApp. Invoices, quotes, receipts and questions, always at hand.',
     activeer: 'Activate Slim Chatbot', bekijk: 'See how it works',
@@ -189,8 +193,7 @@ const SlimChatbot = ({ lang = 'nl' }: { lang?: 'nl' | 'en' }) => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mb-12">
-              Slim is de enige boekhoud-chatbot in Nederland die jouw administratie direct via WhatsApp regelt. 
-              Hij is speciaal gemaakt voor zelfstandigen die minder tijd willen besteden aan administratie.
+              {t.uitleg}
             </p>
           </div>
 
@@ -212,10 +215,10 @@ const SlimChatbot = ({ lang = 'nl' }: { lang?: 'nl' | 'en' }) => {
   <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="text-center mb-12">
       <h2 className="text-4xl font-bold text-gray-900 mb-6">
-        Factuur maken in 1 minuut
+        {t.videoTitel}
       </h2>
       <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-        Bekijk hoe eenvoudig het is om via WhatsApp een factuur te versturen.
+        {t.videoSub}
       </p>
     </div>
 
