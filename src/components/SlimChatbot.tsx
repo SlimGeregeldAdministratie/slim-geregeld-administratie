@@ -8,12 +8,12 @@ const TEKSTEN = {
     terug: 'Terug naar homepage', badge: 'Nu: 180 dagen gratis, daarna 19,95 per maand', heroTitel: 'Ontmoet Slim, jouw', heroAccent: 'WhatsApp-boekhouder',
     heroSub: 'Regel je administratie rechtstreeks via WhatsApp. Facturen, offertes, bonnetjes en vragen, altijd binnen handbereik.',
     activeer: 'Activeer Slim Chatbot', bekijk: 'Bekijk hoe het werkt',
-    uitleg: '{t.uitleg}',
+    uitleg: 'Slim is de enige boekhoud-chatbot in Nederland die jouw administratie direct via WhatsApp regelt. Hij is speciaal gemaakt voor zelfstandigen die minder tijd willen besteden aan administratie.',
     f1: 'Facturen en offertes opmaken binnen 1 minuut, overal waar je bent', f2: 'Bonnetjes als foto doorsturen en vragen stellen over je administratie, belasting en alles wat met ondernemen te maken heeft', f3: 'In contact komen met een boekhouder van Slim Geregeld Administratie, voor specifieke vragen of hulp',
-    videoKop: '{t.videoKop}', videoSub: '{t.videoSub}',
+    videoKop: 'Factuur maken in 1 minuut', videoSub: 'Bekijk hoe eenvoudig het is om via WhatsApp een factuur te versturen.',
     gratisKop: 'Probeer Slim 180 dagen gratis', gratisSub: 'Daarna 19,95 per maand, maandelijks opzegbaar. Je krijgt onbeperkt toegang tot Slim en ervaart zelf hoeveel tijd en gedoe je bespaart.', startGratis: 'Start gratis met Slim',
     reviewsKop: 'Dit is wat mensen zeggen over Slim', rol1: 'Online fitness coach', rol2: 'Zelfstandig marketeer',
-    quote1: '{t.quote1}', quote2: '{t.quote2}', volledigeReview: 'Bekijk volledige review',
+    quote1: 'Gebruik om o.a. mijn facturen te maken! Alles was heel duidelijk en scheelt super veel tijd. Aanrader!', quote2: 'Maakt het boekhouden veel gemakkelijker en ook sneller! Onderweg kan ik vrij rap wat facturen versturen door een simpel appje. Top systeem.', volledigeReview: 'Bekijk volledige review',
     stap1: 'Basisgegevens', stap2: 'Factuurinstellingen', formKop: 'Activeer Slim Chatbot', formSub: 'Stap 1 van 2: vul je basisgegevens in. Je krijgt meteen een mail met hoe je begint.',
     voornaam: 'Voornaam *', achternaam: 'Achternaam *', bedrijf: 'Bedrijfsnaam *', email: 'E-mailadres *', telefoon: 'Telefoonnummer *', phVoornaam: 'Je voornaam', phAchternaam: 'Je achternaam', phBedrijf: 'Je bedrijfsnaam', phEmail: 'je@email.nl', phTelefoon: '06 12 34 56 78 (je WhatsApp-nummer)',
     moneybirdVraag: 'Werk je al met Moneybird? *', mbJa: 'Ja, Slim mag in mijn Moneybird werken', mbNee: 'Nee, Slim maakt mijn facturen als pdf', mbWil: 'Nee, maar ik wil wel Moneybird (Kyle zet het voor me klaar)', mbWeetNiet: 'Weet ik niet, help me kiezen',
@@ -211,7 +211,7 @@ const SlimChatbot = ({ lang = 'nl' }: { lang?: 'nl' | 'en' }) => {
   <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="text-center mb-12">
       <h2 className="text-4xl font-bold text-gray-900 mb-6">
-        {t.videoTitel}
+        {t.videoKop}
       </h2>
       <p className="text-xl text-gray-600 max-w-3xl mx-auto">
         {t.videoSub}
@@ -299,7 +299,7 @@ const SlimChatbot = ({ lang = 'nl' }: { lang?: 'nl' | 'en' }) => {
               </div>
 
               <p className="text-gray-700 leading-relaxed mb-4">
-                Gebruik om o.a. mijn facturen te maken! Alles was heel duidelijk en scheelt super veel tijd. Aanrader!
+                {t.quote1}
               </p>
 
               <button
@@ -345,7 +345,7 @@ const SlimChatbot = ({ lang = 'nl' }: { lang?: 'nl' | 'en' }) => {
               </div>
 
               <p className="text-gray-700 leading-relaxed mb-4">
-                Maakt het boekhouden veel gemakkelijker en ook sneller! Onderweg kan ik vrij rap wat facturen versturen door een simpel appje. Top systeem.
+                {t.quote2}
               </p>
 
               <button
