@@ -173,7 +173,24 @@ test('/nieuws/: posts als tekst, knoppen, onderwerplabel, link naar blog, geen L
   assert.match(n, /href="\/blog\/daft-verlenging-wat-wil-de-ind\/"/);
   assert.match(n, /Bekijk op de bedrijfspagina/);
   assert.doesNotMatch(n, /linkedin\.com\/embed|platform\.linkedin\.com/);
-  assert.ok(soort(n, 'CollectionPage')[0].mainEntity.itemListElement.length === 3);
+  assert.equal(soort(n, 'CollectionPage')[0].mainEntity.itemListElement.length, 5);
+});
+
+test('/nieuws/: carrousel als dia\'s met tekst en pdf, video met transcript en VideoObject', () => {
+  const n = lees('nieuws/index.html');
+  assert.ok(existsSync('dist/nieuws/media/test-carrousel/2.png') && existsSync('dist/nieuws/media/test-carrousel/carrousel.pdf'), 'media gekopieerd');
+  assert.match(n, /<img src="\/nieuws\/media\/test-carrousel\/2\.png" alt="Stap 2: zet daar je privébedrag naast" width="540" height="675"/);
+  assert.match(n, /<figcaption>Dia 3 van 3: Stap 3: reserveer voor inkomstenbelasting en Zvw<\/figcaption>/);
+  assert.match(n, /<a href="\/nieuws\/media\/test-carrousel\/carrousel\.pdf" download>/);
+  assert.match(n, /<iframe src="https:\/\/www\.youtube-nocookie\.com\/embed\/aqz-KE-bpKQ"[^>]*loading="lazy"/);
+  assert.match(n, /<h3>Transcript<\/h3><p>Testtranscript, eerste alinea\.<\/p>/);
+  const posts = soort(n, 'CollectionPage')[0].mainEntity.itemListElement.map((x) => x.item);
+  const video = posts.find((x) => x.video).video;
+  assert.equal(video['@type'], 'VideoObject');
+  assert.equal(video.uploadDate, '2026-11-02');
+  assert.equal(video.embedUrl, 'https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ');
+  assert.ok(video.thumbnailUrl && video.transcript && video.name);
+  assert.equal(posts.find((x) => Array.isArray(x.image)).image.length, 3);
 });
 
 test('dist: nergens een map naast een gelijknamig .html-bestand', () => {
@@ -274,7 +291,7 @@ const tmpNieuws = mkdtempSync(join(tmpdir(), 'sg-nieuws-'));
 try {
   cpSync(join(FIX, 'blog'), join(tmpNieuws, 'blog'), { recursive: true });
   mkdirSync(join(tmpNieuws, 'nieuws'));
-  const voorbeeld = JSON.parse(readFileSync(join(FIX, 'nieuws', 'nieuws.json'), 'utf8'))[0];
+  const voorbeeld = JSON.parse(readFileSync(join(FIX, 'nieuws', 'nieuws.json'), 'utf8')).find((n) => !n.media);
   // 20 posts zzp-btw, 2 jaarwerk, 1 zonder cluster; impressies oplopend met het nummer.
   const posts = Array.from({ length: 23 }, (_, i) => ({ ...voorbeeld, id: `test-${i + 1}`, datum: `2026-10-${String(i + 1).padStart(2, '0')}`, titel: `Post ${i + 1}`,
     cluster: i < 20 ? 'zzp-btw' : i < 22 ? 'jaarwerk' : undefined, impressies: 1000 + i * 7, impressiesBijgewerkt: '2026-11-04', toon: true, blogSlug: null }));

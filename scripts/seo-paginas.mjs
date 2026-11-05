@@ -18,7 +18,7 @@
 //   bouw.html). Er is geen catch-all meer: een onbekende URL geeft een echte 404.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { bouwBlog, nieuwsHtml, alineas, datumMooi, ONDERWERPEN } from './blog.mjs';
+import { bouwBlog, nieuwsHtml, alineas, datumMooi, ONDERWERPEN, videoObject, CONTENT } from './blog.mjs';
 import { ORG, SITE, kyle, normaliseerGraaf } from './entiteiten.mjs';
 
 const DIST = 'dist';
@@ -164,14 +164,16 @@ function bouwNieuws(p) {
           publisher: { '@id': B + '/#org' }, breadcrumb: { '@id': u + '#breadcrumb' }, dateModified: nieuwste,
           mainEntity: { '@type': 'ItemList', itemListElement: deel.map((x, i) => ({ '@type': 'ListItem', position: (n - 1) * perPagina + i + 1, item: {
             '@type': 'SocialMediaPosting', headline: (x.titel || alineas(x.tekst)[0]).slice(0, 110), datePublished: x.datum, url: x.urlProfiel || x.urlPagina,
-            author: { '@id': B + '/#kyle' }, publisher: { '@id': B + '/#org' }, inLanguage: x.taal || 'nl', about: clusters[x.cluster], ...(x.afbeelding ? { image: x.afbeelding } : {}) } })) } },
+            author: { '@id': B + '/#kyle' }, publisher: { '@id': B + '/#org' }, inLanguage: x.taal || 'nl', about: clusters[x.cluster],
+            ...(x.media?.type === 'carrousel' ? { image: x.media.paginas.map((q) => B + q) } : x.afbeelding ? { image: x.afbeelding } : {}),
+            ...(x.media?.type === 'video' ? { video: videoObject(x, B) } : {}) } })) } },
         { '@type': 'BreadcrumbList', '@id': u + '#breadcrumb', itemListElement: kruimelLijst.map(([naam, q], i) => ({ '@type': 'ListItem', position: i + 1, name: naam, item: url(q) })) }] };
       const vorige = n > 1 ? (n === 2 ? l.basis : `${l.basis}${n - 1}/`) : null;
       const volgende = n < paginas ? `${l.basis}${n + 1}/` : null;
       const kopExtra = [...(vorige ? [`<link rel="prev" href="${url(vorige)}" />`] : []), ...(volgende ? [`<link rel="next" href="${url(volgende)}" />`] : [])];
       const filters = `<nav aria-label="Onderwerp"><p>Onderwerp: ${[`<a href="${p.pad}">Alle onderwerpen</a>`, ...aanwezig.map((c) => `<a href="${p.pad}onderwerp/${c}/">${esc(clusters[c])}</a>`)].join(' · ')}</p></nav>`;
       const nav = paginas > 1 ? `<nav aria-label="Paginering"><p>${vorige ? `<a href="${vorige}" rel="prev">Vorige</a> · ` : ''}Pagina ${n} van ${paginas}${volgende ? ` · <a href="${volgende}" rel="next">Volgende</a>` : ''}</p></nav>` : '';
-      const kernHtml = `<main style="max-width:44rem;margin:0 auto;padding:2rem 1rem;font-family:system-ui,sans-serif;line-height:1.6"><h1>${esc(h1)}</h1><p>${esc(p.intro)}</p>${filters}${nieuwsHtml(deel, BLOGS)}${nav}<p><a href="/blog/">Lees ook de blog</a></p>${index ? `<p><small>Bijgewerkt op <time datetime="${nieuwste}">${esc(datumMooi(nieuwste, 'nl'))}</time></small></p>` : ''}</main>`;
+      const kernHtml = `<main style="max-width:44rem;margin:0 auto;padding:2rem 1rem;font-family:system-ui,sans-serif;line-height:1.6"><h1>${esc(h1)}</h1><p>${esc(p.intro)}</p>${filters}${nieuwsHtml(deel, BLOGS, CONTENT)}${nav}<p><a href="/blog/">Lees ook de blog</a></p>${index ? `<p><small>Bijgewerkt op <time datetime="${nieuwste}">${esc(datumMooi(nieuwste, 'nl'))}</time></small></p>` : ''}</main>`;
       schrijf(join(DIST, pad.slice(1), 'index.html'), vul({ pad, titel, omschrijving, canonical: u, robots: index ? 'index, follow' : 'noindex, follow', kopExtra, ld, kernHtml }));
       if (index) sitemap.push({ loc: u, lastmod: nieuwste, alternates: [] });
     }

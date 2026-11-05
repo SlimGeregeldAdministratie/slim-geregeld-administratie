@@ -17,7 +17,7 @@
 //   /over/<auteur>/, /en/about/<auteur>/   auteurspagina's (Person-schema, artikellijst)
 // Verder: regels in dist/_redirects, een blogsectie in dist/llms.txt, en de
 // sitemap-regels, die bouwBlog teruggeeft (seo-paginas.mjs schrijft de sitemap).
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, cpSync, openSync, readSync, closeSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { Marked, Renderer } from 'marked';
 import { parse as leesYaml } from 'yaml';
@@ -261,10 +261,79 @@ export function leesNieuws(map = CONTENT) {
     let cluster = n.cluster;
     if (!cluster) { waarschuwingen.push(`${waar}: cluster ontbreekt, behandeld als nieuws`); cluster = 'nieuws'; }
     else if (!ONDERWERPEN.clusters[cluster]) { waarschuwingen.push(`${waar}: onbekend cluster "${cluster}", behandeld als nieuws`); cluster = 'nieuws'; }
+    if (n.media != null) for (const m of controleerMedia(n.media, map)) fouten.push(`${waar}: media: ${m}`);
     perId.set(n.id, { ...n, cluster }); // bij een dubbel id wint het laatste item
   });
   const items = [...perId.values()].sort((a, b) => (b.datum > a.datum ? 1 : b.datum < a.datum ? -1 : 0));
   return { items, fouten, waarschuwingen };
+}
+
+// ---------------------------------------------------------------- media bij nieuwsposts
+// Bestanden staan in content/nieuws/media/<map>/ en komen bij de build op /nieuws/media/<map>/.
+// In nieuws.json staan ze als pad vanaf /nieuws/media/.
+const MEDIA_PAD = /^\/nieuws\/media\/[a-z0-9][a-z0-9-]*\/[A-Za-z0-9._-]+$/;
+const mediaBestand = (map, pad) => join(map, 'nieuws', pad.slice('/nieuws/'.length));
+export function youtubeId(src) {
+  const m = String(src).match(/^https:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+function controleerMedia(media, map) {
+  const f = [];
+  const pad = (p, wat) => {
+    if (typeof p !== 'string' || !MEDIA_PAD.test(p)) f.push(`${wat} moet een pad onder /nieuws/media/<map>/ zijn`);
+    else if (!existsSync(mediaBestand(map, p))) f.push(`${wat} ${p} bestaat niet in ${join(map, 'nieuws', 'media')}`);
+  };
+  if (media.type === 'carrousel') {
+    pad(media.pdf, 'pdf');
+    if (!Array.isArray(media.paginas) || !media.paginas.length) f.push('paginas moet een lijst met afbeeldingen zijn');
+    else media.paginas.forEach((p, i) => pad(p, `paginas[${i}]`));
+    if (!Array.isArray(media.tekstPerPagina) || media.tekstPerPagina.length !== (media.paginas || []).length || media.tekstPerPagina.some((t) => typeof t !== 'string' || !t.trim())) f.push('tekstPerPagina moet per pagina een tekst hebben');
+  } else if (media.type === 'video') {
+    if (!youtubeId(media.src)) {
+      if (typeof media.src === 'string' && !/\.mp4$/.test(media.src)) f.push('src moet een YouTube-URL of een .mp4 onder /nieuws/media/ zijn');
+      else pad(media.src, 'src');
+    }
+    if (media.poster != null) pad(media.poster, 'poster');
+    if (typeof media.transcript !== 'string' || !media.transcript.trim()) f.push('transcript ontbreekt');
+  } else f.push('type moet carrousel of video zijn');
+  return f;
+}
+
+// Breedte en hoogte uit een PNG of JPEG, voor width/height op de img-tag.
+const MATEN = new Map();
+function maten(bestand) {
+  if (MATEN.has(bestand)) return MATEN.get(bestand);
+  let uit = null;
+  try {
+    const fd = openSync(bestand, 'r');
+    const b = Buffer.alloc(65536);
+    const n = readSync(fd, b, 0, b.length, 0);
+    closeSync(fd);
+    if (b.readUInt32BE(0) === 0x89504e47) uit = [b.readUInt32BE(16), b.readUInt32BE(20)];
+    else if (b[0] === 0xff && b[1] === 0xd8) {
+      for (let i = 2; i + 9 < n;) {
+        if (b[i] !== 0xff) { i++; continue; }
+        const m = b[i + 1];
+        if (m >= 0xc0 && m <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(m)) { uit = [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)]; break; }
+        i += 2 + b.readUInt16BE(i + 2);
+      }
+    }
+  } catch { uit = null; }
+  MATEN.set(bestand, uit);
+  return uit;
+}
+const maatAttr = (map, p) => { const m = maten(mediaBestand(map, p)); return m ? ` width="${m[0]}" height="${m[1]}"` : ''; };
+
+// VideoObject voor een nieuwspost met video (seo-paginas.mjs zet het in de ItemList).
+export function videoObject(n, B) {
+  const v = n.media;
+  const yt = youtubeId(v.src);
+  return {
+    '@type': 'VideoObject', name: (n.titel || alineas(n.tekst)[0]).slice(0, 110), description: alineas(n.tekst)[0].slice(0, 300), uploadDate: n.datum,
+    thumbnailUrl: v.poster ? B + v.poster : (yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : (n.afbeelding?.startsWith('/') ? B + n.afbeelding : n.afbeelding)),
+    ...(yt ? { embedUrl: `https://www.youtube-nocookie.com/embed/${yt}` } : { contentUrl: B + v.src }),
+    transcript: v.transcript, inLanguage: n.taal || 'nl',
+  };
 }
 
 // ---------------------------------------------------------------- URL's
@@ -429,6 +498,8 @@ function schrijf(pad, html) {
 export function bouwBlog({ sjabloon, dist, B, content = CONTENT }) {
   const { stukken, fouten, waarschuwingen } = leesBlogs(content);
   const nieuws = leesNieuws(content);
+  // Media bij nieuwsposts (carrousels, eigen video's) naar /nieuws/media/.
+  if (existsSync(join(content, 'nieuws', 'media'))) cpSync(join(content, 'nieuws', 'media'), join(dist, 'nieuws', 'media'), { recursive: true });
   for (const w of [...waarschuwingen, ...nieuws.waarschuwingen]) console.warn('blog: let op: ' + w);
   const alleFouten = [...fouten, ...nieuws.fouten];
   if (alleFouten.length) throw new Error('blog: inhoud klopt niet:\n  ' + alleFouten.join('\n  '));
@@ -706,18 +777,32 @@ ${voet(taal)}`;
 export function alineas(tekst) {
   return String(tekst).trim().split(/\n\s*\n/).map((a) => a.trim()).filter(Boolean);
 }
-export function nieuwsHtml(items, blogs) {
+export function nieuwsHtml(items, blogs, map = CONTENT) {
   const bestaat = new Set(blogs.filter((s) => s.status !== 'ingetrokken').map((s) => s.taal + '/' + s.slug));
   return items.map((n) => {
     const hoofd = n.urlProfiel || n.urlPagina;
     const taal = n.taal || 'nl';
     const blog = n.blogSlug && bestaat.has(taal + '/' + n.blogSlug) ? blogBasis(taal) + n.blogSlug + '/' : null;
     const kopTekst = n.titel || alineas(n.tekst)[0].split('\n')[0];
+    const m = n.media;
+    let beeld = n.afbeelding ? `<img src="${esc(n.afbeelding)}" alt="${esc(kopTekst)}" loading="lazy" decoding="async" style="max-width:100%;height:auto">` : '';
+    let na = '';
+    if (m?.type === 'carrousel') {
+      // Elke dia als afbeelding met de tekst als alt en als zichtbare tekst, zodat crawlers de inhoud lezen.
+      beeld = `<section aria-label="Carrousel">${m.paginas.map((p, i) => `<figure style="margin:1rem 0"><img src="${esc(p)}" alt="${esc(m.tekstPerPagina[i])}"${maatAttr(map, p)} loading="lazy" decoding="async" style="max-width:100%;height:auto"><figcaption>Dia ${i + 1} van ${m.paginas.length}: ${esc(m.tekstPerPagina[i])}</figcaption></figure>`).join('')}<p><a href="${esc(m.pdf)}" download>Download de carrousel (pdf)</a></p></section>`;
+    } else if (m?.type === 'video') {
+      const yt = youtubeId(m.src);
+      beeld = yt
+        ? `<iframe src="https://www.youtube-nocookie.com/embed/${yt}" title="${esc(kopTekst)}" width="560" height="315" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen style="max-width:100%;border:0"></iframe>`
+        : `<video controls preload="none"${m.poster ? ` poster="${esc(m.poster)}"` : ''} style="max-width:100%;height:auto"><source src="${esc(m.src)}" type="video/mp4"></video>`;
+      na = `<h3>Transcript</h3>${alineas(m.transcript).map((a) => `<p>${esc(a).replace(/\n/g, '<br>')}</p>`).join('')}`;
+    }
     return `<article style="margin:0 0 2.5rem"${taal !== 'nl' ? ` lang="${esc(taal)}"` : ''}>
 <h2>${esc(kopTekst)}</h2>
 <p><time datetime="${esc(n.datum)}">${esc(datumMooi(n.datum, 'nl'))}</time> · <a href="/nieuws/onderwerp/${esc(n.cluster)}/">${esc(ONDERWERPEN.clusters[n.cluster])}</a></p>
-${n.afbeelding ? `<img src="${esc(n.afbeelding)}" alt="${esc(kopTekst)}" loading="lazy" decoding="async" style="max-width:100%;height:auto">` : ''}
+${beeld}
 ${alineas(n.tekst).map((a) => `<p>${esc(a).replace(/\n/g, '<br>')}</p>`).join('')}
+${na}
 <p><a href="${esc(hoofd)}" rel="noopener">Bekijk op LinkedIn</a>${n.urlPagina && n.urlProfiel ? ` · <a href="${esc(n.urlPagina)}" rel="noopener">Bekijk op de bedrijfspagina</a>` : ''}${blog ? ` · <a href="${blog}">Lees het hele stuk</a>` : ''}</p>
 </article>`;
   }).join('\n');

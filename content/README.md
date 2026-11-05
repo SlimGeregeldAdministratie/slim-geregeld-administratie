@@ -12,6 +12,7 @@ content/
   blog/en/<slug>.md        Engelse artikelen
   blog/ja/<slug>.md        Japanse artikelen
   nieuws/nieuws.json       LinkedIn-posts voor /nieuws
+  nieuws/media/<map>/      carrousels en eigen video's bij nieuwsposts (op de site onder /nieuws/media/<map>/)
   __fixtures__/            testinhoud, alleen voor npm run test:blog
 public/blog/img/           afbeeldingen bij artikelen
 ```
@@ -212,7 +213,9 @@ Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net al
 | `cluster` | ja | sleutel uit de tabel hierboven | Onderwerp van de post. De planner kiest het op de inhoud, zoals bij een blog. Ontbreekt het of is het onbekend, dan komt de post onder `nieuws` (waarschuwing in de build). |
 | `impressies` | nee | heel getal of weglaten | Totaal aantal impressies op LinkedIn op de datum `impressiesBijgewerkt`. De planner werkt dit wekelijks bij via de API (zelfde `id`, item vervangen). Alleen voor "Meest gelezen"; posts zonder getal komen daar achteraan. Wordt niet getoond. |
 | `impressiesBijgewerkt` | bij `impressies` | `JJJJ-MM-DD` | Datum waarop `impressies` is gemeten. Nodig voor impressies per dag; ontbreekt het, dan rekent de build met de builddatum. |
+| `media` | nee | object of weglaten | Carrousel of video bij de post, zie "Media" hieronder. Zonder `media` toont de site `afbeelding`. |
 | `blogSlug` | nee | slug of `null` | Slug van het bijbehorende artikel in dezelfde taal. Gevuld: link "Lees het hele stuk" naar `/blog/<slug>/` (of `/en/blog/<slug>/`). De statische versie toont de link alleen als het artikel bestaat. |
+| `media` | nee | object of weglaten | Extra media bij de post. Carrousel: `{"type": "carrousel", "pdf": "/nieuws/media/<post-id>/carrousel.pdf", "paginas": ["/nieuws/media/<post-id>/pagina-1.png", ...], "tekstPerPagina": ["tekst van dia 1", ...]}`. Video: `{"type": "video", "src": "/nieuws/media/<post-id>/video.mp4" of een YouTube-URL, "poster": "/nieuws/media/<post-id>/poster.jpg", "transcript": "platte tekst"}`. Zie "Media" hieronder. |
 
 Voorbeeld van één item:
 
@@ -235,6 +238,21 @@ Voorbeeld van één item:
 }
 ```
 
+### Media (`media`)
+
+De planner schrijft `media` alleen bij een carrousel of een video waarvan hij de bron zelf heeft. `<post-id>` is
+het id uit het Contentregister (bijvoorbeeld `LI261119P`), niet de URN.
+
+- **Carrousel:** de planner rendert de pdf en elke dia als png (1080x1350) en commit ze vóór het
+  nieuws-item naar `public/nieuws/media/<post-id>/` (`carrousel.pdf`, `pagina-1.png`, `pagina-2.png`, ...).
+  `afbeelding` wijst dan naar `pagina-1.png`. `tekstPerPagina` heeft per dia één string in platte tekst
+  (regels gescheiden door `\n`, geen markdown), in dezelfde volgorde als `paginas`, zodat de site de inhoud
+  van de dia's ook als HTML kan tonen en crawlers hem kunnen lezen.
+- **Cijferkaart:** geen `media`; de kaart staat als `public/nieuws/media/<post-id>/kaart.png` in `afbeelding`.
+- **Video:** alleen als de planner de videobron zelf heeft. `src` is een pad onder `public/nieuws/media/<post-id>/`
+  of een YouTube-URL, `poster` een stilstaand beeld, `transcript` platte tekst (mag leeg). Nu maakt de planner
+  geen video's, dus dit veld komt pas voor als dat verandert.
+
 ### Welke posts op de site komen (`toon`)
 
 Op de site staan alleen posts met inhoud: een uitleg, een cijfer of rekensom, een
@@ -244,9 +262,52 @@ praktijksituatie, of nieuws over de praktijk zelf. `toon: false` krijgen:
 - generieke motivatie- of opvulposts zonder concreet feit, cijfer of voorbeeld;
 - posts die alleen een vraag stellen.
 
-Voor nieuwe posts schrijft de planner `toon: true` als de post door de poortwachter kwam en
-minstens twee eigen elementen heeft (eigen cijfer, klantsituatie, praktijkfout, eigen
-rekensom), anders `toon: false`. Kyle kan het veld later met de hand omzetten.
+De planner zet `toon` bij elke nieuwe post automatisch: `true` als de post door de
+poortwachter kwam en minstens twee eigen elementen heeft (eigen cijfer, klantsituatie,
+praktijkfout, eigen rekensom), anders `false`. Kyle kan het veld later met de hand omzetten.
+
+### Media: carrousel en video (`media`)
+
+Bestanden horen in `content/nieuws/media/<map>/`, waarbij `<map>` het getal uit de URN is
+(`urn:li:share:7523435029557923840` wordt `7523435029557923840`). De build kopieert de map
+naar `/nieuws/media/<map>/`; in `nieuws.json` staan de paden vanaf `/nieuws/media/`. Commit
+eerst de bestanden en daarna `nieuws.json`: een pad naar een ontbrekend bestand laat de build
+falen (Netlify houdt dan de vorige versie).
+
+Carrousel (LinkedIn-document):
+
+```json
+"media": {
+  "type": "carrousel",
+  "pdf": "/nieuws/media/7523435029557923840/carrousel.pdf",
+  "paginas": ["/nieuws/media/7523435029557923840/1.png", "/nieuws/media/7523435029557923840/2.png"],
+  "tekstPerPagina": ["Tekst van dia 1", "Tekst van dia 2"]
+}
+```
+
+- `paginas`: één PNG of JPEG per dia (bijvoorbeeld 1080 x 1350), in volgorde. Breedte en hoogte leest de build zelf uit.
+- `tekstPerPagina`: per dia de tekst die erop staat, even lang als `paginas`. Wordt de alt-tekst en staat in de statische HTML als zichtbare tekst onder elke dia, zodat crawlers de inhoud lezen.
+- De site toont een diaweergave (vorige/volgende) met de tekst van de dia en een downloadlink naar de pdf.
+
+Video:
+
+```json
+"media": {
+  "type": "video",
+  "src": "https://www.youtube.com/watch?v=XXXXXXXXXXX",
+  "poster": "/nieuws/media/7523435029557923840/poster.jpg",
+  "transcript": "Volledige tekst van wat er gezegd wordt.\n\nAlinea's met een lege regel."
+}
+```
+
+- `src`: een YouTube-URL (watch, youtu.be of shorts) of een eigen `.mp4` onder `/nieuws/media/<map>/`.
+- `poster`: optioneel stilstaand beeld. Zonder poster gebruikt de site bij YouTube het YouTube-plaatje, anders `afbeelding`.
+- `transcript`: verplicht. Staat als tekst onder de video en in het VideoObject-schema.
+- YouTube laadt pas na een klik (in de statische HTML een iframe met lazy loading, via youtube-nocookie.com); een eigen mp4 laadt pas bij afspelen.
+
+De twee bestaande videoposts (27 november 2025 en 20 januari 2026) hebben geen bron: daar
+blijft het stilstaande beeld met de knop naar LinkedIn. De planner levert de media voor
+nieuwe posts.
 
 ### Wat de n8n-flow moet doen (workflow Uhjh0QRaSB78i8f4)
 

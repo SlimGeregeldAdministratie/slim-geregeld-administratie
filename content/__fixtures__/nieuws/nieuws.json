@@ -1,5 +1,52 @@
 [
   {
+    "id": "test-carrousel",
+    "datum": "2026-11-04",
+    "kanaal": "pagina",
+    "titel": "[TEST] Carrousel: drie stappen naar je omzetdoel",
+    "tekst": "Heb je een BV en wil je je vermogen goed beschermen? Een holdingstructuur kan uitkomst bieden.\n\nMet een holding houd je het vermogen gescheiden van je werk-BV. Zo vang je bedrijfsrisico’s op en voorkom je dat je privévermogen zomaar in gevaar komt.\n\nDaarnaast biedt deze structuur fiscaal voordelen. Denk aan het uitstellen van belasting bij winstuitkering en het optimaal benutten van de deelnemingsvrijstelling.\n\nHet is niet ingewikkeld, maar wel slim om dit goed in te richten. Zo zorg je dat je bedrijf en je privévermogen netjes gescheiden blijven, met minder risico en meer ruimte voor groei.\n\nBen je benieuwd of een holdingstructuur ook voor jou werkt? Laten we het samen bekijken.",
+    "afbeelding": "https://media.licdn.com/dms/image/v2/D4E22AQEKFk7636uYTw/feedshare-shrink_800/B4EaE2w0MFGoAc-/0/1791920129350?e=2147483647&v=beta&t=3-w5uavk_4q8kDhRMReAj2-UXkUDRi6z8XPf8Yrz64Q",
+    "urlProfiel": null,
+    "urlPagina": "https://www.linkedin.com/feed/update/urn:li:activity:7515857765806919681/",
+    "taal": "nl",
+    "blogSlug": null,
+    "cluster": "zzp-btw",
+    "toon": true,
+    "media": {
+      "type": "carrousel",
+      "pdf": "/nieuws/media/test-carrousel/carrousel.pdf",
+      "paginas": [
+        "/nieuws/media/test-carrousel/1.png",
+        "/nieuws/media/test-carrousel/2.png",
+        "/nieuws/media/test-carrousel/3.png"
+      ],
+      "tekstPerPagina": [
+        "Stap 1: tel je zakelijke kosten per maand op",
+        "Stap 2: zet daar je privébedrag naast",
+        "Stap 3: reserveer voor inkomstenbelasting en Zvw"
+      ]
+    }
+  },
+  {
+    "id": "test-video",
+    "datum": "2026-11-02",
+    "kanaal": "pagina",
+    "titel": "[TEST] Video op YouTube",
+    "tekst": "Heb je een BV en wil je je vermogen goed beschermen? Een holdingstructuur kan uitkomst bieden.\n\nMet een holding houd je het vermogen gescheiden van je werk-BV. Zo vang je bedrijfsrisico’s op en voorkom je dat je privévermogen zomaar in gevaar komt.\n\nDaarnaast biedt deze structuur fiscaal voordelen. Denk aan het uitstellen van belasting bij winstuitkering en het optimaal benutten van de deelnemingsvrijstelling.\n\nHet is niet ingewikkeld, maar wel slim om dit goed in te richten. Zo zorg je dat je bedrijf en je privévermogen netjes gescheiden blijven, met minder risico en meer ruimte voor groei.\n\nBen je benieuwd of een holdingstructuur ook voor jou werkt? Laten we het samen bekijken.",
+    "afbeelding": "https://media.licdn.com/dms/image/v2/D4E22AQEKFk7636uYTw/feedshare-shrink_800/B4EaE2w0MFGoAc-/0/1791920129350?e=2147483647&v=beta&t=3-w5uavk_4q8kDhRMReAj2-UXkUDRi6z8XPf8Yrz64Q",
+    "urlProfiel": null,
+    "urlPagina": "https://www.linkedin.com/feed/update/urn:li:activity:7515857765806919681/",
+    "taal": "nl",
+    "blogSlug": null,
+    "cluster": "nieuws",
+    "toon": true,
+    "media": {
+      "type": "video",
+      "src": "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
+      "transcript": "Testtranscript, eerste alinea.\n\nTweede alinea van het transcript."
+    }
+  },
+  {
     "id": "urn:li:share:7515857764628320257",
     "datum": "2026-10-13",
     "kanaal": "pagina",
