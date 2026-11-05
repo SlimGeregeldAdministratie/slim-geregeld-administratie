@@ -13,7 +13,7 @@ content/
   blog/ja/<slug>.md        Japanse artikelen
   nieuws/nieuws.json       LinkedIn-posts voor /nieuws
   __fixtures__/            testinhoud, alleen voor npm run test:blog
-public/blog/img/           afbeeldingen bij artikelen (miguel.jpg voor de auteursfoto van Miguel)
+public/blog/img/           afbeeldingen bij artikelen
 ```
 
 ## 1. Blogartikelen
@@ -117,12 +117,15 @@ Zet tekst met een dubbele punt, aanhalingstekens of een `#` tussen dubbele aanha
 Een nieuw cluster werkt meteen (label = de sleutel, geen dienstlink) en geeft een
 waarschuwing. Label en dienstlink voeg je toe in `CLUSTERS` in `scripts/blog.mjs`.
 
+Het blogoverzicht heeft nog geen volgorde "Meest gelezen". Die komt er zodra er per artikel
+een veld `klikken` uit Search Console is, op dezelfde manier als `impressies` bij het nieuws.
+
 ### Wat de build per artikel maakt
 
 - Statische HTML in `dist/<taal-pad>/blog/<slug>/index.html`, zonder React en zonder JavaScript.
 - Head: titel, description, canonical, robots, Open Graph, hreflang en JSON-LD (Article, Person, FAQPage als `faq` gevuld is, BreadcrumbList, WebPage, Organization).
 - Hreflang: alle versies met dezelfde `translationKey` en status `live` of `archief` verwijzen naar elkaar en naar zichzelf, plus `x-default` naar de Engelse versie (zonder Engelse versie: NL, anders JA). Een stuk zonder vertaling krijgt geen hreflang.
-- Pagina: zichtbare publicatie- en bijwerkdatum, auteursblok met foto (Miguel zonder `public/blog/img/miguel.jpg`: initialen) en een link naar de auteurspagina, inhoudsopgave uit de H2's, de tekst, de FAQ, de dienstlink van het cluster en drie gerelateerde `live`-stukken uit hetzelfde cluster en dezelfde taal.
+- Pagina: zichtbare publicatie- en bijwerkdatum, auteursblok met foto (Kyle) of initialen (Miguel heeft geen foto) en een link naar de auteurspagina, inhoudsopgave uit de H2's, de tekst, de FAQ, de dienstlink van het cluster en drie gerelateerde `live`-stukken uit hetzelfde cluster en dezelfde taal.
 - Auteurspagina's: `/over/kyle-bouwmeester/` en `/en/about/kyle-bouwmeester/` (idem `miguel-weema`) met Person-schema (Becon, KVK, LinkedIn), hreflang nl/en en de lijst met artikelen van die auteur. Een auteur zonder `live`-artikel staat op noindex en niet in de sitemap. Organisatie- en persoonsgegevens staan op één plek: `scripts/entiteiten.mjs`.
 - Overzicht: `/blog/`, `/en/blog/` en `/ja/blog/` (die laatste alleen als er Japanse stukken zijn), nieuwste eerst, 12 per pagina (`/blog/pagina/2/`, `/en/blog/page/2/`), met label, datum, auteur en description. Per cluster een filterpagina `/blog/onderwerp/<cluster>/` en `/en/blog/topic/<cluster>/` (noindex). Een leeg overzicht staat op noindex en niet in de sitemap.
 - `sitemap.xml` (geheel geschreven door `scripts/seo-paginas.mjs`): elk `live`- en `archief`-artikel met `lastmod` (updated of date) en `xhtml:link`-alternates, de overzichten zodra ze inhoud hebben en de auteurspagina's. Hreflang staat zowel in de HTML-head als in de sitemap, met dezelfde set; `npm run test:blog` controleert dat.
@@ -158,10 +161,35 @@ op dezelfde manier naar `public/blog/img/<naam>.png`, vóór het artikel dat ern
 
 ## 2. Nieuws: `content/nieuws/nieuws.json`
 
-Een JSON-lijst met één object per LinkedIn-post. `/nieuws` toont ze nieuwste eerst als
-gewone tekst (React-pagina en statische `dist/nieuws.html` voor crawlers), met afbeelding,
-datum, de eerste drie alinea's (de rest achter "Lees verder"), de knop "Bekijk op LinkedIn"
-en, als ze gevuld zijn, "Bekijk op de bedrijfspagina" en "Lees het hele stuk".
+Een JSON-lijst met één object per LinkedIn-post. `/nieuws/` toont ze als gewone tekst
+(React-pagina plus een statische versie per pagina voor crawlers), met afbeelding, datum,
+onderwerplabel, de eerste drie alinea's (de rest achter "Lees verder"), de knop "Bekijk op
+LinkedIn" en, als ze gevuld zijn, "Bekijk op de bedrijfspagina" en "Lees het hele stuk".
+
+Pagina's (allemaal statische bestanden, canonical naar zichzelf, `rel="prev"`/`rel="next"` in de head):
+
+| URL | Inhoud | Index |
+|---|---|---|
+| `/nieuws/`, `/nieuws/2/`, ... | alle posts, nieuwste eerst, 10 per pagina | ja, in de sitemap |
+| `/nieuws/onderwerp/<cluster>/`, `.../2/` | posts van één onderwerp, 10 per pagina | alleen bij 3 of meer posts; anders `noindex` en niet in de sitemap |
+
+Volgorde "Meest gelezen" (`?volgorde=meest-gelezen`) sorteert in de browser op `impressies`.
+De statische HTML blijft op nieuwste. Het aantal impressies komt niet in de site: de build
+geeft de app alleen een rang mee (`vite.config.ts`). Let op: deze repo is openbaar, dus de
+getallen staan wel in dit bestand op GitHub.
+
+Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net als de onderwerpen:
+
+| `cluster` | Label | Voor |
+|---|---|---|
+| `zzp-btw` | Zzp en btw | btw, omzetdoel, auto, kosten, potjes, zzp-regelingen |
+| `bv-dga` | BV en DGA | BV oprichten of overstappen, salaris of dividend, holding |
+| `ib-aangifte` | Aangifte inkomstenbelasting | IB-aangifte, aftrekposten, box 3, pensioen, voorlopige aanslag, schenken |
+| `jaarwerk` | Jaarwerk | jaarafsluiting, eindejaarstips, boekenonderzoek |
+| `moneybird` | Moneybird | werken in Moneybird |
+| `daft-verlenging` | DAFT-verlenging | verlenging van een DAFT- of DJTT-vergunning |
+| `djtt` | DJTT | Japanse verdragsondernemers |
+| `nieuws` | Praktijknieuws | nieuws over Slim Geregeld zelf, de praktijk, lanceringen |
 
 | Veld | Verplicht | Formaat | Toelichting |
 |---|---|---|---|
@@ -174,6 +202,8 @@ en, als ze gevuld zijn, "Bekijk op de bedrijfspagina" en "Lees het hele stuk".
 | `urlProfiel` | ja, als `urlPagina` leeg is | URL | `https://www.linkedin.com/feed/update/<urn>/` van de post op Kyles profiel. Doel van "Bekijk op LinkedIn". |
 | `urlPagina` | nee | URL of `null` | Dezelfde post op de bedrijfspagina. Gevuld: tweede knop "Bekijk op de bedrijfspagina". Is `urlProfiel` leeg, dan wordt dit de hoofdknop. |
 | `taal` | ja | `nl`, `en` of `ja` | Taal van de post. |
+| `cluster` | ja | sleutel uit de tabel hierboven | Onderwerp van de post. De planner kiest het op de inhoud, zoals bij een blog. Ontbreekt het of is het onbekend, dan komt de post onder `nieuws` (waarschuwing in de build). |
+| `impressies` | nee | heel getal of weglaten | Impressies op LinkedIn (bijvoorbeeld na 7 dagen of uit de jaarexport). Alleen voor de volgorde "Meest gelezen"; posts zonder getal komen daar achteraan. Wordt niet getoond. |
 | `blogSlug` | nee | slug of `null` | Slug van het bijbehorende artikel in dezelfde taal. Gevuld: link "Lees het hele stuk" naar `/blog/<slug>/` (of `/en/blog/<slug>/`). De statische versie toont de link alleen als het artikel bestaat. |
 
 Voorbeeld van één item:
@@ -189,7 +219,9 @@ Voorbeeld van één item:
   "urlProfiel": "https://www.linkedin.com/feed/update/urn:li:activity:7523435030422114304/",
   "urlPagina": null,
   "taal": "nl",
-  "blogSlug": null
+  "cluster": "zzp-btw",
+  "blogSlug": null,
+  "impressies": 73
 }
 ```
 
@@ -206,7 +238,7 @@ moet tegelijk met de merge om naar dit bestand:
    `PUT .../contents/content/nieuws/nieuws.json` met `{"message": "Nieuws: <titel>", "content": "<base64>", "sha": "<sha uit stap 1>", "branch": "main"}`.
 5. Bij een 409 of 422 (sha veranderd tussendoor): stap 1 tot en met 4 opnieuw.
 
-Nooit oude items weggooien: alle posts blijven op `/nieuws` staan.
+Nooit oude items weggooien: alle posts blijven op `/nieuws/` staan. Impressies van een bestaande post bijwerken mag: zelfde `id`, item vervangen.
 
 ### Startvulling
 
@@ -219,6 +251,10 @@ De volledige tekst, de afbeelding en de URL komen uit de openbare LinkedIn-embed
 elke post (opgehaald op 5 november 2026). De afbeeldingen verwijzen naar de
 LinkedIn-CDN (`media.licdn.com`, URL's zonder verloopdatum). `urlPagina` is overal
 leeg, want de bedrijfspagina-URL's van deze posts zijn niet bekend.
+
+Het onderwerp (`cluster`) van deze 33 posts is op de tekst gekozen; `impressies` komt uit
+het onderzoek naar Kyles LinkedIn-posts (peildatum 4 november 2026, de post van 3 november
+na 15 uur).
 
 ## 3. Testen
 

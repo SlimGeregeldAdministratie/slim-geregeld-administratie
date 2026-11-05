@@ -12,7 +12,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import assert from 'node:assert/strict';
 import { bouwBlog, leesBlogs } from './blog.mjs';
-import { controleerSite } from './seo-check.mjs';
+import { controleerSite, head } from './seo-check.mjs';
 
 const FIX = 'content/__fixtures__';
 const B = 'https://slim-geregeld.nl';
@@ -164,8 +164,11 @@ test('llms.txt: blogsectie met clusters en nieuwste stukken', () => {
   assert.ok(l.indexOf('## Blog') < l.indexOf('## Contact'));
 });
 
-test('/nieuws: posts als tekst, knoppen, link naar blog, geen LinkedIn-embeds', () => {
-  const n = lees('nieuws.html');
+test('/nieuws/: posts als tekst, knoppen, onderwerplabel, link naar blog, geen LinkedIn-embeds', () => {
+  assert.ok(!existsSync('dist/nieuws.html'), 'geen nieuws.html naast de map nieuws/');
+  const n = lees('nieuws/index.html');
+  assert.match(n, /<link rel="canonical" href="https:\/\/slim-geregeld\.nl\/nieuws\/" \/>/);
+  assert.match(n, /<a href="\/nieuws\/onderwerp\/zzp-btw\/">Zzp en btw<\/a>/);
   assert.match(n, /Lees het hele stuk/);
   assert.match(n, /href="\/blog\/daft-verlenging-wat-wil-de-ind\/"/);
   assert.match(n, /Bekijk op de bedrijfspagina/);
@@ -186,7 +189,7 @@ test('dist: nergens een map naast een gelijknamig .html-bestand', () => {
 });
 
 test('geen em dash in de gegenereerde blogpagina\'s', () => {
-  for (const p of [EN, NL, JA, 'blog/index.html', 'en/blog/index.html', 'nieuws.html']) assert.doesNotMatch(lees(p), /\u2014/, p);
+  for (const p of [EN, NL, JA, 'blog/index.html', 'en/blog/index.html', 'nieuws/index.html']) assert.doesNotMatch(lees(p), /\u2014/, p);
 });
 
 test('auteurspagina\'s: Person, Becon, KVK, LinkedIn, artikellijst, hreflang nl-en', () => {
@@ -265,6 +268,66 @@ test('seo-check vangt fouten: hreflang, canonical, JSON-LD, sitemap', () => {
     rmSync(kopie, { recursive: true, force: true });
   }
 });
+
+// ---------- /nieuws/: paginering, onderwerpen en "Meest gelezen" met 23 posts
+const tmpNieuws = mkdtempSync(join(tmpdir(), 'sg-nieuws-'));
+try {
+  cpSync(join(FIX, 'blog'), join(tmpNieuws, 'blog'), { recursive: true });
+  mkdirSync(join(tmpNieuws, 'nieuws'));
+  const voorbeeld = JSON.parse(readFileSync(join(FIX, 'nieuws', 'nieuws.json'), 'utf8'))[0];
+  // 20 posts zzp-btw, 2 jaarwerk, 1 zonder cluster; impressies oplopend met het nummer.
+  const posts = Array.from({ length: 23 }, (_, i) => ({ ...voorbeeld, id: `test-${i + 1}`, datum: `2026-10-${String(i + 1).padStart(2, '0')}`, titel: `Post ${i + 1}`,
+    cluster: i < 20 ? 'zzp-btw' : i < 22 ? 'jaarwerk' : undefined, impressies: 1000 + i * 7, blogSlug: null }));
+  writeFileSync(join(tmpNieuws, 'nieuws', 'nieuws.json'), JSON.stringify(posts, null, 2));
+  const envN = { ...process.env, BLOG_CONTENT_DIR: tmpNieuws };
+  execSync('npx vite build --logLevel error', { env: envN, stdio: 'inherit' });
+  execSync('node scripts/seo-paginas.mjs', { env: envN, stdio: 'inherit' });
+
+  test('nieuws: 10 per pagina, canonical naar zichzelf, rel prev/next', () => {
+    const p1 = lees('nieuws/index.html');
+    const p2 = lees('nieuws/2/index.html');
+    const p3 = lees('nieuws/3/index.html');
+    assert.ok(!existsSync('dist/nieuws/4'));
+    const kop = (h) => h.split('</head>')[0];
+    assert.equal((p1.match(/<article /g) || []).length, 10);
+    assert.equal((p3.match(/<article /g) || []).length, 3);
+    assert.ok(p1.indexOf('Post 23') < p1.indexOf('Post 14'), 'nieuwste eerst');
+    assert.match(kop(p2), /<link rel="canonical" href="https:\/\/slim-geregeld\.nl\/nieuws\/2\/" \/>/);
+    assert.match(kop(p2), /<link rel="prev" href="https:\/\/slim-geregeld\.nl\/nieuws\/" \/>/);
+    assert.match(kop(p2), /<link rel="next" href="https:\/\/slim-geregeld\.nl\/nieuws\/3\/" \/>/);
+    assert.doesNotMatch(kop(p1), /rel="prev"/);
+    assert.doesNotMatch(kop(p3), /rel="next"/);
+    assert.match(kop(p2), /<meta name="robots" content="index, follow" \/>/);
+    assert.notEqual(head(p1).title, head(p2).title);
+    const s = lees('sitemap.xml');
+    for (const u of ['/nieuws/', '/nieuws/2/', '/nieuws/3/']) assert.match(s, new RegExp(`<loc>${B}${u}</loc>`));
+  });
+
+  test('nieuws: filterpagina per onderwerp, noindex onder de 3 posts, onbekend cluster wordt nieuws', () => {
+    const zzp = lees('nieuws/onderwerp/zzp-btw/index.html');
+    assert.equal((zzp.match(/<article /g) || []).length, 10);
+    assert.ok(existsSync('dist/nieuws/onderwerp/zzp-btw/2/index.html'));
+    assert.match(zzp, /<meta name="robots" content="index, follow" \/>/);
+    assert.match(zzp, /<link rel="next" href="https:\/\/slim-geregeld\.nl\/nieuws\/onderwerp\/zzp-btw\/2\/" \/>/);
+    const jaar = lees('nieuws/onderwerp/jaarwerk/index.html');
+    assert.match(jaar, /<meta name="robots" content="noindex, follow" \/>/);
+    assert.doesNotMatch(lees('sitemap.xml'), /onderwerp\/jaarwerk/);
+    assert.match(lees('nieuws/onderwerp/nieuws/index.html'), /Post 23/);
+  });
+
+  test('nieuws: impressies niet in de bundel, wel een rang', () => {
+    const js = readdirSync('dist/assets').filter((f) => f.endsWith('.js')).map((f) => readFileSync(join('dist/assets', f), 'utf8')).join('');
+    assert.doesNotMatch(js, /impressies/);
+    assert.match(js, /rang:1\b|"rang":1\b/);
+    for (const f of ['nieuws/index.html', 'nieuws/2/index.html']) assert.doesNotMatch(lees(f), /impressies|1154/);
+  });
+
+  test('nieuws: seo-check zonder fouten', () => {
+    assert.deepEqual(controleerSite('dist').fouten, []);
+  });
+} finally {
+  rmSync(tmpNieuws, { recursive: true, force: true });
+}
 
 // ---------- paginering en foutmeldingen in een tijdelijke map
 const tmp = mkdtempSync(join(tmpdir(), 'sg-blog-'));

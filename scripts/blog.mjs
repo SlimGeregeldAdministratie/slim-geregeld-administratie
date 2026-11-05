@@ -47,7 +47,7 @@ const T = {
     overzichtTitel: 'Blog over boekhouding, btw en de BV | Slim Geregeld',
     overzichtOmschrijving: 'Artikelen van Becon-geregistreerd boekhouder Kyle Bouwmeester over btw, de BV, de aangifte inkomstenbelasting, Moneybird en verdragsvergunningen.',
     overzichtH1: 'Blog', overzichtIntro: 'Praktische artikelen over boekhouding, btw, de BV en de aangifte inkomstenbelasting, met rekenvoorbeelden uit de praktijk.',
-    leeg: 'Hier verschijnen binnenkort de eerste artikelen. Tot die tijd staan de korte tips op de nieuwspagina.', leegLink: ['/nieuws', 'Naar het nieuws'],
+    leeg: 'Hier verschijnen binnenkort de eerste artikelen. Tot die tijd staan de korte tips op de nieuwspagina.', leegLink: ['/nieuws/', 'Naar het nieuws'],
     alleOnderwerpen: 'Alle onderwerpen', onderwerp: 'Onderwerp',
     gepubliceerd: 'Gepubliceerd op', bijgewerkt: 'Bijgewerkt op', door: 'Door',
     inhoud: 'Inhoud', faq: 'Veelgestelde vragen', overAuteur: 'Over de auteur', gerelateerd: 'Lees ook',
@@ -55,7 +55,7 @@ const T = {
     archief: 'Dit artikel staat in het archief en wordt niet meer bijgewerkt. Kijk in het overzicht voor nieuwere stukken.',
     linkedin: 'Dit stuk op LinkedIn', bekijkLinkedin: 'Bekijk de post op LinkedIn',
     cta: ['/contact', 'Plan een gratis kennismaking'],
-    nav: [['/branches', 'Branches'], ['/pakketten', 'Pakketten'], ['/blog/', 'Blog'], ['/nieuws', 'Nieuws'], ['/over-ons', 'Over ons'], ['/contact', 'Contact']],
+    nav: [['/branches', 'Branches'], ['/pakketten', 'Pakketten'], ['/blog/', 'Blog'], ['/nieuws/', 'Nieuws'], ['/over-ons', 'Over ons'], ['/contact', 'Contact']],
     talen: [['/en/', 'EN', 'en'], ['/djtt/ja/', '日本語', 'ja']],
     voet: 'Boekhouding, btw-aangifte en jaarrekening voor zzp\'ers en kleine ondernemers. Becon-geregistreerd boekhouder Kyle Bouwmeester.',
     voetLinks: [['/privacybeleid', 'Privacybeleid'], ['/algemene-voorwaarden', 'Algemene voorwaarden'], ['/en/', 'English']],
@@ -127,7 +127,6 @@ export const CLUSTERS = {
 const clusterLabel = (c, taal) => CLUSTERS[c]?.label[taal] || c;
 
 // ---------------------------------------------------------------- auteurs
-const MIGUEL_FOTO = 'public/blog/img/miguel.jpg';
 function auteurs(B) {
   return {
     kyle: {
@@ -147,7 +146,8 @@ function auteurs(B) {
       links: [[PROFIELEN.kyleLinkedin, 'LinkedIn'], [PROFIELEN.moneybird, 'Moneybird Expert'], ['mailto:kyle@slim-geregeld.nl', 'kyle@slim-geregeld.nl']],
     },
     miguel: {
-      naam: 'Miguel Weema', initialen: 'MW', foto: existsSync(MIGUEL_FOTO) ? '/blog/img/miguel.jpg' : null, id: B + '/#miguel',
+      naam: 'Miguel Weema', initialen: 'MW', foto: null, // geen foto: het auteursblok toont de initialen
+      id: B + '/#miguel',
       functie: { nl: 'DAFT-specialist', en: 'DAFT specialist', ja: 'DAFTスペシャリスト' },
       bio: {
         nl: 'Miguel Weema is DAFT-specialist bij Slim Geregeld Administratie.',
@@ -155,7 +155,7 @@ function auteurs(B) {
         ja: 'Miguel Weema は Slim Geregeld Administratie の DAFT スペシャリストです。',
       },
       url: { nl: AUTEURPADEN.miguel.nl, en: AUTEURPADEN.miguel.en, ja: AUTEURPADEN.miguel.en },
-      schema: (taal) => miguel(taal, existsSync(MIGUEL_FOTO) ? '/blog/img/miguel.jpg' : null),
+      schema: (taal) => miguel(taal),
       feiten: { nl: [['Kantoor', 'Slim Geregeld Administratie']], en: [['Practice', 'Slim Geregeld Administratie']] },
       links: [],
     },
@@ -234,10 +234,14 @@ export function leesBlogs(map = CONTENT) {
   return { stukken, fouten, waarschuwingen };
 }
 
+// Onderwerpen voor /nieuws (zelfde sleutels als de blogclusters, plus "nieuws").
+export const ONDERWERPEN = JSON.parse(readFileSync('src/seo/onderwerpen.json', 'utf8'));
+
 export function leesNieuws(map = CONTENT) {
   const pad = join(map, 'nieuws', 'nieuws.json');
   if (!existsSync(pad)) return { items: [], fouten: [], waarschuwingen: [] };
   const fouten = [];
+  const waarschuwingen = [];
   let lijst;
   try { lijst = JSON.parse(readFileSync(pad, 'utf8')); } catch (e) { return { items: [], fouten: [`${pad}: geen geldige JSON (${e.message})`], waarschuwingen: [] }; }
   if (!Array.isArray(lijst)) return { items: [], fouten: [`${pad}: moet een lijst zijn`], waarschuwingen: [] };
@@ -247,10 +251,15 @@ export function leesNieuws(map = CONTENT) {
     if (!n || !n.id || !n.tekst || !geldigeDatum(String(n.datum))) { fouten.push(`${waar}: id, datum (JJJJ-MM-DD) en tekst zijn verplicht`); return; }
     if (n.kanaal && !['profiel', 'pagina'].includes(n.kanaal)) fouten.push(`${waar}: kanaal moet profiel of pagina zijn`);
     if (!n.urlProfiel && !n.urlPagina) fouten.push(`${waar}: urlProfiel of urlPagina is verplicht`);
-    perId.set(n.id, n); // bij een dubbel id wint het laatste item
+    if (n.impressies != null && !(Number.isInteger(n.impressies) && n.impressies >= 0)) fouten.push(`${waar}: impressies moet een heel getal zijn`);
+    // Zonder of met onbekend cluster: onder praktijknieuws, met een waarschuwing.
+    let cluster = n.cluster;
+    if (!cluster) { waarschuwingen.push(`${waar}: cluster ontbreekt, behandeld als nieuws`); cluster = 'nieuws'; }
+    else if (!ONDERWERPEN.clusters[cluster]) { waarschuwingen.push(`${waar}: onbekend cluster "${cluster}", behandeld als nieuws`); cluster = 'nieuws'; }
+    perId.set(n.id, { ...n, cluster }); // bij een dubbel id wint het laatste item
   });
   const items = [...perId.values()].sort((a, b) => (b.datum > a.datum ? 1 : b.datum < a.datum ? -1 : 0));
-  return { items, fouten, waarschuwingen: [] };
+  return { items, fouten, waarschuwingen };
 }
 
 // ---------------------------------------------------------------- URL's
@@ -615,7 +624,7 @@ ${voet(taal)}`;
     taal: 'nl', titel: 'Pagina niet gevonden | Slim Geregeld', omschrijving: 'Deze pagina bestaat niet (meer).', canonical: null, robots: 'noindex, follow', alternates: [],
     graaf: null, afbeelding: null, type: 'website',
     lichaam: `${kop('nl', '')}<main class="min-h-screen bg-gradient-to-b from-blue-50 to-white"><div class="max-w-3xl mx-auto px-4 py-16 space-y-4 text-gray-700">
-<h1 class="text-3xl font-bold text-gray-900">Deze pagina bestaat niet</h1><p>Het adres klopt niet of de pagina is verplaatst. <a class="text-blue-600 underline" href="/">Naar de homepage</a> · <a class="text-blue-600 underline" href="/blog/">Naar de blog</a> · <a class="text-blue-600 underline" href="/nieuws">Naar het nieuws</a></p>
+<h1 class="text-3xl font-bold text-gray-900">Deze pagina bestaat niet</h1><p>Het adres klopt niet of de pagina is verplaatst. <a class="text-blue-600 underline" href="/">Naar de homepage</a> · <a class="text-blue-600 underline" href="/blog/">Naar de blog</a> · <a class="text-blue-600 underline" href="/nieuws/">Naar het nieuws</a></p>
 <p lang="en">This page does not exist. <a class="text-blue-600 underline" href="/en/">Treaty services in English (DAFT, DJTT)</a></p></div></main>${voet('nl')}`,
   }));
 
@@ -701,7 +710,7 @@ export function nieuwsHtml(items, blogs) {
     const kopTekst = n.titel || alineas(n.tekst)[0].split('\n')[0];
     return `<article style="margin:0 0 2.5rem"${taal !== 'nl' ? ` lang="${esc(taal)}"` : ''}>
 <h2>${esc(kopTekst)}</h2>
-<p><time datetime="${esc(n.datum)}">${esc(datumMooi(n.datum, 'nl'))}</time></p>
+<p><time datetime="${esc(n.datum)}">${esc(datumMooi(n.datum, 'nl'))}</time> · <a href="/nieuws/onderwerp/${esc(n.cluster)}/">${esc(ONDERWERPEN.clusters[n.cluster])}</a></p>
 ${n.afbeelding ? `<img src="${esc(n.afbeelding)}" alt="${esc(kopTekst)}" loading="lazy" decoding="async" style="max-width:100%;height:auto">` : ''}
 ${alineas(n.tekst).map((a) => `<p>${esc(a).replace(/\n/g, '<br>')}</p>`).join('')}
 <p><a href="${esc(hoofd)}" rel="noopener">Bekijk op LinkedIn</a>${n.urlPagina && n.urlProfiel ? ` · <a href="${esc(n.urlPagina)}" rel="noopener">Bekijk op de bedrijfspagina</a>` : ''}${blog ? ` · <a href="${blog}">Lees het hele stuk</a>` : ''}</p>

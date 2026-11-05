@@ -18,7 +18,7 @@ const OverOnsOverview = () => {
       title: 'Nieuws',
       description: 'Connect op LinkedIn en blijf op de hoogte van de laatste ontwikkelingen, tips en updates van Slim Geregeld Administratie.',
       icon: FileText,
-      link: '/nieuws',
+      link: '/nieuws/',
       color: 'from-green-500 to-green-600',
       bgColor: 'bg-green-50',
       image: '/IMG_4394.JPG',

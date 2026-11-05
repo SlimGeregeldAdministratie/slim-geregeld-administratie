@@ -9,7 +9,9 @@
     "urlProfiel": null,
     "urlPagina": "https://www.linkedin.com/feed/update/urn:li:activity:7515857765806919681/",
     "taal": "nl",
-    "blogSlug": null
+    "blogSlug": null,
+    "cluster": "zzp-btw",
+    "impressies": 300
   },
   {
     "id": "urn:li:share:7523435029557923840",
@@ -21,7 +23,9 @@
     "urlProfiel": "https://www.linkedin.com/feed/update/urn:li:activity:7523435030422114304/",
     "urlPagina": null,
     "taal": "nl",
-    "blogSlug": "daft-verlenging-wat-wil-de-ind"
+    "blogSlug": "daft-verlenging-wat-wil-de-ind",
+    "cluster": "bv-dga",
+    "impressies": 100
   },
   {
     "id": "urn:li:share:7520552621313560576",
@@ -31,8 +35,9 @@
     "tekst": "Wist je dat je via je BV slimmer belasting kunt besparen?\n\nIn plaats van jezelf een hoger salaris uit te keren, kun je een onkostenvergoeding vragen. Die is vaak fiscaal voordeliger. Zo houd je meer geld over zonder dat het ingewikkeld wordt.\n\nEen simpel voorbeeld: als je €1.000 aan zakelijke kosten hebt, kun je die via een onkostenvergoeding laten lopen. Zo betaal je minder belasting dan wanneer dat bedrag via je salaris zou gaan.\n\nHet is een kleine stap die veel kan schelen in je maandelijkse lasten. En het scheelt je vooral tijd en gedoe met ingewikkelde berekeningen.\n\nWil je weten hoe dit precies werkt voor jouw situatie? We denken graag met je mee!",
     "afbeelding": "https://media.licdn.com/dms/image/v2/D4E22AQG4Mla2zVmQ1w/feedshare-shrink_800/B4EaF5ewx8JEAc-/0/1793039470209?e=2147483647&v=beta&t=jmNtiCbSlBx-uLbQdT0QNy44x1ylksZgsqMrfItNAHY",
     "urlProfiel": "https://www.linkedin.com/feed/update/urn:li:activity:7520552622676889600/",
-    "urlPagina": "https://www.linkedin.com/company/107735661/",
+    "urlPagina": "https://www.linkedin.com/company/slim-geregeld-administratie/",
     "taal": "nl",
-    "blogSlug": null
+    "blogSlug": null,
+    "cluster": "zzp-btw"
   }
 ]

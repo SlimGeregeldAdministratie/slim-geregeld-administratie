@@ -265,7 +265,7 @@
      "Kyle Bouwmeester, Becon-geregistreerd boekhouder"
     ],
     [
-     "/nieuws",
+     "/nieuws/",
      "Nieuws en tips"
     ],
     [
@@ -280,7 +280,7 @@
    "over": true
   },
   {
-   "pad": "/nieuws",
+   "pad": "/nieuws/",
    "titel": "Nieuws en belastingtips voor ondernemers | Slim Geregeld",
    "omschrijving": "Praktische tips over administratie, ondernemerschap en belastingen van boekhouder Kyle Bouwmeester.",
    "kruimel": "Nieuws",

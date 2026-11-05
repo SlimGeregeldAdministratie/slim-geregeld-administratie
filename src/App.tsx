@@ -134,6 +134,9 @@ function App() {
           <Route path="/gratis-tools" element={<GratisToolsOverview />} />
           <Route path="/over-ons" element={<OverOnsOverview />} />
           <Route path="/nieuws" element={<Nieuws />} />
+          <Route path="/nieuws/:pagina" element={<Nieuws />} />
+          <Route path="/nieuws/onderwerp/:cluster" element={<Nieuws />} />
+          <Route path="/nieuws/onderwerp/:cluster/:pagina" element={<Nieuws />} />
 
           {/* Branch landing pages */}
           <Route path="/bouw" element={<BouwLanding />} />

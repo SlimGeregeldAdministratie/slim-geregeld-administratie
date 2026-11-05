@@ -8,7 +8,7 @@ export const B = 'https://slim-geregeld.nl';
 
 export const PROFIELEN = {
   kyleLinkedin: 'https://www.linkedin.com/in/kylebouwmeester',
-  bedrijfLinkedin: 'https://www.linkedin.com/company/107735661/',
+  bedrijfLinkedin: 'https://www.linkedin.com/company/slim-geregeld-administratie/',
   moneybird: 'https://www.moneybird.nl/experts/slim-geregeld-administratie/',
   instagram: 'https://www.instagram.com/slimgeregeldadministratie/',
   // Google Bedrijfsprofiel, via de CID uit de Maps-link op de site.
@@ -60,11 +60,10 @@ export function kyle(taal = 'nl') {
   };
 }
 
-export function miguel(taal = 'nl', foto = null) {
+export function miguel(taal = 'nl') {
   return {
     '@type': 'Person', '@id': B + '/#miguel', name: 'Miguel Weema', jobTitle: FUNCTIE.miguel[taal] || FUNCTIE.miguel.en,
     url: B + AUTEURPADEN.miguel[taal === 'nl' ? 'nl' : 'en'], worksFor: { '@id': B + '/#org' },
-    ...(foto ? { image: pad(foto) } : {}),
   };
 }
 

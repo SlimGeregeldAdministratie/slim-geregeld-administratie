@@ -19,7 +19,7 @@ const Footer = () => {
   };
 
   const handleLinkedInClick = () => {
-    window.open('https://www.linkedin.com/company/107735661/', '_blank');
+    window.open('https://www.linkedin.com/company/slim-geregeld-administratie/', '_blank');
   };
 
   const handleWhatsAppClick = () => {
