@@ -37,7 +37,7 @@ Elk bestand begint met YAML tussen twee regels `---`. Daaronder volgt de tekst i
 
 | Veld | Verplicht | Formaat | Toelichting |
 |---|---|---|---|
-| `title` | ja | tekst | Wordt de H1 en de paginatitel (`<title> \| Slim Geregeld`). |
+| `title` | ja | tekst, bij voorkeur max 45 tekens | Wordt de H1 en de paginatitel (`<title> \| Slim Geregeld`). Wordt de paginatitel daarmee langer dan 60 tekens, dan valt `\| Slim Geregeld` weg; een title boven 60 tekens geeft een waarschuwing. |
 | `description` | ja | tekst, max 155 tekens | Meta-description en de korte tekst in het overzicht. Langer geeft een waarschuwing. |
 | `date` | ja | `JJJJ-MM-DD` | Publicatiedatum. Zichtbaar op de pagina en in het Article-schema. |
 | `updated` | nee | `JJJJ-MM-DD` | Datum van de laatste inhoudelijke wijziging. Zichtbaar als "Bijgewerkt op" en als `lastmod` in de sitemap. Bij elke inhoudelijke herschrijving bijwerken. |
@@ -122,9 +122,11 @@ waarschuwing. Label en dienstlink voeg je toe in `CLUSTERS` in `scripts/blog.mjs
 - Statische HTML in `dist/<taal-pad>/blog/<slug>/index.html`, zonder React en zonder JavaScript.
 - Head: titel, description, canonical, robots, Open Graph, hreflang en JSON-LD (Article, Person, FAQPage als `faq` gevuld is, BreadcrumbList, WebPage, Organization).
 - Hreflang: alle versies met dezelfde `translationKey` en status `live` of `archief` verwijzen naar elkaar en naar zichzelf, plus `x-default` naar de Engelse versie (zonder Engelse versie: NL, anders JA). Een stuk zonder vertaling krijgt geen hreflang.
-- Pagina: zichtbare publicatie- en bijwerkdatum, auteursblok met foto (Miguel zonder `public/blog/img/miguel.jpg`: initialen), inhoudsopgave uit de H2's, de tekst, de FAQ, de dienstlink van het cluster en drie gerelateerde `live`-stukken uit hetzelfde cluster en dezelfde taal.
+- Pagina: zichtbare publicatie- en bijwerkdatum, auteursblok met foto (Miguel zonder `public/blog/img/miguel.jpg`: initialen) en een link naar de auteurspagina, inhoudsopgave uit de H2's, de tekst, de FAQ, de dienstlink van het cluster en drie gerelateerde `live`-stukken uit hetzelfde cluster en dezelfde taal.
+- Auteurspagina's: `/over/kyle-bouwmeester/` en `/en/about/kyle-bouwmeester/` (idem `miguel-weema`) met Person-schema (Becon, KVK, LinkedIn), hreflang nl/en en de lijst met artikelen van die auteur. Een auteur zonder `live`-artikel staat op noindex en niet in de sitemap. Organisatie- en persoonsgegevens staan op één plek: `scripts/entiteiten.mjs`.
 - Overzicht: `/blog/`, `/en/blog/` en `/ja/blog/` (die laatste alleen als er Japanse stukken zijn), nieuwste eerst, 12 per pagina (`/blog/pagina/2/`, `/en/blog/page/2/`), met label, datum, auteur en description. Per cluster een filterpagina `/blog/onderwerp/<cluster>/` en `/en/blog/topic/<cluster>/` (noindex). Een leeg overzicht staat op noindex en niet in de sitemap.
-- `sitemap.xml`: elk `live`- en `archief`-artikel met `lastmod` (updated of date) en `xhtml:link`-alternates, plus de overzichten zodra ze inhoud hebben.
+- `sitemap.xml` (geheel geschreven door `scripts/seo-paginas.mjs`): elk `live`- en `archief`-artikel met `lastmod` (updated of date) en `xhtml:link`-alternates, de overzichten zodra ze inhoud hebben en de auteurspagina's. Hreflang staat zowel in de HTML-head als in de sitemap, met dezelfde set; `npm run test:blog` controleert dat.
+- Een onbekende URL geeft een echte 404 (`dist/404.html`); er is geen catch-all naar de React-app meer.
 - `llms.txt`: een blogsectie met de clusters en de nieuwste 20 artikelen.
 
 ### Controle en fouten
@@ -222,4 +224,5 @@ leeg, want de bedrijfspagina-URL's van deze posts zijn niet bekend.
 
 - `npm run test:blog` bouwt de site met `content/__fixtures__` (via `BLOG_CONTENT_DIR`) en controleert head, hreflang, JSON-LD, tekst, overzicht, paginering, sitemap, llms.txt, `_redirects`, `/nieuws` en de foutmeldingen. Daarna bevat `dist` testinhoud: draai `npm run build` voor de echte site.
 - `npm run blog:check` controleert alleen de echte inhoud, zonder te bouwen.
+- `npm run seo:check` controleert na `npm run build` de hele gebouwde site: canonical, hreflang (wederkerig, x-default), JSON-LD (parse, @id's, verplichte velden), titels en descriptions, één H1, afbeeldingen, interne links, sitemap gelijk aan de HTML, robots.txt en llms.txt.
 - `content/__fixtures__` wordt nooit door de gewone build gelezen.

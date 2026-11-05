@@ -13,17 +13,25 @@
 //   /en/blog/, /en/blog/<slug>/, /en/blog/page/2/, /en/blog/topic/<cluster>/
 //   /ja/blog/... alleen als er Japanse stukken zijn
 //   /ingetrokken.html               410-pagina voor stukken met status ingetrokken
-// Verder: regels in dist/_redirects, blog-URL's in dist/sitemap.xml en een
-// blogsectie in dist/llms.txt.
+//   /404.html                       Netlify serveert die met status 404 voor onbekende URL's
+//   /over/<auteur>/, /en/about/<auteur>/   auteurspagina's (Person-schema, artikellijst)
+// Verder: regels in dist/_redirects, een blogsectie in dist/llms.txt, en de
+// sitemap-regels, die bouwBlog teruggeeft (seo-paginas.mjs schrijft de sitemap).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { Marked, Renderer } from 'marked';
 import { parse as leesYaml } from 'yaml';
+import { ORG, SITE, kyle, miguel, AUTEURPADEN, PROFIELEN } from './entiteiten.mjs';
 
 export const CONTENT = process.env.BLOG_CONTENT_DIR || 'content';
 const TALEN = ['nl', 'en', 'ja'];
 const STATUSSEN = ['live', 'archief', 'ingetrokken'];
 const PER_PAGINA = 12;
+// Datum waarop de vaste tekst van de auteurspagina's voor het laatst inhoudelijk wijzigde.
+const AUTEURS_GEWIJZIGD = '2026-11-05';
+const LOCALE = { nl: 'nl_NL', en: 'en_US', ja: 'ja_JP' };
+// Boven deze lengte valt " | Slim Geregeld" van de paginatitel weg.
+export const TITEL_MAX = 60;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATUM = /^\d{4}-\d{2}-\d{2}$/;
 // Mapnamen die het overzicht zelf gebruikt; een artikel mag niet zo heten.
@@ -130,7 +138,13 @@ function auteurs(B) {
         en: 'Kyle Bouwmeester is a Becon-registered bookkeeper (Becon 781794) and the owner of Slim Geregeld Administratie. He prepares and signs the balance sheets for DAFT and DJTT entrepreneurs and keeps the books for Dutch freelancers and small businesses.',
         ja: 'Kyle Bouwmeester は Becon 登録ブックキーパー（Becon 781794）で、Slim Geregeld Administratie の代表です。DAFT・DJTT の起業家向けに貸借対照表を作成し署名しています。',
       },
-      url: { nl: '/over-ons', en: '/en/', ja: '/djtt/ja/' },
+      url: { nl: AUTEURPADEN.kyle.nl, en: AUTEURPADEN.kyle.en, ja: AUTEURPADEN.kyle.en },
+      schema: (taal) => kyle(taal),
+      feiten: {
+        nl: [['Becon-registratie', '781794 (registratie als belastingintermediair bij de Belastingdienst)'], ['Kantoor', 'Slim Geregeld Administratie, Koog aan de Zaan'], ['KVK', '92596991'], ['Talen', 'Nederlands, Engels']],
+        en: [['Becon registration', '781794 (registered tax intermediary with the Dutch Tax Administration)'], ['Practice', 'Slim Geregeld Administratie, Koog aan de Zaan, the Netherlands'], ['Chamber of Commerce (KVK)', '92596991'], ['Languages', 'Dutch, English']],
+      },
+      links: [[PROFIELEN.kyleLinkedin, 'LinkedIn'], [PROFIELEN.moneybird, 'Moneybird Expert'], ['mailto:kyle@slim-geregeld.nl', 'kyle@slim-geregeld.nl']],
     },
     miguel: {
       naam: 'Miguel Weema', initialen: 'MW', foto: existsSync(MIGUEL_FOTO) ? '/blog/img/miguel.jpg' : null, id: B + '/#miguel',
@@ -140,7 +154,10 @@ function auteurs(B) {
         en: 'Miguel Weema is the DAFT specialist at Slim Geregeld Administratie.',
         ja: 'Miguel Weema は Slim Geregeld Administratie の DAFT スペシャリストです。',
       },
-      url: { nl: '/daft/', en: '/daft/', ja: '/djtt/ja/' },
+      url: { nl: AUTEURPADEN.miguel.nl, en: AUTEURPADEN.miguel.en, ja: AUTEURPADEN.miguel.en },
+      schema: (taal) => miguel(taal, existsSync(MIGUEL_FOTO) ? '/blog/img/miguel.jpg' : null),
+      feiten: { nl: [['Kantoor', 'Slim Geregeld Administratie']], en: [['Practice', 'Slim Geregeld Administratie']] },
+      links: [],
     },
   };
 }
@@ -182,6 +199,7 @@ export function leesBlogs(map = CONTENT) {
         linkedin: fm.linkedin == null ? [] : (Array.isArray(fm.linkedin) ? fm.linkedin : [fm.linkedin]),
       };
       if (!s.title || typeof s.title !== 'string') fout('title ontbreekt');
+      else if (s.title.length > TITEL_MAX) let_op(`title is ${s.title.length} tekens; boven ${TITEL_MAX} valt "| Slim Geregeld" weg en kapt Google de titel af`);
       if (!s.description || typeof s.description !== 'string') fout('description ontbreekt');
       else if (s.description.length > 155) let_op(`description is ${s.description.length} tekens, maximaal 155; zoekmachines kappen hem af`);
       if (!s.date || !geldigeDatum(s.date)) fout('date moet JJJJ-MM-DD zijn');
@@ -285,7 +303,7 @@ export function markdownNaarHtml(md) {
 }
 
 // ---------------------------------------------------------------- datums
-function datumMooi(d, taal) {
+export function datumMooi(d, taal) {
   const loc = { nl: 'nl-NL', en: 'en-GB', ja: 'ja-JP' }[taal];
   return new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(d + 'T00:00:00Z'));
 }
@@ -372,13 +390,15 @@ function pagina(sjabloon, { taal, titel, omschrijving, canonical, robots, altern
     h = h.replace(/(<meta (?:property|name)="(?:og|twitter|linkedin):image" content=")[^"]*"/g, `$1${afbeelding}"`);
     h = h.replace(/\s*<meta property="og:image:(?:width|height)" content="[^"]*" \/>/g, '');
   }
+  if (!canonical) h = h.replace(/\s*<meta (?:property|name)="(?:og|twitter|linkedin):url" content="[^"]*" \/>/g, '');
   const extra = [
-    `<link rel="canonical" href="${canonical}" />`,
+    ...(canonical ? [`<link rel="canonical" href="${canonical}" />`] : []),
     `<meta name="robots" content="${robots}" />`,
     `<meta property="og:locale" content="${T[taal].locale}" />`,
+    ...alternates.filter(([hl]) => hl !== 'x-default' && hl !== taal).map(([hl]) => `<meta property="og:locale:alternate" content="${LOCALE[hl]}" />`),
     '<meta property="og:site_name" content="Slim Geregeld" />',
     ...alternates.map(([hl, u]) => `<link rel="alternate" hreflang="${hl}" href="${u}" />`),
-    `<script type="application/ld+json">${JSON.stringify(graaf).replace(/</g, '\\u003c')}</script>`,
+    ...(graaf ? [`<script type="application/ld+json">${JSON.stringify(graaf).replace(/</g, '\\u003c')}</script>`] : []),
     ARTIKEL_CSS,
   ];
   zet(/<\/head>/, '    ' + extra.join('\n    ') + '\n  </head>');
@@ -392,7 +412,7 @@ function schrijf(pad, html) {
 }
 
 // ---------------------------------------------------------------- hoofdfunctie
-export function bouwBlog({ sjabloon, dist, B, ORG, KYLE, SITE, content = CONTENT }) {
+export function bouwBlog({ sjabloon, dist, B, content = CONTENT }) {
   const { stukken, fouten, waarschuwingen } = leesBlogs(content);
   const nieuws = leesNieuws(content);
   for (const w of [...waarschuwingen, ...nieuws.waarschuwingen]) console.warn('blog: let op: ' + w);
@@ -427,12 +447,15 @@ export function bouwBlog({ sjabloon, dist, B, ORG, KYLE, SITE, content = CONTENT
 
   const kruimelGraaf = (u, items) => ({ '@type': 'BreadcrumbList', '@id': u + '#breadcrumb', itemListElement: items.map(([naam, pad], i) => ({ '@type': 'ListItem', position: i + 1, name: naam, item: abs(pad) })) });
   const kruimelHtml = (items) => `<nav aria-label="Breadcrumb" class="text-sm text-gray-500 mb-6"><ol class="flex flex-wrap items-center gap-x-2 gap-y-1">${items.map(([naam, pad], i) => i < items.length - 1 ? `<li><a href="${pad}" class="hover:text-blue-600">${esc(naam)}</a></li><li aria-hidden="true">/</li>` : `<li class="text-gray-700 truncate max-w-xs">${esc(naam)}</li>`).join('')}</ol></nav>`;
-  const persoon = (a, taal) => ({
-    '@type': 'Person', '@id': a.id, name: a.naam, jobTitle: a.functie[taal], worksFor: { '@id': B + '/#org' }, url: abs(a.url[taal]),
-    ...(a.foto ? { image: abs(padUrl(a.foto)) } : {}),
-    ...(a === A.kyle ? { knowsLanguage: KYLE.knowsLanguage, hasCredential: KYLE.hasCredential } : {}),
-  });
-  const label = (c, taal) => `<a href="${clusterPad(taal, c)}" class="inline-block rounded-full bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 hover:bg-blue-100">${esc(clusterLabel(c, taal))}</a>`;
+  const persoon = (a, taal) => a.schema(taal);
+  const paginaTitel = (titel) => (titel.length + ' | Slim Geregeld'.length <= TITEL_MAX ? `${titel} | Slim Geregeld` : titel);
+  // Een clusterpagina bestaat alleen als het cluster live-stukken in die taal heeft; anders is het label geen link.
+  const metClusterPagina = new Set(zichtbaar.filter((s) => s.status === 'live').map((s) => s.taal + '|' + s.cluster));
+  const label = (c, taal) => metClusterPagina.has(taal + '|' + c)
+    ? `<a href="${clusterPad(taal, c)}" class="inline-block rounded-full bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 hover:bg-blue-100">${esc(clusterLabel(c, taal))}</a>`
+    : `<span class="inline-block rounded-full bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1">${esc(clusterLabel(c, taal))}</span>`;
+  // Organization verwijst via founder naar Kyle, dus Kyle staat in elke graaf.
+  const metKyle = (taal, ...rest) => [ORG, SITE, kyle(taal), ...rest.filter((k) => k['@id'] !== B + '/#kyle')];
   const metaRegel = (s) => {
     const a = A[s.author];
     return `<span>${esc(a.naam)}</span><span aria-hidden="true">·</span><time datetime="${s.date}">${esc(datumMooi(s.date, s.taal))}</time>`;
@@ -465,11 +488,11 @@ export function bouwBlog({ sjabloon, dist, B, ORG, KYLE, SITE, content = CONTENT
     const graaf = {
       '@context': 'https://schema.org',
       '@graph': [
-        ORG, SITE, persoon(a, s.taal),
+        ...metKyle(s.taal, persoon(a, s.taal)),
         { '@type': 'WebPage', '@id': u + '#webpage', url: u, name: s.title, description: s.description, inLanguage: s.taal, isPartOf: { '@id': B + '/#website' }, breadcrumb: { '@id': u + '#breadcrumb' }, datePublished: s.date, dateModified: s.updated || s.date, ...(afbeelding ? { primaryImageOfPage: afbeelding } : {}) },
         { '@type': 'Article', '@id': u + '#article', headline: s.title.slice(0, 110), description: s.description, inLanguage: s.taal, datePublished: s.date, dateModified: s.updated || s.date,
           author: { '@id': a.id }, publisher: { '@id': B + '/#org' }, mainEntityOfPage: { '@id': u + '#webpage' }, articleSection: clusterLabel(s.cluster, s.taal),
-          ...(s.tags.length ? { keywords: s.tags.join(', ') } : {}), ...(afbeelding ? { image: afbeelding } : {}) },
+          ...(s.tags.length ? { keywords: s.tags.join(', ') } : {}), image: afbeelding || ORG.image },
         kruimelGraaf(u, kruimels),
         ...(s.faq.length ? [{ '@type': 'FAQPage', '@id': u + '#faq', inLanguage: s.taal, isPartOf: { '@id': u + '#webpage' }, mainEntity: s.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : []),
       ],
@@ -502,11 +525,11 @@ ${verwant.length ? `<section class="mt-12"><h2 class="text-2xl font-bold text-gr
 ${voet(s.taal)}`;
 
     schrijf(join(dist, pad.slice(1), 'index.html'), pagina(sjabloon, {
-      taal: s.taal, titel: `${s.title} | Slim Geregeld`, omschrijving: s.description, canonical: u, robots: 'index, follow, max-image-preview:large',
+      taal: s.taal, titel: paginaTitel(s.title), omschrijving: s.description, canonical: u, robots: 'index, follow, max-image-preview:large',
       alternates, graaf, afbeelding, type: 'article', lichaam,
     }));
     geschreven.push(pad);
-    sitemap.push({ loc: u, lastmod: s.updated || s.date, alternates, changefreq: 'monthly', priority: s.status === 'archief' ? '0.4' : '0.7' });
+    sitemap.push({ loc: u, lastmod: s.updated || s.date, alternates });
   }
 
   // ---------- overzichten (nieuwste eerst, 12 per pagina, archief en ingetrokken niet)
@@ -521,7 +544,7 @@ ${voet(s.taal)}`;
       const leeg = lijst.length === 0;
       const robots = robotsAltijd || (leeg ? 'noindex, follow' : 'index, follow');
       const pk = n === 1 ? kruimels : [...kruimels, [`${t.pagina} ${n}`, pad]];
-      const graaf = { '@context': 'https://schema.org', '@graph': [ORG, SITE,
+      const graaf = { '@context': 'https://schema.org', '@graph': [...metKyle(taal),
         { '@type': 'CollectionPage', '@id': u + '#webpage', url: u, name: titel, description: omschrijving, inLanguage: taal, isPartOf: { '@id': B + '/#website' }, breadcrumb: { '@id': u + '#breadcrumb' },
           ...(deel.length ? { mainEntity: { '@type': 'ItemList', itemListElement: deel.map((s, i) => ({ '@type': 'ListItem', position: (n - 1) * PER_PAGINA + i + 1, url: abs(artikelPad(s)), name: s.title })) } } : {}) },
         kruimelGraaf(u, pk)] };
@@ -542,7 +565,7 @@ ${voet(taal)}`;
         alternates: n === 1 && !filterActief ? overzichtAlternates() : [], graaf, afbeelding: null, type: 'website', lichaam,
       }));
       geschreven.push(pad);
-      if (n === 1 && !filterActief && !leeg) sitemap.push({ loc: u, lastmod: lijst[0].updated && lijst[0].updated > lijst[0].date ? lijst[0].updated : lijst[0].date, alternates: overzichtAlternates(), changefreq: 'weekly', priority: '0.7' });
+      if (n === 1 && !filterActief && !leeg) sitemap.push({ loc: u, lastmod: lijst.reduce((m, s) => ((s.updated || s.date) > m ? (s.updated || s.date) : m), ''), alternates: overzichtAlternates() });
     }
   };
 
@@ -572,8 +595,8 @@ ${voet(taal)}`;
     return [`${p.slice(0, -1)}    /ingetrokken.html    410`, `${p}    /ingetrokken.html    410`];
   });
   schrijf(join(dist, 'ingetrokken.html'), pagina(sjabloon, {
-    taal: 'nl', titel: 'Artikel ingetrokken | Slim Geregeld', omschrijving: 'Dit artikel is ingetrokken.', canonical: abs('/blog/'), robots: 'noindex, follow', alternates: [],
-    graaf: { '@context': 'https://schema.org', '@graph': [ORG, SITE] }, afbeelding: null, type: 'website',
+    taal: 'nl', titel: 'Artikel ingetrokken | Slim Geregeld', omschrijving: 'Dit artikel is ingetrokken.', canonical: null, robots: 'noindex, follow', alternates: [],
+    graaf: null, afbeelding: null, type: 'website',
     lichaam: `${kop('nl', '/blog/')}<main class="min-h-screen bg-gradient-to-b from-blue-50 to-white"><div class="max-w-3xl mx-auto px-4 py-16 space-y-4 text-gray-700">
 <h1 class="text-3xl font-bold text-gray-900">Dit artikel is ingetrokken</h1><p>De inhoud klopte niet meer en is daarom van de site gehaald. <a class="text-blue-600 underline" href="/blog/">Naar het blogoverzicht</a></p>
 <p lang="en">This article has been withdrawn. <a class="text-blue-600 underline" href="/en/blog/">Go to the blog</a></p></div></main>${voet('nl')}`,
@@ -584,15 +607,17 @@ ${voet(taal)}`;
   if (!redirects.includes(MARKER)) throw new Error('blog: marker ontbreekt in public/_redirects: ' + MARKER);
   writeFileSync(redirectsPad, redirects.replace(MARKER, [MARKER, ...regels].join('\n')));
 
-  // ---------- sitemap: blogs en /nieuws (lastmod = nieuwste post)
-  const smPad = join(dist, 'sitemap.xml');
-  let sm = readFileSync(smPad, 'utf8');
-  if (nieuws.items.length) {
-    sm = sm.replace(/(<loc>https:\/\/slim-geregeld\.nl\/nieuws<\/loc>\s*<lastmod>)[^<]*(<\/lastmod>)/, `$1${nieuws.items[0].datum}$2`);
-  }
-  const urlXml = (e) => `  <url>\n    <loc>${esc(e.loc)}</loc>\n${e.alternates.map(([hl, u]) => `    <xhtml:link rel="alternate" hreflang="${hl}" href="${esc(u)}"/>\n`).join('')}    <lastmod>${e.lastmod}</lastmod>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>\n`;
-  if (sitemap.length) sm = sm.replace('</urlset>', `  <!-- Blog: geschreven door scripts/blog.mjs -->\n${sitemap.map(urlXml).join('')}</urlset>`);
-  writeFileSync(smPad, sm);
+  // ---------- auteurspagina's
+  auteurPaginas({ A, zichtbaar, nieuwsteEerst, sjabloon, dist, abs, kruimelGraaf, kruimelHtml, kaart, geschreven, sitemap, metKyle });
+
+  // ---------- 404: Netlify serveert dist/404.html met status 404 voor elke URL zonder bestand of regel
+  schrijf(join(dist, '404.html'), pagina(sjabloon, {
+    taal: 'nl', titel: 'Pagina niet gevonden | Slim Geregeld', omschrijving: 'Deze pagina bestaat niet (meer).', canonical: null, robots: 'noindex, follow', alternates: [],
+    graaf: null, afbeelding: null, type: 'website',
+    lichaam: `${kop('nl', '')}<main class="min-h-screen bg-gradient-to-b from-blue-50 to-white"><div class="max-w-3xl mx-auto px-4 py-16 space-y-4 text-gray-700">
+<h1 class="text-3xl font-bold text-gray-900">Deze pagina bestaat niet</h1><p>Het adres klopt niet of de pagina is verplaatst. <a class="text-blue-600 underline" href="/">Naar de homepage</a> · <a class="text-blue-600 underline" href="/blog/">Naar de blog</a> · <a class="text-blue-600 underline" href="/nieuws">Naar het nieuws</a></p>
+<p lang="en">This page does not exist. <a class="text-blue-600 underline" href="/en/">Treaty services in English (DAFT, DJTT)</a></p></div></main>${voet('nl')}`,
+  }));
 
   // ---------- llms.txt: clusters en de nieuwste 20 stukken
   const live = zichtbaar.filter((s) => s.status === 'live').sort(nieuwsteEerst);
@@ -613,7 +638,53 @@ ${voet(taal)}`;
   }
 
   console.log(`blog: ${zichtbaar.length} artikelen, ${ingetrokken.length} ingetrokken, ${geschreven.length} pagina's geschreven (bron ${content})`);
-  return { stukken, nieuws: nieuws.items };
+  return { stukken, nieuws: nieuws.items, sitemap };
+}
+
+// Auteurspagina's in het Nederlands en Engels: wie de auteur is, de Becon-registratie,
+// KVK, profielen en de lijst met artikelen. Een auteur zonder live-artikelen (Miguel
+// tot zijn eerste stuk) krijgt de pagina wel, maar op noindex en buiten de sitemap.
+function auteurPaginas({ A, zichtbaar, nieuwsteEerst, sjabloon, dist, abs, kruimelGraaf, kruimelHtml, kaart, geschreven, sitemap, metKyle }) {
+  const TEKST = {
+    nl: { artikelen: 'Artikelen', geen: 'Nog geen artikelen.', feiten: 'Gegevens', profielen: 'Profielen', titel: (n) => `${n}, auteur | Slim Geregeld`, kruimels: [['Home', '/'], ['Over ons', '/over-ons']] },
+    en: { artikelen: 'Articles', geen: 'No articles yet.', feiten: 'Details', profielen: 'Profiles', titel: (n) => `${n}, author | Slim Geregeld`, kruimels: [['Treaty services', '/en/']] },
+  };
+  for (const [sleutel, a] of Object.entries(A)) {
+    const stukken = zichtbaar.filter((s) => s.author === sleutel && s.status === 'live').sort(nieuwsteEerst);
+    const index = stukken.length > 0 || sleutel === 'kyle';
+    const nieuwste = stukken.reduce((m, s) => ((s.updated || s.date) > m ? (s.updated || s.date) : m), AUTEURS_GEWIJZIGD);
+    const alternates = index ? [['nl', abs(AUTEURPADEN[sleutel].nl)], ['en', abs(AUTEURPADEN[sleutel].en)], ['x-default', abs(AUTEURPADEN[sleutel].en)]] : [];
+    for (const taal of ['nl', 'en']) {
+      const t = TEKST[taal];
+      const pad = AUTEURPADEN[sleutel][taal];
+      const u = abs(pad);
+      const kruimels = [...t.kruimels, [a.naam, pad]];
+      const omschrijving = `${a.naam}, ${a.functie[taal]} bij Slim Geregeld Administratie.`.slice(0, 155);
+      const persoonKnoop = a.schema(taal);
+      const graaf = { '@context': 'https://schema.org', '@graph': [...metKyle(taal, persoonKnoop),
+        { '@type': 'ProfilePage', '@id': u + '#webpage', url: u, name: t.titel(a.naam), description: omschrijving, inLanguage: taal, isPartOf: { '@id': SITE['@id'] },
+          breadcrumb: { '@id': u + '#breadcrumb' }, mainEntity: { '@id': persoonKnoop['@id'] }, dateModified: nieuwste,
+          ...(stukken.length ? { hasPart: stukken.map((s) => ({ '@id': abs(artikelPad(s)) + '#article' })) } : {}) },
+        kruimelGraaf(u, kruimels)] };
+      const feiten = (a.feiten[taal] || []).map(([k, v]) => `<div class="flex flex-col sm:flex-row sm:gap-3"><dt class="font-semibold text-gray-900 sm:w-56">${esc(k)}</dt><dd class="text-gray-700">${esc(v)}</dd></div>`).join('');
+      const lichaam = `${kop(taal, '')}
+<main class="min-h-screen bg-gradient-to-b from-blue-50 to-white"><div class="max-w-3xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+${kruimelHtml(kruimels)}
+<div class="flex items-center gap-4 mb-6">${avatar(a, true)}<div><h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">${esc(a.naam)}</h1><p class="text-lg text-gray-600">${esc(a.functie[taal])}</p></div></div>
+<p class="text-gray-700 leading-relaxed mb-8">${esc(a.bio[taal])}</p>
+<section class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 mb-8"><h2 class="text-xl font-bold text-gray-900 mb-4">${esc(t.feiten)}</h2><dl class="space-y-2">${feiten}</dl>
+${a.links.length ? `<p class="mt-4 flex flex-wrap gap-x-4 gap-y-1">${a.links.map(([h, l]) => `<a href="${esc(h)}"${/^https?:/.test(h) ? ' rel="me noopener"' : ''} class="text-blue-600 underline">${esc(l)}</a>`).join('')}</p>` : ''}</section>
+<section><h2 class="text-2xl font-bold text-gray-900 mb-4">${esc(t.artikelen)}</h2>${stukken.length ? `<ul class="space-y-6">${stukken.map(kaart).join('')}</ul>` : `<p class="text-gray-700">${esc(t.geen)}</p>`}</section>
+</div></main>
+${voet(taal)}`;
+      schrijf(join(dist, pad.slice(1), 'index.html'), pagina(sjabloon, {
+        taal, titel: t.titel(a.naam), omschrijving, canonical: u, robots: index ? 'index, follow' : 'noindex, follow',
+        alternates, graaf, afbeelding: null, type: 'profile', lichaam,
+      }));
+      geschreven.push(pad);
+      if (index) sitemap.push({ loc: u, lastmod: nieuwste, alternates });
+    }
+  }
 }
 
 // ---------------------------------------------------------------- /nieuws als statische HTML
@@ -627,10 +698,11 @@ export function nieuwsHtml(items, blogs) {
     const hoofd = n.urlProfiel || n.urlPagina;
     const taal = n.taal || 'nl';
     const blog = n.blogSlug && bestaat.has(taal + '/' + n.blogSlug) ? blogBasis(taal) + n.blogSlug + '/' : null;
+    const kopTekst = n.titel || alineas(n.tekst)[0].split('\n')[0];
     return `<article style="margin:0 0 2.5rem"${taal !== 'nl' ? ` lang="${esc(taal)}"` : ''}>
-<h2>${esc(n.titel || alineas(n.tekst)[0].split('\n')[0])}</h2>
+<h2>${esc(kopTekst)}</h2>
 <p><time datetime="${esc(n.datum)}">${esc(datumMooi(n.datum, 'nl'))}</time></p>
-${n.afbeelding ? `<img src="${esc(n.afbeelding)}" alt="${esc(n.titel || '')}" loading="lazy" style="max-width:100%;height:auto">` : ''}
+${n.afbeelding ? `<img src="${esc(n.afbeelding)}" alt="${esc(kopTekst)}" loading="lazy" decoding="async" style="max-width:100%;height:auto">` : ''}
 ${alineas(n.tekst).map((a) => `<p>${esc(a).replace(/\n/g, '<br>')}</p>`).join('')}
 <p><a href="${esc(hoofd)}" rel="noopener">Bekijk op LinkedIn</a>${n.urlPagina && n.urlProfiel ? ` · <a href="${esc(n.urlPagina)}" rel="noopener">Bekijk op de bedrijfspagina</a>` : ''}${blog ? ` · <a href="${blog}">Lees het hele stuk</a>` : ''}</p>
 </article>`;
