@@ -1,7 +1,10 @@
 // Test voor de blogbuild: bouwt de site met de testinhoud uit content/__fixtures__
 // en controleert de head (canonical, hreflang, JSON-LD), de tekst, het overzicht,
-// de sitemap, llms.txt, _redirects en /nieuws. Daarna paginering en foutmeldingen
-// in een tijdelijke map. Draai: npm run test:blog
+// de auteurspagina's, de sitemap, llms.txt, _redirects, /nieuws en de 404. Daarna
+// de technische controle van de hele site (scripts/seo-check.mjs: wederkerige
+// hreflang, canonical, JSON-LD-parse en @id's, sitemap gelijk aan de HTML, links),
+// ook op een kopie met opzettelijke fouten, en paginering en foutmeldingen in een
+// tijdelijke map. Draai: npm run test:blog
 // Let op: dist bevat daarna testinhoud. Draai npm run build voor de echte site.
 import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, cpSync, rmSync, readdirSync, statSync, mkdtempSync } from 'node:fs';
@@ -9,6 +12,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import assert from 'node:assert/strict';
 import { bouwBlog, leesBlogs } from './blog.mjs';
+import { controleerSite } from './seo-check.mjs';
 
 const FIX = 'content/__fixtures__';
 const B = 'https://slim-geregeld.nl';
@@ -118,13 +122,13 @@ test('archief: pagina live met melding, niet in het overzicht, wel in de sitemap
   assert.match(lees('sitemap.xml'), /<loc>https:\/\/slim-geregeld\.nl\/en\/blog\/old-opening-balance\/<\/loc>/);
 });
 
-test('ingetrokken: geen pagina, 410 in _redirects vóór de catch-all', () => {
+test('ingetrokken: geen pagina, 410 in _redirects, geen catch-all', () => {
   assert.ok(!existsSync('dist/en/blog/withdrawn-piece'));
   const r = lees('_redirects');
   const i410 = r.indexOf('/en/blog/withdrawn-piece/    /ingetrokken.html    410');
   assert.ok(i410 > 0, '410-regel staat erin');
   assert.ok(r.indexOf('/en/blog/withdrawn-piece    /ingetrokken.html    410') > 0, 'ook zonder slash');
-  assert.ok(i410 < r.indexOf('/*             /index.html   200'), 'vóór de catch-all');
+  assert.doesNotMatch(r, /^\/\*\s+\/index\.html\s+200/m, 'geen catch-all meer');
   assert.ok(existsSync('dist/ingetrokken.html'));
   assert.doesNotMatch(lees('sitemap.xml'), /withdrawn-piece/);
 });
@@ -185,6 +189,83 @@ test('geen em dash in de gegenereerde blogpagina\'s', () => {
   for (const p of [EN, NL, JA, 'blog/index.html', 'en/blog/index.html', 'nieuws.html']) assert.doesNotMatch(lees(p), /\u2014/, p);
 });
 
+test('auteurspagina\'s: Person, Becon, KVK, LinkedIn, artikellijst, hreflang nl-en', () => {
+  const k = lees('over/kyle-bouwmeester/index.html');
+  const ke = lees('en/about/kyle-bouwmeester/index.html');
+  assert.match(k, /<h1 [^>]*>Kyle Bouwmeester<\/h1>/);
+  assert.match(k, /781794/);
+  assert.match(k, /92596991/);
+  assert.match(k, /href="https:\/\/www\.linkedin\.com\/in\/kylebouwmeester"/);
+  assert.match(ke, /href="\/en\/blog\/daft-renewal-what-the-ind-wants\/"/, 'artikellijst');
+  assert.match(ke, /href="\/blog\/daft-verlenging-wat-wil-de-ind\/"/, 'ook artikelen in andere talen');
+  const [pp] = soort(k, 'ProfilePage');
+  assert.equal(pp.mainEntity['@id'], B + '/#kyle');
+  const kyle = soort(k, 'Person')[0];
+  assert.equal(kyle.url, B + '/over/kyle-bouwmeester/');
+  assert.ok(kyle.sameAs.includes('https://www.linkedin.com/in/kylebouwmeester'));
+  assert.deepEqual(hreflangs(k), { nl: B + '/over/kyle-bouwmeester/', en: B + '/en/about/kyle-bouwmeester/', 'x-default': B + '/en/about/kyle-bouwmeester/' });
+  assert.deepEqual(hreflangs(ke), hreflangs(k));
+  assert.match(lees('sitemap.xml'), /<loc>https:\/\/slim-geregeld\.nl\/over\/kyle-bouwmeester\/<\/loc>/);
+  const m = lees('en/about/miguel-weema/index.html');
+  assert.match(m, /index, follow/, 'Miguel heeft een artikel in de testinhoud');
+  assert.match(m, /owners-equity-quarterly-check/);
+  assert.equal(soort(en, 'Person')[0].url, B + '/en/about/kyle-bouwmeester/', 'Article-auteur wijst naar de auteurspagina');
+  assert.match(en, /<a href="\/en\/about\/kyle-bouwmeester\/" class="hover:text-blue-600">Kyle Bouwmeester<\/a>/, 'auteursblok linkt naar de auteurspagina');
+});
+
+test('404-pagina: noindex, geen canonical; React-subroutes als rewrite', () => {
+  const p = lees('404.html');
+  assert.match(p, /noindex/);
+  assert.doesNotMatch(p, /rel="canonical"/);
+  assert.match(p, /<h1 [^>]*>Deze pagina bestaat niet<\/h1>/);
+  const r = lees('_redirects');
+  assert.match(r, /^\/bouw\/faq\s+\/bouw\.html\s+200$/m);
+  assert.match(r, /^\/intake\/\*\s+\/intake\.html\s+200$/m);
+});
+
+test('verdragspagina\'s: vaste knopen uit entiteiten.mjs, zichtbare datum = dateModified = lastmod', () => {
+  const s = lees('sitemap.xml');
+  for (const p of ['en/', 'daft/', 'djtt/', 'djtt/ja/', 'daft/renewal/', 'daft/contact/']) {
+    const html = lees(p + 'index.html');
+    const org = knopen(html).find((k) => k['@id'] === B + '/#org');
+    assert.ok(org.contactPoint && org.sameAs.length >= 3, p + ' Organization uit entiteiten.mjs');
+    const pagina = knopen(html).find((k) => k['@id'] === B + '/' + p + '#webpage');
+    assert.match(html, new RegExp(`<time datetime="${pagina.dateModified}">`), p + ' zichtbare datum');
+    assert.match(s.split(`<loc>${B}/${p}</loc>`)[1].split('</url>')[0], new RegExp(`<lastmod>${pagina.dateModified}</lastmod>`), p + ' lastmod');
+  }
+  const djtt = s.split(`<loc>${B}/djtt/</loc>`)[1].split('</url>')[0];
+  assert.match(djtt, /hreflang="ja" href="https:\/\/slim-geregeld\.nl\/djtt\/ja\/"/);
+});
+
+test('hele site: canonical, hreflang, JSON-LD, sitemap, links (seo-check)', () => {
+  const { fouten } = controleerSite('dist');
+  assert.deepEqual(fouten, []);
+});
+
+test('seo-check vangt fouten: hreflang, canonical, JSON-LD, sitemap', () => {
+  const kopie = mkdtempSync(join(tmpdir(), 'sg-seo-'));
+  try {
+    cpSync('dist', kopie, { recursive: true });
+    const zet = (p, van, naar) => { const f = join(kopie, p); writeFileSync(f, readFileSync(f, 'utf8').replace(van, naar)); };
+    zet('blog/daft-verlenging-wat-wil-de-ind/index.html', /<link rel="alternate" hreflang="ja" href="[^"]+" \/>/, '');
+    zet('daft/index.html', '<link rel="canonical" href="https://slim-geregeld.nl/daft/">', '<link rel="canonical" href="https://slim-geregeld.nl/daft">');
+    zet('en/blog/owners-equity-quarterly-check/index.html', '<script type="application/ld+json">{', '<script type="application/ld+json">{,');
+    zet('sitemap.xml', '<loc>https://slim-geregeld.nl/branches</loc>', '<loc>https://slim-geregeld.nl/bestaat-niet</loc>');
+    zet('branches.html', '<a href="/bouw">', '<a href="/bouww">');
+    zet('creatief.html', '<div id="root">', '<div id="root"><a href="/daft">x</a>');
+    const t = controleerSite(kopie).fouten.join('\n');
+    assert.match(t, /hreflang niet wederkerig/);
+    assert.match(t, /\/daft\/.*canonical|sitemap: .*\/daft\//);
+    assert.match(t, /JSON-LD parse/);
+    assert.match(t, /bestaat-niet is geen indexeerbare pagina/);
+    assert.match(t, /indexeerbare pagina \/branches ontbreekt/);
+    assert.match(t, /kapotte interne link: \/bouww/);
+    assert.match(t, /interne link naar een redirect: \/daft -> \/daft\//);
+  } finally {
+    rmSync(kopie, { recursive: true, force: true });
+  }
+});
+
 // ---------- paginering en foutmeldingen in een tijdelijke map
 const tmp = mkdtempSync(join(tmpdir(), 'sg-blog-'));
 try {
@@ -196,9 +277,8 @@ try {
   }
   const dist = join(tmp, 'dist');
   mkdirSync(dist);
-  for (const f of ['_redirects', 'sitemap.xml', 'llms.txt']) cpSync(join('public', f), join(dist, f));
-  const graaf = { ORG: { '@id': B + '/#org' }, KYLE: { knowsLanguage: ['nl', 'en'], hasCredential: { name: 'Becon-registratie 781794' } }, SITE: { '@id': B + '/#website' } };
-  bouwBlog({ sjabloon, dist, B, ...graaf, content });
+  for (const f of ['_redirects', 'llms.txt']) cpSync(join('public', f), join(dist, f));
+  bouwBlog({ sjabloon, dist, B, content });
   test('paginering: 12 per pagina, pagina 2 met de rest', () => {
     const p1 = readFileSync(join(dist, 'blog/index.html'), 'utf8');
     const p2 = readFileSync(join(dist, 'blog/pagina/2/index.html'), 'utf8');
@@ -215,7 +295,7 @@ try {
     const { fouten } = leesBlogs(content);
     const tekst = fouten.join('\n');
     for (const m of ['description ontbreekt', 'date moet JJJJ-MM-DD zijn', 'author moet kyle of miguel zijn', 'lang is "en"', 'cluster ontbreekt', 'status moet']) assert.ok(tekst.includes(m), m);
-    assert.throws(() => bouwBlog({ sjabloon, dist, B, ...graaf, content }), /inhoud klopt niet/);
+    assert.throws(() => bouwBlog({ sjabloon, dist, B, content }), /inhoud klopt niet/);
   });
 } finally {
   rmSync(tmp, { recursive: true, force: true });

@@ -58,7 +58,7 @@ const Contact = () => {
             {/* Kyle aan de telefoon foto - vergroot */}
             <div className="bg-white rounded-2xl shadow-lg p-6 flex-grow">
               <div className="text-center h-full flex flex-col">
-                <img 
+                <img width={3969} height={5953} loading="lazy" 
                   src="/SGA Foto 2.jpg" 
                   alt="Kyle aan de telefoon" 
                   className="w-full h-[28rem] object-cover rounded-xl flex-grow"

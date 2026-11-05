@@ -54,7 +54,7 @@ const WhatsAppPopup = () => {
         {/* Content */}
         <div className="pr-6">
           <div className="flex items-start space-x-3">
-            <img 
+            <img width={288} height={288} loading="lazy" 
               src="/Pofielfoto Kyle.jpg" 
               alt="Kyle - Boekhouder" 
               className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-green-200"

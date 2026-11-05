@@ -15,11 +15,11 @@ const Footer = () => {
   };
 
   const handleInstagramClick = () => {
-    window.open('https://www.instagram.com/slimgeregeldadministratie?igsh=MXM0bDc3cWc5b3MycA==', '_blank');
+    window.open('https://www.instagram.com/slimgeregeldadministratie/', '_blank');
   };
 
   const handleLinkedInClick = () => {
-    window.open('https://www.linkedin.com/company/107735661/admin/dashboard/', '_blank');
+    window.open('https://www.linkedin.com/company/107735661/', '_blank');
   };
 
   const handleWhatsAppClick = () => {

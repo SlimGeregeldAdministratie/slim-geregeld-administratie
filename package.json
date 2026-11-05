@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build && node scripts/seo-paginas.mjs",
     "test:blog": "node scripts/test-blog.mjs",
+    "seo:check": "node scripts/seo-check.mjs dist",
     "blog:check": "node -e \"import('./scripts/blog.mjs').then(({leesBlogs,leesNieuws})=>{const b=leesBlogs(),n=leesNieuws(),f=[...b.fouten,...n.fouten];b.waarschuwingen.forEach(w=>console.warn('let op: '+w));f.forEach(x=>console.error('fout: '+x));console.log(b.stukken.length+' blogs, '+n.items.length+' nieuwsposts');process.exit(f.length?1:0)})\"",
     "lint": "eslint .",
     "preview": "vite preview"
