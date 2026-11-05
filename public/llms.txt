@@ -26,8 +26,14 @@ Key facts for the treaty route:
 - [Bookkeeping per sector](https://slim-geregeld.nl/branches): construction and installation, creative professions, personal services, tech and IT, e-commerce
 - [NettoCheck](https://slim-geregeld.nl/nettocheck): free calculator for a Dutch self-employed person's income tax and net income
 - [Slim chatbot](https://slim-geregeld.nl/slim-chatbot): invoices and quotes via WhatsApp
-- [About Kyle Bouwmeester](https://slim-geregeld.nl/over-ons)
+- [About Slim Geregeld](https://slim-geregeld.nl/over-ons): the practice and how it works (Dutch)
 - [News](https://slim-geregeld.nl/nieuws): Kyle's LinkedIn posts in Dutch as plain text, on VAT, the BV, pensions, company cars and income tax
+
+## About the author
+
+- [Kyle Bouwmeester](https://slim-geregeld.nl/en/about/kyle-bouwmeester/): Becon-registered bookkeeper (Becon 781794), owner of Slim Geregeld Administratie, author of the articles; Dutch version at https://slim-geregeld.nl/over/kyle-bouwmeester/
+- LinkedIn: https://www.linkedin.com/in/kylebouwmeester
+- Moneybird Expert profile: https://www.moneybird.nl/experts/slim-geregeld-administratie/
 
 ## Contact
 
@@ -40,4 +46,4 @@ Key facts for the treaty route:
 - IND appendix 7611 (proof of income): https://ind.nl/en/forms/7611.pdf
 - IND page Residence permit self-employed person: https://ind.nl/en/residence-permits/work/residence-permit-self-employed-person
 
-Last checked: 21 October 2026.
+Last checked: 5 November 2026.
