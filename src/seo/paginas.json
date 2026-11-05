@@ -56,6 +56,10 @@
      "Gratis tools"
     ],
     [
+     "/blog/",
+     "Blog over boekhouding, btw en de BV"
+    ],
+    [
      "/nettocheck",
      "NettoCheck"
     ],
@@ -256,6 +260,10 @@
      "Nieuws en tips"
     ],
     [
+     "/blog/",
+     "Blog"
+    ],
+    [
      "/contact",
      "Contact"
     ]
@@ -269,7 +277,9 @@
    "kruimel": "Nieuws",
    "ouder": "/over-ons",
    "h1": "Nieuws en updates",
-   "intro": "Praktische tips over administratie, ondernemerschap en belastingen, zoals een holdingstructuur of de fiscale gevolgen van een zakelijke auto."
+   "intro": "De posts van Kyle Bouwmeester op LinkedIn, als gewone tekst: praktische tips over administratie, btw, de BV en belastingen voor ondernemers.",
+   "nieuws": true,
+   "collectie": true
   },
   {
    "pad": "/intake",

@@ -25,6 +25,9 @@
 # de mail in plaats van een webhook-URL.
 /start/*   https://n8n.slim-geregeld.nl/webhook/daft-start?r=:splat&m=2   302!
 
+# Blog: artikelen met status "ingetrokken" krijgen hier bij de build een 410.
+# BLOG: ingetrokken artikelen (scripts/blog.mjs vult dit aan)
+
 /bedankt       /index.html   200
 /sitemap.xml   /sitemap.xml  200
 /llms.txt      /llms.txt     200

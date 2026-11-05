@@ -5,8 +5,11 @@
 // titel, omschrijving, canonical, robots, structured data en de kerntekst van
 // de pagina in #root. React vervangt die inhoud zodra de app laadt.
 // De gegevens staan in src/seo/paginas.json, dat de app zelf ook gebruikt.
+// Blog (/blog/, /en/blog/, /ja/blog/) en de posts op /nieuws komen uit content/,
+// zie scripts/blog.mjs en content/README.md.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { bouwBlog, nieuwsHtml, alineas } from './blog.mjs';
 
 const DIST = 'dist';
 const cfg = JSON.parse(readFileSync('src/seo/paginas.json', 'utf8'));
@@ -73,6 +76,12 @@ function graaf(p) {
       description: p.omschrijving, url: u, inLanguage: 'nl', isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, provider: { '@id': B + '/#org' } });
     pagina.mainEntity = { '@id': u + '#app' };
   }
+  if (p.nieuws && NIEUWS.length) {
+    pagina.dateModified = NIEUWS[0].datum;
+    pagina.mainEntity = { '@type': 'ItemList', itemListElement: NIEUWS.map((n, i) => ({ '@type': 'ListItem', position: i + 1, item: {
+      '@type': 'SocialMediaPosting', headline: n.titel || alineas(n.tekst)[0].slice(0, 110), datePublished: n.datum, url: n.urlProfiel || n.urlPagina,
+      author: { '@id': B + '/#kyle' }, inLanguage: n.taal || 'nl', ...(n.afbeelding ? { image: n.afbeelding } : {}) } })) };
+  }
   if (p.faq) {
     g.push({ '@type': 'FAQPage', '@id': u + '#faq', inLanguage: 'nl', isPartOf: { '@id': u + '#webpage' },
       mainEntity: cfg.faq_home.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
@@ -87,6 +96,7 @@ function kern(p) {
   if (p.intro) delen.push(`<p>${esc(p.intro)}</p>`);
   if (p.punten) delen.push('<ul>' + p.punten.map((x) => `<li>${esc(x)}</li>`).join('') + '</ul>');
   if (p.faq) delen.push('<h2>Veelgestelde vragen</h2>' + cfg.faq_home.map(([q, a]) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`).join(''));
+  if (p.nieuws) delen.push(nieuwsHtml(NIEUWS, BLOGS));
   if (p.links) delen.push('<ul>' + p.links.map(([h, t]) => `<li><a href="${h}">${esc(t)}</a></li>`).join('') + '</ul>');
   return `<main style="max-width:44rem;margin:0 auto;padding:2rem 1rem;font-family:system-ui,sans-serif;line-height:1.6">${delen.join('')}</main>`;
 }
@@ -115,6 +125,9 @@ function bouw(p) {
   mkdirSync(dirname(doel), { recursive: true });
   writeFileSync(doel, h);
 }
+
+// Eerst de blog: die gebruikt het onbewerkte sjabloon en levert de nieuwsposts voor /nieuws.
+const { stukken: BLOGS, nieuws: NIEUWS } = bouwBlog({ sjabloon, dist: DIST, B, ORG, KYLE, SITE });
 
 // Subroutes als /bouw/faq krijgen geen eigen bestand: een map dist/bouw/ naast
 // bouw.html maakt onduidelijk wat /bouw serveert. De app zet daar zelf de
