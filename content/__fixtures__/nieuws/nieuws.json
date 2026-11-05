@@ -11,7 +11,9 @@
     "taal": "nl",
     "blogSlug": null,
     "cluster": "zzp-btw",
-    "impressies": 300
+    "impressies": 300,
+    "toon": true,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7523435029557923840",
@@ -25,7 +27,9 @@
     "taal": "nl",
     "blogSlug": "daft-verlenging-wat-wil-de-ind",
     "cluster": "bv-dga",
-    "impressies": 100
+    "impressies": 100,
+    "toon": true,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7520552621313560576",
@@ -38,6 +42,7 @@
     "urlPagina": "https://www.linkedin.com/company/slim-geregeld-administratie/",
     "taal": "nl",
     "blogSlug": null,
-    "cluster": "zzp-btw"
+    "cluster": "zzp-btw",
+    "toon": true
   }
 ]

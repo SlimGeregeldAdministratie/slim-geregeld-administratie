@@ -173,8 +173,14 @@ Pagina's (allemaal statische bestanden, canonical naar zichzelf, `rel="prev"`/`r
 | `/nieuws/`, `/nieuws/2/`, ... | alle posts, nieuwste eerst, 10 per pagina | ja, in de sitemap |
 | `/nieuws/onderwerp/<cluster>/`, `.../2/` | posts van één onderwerp, 10 per pagina | alleen bij 3 of meer posts; anders `noindex` en niet in de sitemap |
 
-Volgorde "Meest gelezen" (`?volgorde=meest-gelezen`) sorteert in de browser op `impressies`.
-De statische HTML blijft op nieuwste. Het aantal impressies komt niet in de site: de build
+Alleen posts met `"toon": true` staan op de site. Een post met `"toon": false` staat niet
+op `/nieuws/`, niet op een onderwerppagina, niet in de sitemap en niet in de JavaScript-bundel.
+
+Volgorde "Meest gelezen" (`?volgorde=meest-gelezen`) sorteert in de browser op impressies per
+dag: `impressies` gedeeld door het aantal dagen tussen `datum` en `impressiesBijgewerkt`. Zo
+wint een oude post niet alleen omdat hij langer staat. Posts die nog geen 14 dagen oud zijn
+tellen daar niet mee: die staan bovenaan met het label "Nieuw" en schuiven na 14 dagen vanzelf
+op hun plek. De statische HTML blijft op nieuwste. Het aantal impressies komt niet in de site: de build
 geeft de app alleen een rang mee (`vite.config.ts`). Let op: deze repo is openbaar, dus de
 getallen staan wel in dit bestand op GitHub.
 
@@ -202,8 +208,10 @@ Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net al
 | `urlProfiel` | ja, als `urlPagina` leeg is | URL | `https://www.linkedin.com/feed/update/<urn>/` van de post op Kyles profiel. Doel van "Bekijk op LinkedIn". |
 | `urlPagina` | nee | URL of `null` | Dezelfde post op de bedrijfspagina. Gevuld: tweede knop "Bekijk op de bedrijfspagina". Is `urlProfiel` leeg, dan wordt dit de hoofdknop. |
 | `taal` | ja | `nl`, `en` of `ja` | Taal van de post. |
+| `toon` | ja | `true` of `false` | Of de post op de site komt. Zie "Welke posts op de site komen" hieronder. Ontbreekt het, dan geldt `true` met een waarschuwing. |
 | `cluster` | ja | sleutel uit de tabel hierboven | Onderwerp van de post. De planner kiest het op de inhoud, zoals bij een blog. Ontbreekt het of is het onbekend, dan komt de post onder `nieuws` (waarschuwing in de build). |
-| `impressies` | nee | heel getal of weglaten | Impressies op LinkedIn (bijvoorbeeld na 7 dagen of uit de jaarexport). Alleen voor de volgorde "Meest gelezen"; posts zonder getal komen daar achteraan. Wordt niet getoond. |
+| `impressies` | nee | heel getal of weglaten | Totaal aantal impressies op LinkedIn op de datum `impressiesBijgewerkt`. De planner werkt dit wekelijks bij via de API (zelfde `id`, item vervangen). Alleen voor "Meest gelezen"; posts zonder getal komen daar achteraan. Wordt niet getoond. |
+| `impressiesBijgewerkt` | bij `impressies` | `JJJJ-MM-DD` | Datum waarop `impressies` is gemeten. Nodig voor impressies per dag; ontbreekt het, dan rekent de build met de builddatum. |
 | `blogSlug` | nee | slug of `null` | Slug van het bijbehorende artikel in dezelfde taal. Gevuld: link "Lees het hele stuk" naar `/blog/<slug>/` (of `/en/blog/<slug>/`). De statische versie toont de link alleen als het artikel bestaat. |
 
 Voorbeeld van één item:
@@ -211,6 +219,7 @@ Voorbeeld van één item:
 ```json
 {
   "id": "urn:li:share:7523435029557923840",
+  "toon": true,
   "datum": "2026-11-03",
   "kanaal": "profiel",
   "titel": "Hoeveel omzet heb jij eigenlijk nodig?",
@@ -221,9 +230,23 @@ Voorbeeld van één item:
   "taal": "nl",
   "cluster": "zzp-btw",
   "blogSlug": null,
-  "impressies": 73
+  "impressies": 73,
+  "impressiesBijgewerkt": "2026-11-04"
 }
 ```
+
+### Welke posts op de site komen (`toon`)
+
+Op de site staan alleen posts met inhoud: een uitleg, een cijfer of rekensom, een
+praktijksituatie, of nieuws over de praktijk zelf. `toon: false` krijgen:
+
+- dubbele posts (zelfde of bijna zelfde tekst als een eerdere post; de beste blijft staan);
+- generieke motivatie- of opvulposts zonder concreet feit, cijfer of voorbeeld;
+- posts die alleen een vraag stellen.
+
+Voor nieuwe posts schrijft de planner `toon: true` als de post door de poortwachter kwam en
+minstens twee eigen elementen heeft (eigen cijfer, klantsituatie, praktijkfout, eigen
+rekensom), anders `toon: false`. Kyle kan het veld later met de hand omzetten.
 
 ### Wat de n8n-flow moet doen (workflow Uhjh0QRaSB78i8f4)
 
@@ -251,6 +274,10 @@ De volledige tekst, de afbeelding en de URL komen uit de openbare LinkedIn-embed
 elke post (opgehaald op 5 november 2026). De afbeeldingen verwijzen naar de
 LinkedIn-CDN (`media.licdn.com`, URL's zonder verloopdatum). `urlPagina` is overal
 leeg, want de bedrijfspagina-URL's van deze posts zijn niet bekend.
+
+Zes van de 33 staan op `toon: false`: de dubbele holdingpost van 13 mei 2026 (die van
+2 maart blijft), "Hoe je geldlekken opspoort" (6 juli), de box 3-post (13 april), de
+btw-typetjes (30 maart), "Pensioen opbouwen? ..." (10 maart) en "Pensioenbeleggen" (5 januari).
 
 Het onderwerp (`cluster`) van deze 33 posts is op de tekst gekozen; `impressies` komt uit
 het onderzoek naar Kyles LinkedIn-posts (peildatum 4 november 2026, de post van 3 november

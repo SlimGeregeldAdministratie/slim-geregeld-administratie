@@ -252,6 +252,11 @@ export function leesNieuws(map = CONTENT) {
     if (n.kanaal && !['profiel', 'pagina'].includes(n.kanaal)) fouten.push(`${waar}: kanaal moet profiel of pagina zijn`);
     if (!n.urlProfiel && !n.urlPagina) fouten.push(`${waar}: urlProfiel of urlPagina is verplicht`);
     if (n.impressies != null && !(Number.isInteger(n.impressies) && n.impressies >= 0)) fouten.push(`${waar}: impressies moet een heel getal zijn`);
+    if (n.impressiesBijgewerkt != null && !geldigeDatum(String(n.impressiesBijgewerkt))) fouten.push(`${waar}: impressiesBijgewerkt moet JJJJ-MM-DD zijn`);
+    if (n.toon != null && typeof n.toon !== 'boolean') fouten.push(`${waar}: toon moet true of false zijn`);
+    if (n.toon == null) waarschuwingen.push(`${waar}: toon ontbreekt, behandeld als true`);
+    // toon: false = niet op de site (geen pagina, geen sitemap). Wel controleren, wel ontdubbelen.
+    if (n.toon === false) { perId.delete(n.id); return; }
     // Zonder of met onbekend cluster: onder praktijknieuws, met een waarschuwing.
     let cluster = n.cluster;
     if (!cluster) { waarschuwingen.push(`${waar}: cluster ontbreekt, behandeld als nieuws`); cluster = 'nieuws'; }

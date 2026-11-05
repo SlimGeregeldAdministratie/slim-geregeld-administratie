@@ -277,7 +277,9 @@ try {
   const voorbeeld = JSON.parse(readFileSync(join(FIX, 'nieuws', 'nieuws.json'), 'utf8'))[0];
   // 20 posts zzp-btw, 2 jaarwerk, 1 zonder cluster; impressies oplopend met het nummer.
   const posts = Array.from({ length: 23 }, (_, i) => ({ ...voorbeeld, id: `test-${i + 1}`, datum: `2026-10-${String(i + 1).padStart(2, '0')}`, titel: `Post ${i + 1}`,
-    cluster: i < 20 ? 'zzp-btw' : i < 22 ? 'jaarwerk' : undefined, impressies: 1000 + i * 7, blogSlug: null }));
+    cluster: i < 20 ? 'zzp-btw' : i < 22 ? 'jaarwerk' : undefined, impressies: 1000 + i * 7, impressiesBijgewerkt: '2026-11-04', toon: true, blogSlug: null }));
+  // Een verborgen post: niet op de site, niet in de bundel.
+  posts.push({ ...voorbeeld, id: 'test-verborgen', datum: '2026-10-30', titel: 'Verborgen post', cluster: 'zzp-btw', toon: false, blogSlug: null });
   writeFileSync(join(tmpNieuws, 'nieuws', 'nieuws.json'), JSON.stringify(posts, null, 2));
   const envN = { ...process.env, BLOG_CONTENT_DIR: tmpNieuws };
   execSync('npx vite build --logLevel error', { env: envN, stdio: 'inherit' });
@@ -315,10 +317,19 @@ try {
     assert.match(lees('nieuws/onderwerp/nieuws/index.html'), /Post 23/);
   });
 
-  test('nieuws: impressies niet in de bundel, wel een rang', () => {
+  test('nieuws: toon false staat nergens', () => {
+    for (const f of ['nieuws/index.html', 'nieuws/onderwerp/zzp-btw/index.html']) assert.doesNotMatch(lees(f), /Verborgen post/);
+    const js = readdirSync('dist/assets').filter((f) => f.endsWith('.js')).map((f) => readFileSync(join('dist/assets', f), 'utf8')).join('');
+    assert.doesNotMatch(js, /test-verborgen/);
+  });
+
+  test('nieuws: impressies niet in de bundel, rang op impressies per dag', () => {
     const js = readdirSync('dist/assets').filter((f) => f.endsWith('.js')).map((f) => readFileSync(join('dist/assets', f), 'utf8')).join('');
     assert.doesNotMatch(js, /impressies/);
-    assert.match(js, /rang:1\b|"rang":1\b/);
+    // Post 23 (1154 impressies in 12 dagen) gaat voor post 1 (1000 in 34 dagen).
+    const rang = (id) => Number((js.match(new RegExp(`id:"${id}"[^}]*?rang:(\\d+)`)) || [])[1]);
+    assert.equal(rang('test-23'), 1);
+    assert.ok(rang('test-1') > rang('test-23'));
     for (const f of ['nieuws/index.html', 'nieuws/2/index.html']) assert.doesNotMatch(lees(f), /impressies|1154/);
   });
 

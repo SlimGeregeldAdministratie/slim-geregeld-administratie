@@ -16,6 +16,9 @@ const PER_PAGINA: number = onderwerpen.perPagina;
 const MIN_INDEX: number = onderwerpen.minIndex;
 const CLUSTERS = onderwerpen.clusters as Record<string, string>;
 const TITEL = 'Nieuws en belastingtips voor ondernemers | Slim Geregeld';
+// Bij "Meest gelezen" tellen posts pas mee als ze zo oud zijn; daarvoor staan ze bovenaan als "Nieuw".
+const NIEUW_DAGEN = 14;
+const isNieuw = (n: NieuwsItem) => Date.now() - Date.parse(n.datum + 'T00:00:00Z') < NIEUW_DAGEN * 86400000;
 const OMSCHRIJVING = 'Praktische tips over administratie, ondernemerschap en belastingen van boekhouder Kyle Bouwmeester.';
 
 const ZICHTBAAR = 3; // alinea's die direct te zien zijn, de rest achter "Lees verder"
@@ -57,7 +60,7 @@ function zetHead(titel: string, omschrijving: string, canonical: string, index: 
   zet('meta[name="robots"]', () => Object.assign(document.createElement('meta'), { name: 'robots' }), 'content', index ? 'index, follow' : 'noindex, follow');
 }
 
-const Post = ({ n }: { n: NieuwsItem }) => {
+const Post = ({ n, nieuw = false }: { n: NieuwsItem; nieuw?: boolean }) => {
   const [open, setOpen] = useState(false);
   const delen = alineas(n.tekst);
   const titel = n.titel || delen[0]?.split('\n')[0] || '';
@@ -72,6 +75,7 @@ const Post = ({ n }: { n: NieuwsItem }) => {
       <div className="p-6">
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-500">
           <time dateTime={n.datum}>{datumMooi(n.datum)}</time>
+          {nieuw && <span className="inline-block rounded-full bg-blue-600 text-white text-xs font-semibold px-3 py-1">Nieuw</span>}
           {n.cluster && CLUSTERS[n.cluster] && (
             <Link to={`/nieuws/onderwerp/${n.cluster}/`} className="inline-block rounded-full bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 hover:bg-blue-100">
               {CLUSTERS[n.cluster]}
@@ -149,8 +153,9 @@ const Nieuws = () => {
   const label = cluster ? CLUSTERS[cluster] : null;
 
   // Nieuwste: de pagina uit de URL. Meest gelezen: alles van dit onderwerp op rang, met "Toon meer".
+  // Meest gelezen: posts jonger dan 14 dagen bovenaan (nieuwste eerst, label Nieuw), daarna op rang.
   const lijst = gelezen
-    ? [...gefilterd].sort((a, b) => (a.rang ?? Infinity) - (b.rang ?? Infinity) || (a.datum < b.datum ? 1 : -1)).slice(0, getoond)
+    ? [...gefilterd.filter(isNieuw), ...gefilterd.filter((n) => !isNieuw(n)).sort((a, b) => (a.rang ?? Infinity) - (b.rang ?? Infinity) || (a.datum < b.datum ? 1 : -1))].slice(0, getoond)
     : gefilterd.slice((nr - 1) * PER_PAGINA, nr * PER_PAGINA);
 
   useEffect(() => {
@@ -233,7 +238,7 @@ const Nieuws = () => {
             </p>
           ) : (
             <div className="space-y-8">
-              {lijst.map((n) => <Post key={n.id} n={n} />)}
+              {lijst.map((n) => <Post key={n.id} n={n} nieuw={gelezen && isNieuw(n)} />)}
             </div>
           )}
 

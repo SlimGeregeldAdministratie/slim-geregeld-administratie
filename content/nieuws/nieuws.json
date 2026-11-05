@@ -1,6 +1,7 @@
 [
   {
     "id": "urn:li:share:7523435029557923840",
+    "toon": true,
     "datum": "2026-11-03",
     "kanaal": "profiel",
     "titel": "Hoeveel omzet heb jij eigenlijk nodig?",
@@ -11,10 +12,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 73
+    "impressies": 73,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7520552621313560576",
+    "toon": true,
     "datum": "2026-10-26",
     "kanaal": "profiel",
     "titel": "Belastingvoordeel pakken met een onkostenvergoeding via je BV",
@@ -25,10 +28,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 217
+    "impressies": 217,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7515857764628320257",
+    "toon": true,
     "datum": "2026-10-13",
     "kanaal": "profiel",
     "titel": "Je vermogen beschermen en fiscaal optimaliseren met een holdingstructuur",
@@ -39,10 +44,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 137
+    "impressies": 137,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7512973023717781506",
+    "toon": true,
     "datum": "2026-10-05",
     "kanaal": "profiel",
     "titel": "Zakelijke auto: wat zijn de fiscale gevolgen?",
@@ -53,10 +60,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 284
+    "impressies": 284,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7479994088646324225",
+    "toon": false,
     "datum": "2026-07-06",
     "kanaal": "profiel",
     "titel": "Hoe je geldlekken opspoort en winst verbetert",
@@ -67,10 +76,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 447
+    "impressies": 447,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7472328071858262017",
+    "toon": true,
     "datum": "2026-06-15",
     "kanaal": "profiel",
     "titel": "Salaris of dividend: wat is fiscaal voordeliger?",
@@ -81,10 +92,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 341
+    "impressies": 341,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7469774316088524802",
+    "toon": true,
     "datum": "2026-06-08",
     "kanaal": "profiel",
     "titel": "Betaal niet onnodig te veel bijtelling voor je auto van de zaak",
@@ -95,10 +108,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 439
+    "impressies": 439,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7464753799866281984",
+    "toon": true,
     "datum": "2026-05-25",
     "kanaal": "profiel",
     "titel": "Eenmanszaak of BV: wat levert meer op bij 150K winst?",
@@ -109,10 +124,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 431
+    "impressies": 431,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7462851775038119937",
+    "toon": true,
     "datum": "2026-05-20",
     "kanaal": "profiel",
     "titel": "Voorkom belastingrente door op tijd je voorlopige aanslag aan te vragen",
@@ -123,10 +140,12 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 234
+    "impressies": 234,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7460293830991519744",
+    "toon": false,
     "datum": "2026-05-13",
     "kanaal": "profiel",
     "titel": "Bescherm en groei je vermogen met slimme stappen",
@@ -137,10 +156,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 192
+    "impressies": 192,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7454824618936238080",
+    "toon": true,
     "datum": "2026-04-28",
     "kanaal": "profiel",
     "titel": "Boekhouder of fiscaal adviseur: wat heb jij echt nodig?",
@@ -151,10 +172,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 326
+    "impressies": 326,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7449537564916568064",
+    "toon": false,
     "datum": "2026-04-13",
     "kanaal": "profiel",
     "titel": "Wat betekent het nieuwe box 3-stelsel voor jou als zzp'er?",
@@ -165,10 +188,12 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 270
+    "impressies": 270,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7447166303100071937",
+    "toon": true,
     "datum": "2026-04-07",
     "kanaal": "profiel",
     "titel": "Financial lease of private lease: wat past bij jouw zzp-auto?",
@@ -179,10 +204,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 320
+    "impressies": 320,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7444469423568125953",
+    "toon": false,
     "datum": "2026-03-30",
     "kanaal": "profiel",
     "titel": "Welke ondernemer ben jij bij de btw-aangifte?",
@@ -193,10 +220,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 343
+    "impressies": 343,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7441893407922360320",
+    "toon": true,
     "datum": "2026-03-23",
     "kanaal": "profiel",
     "titel": "Hoe bepaal je als zzp'er je omzetdoel?",
@@ -207,10 +236,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 300
+    "impressies": 300,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7439359043900657665",
+    "toon": true,
     "datum": "2026-03-16",
     "kanaal": "profiel",
     "titel": "Overstappen naar een BV? Niet altijd de beste keuze",
@@ -221,10 +252,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 482
+    "impressies": 482,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7437121541320028160",
+    "toon": false,
     "datum": "2026-03-10",
     "kanaal": "profiel",
     "titel": "Pensioen opbouwen? Het is echt geen optie maar een must.",
@@ -235,10 +268,12 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 346
+    "impressies": 346,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7434369881468272640",
+    "toon": true,
     "datum": "2026-03-02",
     "kanaal": "profiel",
     "titel": "Bescherm en groei je vermogen met slimme stappen",
@@ -249,10 +284,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 306
+    "impressies": 306,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7432722356348956672",
+    "toon": true,
     "datum": "2026-02-26",
     "kanaal": "profiel",
     "titel": "3 simpele belastingvoordelen die (te) veel zzp'ers vergeten",
@@ -263,10 +300,12 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 556
+    "impressies": 556,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7426922142929174528",
+    "toon": true,
     "datum": "2026-02-10",
     "kanaal": "profiel",
     "titel": "Rust en overzicht met potjes: zo simpel kan het zijn",
@@ -277,10 +316,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 390
+    "impressies": 390,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7426901559139016704",
+    "toon": true,
     "datum": "2026-02-10",
     "kanaal": "profiel",
     "titel": "De aangifte inkomstenbelasting komt eraan, ben jij er klaar voor?",
@@ -291,10 +332,12 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 720
+    "impressies": 720,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7424165983893856256",
+    "toon": true,
     "datum": "2026-02-02",
     "kanaal": "profiel",
     "titel": "Voorkom dure fouten bij het oprichten van je BV als zzp'er",
@@ -305,10 +348,12 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 487
+    "impressies": 487,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7422654869616062464",
+    "toon": true,
     "datum": "2026-01-29",
     "kanaal": "profiel",
     "titel": "Mijn administratie kost me meer uren dan ik aan mijn klanten besteed",
@@ -319,10 +364,12 @@
     "taal": "nl",
     "cluster": "nieuws",
     "blogSlug": null,
-    "impressies": 1066
+    "impressies": 1066,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7421617658321694720",
+    "toon": true,
     "datum": "2026-01-26",
     "kanaal": "profiel",
     "titel": "Zwangerschapsverlof en ZEZ-uitkering: wat zzp'ers moeten weten",
@@ -333,10 +380,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 749
+    "impressies": 749,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7420044904619319296",
+    "toon": true,
     "datum": "2026-01-22",
     "kanaal": "profiel",
     "titel": "Zo bereid je je voor op een boekenonderzoek",
@@ -347,10 +396,12 @@
     "taal": "nl",
     "cluster": "jaarwerk",
     "blogSlug": null,
-    "impressies": 358
+    "impressies": 358,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7419366881410740224",
+    "toon": true,
     "datum": "2026-01-20",
     "kanaal": "profiel",
     "titel": "Ik ben ondernemer geworden om mijn passie te volgen, niet om met de Belastingdienst te stressen",
@@ -361,10 +412,12 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 468
+    "impressies": 468,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7414606791461842945",
+    "toon": true,
     "datum": "2026-01-07",
     "kanaal": "profiel",
     "titel": "Waarom een eigen boekhoudservice?",
@@ -375,10 +428,12 @@
     "taal": "nl",
     "cluster": "nieuws",
     "blogSlug": null,
-    "impressies": 1035
+    "impressies": 1035,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:share:7413991999038722048",
+    "toon": false,
     "datum": "2026-01-05",
     "kanaal": "profiel",
     "titel": "Pensioenbeleggen: fiscaal voordeel dat veel zzp'ers missen",
@@ -389,10 +444,12 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 350
+    "impressies": 350,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7411904135127781376",
+    "toon": true,
     "datum": "2025-12-31",
     "kanaal": "profiel",
     "titel": "Schenk- en erfbelasting bewust inzetten",
@@ -403,10 +460,12 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 667
+    "impressies": 667,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7408793631832178688",
+    "toon": true,
     "datum": "2025-12-22",
     "kanaal": "profiel",
     "titel": "Belastingwijzigingen 2026: wat betekent het voor jou als zzp'er?",
@@ -417,10 +476,12 @@
     "taal": "nl",
     "cluster": "nieuws",
     "blogSlug": null,
-    "impressies": 477
+    "impressies": 477,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7404097515488448512",
+    "toon": true,
     "datum": "2025-12-09",
     "kanaal": "profiel",
     "titel": "December is aangebroken, ben jij klaar voor de fiscale finish?",
@@ -431,10 +492,12 @@
     "taal": "nl",
     "cluster": "jaarwerk",
     "blogSlug": null,
-    "impressies": 432
+    "impressies": 432,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7399794188873256960",
+    "toon": true,
     "datum": "2025-11-27",
     "kanaal": "profiel",
     "titel": "Technologie staat niet stil, ook niet in de boekhouding",
@@ -445,10 +508,12 @@
     "taal": "nl",
     "cluster": "nieuws",
     "blogSlug": null,
-    "impressies": 1074
+    "impressies": 1074,
+    "impressiesBijgewerkt": "2026-11-04"
   },
   {
     "id": "urn:li:activity:7393580729424793600",
+    "toon": true,
     "datum": "2025-11-10",
     "kanaal": "profiel",
     "titel": "Het is tijd om het eindelijk te delen",
@@ -459,6 +524,7 @@
     "taal": "nl",
     "cluster": "nieuws",
     "blogSlug": null,
-    "impressies": 3529
+    "impressies": 3529,
+    "impressiesBijgewerkt": "2026-11-04"
   }
 ]
