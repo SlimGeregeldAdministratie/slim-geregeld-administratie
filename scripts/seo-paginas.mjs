@@ -53,7 +53,7 @@ function graaf(p) {
   if (p.pakketten) {
     g.push({
       '@type': 'Service', '@id': u + '#dienst', name: 'Boekhouding voor zzp\'ers en kleine ondernemers', provider: { '@id': B + '/#org' },
-      areaServed: { '@type': 'Country', name: 'Netherlands' }, availableLanguage: ['nl', 'en'],
+      areaServed: { '@type': 'Country', name: 'Netherlands' }, availableChannel: { '@type': 'ServiceChannel', serviceUrl: u, availableLanguage: ['nl', 'en'] },
       hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Pakketten', itemListElement: [
         { '@type': 'Offer', name: 'Alleen Slim', description: 'WhatsApp-chatbot voor ondernemers die zelf hun administratie doen', priceSpecification: { '@type': 'UnitPriceSpecification', price: '75', priceCurrency: 'EUR', unitCode: 'MON' } },
         { '@type': 'Offer', name: 'Volledige Service', description: 'Boekhouding, btw-aangifte, jaarrekening en persoonlijk contact, introductieprijs (normaal €125)', priceSpecification: { '@type': 'UnitPriceSpecification', price: '95', priceCurrency: 'EUR', unitCode: 'MON' } },
@@ -65,7 +65,7 @@ function graaf(p) {
   }
   if (p.dienst) {
     g.push({ '@type': 'Service', '@id': u + '#dienst', name: p.dienst.naam, description: p.omschrijving, provider: { '@id': B + '/#org' },
-      areaServed: { '@type': 'Country', name: 'Netherlands' }, availableLanguage: ['nl'], audience: { '@type': 'Audience', audienceType: p.dienst.doelgroep },
+      areaServed: { '@type': 'Country', name: 'Netherlands' }, availableChannel: { '@type': 'ServiceChannel', serviceUrl: u, availableLanguage: ['nl'] }, audience: { '@type': 'Audience', audienceType: p.dienst.doelgroep },
       ...(p.dienst.prijs ? { offers: { '@type': 'Offer', priceSpecification: { '@type': 'UnitPriceSpecification', price: p.dienst.prijs, priceCurrency: 'EUR', unitCode: 'MON' } } } : {}) });
     pagina.mainEntity = { '@id': u + '#dienst' };
   }
