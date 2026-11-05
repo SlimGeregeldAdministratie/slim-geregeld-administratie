@@ -208,13 +208,13 @@ Nooit oude items weggooien: alle posts blijven op `/nieuws` staan.
 
 ### Startvulling
 
-De 24 posts die de flow tussen 31 december 2025 en 3 november 2026 publiceerde, gevonden
-via de commit-historie van `Nieuws.tsx` en de tabel in het onderzoek naar Kyles
-LinkedIn-posts. De volledige tekst, de afbeelding en de URL komen uit de openbare
-LinkedIn-embed van elke post (opgehaald op 5 november 2026), dus de tekst is volledig.
-Twee aanpassingen: de post van 31 december 2025 had geen titel in de historie en kreeg
-"Schenk- en erfbelasting bewust inzetten"; in "Financial lease of private lease" is het
-gedachtestreepje een dubbele punt geworden. De afbeeldingen verwijzen naar de
+33 posts van Kyles profiel tussen 10 november 2025 en 3 november 2026:
+
+- De 24 posts die de flow publiceerde, gevonden via de commit-historie van `Nieuws.tsx`. De post van 31 december 2025 had daar geen titel en kreeg "Schenk- en erfbelasting bewust inzetten"; in "Financial lease of private lease" is het gedachtestreepje een dubbele punt geworden.
+- De negen posts die Kyle zelf schreef (lancering, WhatsApp-video, eindejaarstips, belastingwijzigingen 2026, oprichtingsverhaal, btw-stress-video, administratie-uren, IB-aangifte, drie aftrekposten). Id is daar de activity-URN. Bewerkingen voor de site: de vette Unicode-letters zijn gewone letters geworden, de hashtags aan het eind zijn weggelaten, de gedachtestreepjes zijn een komma of dubbele punt geworden en de titel is de eerste regel zonder emoji of aanhalingstekens. Bij de twee video-posts is de afbeelding het stilstaande beeld van de video.
+
+De volledige tekst, de afbeelding en de URL komen uit de openbare LinkedIn-embed van
+elke post (opgehaald op 5 november 2026). De afbeeldingen verwijzen naar de
 LinkedIn-CDN (`media.licdn.com`, URL's zonder verloopdatum). `urlPagina` is overal
 leeg, want de bedrijfspagina-URL's van deze posts zijn niet bekend.
 
