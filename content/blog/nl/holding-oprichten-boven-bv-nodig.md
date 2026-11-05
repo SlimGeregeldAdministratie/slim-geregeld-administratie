@@ -1,83 +1,76 @@
 ---
-title: "Holding oprichten boven je bv: wanneer is dat nodig?"
-description: "Een holding kan vermogen en bedrijfsrisico scheiden. Ik leg uit wat verandert voor je vpb, DGA-loon, administratie en een latere verkoop."
+title: "Holding oprichten boven je BV: wanneer is dat nodig?"
+description: "Een holding boven je BV kan vermogen en bedrijfsrisico scheiden. Lees wat dit doet met vpb, DGA-loon en dividend, met een rekenvoorbeeld."
 date: 2026-11-05
 updated: 2026-11-05
 author: kyle
 lang: nl
 translationKey: holding-company-above-dutch-bv
 cluster: bv-dga
-tags: ["holding", "bv", "DGA", "vennootschapsbelasting", "bedrijfsstructuur"]
+tags: ["holding", "bv", "DGA", "vennootschapsbelasting"]
 faq:
-  - q: "Is een holding boven mijn bv verplicht?"
-    a: "Een bv kan zelfstandig bestaan. Of een holding voor jou zinvol is, hangt onder meer af van het vermogen dat je wilt afzonderen en je plannen voor verkoop."
-  - q: "Verdwijnt de vennootschapsbelasting door een holding?"
-    a: "De belasting over de ondernemingswinst blijft bestaan. Binnen een fiscale eenheid worden de resultaten van de werkmaatschappij aan de moedermaatschappij toegerekend."
-  - q: "Moet ik mezelf vanuit een holding salaris betalen?"
-    a: "De gebruikelijkloonregeling blijft relevant als je werkt voor een bv waarin je een aanmerkelijk belang hebt. Het toevoegen van een holding geeft op zichzelf geen vrijstelling."
-  - q: "Kan een holding boven een bestaande bv worden geplaatst?"
-    a: "Dat kan worden onderzocht via een wijziging van het aandelenbezit. Laat vooraf beoordelen welke fiscale gevolgen de overdracht heeft en welke notariële stappen nodig zijn."
+  - q: "Is een holding boven mijn BV verplicht?"
+    a: "Een holding is geen standaardvoorwaarde voor ondernemen met een BV. De afweging draait vooral om vermogen dat je wilt afzonderen, bedrijfsrisico en eventuele verkoopplannen."
+  - q: "Betaal ik met een holding minder vennootschapsbelasting?"
+    a: "Een extra BV levert op zichzelf geen vpb-besparing op. Binnen een fiscale eenheid worden de resultaten bij de moedermaatschappij belast; verliesverrekening kan wel verschil maken."
+  - q: "Moet ik met een holding nog DGA-loon ontvangen?"
+    a: "De gebruikelijkloonregeling blijft gelden als je werkt voor een vennootschap waarin je een aanmerkelijk belang hebt. De holdingstructuur maakt daarop geen algemene uitzondering."
+  - q: "Is dividend van mijn holding naar privé belastingvrij?"
+    a: "Dividend dat je privé ontvangt uit je aanmerkelijk belang valt onder box 2. De deelnemingsvrijstelling voor de holding verandert dat niet."
 status: live
 image: /blog/img/holding-oprichten-boven-bv-nodig.png
 ---
 
-Een holding oprichten boven je bv is geen standaardvereiste. Een [holdingstructuur](https://www.kvk.nl/wetten-en-regels/de-holding-bv-uitgelegd/) kan helpen vermogen buiten je bedrijfsrisico te plaatsen en een verkoop voor te bereiden. Ik beoordeel daarom eerst welk vermogen je wilt afzonderen en wat je toekomstplannen zijn.
+Een holding oprichten boven je BV raad ik alleen aan met een concreet doel. Denk aan vermogen afzonderen of een toekomstige verkoop voorbereiden. Bij de vraag of een holding nodig is, begin ik daarom bij je plannen. Daarna reken ik door wat de structuur fiscaal en administratief verandert.
 
-## Wanneer vind ik een holding boven je bv zinvol?
+## Wanneer heeft een holding boven je BV zin?
 
-Ik vind een holding het onderzoeken waard zodra je concreet kunt aanwijzen wat je ermee wilt regelen. Denk aan opgebouwde reserves, een toekomstige samenwerking of je verkoopplannen.
+Een holding kan zin hebben wanneer je waardevolle bezittingen wilt scheiden van bedrijfsactiviteiten. Volgens [KVK](https://www.kvk.nl/wetten-en-regels/de-holding-bv-uitgelegd/) kun je belangrijke bezittingen in de holding onderbrengen en bedrijfsactiviteiten in de werkmaatschappij uitvoeren. Ook kan de structuur helpen wanneer je later bedrijfsonderdelen afzonderlijk wilt verkopen. Bestuurdersaansprakelijkheid blijft daarbij een aandachtspunt, bijvoorbeeld bij onbehoorlijk bestuur.
 
-Mijn eerste vraag is wat er na je salaris, belastingen en investeringen overblijft. Daarna wil ik weten hoeveel daarvan beschikbaar moet blijven voor je onderneming. Neem daarvoor je laatste jaarrekening en een actuele liquiditeitsbegroting erbij.
+Voor mijn beoordeling wil ik eerst weten wat je precies wilt afzonderen. Gaat het om opgebouwde winst, een bedrijfspand of aandelen in verschillende activiteiten? Vervolgens zet ik dat naast je plannen voor de komende jaren. Schrijf daarom eerst op welke bezittingen je buiten de dagelijkse onderneming wilt houden.
 
-Ik begin dus met je cijfers. Schrijf op welk vermogen je wilt afzonderen, waarvoor je het later nodig hebt en welke risico’s je wilt beperken. Daarmee kan ik de afweging voor jouw bv maken.
+## Verdwijnt de vennootschapsbelasting door een holding?
 
-## Betaal je met een holding minder vennootschapsbelasting?
+De vennootschapsbelasting blijft bestaan wanneer je een holding toevoegt. Bij meerdere BV-vragen leg ik uit dat de vpb bij een fiscale eenheid naar de holding verschuift. Die uitleg heeft dus betrekking op de fiscale eenheid. Zonder die toevoeging is de uitleg te ruim.
 
-Een holding laat de vennootschapsbelasting over je ondernemingswinst bestaan. In verschillende dossiers leg ik uit dat de vpb bij een fiscale eenheid naar de holding verschuift. De belasting over de winst blijft bestaan.
+Binnen een [fiscale eenheid voor de vennootschapsbelasting](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/fiscale_eenheid_vennootschapsbelasting/) worden de resultaten van de dochter toegerekend aan de moedermaatschappij. De dochter blijft bestaan en is dan niet meer zelfstandig aangifteplichtig. Verliezen van de ene maatschappij kunnen worden verrekend met winsten van een andere binnen dezelfde eenheid. Dat kan de gezamenlijke belasting beïnvloeden wanneer binnen de groep verliezen voorkomen.
 
-Bij een [fiscale eenheid voor de vennootschapsbelasting](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/fiscale_eenheid_vennootschapsbelasting/) worden de resultaten aan de moedermaatschappij toegerekend. Je doet dan gezamenlijk aangifte via de moedermaatschappij; verliezen van de ene maatschappij kunnen worden verrekend met winsten van een andere. Daarvoor gelden voorwaarden, waaronder minimaal 95% aandelenbezit, winstrecht, vermogensrecht en stemrecht.
+Een holdingstructuur vormt niet automatisch zo’n eenheid; daarvoor doe je een verzoek. De [voorwaarden](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/fiscale_eenheid_vennootschapsbelasting/) omvatten onder meer minimaal 95% aandelenbezit, winstrecht, vermogensrecht en stemrecht. Daarnaast moeten beide maatschappijen dezelfde boekjaren en winstbepalingen hanteren en feitelijk in Nederland gevestigd zijn. Controleer die voorwaarden voordat je uitgaat van één gezamenlijke aangifte.
 
-Daarnaast voorkomt de [deelnemingsvrijstelling](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/deelnemingsvrijstelling/deelnemingsvrijstelling) onder voorwaarden een tweede heffing over ontvangen dividend en verkoopwinst op de deelneming. Voor jouw holding betekent dit dat zulke voordelen buiten haar belastbare winst kunnen blijven. Die vrijstelling en de fiscale eenheid zijn verschillende regelingen.
+## Hoe ziet de rekensom met en zonder holding eruit?
 
-Ik wil daarom vooraf weten waarop een voorgesteld belastingvoordeel is gebaseerd. Vraag om een berekening waarin de gekozen structuur, de winst per bv en de gebruikte regeling afzonderlijk staan.
+Bij dezelfde belastbare winst levert de holding in dit voorbeeld geen vpb-besparing op. In verschillende dossiers en vragen zie ik dit patroon; hieronder staat een rekenvoorbeeld met ronde bedragen. De werkmaatschappij heeft € 100.000 belastbaar bedrag, na verwerking van loon en overige kosten. De holding heeft in dit vereenvoudigde voorbeeld geen eigen belastbaar resultaat.
 
-## Wat beschermt een holding en wat gebeurt er bij verkoop?
+Voor 2026 geldt volgens de [Belastingdienst](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/veranderingen-vennootschapsbelasting-2026/) 19% vpb tot en met € 200.000 belastbaar bedrag. De berekening is € 100.000 × 19% = € 19.000. Na deze belasting resteert in het voorbeeld € 81.000 binnen de BV of groep.
 
-Een holding kan bezittingen buiten de werkmaatschappij onderbrengen, waar de bedrijfsactiviteiten plaatsvinden. Volgens de [KVK](https://www.kvk.nl/wetten-en-regels/de-holding-bv-uitgelegd/) helpt dat risico’s spreiden en bedrijfsonderdelen afzonderlijk verkopen. Die bescherming kent grenzen, bijvoorbeeld wanneer bestuurders zich niet aan de regels houden.
+| Onderdeel | Zonder holding | Holding zonder fiscale eenheid | Holding met fiscale eenheid |
+|---|---|---|---|
+| Belastbaar bedrag werkmaatschappij vóór toerekening | € 100.000 | € 100.000 | € 100.000 |
+| Eigen belastbaar resultaat holding | Niet van toepassing | € 0 | € 0 |
+| Waar wordt de winst belast? | Werkmaatschappij | Werkmaatschappij | Holding |
+| Totale vpb in dit rekenvoorbeeld | € 19.000 | € 19.000 | € 19.000 |
+| Resterend bedrag binnen BV of groep | € 81.000 | € 81.000 | € 81.000 |
 
-Ik wil bij die afweging precies zien welke bezittingen je wilt afzonderen. Zet ook de bijbehorende schulden en verplichtingen erbij. Alleen het woord ‘holding’ boven een organisatieschema zegt mij onvoldoende over jouw risico.
+De tabel houdt het belastbare bedrag bewust gelijk. Extra administratiekosten, eigen inkomsten van de holding en verliesverrekening zijn buiten de vergelijking gehouden. Daardoor zie je uitsluitend wat de structuur met deze winst doet. De € 81.000 staat hier vóór een eventuele uitkering aan privé.
 
-Haal je vervolgens dividend uit je holding naar privé, dan valt dat bij een aanmerkelijk belang in [box 2](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_2/). Voor jou betekent dit dat geld in de holding en geld op je privérekening fiscaal verschillende stappen zijn.
+## Heb je met een holding nog DGA-loon nodig?
 
-## Verdwijnt je DGA-loon door een holding?
+De gebruikelijkloonregeling blijft gelden wanneer je werkt voor een vennootschap waarin je een aanmerkelijk belang hebt. Het [gebruikelijk loon](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/) moet in 2026 in beginsel minimaal het hoogste zijn van het vergelijkbare loon, het hoogste werknemersloon binnen de relevante verbonden vennootschappen en € 58.000. Kun je aannemelijk maken dat vergelijkbare werkzaamheden lager worden beloond, dan kan een lager bedrag gelden. € 58.000 is daarmee geen automatisch passend salaris voor iedere DGA.
 
-Je DGA-loon blijft een aandachtspunt wanneer je werkt voor een bv waarin je een aanmerkelijk belang hebt. De [gebruikelijkloonregeling](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/) kijkt naar vergelijkbaar werk, het hoogste loon binnen de verbonden ondernemingen en de ondergrens van € 58.000 in 2026. Het hoogste toepasselijke bedrag is leidend; een lager vergelijkbaar loon moet je aannemelijk maken.
+In mijn beoordeling houd ik de loonvraag apart van de holdingvraag. De aangeleverde praktijkvragen gaan ook over alleen loonadministratie of loon starten gedurende het jaar. Een extra vennootschap geeft op zichzelf geen antwoord op het passende loon. Leg daarom je werkzaamheden en de onderbouwing van je huidige salaris naast elkaar.
 
-Ik beoordeel je loon daarom afzonderlijk van de keuze voor een holding. Daarbij wil ik weten welke werkzaamheden je uitvoert en hoeveel tijd je daaraan besteedt. Leg die werkzaamheden vast voordat je het salaris vaststelt.
+## Kun je winst belastingvrij naar de holding en privé halen?
 
-Ook de [loonheffingen over het DGA-salaris](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/ondernemen/onderneming_starten/rechtsvorm/besloten-vennootschap-bv) blijven onderdeel van de administratie. Een extra bv vormt op zichzelf geen reden om de loonadministratie te beëindigen.
+Dividend naar de holding en dividend naar privé hebben verschillende fiscale gevolgen. De [deelnemingsvrijstelling](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/deelnemingsvrijstelling/) voorkomt in het algemeen dat al belaste dochterwinst opnieuw wordt belast bij de moedermaatschappij. Ook winst bij verkoop van een deelneming kan hieronder vallen. De vrijstelling kent uitzonderingen, waaronder niet-kwalificerende beleggingsdeelnemingen.
 
-## Wat verandert er met en zonder holding?
+Ontvang je zelf dividend uit je aanmerkelijk belang, dan is dat [inkomen uit aanmerkelijk belang](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/inkomsten_uit_aanmerkelijk_belang/). Ingehouden Nederlandse dividendbelasting kun je verrekenen in je aangifte inkomstenbelasting over hetzelfde jaar. Geld in de holding vraagt dus om een afzonderlijke beoordeling voordat je het privé gebruikt. Houd in je berekening de winstbelasting en de belasting bij privé-uitkering apart.
 
-Met een holding voeg je een afzonderlijke bv toe aan je structuur. In mijn vergelijking houd ik belastingheffing, loon en administratie uit elkaar, zodat je de gevolgen afzonderlijk kunt beoordelen.
+## Hoe bepaal je of de extra BV voor jou nodig is?
 
-| Onderdeel | Zonder holding | Met holding |
-|---|---|---|
-| Vpb-aangifte | Je bv doet aangifte | Via de moeder bij een fiscale eenheid; zie de [voorwaarden](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/fiscale_eenheid_vennootschapsbelasting/) |
-| DGA-loon | Gebruikelijkloonregeling bij toepasselijkheid | Dezelfde [loonregels](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/) blijven relevant |
-| Dividend naar privé | Belast bij een aanmerkelijk belang | Uitkering vanuit de holding valt eveneens in [box 2](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_2/) |
-| Jaarrekening | Verantwoording voor je bv | Ook de holding heeft als bv [jaarrekeningverplichtingen](https://www.kvk.nl/starten/de-besloten-vennootschap-bv/) |
+Mijn advies is om het doel af te wegen tegen de extra administratie. Volgens [KVK](https://www.kvk.nl/wetten-en-regels/de-holding-bv-uitgelegd/) vraagt een holdingstructuur administratie voor beide BV’s, nauwkeurige verwerking van onderlinge transacties en afzonderlijke jaarrekeningen. Ook de jaarlijkse kosten nemen daardoor toe. Een fiscale eenheid voor de vpb neemt die afzonderlijke administraties niet weg.
 
-Ik gebruik deze vergelijking als controlelijst. Een gezamenlijke belastingaangifte vertelt bijvoorbeeld nog onvoldoende over de werkzaamheden voor de afzonderlijke administraties. Laat in je kostenvergelijking daarom benoemen welke werkzaamheden per bv worden uitgevoerd.
+Voor vermogen afzonderen of verkoopvoorbereiding wil ik een concreet plan zien. Bij alleen de verwachting van minder vpb begin ik met een vergelijking zoals hierboven. Daarna beoordeel ik de gewenste structuur naast de huidige balans. Pak daarvoor je laatste jaarrekening en markeer welke bezittingen je afzonderlijk wilt houden.
 
-## Hoe pak je een holding boven een bestaande bv aan?
-
-Ik begin met het huidige aandelenbezit en de fiscale gevolgen van een overdracht. Een [aandelentransactie](https://www.kvk.nl/verkopen-en-overnemen/de-overdracht-van-je-bedrijf/) verloopt via de notaris; bij verkoop van privé gehouden aandelen kan verkoopwinst in box 2 ontstaan. Laat de voorgenomen route daarom beoordelen voordat je aandelen overdraagt.
-
-Bij een aandelenoverdracht blijven de [rechtspersoon en onderneming bestaan](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/ondernemen/onderneming_wijzigen_of_beeindigen/uw_onderneming_wijzigt_van_rechtsvorm/). Voor jouw bestaande bv betekent dit dat de overdracht van aandelen op zichzelf haar eerdere verplichtingen niet beëindigt.
-
-Mijn advies is om eerst je doel vast te leggen. Verzamel daarna de jaarrekening, actuele cijfers, aandeelhoudersgegevens en financieringsafspraken. Laat vervolgens de fiscale route en de jaarlijkse werkzaamheden doorrekenen voordat je de oprichting laat uitvoeren.
-
-Bronnen: [Belastingdienst](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/deelnemingsvrijstelling/deelnemingsvrijstelling), [KVK](https://www.kvk.nl/verkopen-en-overnemen/de-overdracht-van-je-bedrijf/)
+Bronnen: [Belastingdienst, vpb 2026](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/veranderingen-vennootschapsbelasting-2026/), [Belastingdienst, gebruikelijk loon](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/)
 
 Geschreven met AI-ondersteuning, gecontroleerd met de bronnen van Belastingdienst en IND.
