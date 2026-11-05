@@ -215,7 +215,6 @@ Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net al
 | `impressiesBijgewerkt` | bij `impressies` | `JJJJ-MM-DD` | Datum waarop `impressies` is gemeten. Nodig voor impressies per dag; ontbreekt het, dan rekent de build met de builddatum. |
 | `media` | nee | object of weglaten | Carrousel of video bij de post, zie "Media" hieronder. Zonder `media` toont de site `afbeelding`. |
 | `blogSlug` | nee | slug of `null` | Slug van het bijbehorende artikel in dezelfde taal. Gevuld: link "Lees het hele stuk" naar `/blog/<slug>/` (of `/en/blog/<slug>/`). De statische versie toont de link alleen als het artikel bestaat. |
-| `media` | nee | object of weglaten | Extra media bij de post. Carrousel: `{"type": "carrousel", "pdf": "/nieuws/media/<post-id>/carrousel.pdf", "paginas": ["/nieuws/media/<post-id>/pagina-1.png", ...], "tekstPerPagina": ["tekst van dia 1", ...]}`. Video: `{"type": "video", "src": "/nieuws/media/<post-id>/video.mp4" of een YouTube-URL, "poster": "/nieuws/media/<post-id>/poster.jpg", "transcript": "platte tekst"}`. Zie "Media" hieronder. |
 
 Voorbeeld van één item:
 
@@ -237,21 +236,6 @@ Voorbeeld van één item:
   "impressiesBijgewerkt": "2026-11-04"
 }
 ```
-
-### Media (`media`)
-
-De planner schrijft `media` alleen bij een carrousel of een video waarvan hij de bron zelf heeft. `<post-id>` is
-het id uit het Contentregister (bijvoorbeeld `LI261119P`), niet de URN.
-
-- **Carrousel:** de planner rendert de pdf en elke dia als png (1080x1350) en commit ze vóór het
-  nieuws-item naar `public/nieuws/media/<post-id>/` (`carrousel.pdf`, `pagina-1.png`, `pagina-2.png`, ...).
-  `afbeelding` wijst dan naar `pagina-1.png`. `tekstPerPagina` heeft per dia één string in platte tekst
-  (regels gescheiden door `\n`, geen markdown), in dezelfde volgorde als `paginas`, zodat de site de inhoud
-  van de dia's ook als HTML kan tonen en crawlers hem kunnen lezen.
-- **Cijferkaart:** geen `media`; de kaart staat als `public/nieuws/media/<post-id>/kaart.png` in `afbeelding`.
-- **Video:** alleen als de planner de videobron zelf heeft. `src` is een pad onder `public/nieuws/media/<post-id>/`
-  of een YouTube-URL, `poster` een stilstaand beeld, `transcript` platte tekst (mag leeg). Nu maakt de planner
-  geen video's, dus dit veld komt pas voor als dat verandert.
 
 ### Welke posts op de site komen (`toon`)
 
