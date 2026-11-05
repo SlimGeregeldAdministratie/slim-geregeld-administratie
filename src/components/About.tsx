@@ -49,7 +49,7 @@ const About = () => {
 
           <div className="relative">
             <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-2xl shadow-lg">
-              <img 
+              <img width={4000} height={6000} loading="lazy" 
                 src="/SGA foto 1.jpg" 
                 alt="Kyle - Boekhouder en oprichter" 
                 className="w-full h-80 object-cover rounded-2xl mb-6"

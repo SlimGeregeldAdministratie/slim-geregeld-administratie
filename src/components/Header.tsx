@@ -133,7 +133,7 @@ const Header = () => {
             onClick={handleLogoClick}
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
-            <img 
+            <img width={3750} height={1963} 
               src="/Slim Geregeld Administratie - Volledig logo transparant 1200x628.png" 
               alt="Slim Geregeld Administratie" 
               className="h-12 w-auto"

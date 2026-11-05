@@ -231,7 +231,7 @@ const SlimChatbot = () => {
             {/* Dany Review */}
             <div className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start space-x-4 mb-4">
-                <img 
+                <img width={144} height={144} loading="lazy" 
                   src="/Dany Google Review.png" 
                   alt="OMNI fit coaching / Dany Cramer"
                   className="w-12 h-12 rounded-full object-cover"
@@ -277,7 +277,7 @@ const SlimChatbot = () => {
             {/* Jeremy Review */}
             <div className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start space-x-4 mb-4">
-                <img 
+                <img width={144} height={144} loading="lazy" 
                   src="/Jeremy Google Reviews.png" 
                   alt="Gomes Media / Jeremy Gomes"
                   className="w-12 h-12 rounded-full object-cover"

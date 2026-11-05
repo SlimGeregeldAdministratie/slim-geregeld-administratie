@@ -381,7 +381,7 @@ const SlimChatbotInstellingen = () => {
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
-                          <img
+                          <img loading="lazy"
                             src={template.image}
                             alt={template.name}
                             className="w-full h-96 object-contain rounded-lg mb-3 bg-gray-50"

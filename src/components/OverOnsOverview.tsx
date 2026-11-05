@@ -57,7 +57,7 @@ const OverOnsOverview = () => {
                 className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
               >
                 <div className="relative h-48 overflow-hidden">
-                  <img
+                  <img loading="lazy"
                     src={section.image}
                     alt={section.title}
                     className={`w-full h-full object-cover ${section.imagePosition} group-hover:scale-110 transition-transform duration-500`}
