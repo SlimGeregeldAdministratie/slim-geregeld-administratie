@@ -14,6 +14,8 @@ faq:
   - q: "How long does the renewed permit run?"
     a: "The first permit runs two years, the renewal grants five."
 status: live
+klikken: 37
+klikkenBijgewerkt: 2026-11-05
 linkedin:
   - https://www.linkedin.com/feed/update/urn:li:activity:7523435030422114304/
 ---

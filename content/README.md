@@ -51,6 +51,8 @@ Elk bestand begint met YAML tussen twee regels `---`. Daaronder volgt de tekst i
 | `status` | ja | `live`, `archief` of `ingetrokken` | Zie "Statussen". Ontbreekt het veld, dan geldt `live` met een waarschuwing. |
 | `image` | nee | pad onder `public/blog/img/` | Bijvoorbeeld `/blog/img/daft-renewal-equity.png`, 1200x628. Komt bovenaan het artikel en als `og:image`. Bestaat het bestand niet, dan bouwt het artikel zonder afbeelding (waarschuwing). |
 | `linkedin` | nee | lijst met linkedin.com-URL's | De post(s) die naar dit stuk verwijzen. Komt als link onder het artikel. |
+| `klikken` | nee | heel getal | Klikken uit Search Console voor deze URL, opgeteld tot `klikkenBijgewerkt`. De blog-engine werkt dit wekelijks bij. Alleen voor de volgorde "Meest gelezen"; staat nooit op de pagina. |
+| `klikkenBijgewerkt` | bij `klikken` | `JJJJ-MM-DD` | Datum waarop `klikken` is gemeten. Nodig voor klikken per dag; ontbreekt het, dan rekent de build met de builddatum. |
 
 Voorbeeld:
 
@@ -118,8 +120,11 @@ Zet tekst met een dubbele punt, aanhalingstekens of een `#` tussen dubbele aanha
 Een nieuw cluster werkt meteen (label = de sleutel, geen dienstlink) en geeft een
 waarschuwing. Label en dienstlink voeg je toe in `CLUSTERS` in `scripts/blog.mjs`.
 
-Het blogoverzicht heeft nog geen volgorde "Meest gelezen". Die komt er zodra er per artikel
-een veld `klikken` uit Search Console is, op dezelfde manier als `impressies` bij het nieuws.
+Volgorde "Meest gelezen" op het blogoverzicht (en de clusteroverzichten): in de browser,
+op klikken per dag tussen `date` en `klikkenBijgewerkt`. Stukken die nog geen 14 dagen oud
+zijn tellen niet mee; die staan bovenaan met het label "Nieuw". De statische HTML blijft op
+nieuwste, de pagina bevat alleen een rang en geen getallen. Heeft geen enkel stuk in de lijst
+`klikken`, dan verschijnt de knop niet.
 
 ### Wat de build per artikel maakt
 
