@@ -11,8 +11,15 @@ type NieuwsItem = {
   urlProfiel?: string | null;
   urlPagina?: string | null;
   taal?: 'nl' | 'en' | 'ja';
+  cluster?: string;
   blogSlug?: string | null;
+  // impressies blijft buiten de bundel (vite.config.ts); de app ziet alleen de rang.
+  rang?: number;
+  media?: NieuwsMedia;
 };
+type NieuwsMedia =
+  | { type: 'carrousel'; pdf: string; paginas: string[]; tekstPerPagina: string[] }
+  | { type: 'video'; src: string; poster?: string; transcript: string };
 declare module '@nieuws' {
   const items: NieuwsItem[];
   export default items;

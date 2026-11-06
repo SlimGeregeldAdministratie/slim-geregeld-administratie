@@ -18,6 +18,8 @@ function zetMeta(selector: string, maak: () => HTMLElement, attr: string, waarde
 const SeoRoute = () => {
   const { pathname } = useLocation();
   useEffect(() => {
+    // /nieuws/ en de pagina's eronder zet Nieuws.tsx zelf (paginering en onderwerp).
+    if (pathname === '/nieuws' || pathname.startsWith('/nieuws/')) return;
     const pad = pathname !== '/' ? pathname.replace(/\/$/, '') : '/';
     const p = perPad[pad] || perPad['/'];
     const bron = p.kopie_van ? perPad[p.kopie_van] : p;

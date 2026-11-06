@@ -225,7 +225,7 @@ const Header = () => {
                     Over Kyle
                   </Link>
                   <Link
-                    to="/nieuws"
+                    to="/nieuws/"
                     onClick={() => setIsOverOnsOpen(false)}
                     className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors font-medium"
                   >
@@ -404,7 +404,7 @@ const Header = () => {
                       Over Kyle
                     </Link>
                     <Link
-                      to="/nieuws"
+                      to="/nieuws/"
                       onClick={() => {
                         setIsMenuOpen(false);
                         setIsOverOnsOpen(false);
