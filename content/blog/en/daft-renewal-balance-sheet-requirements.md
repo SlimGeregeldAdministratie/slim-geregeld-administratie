@@ -1,75 +1,67 @@
 ---
-title: "DAFT visa renewal: balance sheet requirements and who may sign"
-description: "What IND forms 7035 and 7535 require for DAFT renewal: two financial years, checked accounts, invested capital and who may sign."
+title: "DAFT renewal: balance sheet requirements and who signs"
+description: "What forms 7035 and 7535 ask for at DAFT renewal: two financial years, a balance sheet, profit and loss, and an independent expert."
 date: 2026-11-05
-updated: 2026-11-05
+updated: 2026-11-07
 author: kyle
 lang: en
 translationKey: daft-renewal-balance-sheet-requirements
 cluster: daft-verlenging
-tags: ["DAFT renewal", "balance sheet", "IND requirements", "Becon bookkeeper"]
+tags: ["DAFT renewal", "Balance sheet", "IND", "Financial statements"]
 faq:
-  - q: "Is a business bank statement enough for DAFT renewal?"
-    a: "The treaty checklist explicitly says it is insufficient. It asks for checked balance sheets and profit and loss accounts covering the current and previous financial year."
-  - q: "Do I need two completed financial years?"
-    a: "The forms refer to the current and previous financial year and allow interim accounts. That differs from asking for two completed annual reporting periods."
-  - q: "What is the difference between forms 7035 and 7535?"
-    a: "7035 is the Dutch-language work-related extension form; 7535 is its English-language counterpart. Both include a specific checklist for American and Japanese treaty applicants."
-  - q: "Must a chartered accountant check the financial documents?"
-    a: "The renewal checklist requires an authorised external expert and gives an accountant as an example. The IND’s separate self-employed application form also lists bookkeepers and financial advisers among independent external experts."
-  - q: "Does topping up the business account resolve an earlier capital shortfall?"
-    a: "An additional personal contribution increases business equity. It does not establish that the required capital remained invested throughout the earlier period."
+  - q: "Which financial years do forms 7035 and 7535 cover?"
+    a: "They ask for financial information covering the current financial year and the previous financial year, including a balance sheet and a profit and loss account."
+  - q: "Can I use a bank statement for DAFT renewal?"
+    a: "A bank statement alone is explicitly insufficient. The renewal documents must show the business’s financial position and results across the required periods."
+  - q: "Who must prepare or review the financial documents?"
+    a: "The forms require an authorised independent expert to prepare or review them. At Slim Geregeld Administratie, Kyle prepares and signs the balance sheet."
+  - q: "Does keeping records in a spreadsheet cause a problem?"
+    a: "A spreadsheet is an acceptable starting point. Moneybird is not required to prepare a balance sheet."
+  - q: "Does a personal capital contribution count as profit?"
+    a: "No. It increases business equity, while business profit remains separate."
 status: live
 image: /blog/img/daft-renewal-balance-sheet-requirements.png
 ---
 
-DAFT visa renewal requires checked financial statements covering the current and previous financial year. The treaty checklist in [IND form 7535](https://ind.nl/en/forms/7535.pdf) asks for a balance sheet (balans) and profit and loss account (winst-en-verliesrekening). A bank statement alone is explicitly insufficient, and an authorised external expert must check the accounts.
+For DAFT renewal, forms 7035 and 7535 ask for a balance sheet (balans) and a profit and loss account (winst-en-verliesrekening) covering the current and previous financial year, prepared or reviewed by an authorised independent expert; a bank statement alone is explicitly insufficient for this [renewal documentation](/daft/renewal/). That means your preparation needs to cover both the position of the business and its results across those periods. The useful question is therefore whether your records can produce those documents.
 
-## What do forms 7035 and 7535 ask for?
+## What financial documents does the IND ask for?
 
-Both forms contain a specific financial checklist for American and Japanese treaty applicants. [Form 7035](https://ind.nl/nl/formulieren/7035.pdf) is the Dutch-language version; 7535 is the English-language counterpart. Their treaty sections ask for the same documents, showing that invested capital has been maintained. Use that section when identifying the financial evidence for your treaty renewal.
+The financial part of your renewal concerns your business accounts, with the [IND’s renewal guidance](https://ind.nl/en/residence-permits/work/residence-permit-self-employed-person) referring to annual accounts and a balance sheet or results statement. Annual accounts (jaarrekening) is the Dutch umbrella term you may encounter while gathering those records. For forms 7035 and 7535, keep the current financial year and the previous financial year together in your preparation. A financial year (boekjaar) is the accounting period referred to in that request.
 
-Four people asked me about renewal evidence during the 12 months ending 4 November 2026. Across those enquiries, people asked whether a bank statement would cover the financial evidence. My explanation starts with the reporting periods and the accounts needed for each. Those reporting periods provide a concrete starting point for reviewing their records.
+Across several enquiries, entrepreneurs have asked me whether a bank statement is enough and which years the IND wants. The distinction I explain is between a momentary balance and the financial information covering both requested periods. That is why I focus the [renewal file](/daft/renewal/) on the balance sheet and profit and loss account. Starting with those document names makes the request easier to understand when you are unfamiliar with Dutch accounting language.
 
-## Which two financial years should the accounts cover?
+## Why does a bank statement leave an incomplete picture?
 
-The checklist specifies the current financial year (boekjaar) and the previous financial year. [The English form](https://ind.nl/en/forms/7535.pdf) expressly allows interim accounts, meaning figures prepared before the current year has finished. For a business using calendar years and applying in November 2026, that means 2026 and 2025. The current year’s figures therefore cover the relevant period available when preparing the application.
+A bank statement cannot show everything contained in a balance sheet and profit and loss account: the [Chamber of Commerce’s explanation](https://www.kvk.nl/producten-bestellen/welke-gegevens-staan-er-in-een-jaarrekening/) distinguishes assets and debts at a particular moment from revenue and costs over a year. The Chamber of Commerce (KVK) describes both documents as parts of annual accounts. Read together, they explain what the business has and owes, and whether its activities produced a profit or loss. Those are different questions, even when the bank balance looks reassuring.
 
-For my preparation work, I check the period printed on every report. A previous-year report and a current-year report need clearly identified dates. Your opening balance sheet establishes the starting position, which I then reconcile with subsequent business activity. The renewal file needs the figures covering the periods requested on the form.
+For DAFT, the EUR 4,500 concerns equity (eigen vermogen), calculated as assets minus debts, as explained in my [DAFT guidance](/daft/). A loan does not count towards that equity; a gift can count with written confirmation. Equipment is also relevant to the accounting picture, which is why questions about laptops and phones keep appearing in renewal preparation. Looking only at cash leaves those questions unresolved.
 
-## Why is a bank statement insufficient?
+## How can withdrawals affect the renewal figures?
 
-A bank statement cannot provide the complete picture covered by the requested accounts. As [KVK explains](https://www.kvk.nl/producten-bestellen/welke-gegevens-staan-er-in-een-jaarrekening/), a balance sheet shows the business position at a particular moment. Revenue and costs over a period appear in the profit and loss account. Together, these reports explain the financial position and the result from business activity.
+Personal withdrawals reduce business equity, while personal capital contributions increase it; the [Dutch Tax Administration explains](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/privestortingen_en_priveonttrekkingen) that neither movement is part of business profit. Personal withdrawals (privéonttrekkingen) are money or goods taken from the business for private use. Personal capital contributions (privéstortingen) are money or goods you bring into the business from your private assets. Keeping those movements separate from income and expenses makes the calculation understandable.
 
-In my renewal preparation, I reconcile the bank records with the bookkeeping. That includes reviewing personal withdrawals, contributions and the recorded business result. The bank statement remains useful supporting material during that work. The finished figures must account for the movements affecting business equity (eigen vermogen).
+This pattern comes up in several files. A worked example with round amounts:
 
-## Who may check and sign the financial documents?
-
-The renewal checklist requires an authorised external expert and names an accountant as an example. For context, the IND’s [separate self-employed application form](https://ind.nl/en/Forms/7524.pdf) lists accountants, bookkeepers and financial advisers as authorised independent external experts. That broader list appears in the application form, while the renewal checklist uses the shorter description. These are the actual descriptions to use when discussing who will check your accounts.
-
-I’m Kyle Bouwmeester, a Becon-registered bookkeeper, registration number 781794, at Slim Geregeld Administratie. For the financial part of a renewal, I prepare and sign the balance sheet. Miguel Weema handles DAFT guidance until the dossier is ready for signing. The division of work is explained further on the [DAFT renewal page](/daft/renewal/).
-
-## How can withdrawals reduce the capital available at renewal?
-
-Personal withdrawals reduce business equity, even when the business makes a profit. The [Belastingdienst explains](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/privestortingen_en_priveonttrekkingen) that personal withdrawals (privéonttrekkingen) reduce business capital without being deductible business expenses. Personal contributions (privéstortingen) increase that capital without becoming business profit. This distinction matters when reconciling your profit with the money taken out for living costs.
-
-The pattern below occurred in at least three renewal-related dossiers or enquiries. It combines an initial investment, a business profit and withdrawals exceeding that profit. These are round illustrative amounts, separate from any individual entrepreneur’s figures.
-
-| Movement in this worked example | Amount | Running equity |
+| Movement | Change in equity | Running equity |
 |---|---|---|
-| Initial personal contribution | EUR 4,500 | EUR 4,500 |
-| First-year profit | EUR 2,000 | EUR 6,500 |
-| Personal withdrawals | EUR 3,000 withdrawn | EUR 3,500 |
-| Additional personal contribution | EUR 1,000 | EUR 4,500 |
+| Initial capital contribution | EUR 5,000 | EUR 5,000 |
+| First-year profit | EUR 1,000 | EUR 6,000 |
+| Personal withdrawals | Minus EUR 2,500 | EUR 3,500 |
+| Extra personal capital contribution: EUR 1,000 | EUR 1,000 | EUR 4,500 |
 
-The calculation starts with EUR 4,500 plus EUR 2,000 profit, giving EUR 6,500. Withdrawals of EUR 3,000 leave EUR 3,500, which is EUR 1,000 below the starting capital. An additional contribution of EUR 1,000 restores the example’s equity to EUR 4,500.
+The example follows the recurring [DAFT renewal pattern](/daft/) in which withdrawals exceed profit and push equity below EUR 4,500. Here, a profitable year still leaves equity at EUR 3,500 before the extra contribution. Adding EUR 1,000 restores the example’s equity to EUR 4,500. Smaller withdrawals or subsequent profits are other ways the equity position can improve.
 
-That final contribution does not establish that capital remained invested throughout the earlier period. The [IND’s treaty guidance](https://ind.nl/en/residence-permits/work/residence-permit-self-employed-person) says renewal evidence is used to check business activity and whether invested capital remained in the business. It also gives EUR 4,500 as the minimum investment for most business forms. A restored closing figure therefore needs to be read alongside the preceding financial records.
+## Who may prepare or sign the financial documents?
 
-## What should you prepare before the accounts are checked?
+The requirement is for an authorised independent expert to prepare or review the documents, as specified for forms 7035 and 7535. The words “independent expert” matter when you decide whom to ask for that work. Keeping your own records and obtaining the required professional preparation or review are separate parts of the file.
 
-For my financial review, I use the underlying records to prepare the requested reports. My working material includes bookkeeping exports, bank records and information explaining personal contributions and withdrawals. These are preparation materials for checking the figures; the application’s document checklist remains the IND form. Spreadsheet bookkeeping is a normal starting point in the dossiers I handle.
+I am Kyle Bouwmeester, the Becon-registered bookkeeper at [Slim Geregeld Administratie](/en/), registration number 781794; Miguel Weema handles DAFT preparation until the file is ready for signature, and I prepare and sign the balance sheet. A tax intermediary registration number (beconnummer) identifies a tax service provider to the Dutch Tax Administration. The [Tax Administration’s description](https://www.belastingdienst.nl/wps/wcm/connect/nl/intermediairs/content/wat-is-een-beconnummer-wat-zijn-de-voordelen) explains the facilities associated with that registration and states that having one is optional. Treat the registration and the wording of the IND’s expert requirement as distinct pieces of information.
 
-Sources: [IND Dutch renewal form](https://ind.nl/nl/formulieren/7035.pdf), [IND treaty guidance](https://ind.nl/en/residence-permits/work/residence-permit-self-employed-person), [IND expert descriptions](https://ind.nl/en/Forms/7524.pdf), [Belastingdienst contributions and withdrawals](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/privestortingen_en_priveonttrekkingen), [KVK financial statements](https://www.kvk.nl/producten-bestellen/welke-gegevens-staan-er-in-een-jaarrekening/)
+## What should you prepare before the accounts are signed?
 
-Written with AI assistance, checked against the sources of the Belastingdienst (Dutch tax authority) and the IND.
+Your underlying records can start in a spreadsheet: [Moneybird is not required](/en/) to prepare a balance sheet. Several entrepreneurs have also asked whether keeping their own spreadsheet creates a problem. My answer is straightforward: “Google Sheets is a perfectly normal starting point.” The practical issue is whether the records support the financial documents being prepared.
+
+My advice: make personal transfers identifiable in your records before handing them over for preparation or review. Label money you put into the business separately from payments received from customers, and identify money you took out for private use. That gives the preparer a concrete starting point for separating capital movements from business results.
+
+Sources: [IND](https://ind.nl/en/residence-permits/work/residence-permit-self-employed-person), [KVK](https://www.kvk.nl/producten-bestellen/welke-gegevens-staan-er-in-een-jaarrekening/), [Belastingdienst: capital movements](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/inkomstenbelasting/inkomstenbelasting_voor_ondernemers/privestortingen_en_priveonttrekkingen), [Belastingdienst: Becon registration](https://www.belastingdienst.nl/wps/wcm/connect/nl/intermediairs/content/wat-is-een-beconnummer-wat-zijn-de-voordelen)
