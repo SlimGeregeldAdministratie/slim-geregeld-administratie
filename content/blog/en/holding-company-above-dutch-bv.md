@@ -1,76 +1,65 @@
 ---
 title: "Do you need a holding company above your Dutch BV?"
-description: "A holding company can separate assets from business risks. See what changes for Dutch corporate tax, director salary and dividends."
+description: "What a holding can achieve, why corporate tax remains, and when the extra administration serves a concrete business purpose."
 date: 2026-11-05
-updated: 2026-11-05
+updated: 2026-11-07
 author: kyle
 lang: en
 translationKey: holding-company-above-dutch-bv
 cluster: bv-dga
-tags: ["holding company", "Dutch BV", "corporate income tax", "director salary"]
+tags: ["holding company", "Dutch BV", "corporate income tax", "business structure"]
 faq:
-  - q: "Is a holding company compulsory for a Dutch BV?"
-    a: "A holding company is not a general requirement for operating a BV. The decision depends on the assets you want to separate, business risks and possible sale plans."
-  - q: "Does adding a holding company reduce corporate income tax?"
-    a: "The additional company alone does not create a tax saving. A corporate income tax group can affect the outcome when losses in one company offset profits in another."
-  - q: "Does a holding company remove the director salary requirement?"
-    a: "The customary salary rules still apply when you work for a company in which you have a substantial shareholding. The structure alone does not determine your appropriate salary."
-  - q: "Can I withdraw dividends from my holding company tax-free?"
-    a: "Personal dividends from a substantial shareholding fall within box 2 income. The participation exemption available to the holding company does not exempt your personal dividend."
+  - q: "Should I set up a holding just to reduce corporate income tax?"
+    a: "I would not recommend that as the sole reason. A holding does not guarantee a tax saving, and a corporate tax group still has taxable profits."
+  - q: "What can a corporate tax group achieve?"
+    a: "The subsidiary’s results are attributed to the parent. Losses in a participating company can be offset against profits in another company within the same corporate tax group."
+  - q: "Can a holding receive dividends without another corporate tax charge?"
+    a: "The participation exemption can prevent another corporate tax charge on qualifying dividends. It can also apply to gains on the sale of a participation, subject to the applicable conditions."
+  - q: "Does a holding remove my personal tax obligations?"
+    a: "Personal dividends and gains on shares can remain taxable in Box 2. The customary salary rules can also apply when you work for a company in which you have a substantial interest."
 status: live
 image: /blog/img/holding-company-above-dutch-bv.png
 ---
 
-A holding company above your Dutch private limited company (BV) needs a concrete purpose. Separating valuable assets or preparing for a future sale can justify the structure. My starting point is what you want to protect or sell. Then I calculate how the additional company changes your tax and administration.
+You do not need a holding company above your Dutch private limited company (besloten vennootschap, or BV) simply because you run a business through a BV. I recommend a holding only when it serves a concrete purpose, such as separating activities, planning where to build business wealth or preparing for a sale. That purpose must justify the added expense and administrative work. Start with what you want the structure to achieve before deciding to create another company.
 
-## When does a holding company make sense?
+## What problem should a holding solve for you?
 
-A holding company can help separate valuable assets from your business activities. The [Dutch Chamber of Commerce (KVK)](https://www.kvk.nl/wetten-en-regels/de-holding-bv-uitgelegd/) explains that assets can sit in the holding company while the operating company (werkmaatschappij) conducts business. This structure can also help when you want to sell business activities separately. Directors’ liability remains relevant, including where a director has managed the company improperly.
+A holding should answer a specific business question that you can explain without using the phrase “tax saving.” My starting point is the intended outcome: what activity you want to separate, what assets you want to build outside the operating business, or what sale you want to prepare for. I would ask you to describe that outcome in writing before recommending a structure. “Someone told me every BV needs a holding” is too weak a basis for that recommendation.
 
-For my assessment, the first question is which assets you want to separate. These might include accumulated profits, business premises or shares in different activities. Your plans for the coming years determine which separation serves a purpose. Start by listing the assets you want outside the day-to-day operating business.
+In enquiries from BV owners, questions about a holding come alongside questions about salary, dividends and money moving between the owner and the company. I deal with those questions separately rather than treating a holding as the answer to all of them. For your decision, distinguish the ownership structure you want from the tax result you expect. That makes it easier to test whether the proposed arrangement actually addresses your concern.
 
-## Does a holding company remove corporate income tax?
+## Does corporate income tax disappear with a holding?
 
-Corporate income tax (vennootschapsbelasting) still applies after you add a holding company. Across several BV enquiries, I explain that corporate income tax shifts to the holding company within a tax group. That explanation specifically concerns companies forming such a group.
+Corporate income tax (vennootschapsbelasting) remains payable when results are brought together in a [corporate tax group (fiscale eenheid)](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/fiscale_eenheid_vennootschapsbelasting/): the subsidiary’s results are attributed to the parent, and the subsidiary no longer files independently. In the holding discussions I handle, I explain that moving the corporate tax return to the holding leaves the corporate tax obligation in place. Look at the total tax across the structure when comparing proposals. A different company name on the return does not demonstrate a saving.
 
-Within a [corporate income tax group (fiscale eenheid)](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/fiscale_eenheid_vennootschapsbelasting/), the subsidiary’s results are attributed to its parent company. The subsidiary continues to exist, although it no longer files independently for this tax. Losses in one company can offset profits in another within the group. This can change the combined tax bill when losses occur.
+This pattern comes up in several files. A worked example with round amounts:
 
-Forming a holding structure does not automatically create a tax group. You must request one, with conditions including at least 95% ownership, profit entitlement, capital entitlement and voting rights. Both companies must also use the same financial years and profit calculation rules and be effectively established in the Netherlands. Check these conditions before assuming the companies can share a corporate income tax return.
+| Item | Operating BV without a holding | Holding and operating BV in a corporate tax group |
+|---|---|---|
+| Taxable operating profit | EUR 100,000 | EUR 100,000 |
+| Corporate income tax on that profit | EUR 19,000 | EUR 19,000 |
+| Profit remaining after corporate income tax | EUR 81,000 | EUR 81,000 |
+| Where the operating result is reported | Operating BV | Holding |
 
-## What does the calculation look like with and without a holding?
+The tax calculation uses the applicable [corporate income tax rate for 2026](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/veranderingen-vennootschapsbelasting-2026/). The example keeps the taxable profit unchanged so you can see the effect of shifting where it is reported. Subtracting EUR 19,000 from EUR 100,000 leaves EUR 81,000 in either column. I would reject a comparison that presented the change in reporting company as the financial benefit.
 
-The holding company produces no corporate income tax saving in this example. Across different files and enquiries, I see this pattern; the calculation below uses round amounts. The operating company has EUR 100,000 of taxable income after salary and other expenses. The holding company has no taxable result of its own in this simplified comparison.
+## When can the holding structure affect the tax result?
 
-For 2026, the [corporate income tax rate](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/veranderingen-vennootschapsbelasting-2026/) is 19% on taxable income up to EUR 200,000. The calculation is EUR 100,000 × 19% = EUR 19,000. That leaves EUR 81,000 inside the company or group after corporate income tax.
+The [participation exemption (deelnemingsvrijstelling)](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/deelnemingsvrijstelling/) can prevent profits already taxed at subsidiary level from being taxed again at parent level, including qualifying dividends and gains on a sale of the participation. This is relevant when your proposal involves moving profits to a holding or selling the operating company. I would ask for the exemption’s application to be explained explicitly in that proposal. Treating every receipt by a holding as automatically exempt is too broad.
 
-| Item | No holding company | Holding without a tax group | Holding with a tax group |
-|---|---|---|---|
-| Operating company taxable income before attribution | EUR 100,000 | EUR 100,000 | EUR 100,000 |
-| Holding company’s own taxable result | Not applicable | EUR 0 | EUR 0 |
-| Where is the profit taxed? | Operating company | Operating company | Holding company |
-| Total corporate income tax in this example | EUR 19,000 | EUR 19,000 | EUR 19,000 |
-| Amount remaining within the company or group | EUR 81,000 | EUR 81,000 | EUR 81,000 |
+Loss offset within a corporate tax group is another potential benefit described by the tax authority on its corporate tax group page. That is a different question from whether creating a holding automatically reduces tax on an unchanged operating profit. My comparison would identify the actual loss and profit positions before attaching value to that possibility. An available mechanism is useful only when it fits the purpose and figures being assessed.
 
-The table deliberately keeps taxable income unchanged across all three structures. Additional administration costs, the holding company’s own income and loss offsets are excluded. This isolates the effect of the structure on the same profit. The remaining EUR 81,000 is before any distribution to you personally.
+## What happens to your personal salary and dividends?
 
-## Do you still need a director salary with a holding?
+Your personal tax position still needs its own assessment: [Box 2 income](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_2/) includes dividends and share-sale gains from a substantial interest (aanmerkelijk belang), while salary is taxed in Box 1. For an English-speaking owner, I separate the company’s money from the money you intend to receive personally. Ask which recipient a calculation concerns at each stage. Otherwise, a discussion about a dividend received by a holding can easily leave your personal question unanswered.
 
-The customary salary rules (gebruikelijkloonregeling) still apply when you work for a company in which you have a substantial shareholding (aanmerkelijk belang). For 2026, the [customary salary](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/) generally starts at the highest of comparable employment pay, the highest employee salary within the relevant connected companies, and EUR 58,000. A lower amount may apply if you can substantiate lower pay for comparable work. EUR 58,000 therefore does not automatically settle every director-shareholder’s salary.
+The [customary salary rules (gebruikelijkloonregeling)](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/) apply when you are employed by a company in which you have a substantial interest, with salary assessed against the level and duration of your work. I therefore keep the salary assessment visible when discussing a holding proposal. Do not accept “the holding handles that” as the complete explanation. Ask how your work and salary have been addressed in the proposed arrangement.
 
-A director-shareholder (directeur-grootaandeelhouder, or DGA) needs a separate salary assessment. The supplied practice enquiries also concern payroll alone and starting salary payments during the year. An additional company does not determine the appropriate salary for your work. Put your actual duties alongside the evidence supporting your current salary.
+## How do you decide whether the extra structure is worthwhile?
 
-## Can profits reach the holding company and you tax-free?
+Decide by testing the proposed structure against a written purpose and a complete cost comparison. I would want the proposal to distinguish the intended business outcome, the tax treatment being relied on and the extra administration you are accepting. Keep those headings separate when reviewing the advice. That gives you something concrete to challenge if the explanation depends on a promised saving without a calculation.
 
-Dividends paid to your holding company and dividends paid to you have different tax consequences. The [participation exemption (deelnemingsvrijstelling)](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/deelnemingsvrijstelling/) generally prevents subsidiary profits already taxed from being taxed again at parent-company level. Gains from selling a qualifying shareholding can also fall within this exemption. Exceptions include non-qualifying investment participations.
+My advice: approve a holding only when the proposal demonstrates a specific business purpose and explains why that purpose justifies the extra cost and administration. Reject a recommendation based solely on the claim that a holding makes corporate income tax disappear. Your first step is to write down the activity, asset plan or intended sale that the proposed holding must serve.
 
-Dividends you personally receive from a substantial shareholding are [income from that shareholding](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/inkomsten_uit_aanmerkelijk_belang/), taxed in the personal income category called box 2. Dutch dividend withholding tax (dividendbelasting) can be credited through your income tax return (aangifte inkomstenbelasting) for the same year. Keep corporate tax and the tax on your personal distribution separate in your calculation.
-
-## How do you decide whether the extra BV is worthwhile?
-
-My assessment weighs your purpose against the additional administration. According to [KVK](https://www.kvk.nl/wetten-en-regels/de-holding-bv-uitgelegd/), a holding structure requires bookkeeping for both companies, accurate recording of intercompany transactions and separate annual accounts (jaarrekeningen). Annual costs also increase. A corporate income tax group leaves those separate accounting obligations in place.
-
-Asset separation or sale preparation needs a concrete plan. Where the expectation is lower corporate tax alone, I begin with a comparison like the table above. The proposed structure then needs comparing with your current balance sheet (balans). Open your latest annual accounts and mark the assets you want to hold separately.
-
-Sources: [Belastingdienst, corporate income tax 2026](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/veranderingen-vennootschapsbelasting-2026/), [Belastingdienst, customary salary](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/)
-
-Written with AI assistance, checked against the sources of the Belastingdienst (Dutch tax authority) and the IND.
+Sources: [Belastingdienst: corporate tax groups](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/fiscale_eenheid_vennootschapsbelasting/), [Belastingdienst: corporate income tax in 2026](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/veranderingen-vennootschapsbelasting-2026/), [Belastingdienst: participation exemption](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/vennootschapsbelasting/deelnemingsvrijstelling/), [Belastingdienst: Box 2](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_2/), [Belastingdienst: customary salary](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/aanmerkelijk_belang/loon_en_aanmerkelijk_belang/)
