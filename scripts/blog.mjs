@@ -501,11 +501,11 @@ function schrijf(pad, html) {
 // De pdf's (public/downloads/) krijgen X-Robots-Tag: noindex via dist/_headers.
 export const DOWNLOADS = JSON.parse(readFileSync('src/seo/downloads.json', 'utf8'));
 const DL_T = {
-  nl: { home: 'Home', downloads: 'Downloads', inhoud: 'Wat staat erin', voorWie: 'Voor wie', formKop: 'Ontvang de pdf', naam: 'Naam', email: 'E-mailadres',
+  nl: { home: 'Home', downloads: 'Downloads', inhoud: 'Wat staat erin', voorWie: 'Voor wie', formKop: 'Ontvang de pdf', formIntro: 'Vul je naam en e-mailadres in, dan krijg je de pdf direct. Wil je ook af en toe een mail met nieuwe stukken? Zet dan het vinkje aan.', naam: 'Naam', email: 'E-mailadres',
     nieuwsbrief: 'Ik wil de maandelijkse nieuwsbrief ontvangen', knop: 'Download de pdf', bezig: 'Even geduld...',
     privacy: ['Je gegevens gebruiken we om je de download te sturen en, als je dat aanvinkt, voor de nieuwsbrief. Lees ons ', '/privacybeleid', 'privacybeleid', '.'],
     klaar: 'Je download staat klaar.', downloadKnop: 'Open de pdf', fout: 'Dat lukte niet. Probeer het opnieuw of mail kyle@slim-geregeld.nl.', door: 'Gemaakt door Kyle Bouwmeester, Becon-geregistreerd boekhouder.' },
-  en: { home: 'Treaty services', downloads: 'Downloads', inhoud: 'What is inside', voorWie: 'Who it is for', formKop: 'Get the PDF', naam: 'Name', email: 'Email address',
+  en: { home: 'Treaty services', downloads: 'Downloads', inhoud: 'What is inside', voorWie: 'Who it is for', formKop: 'Get the PDF', formIntro: 'Enter your name and email and the PDF is yours right away. Tick the box if you would also like an occasional email with new articles.', naam: 'Name', email: 'Email address',
     nieuwsbrief: 'Send me the monthly newsletter', knop: 'Download the PDF', bezig: 'One moment...',
     privacy: ['We use your details to send you the download and, if you tick the box, for the newsletter. Read our ', '/privacybeleid', 'privacy policy', ' (in Dutch).'],
     klaar: 'Your download is ready.', downloadKnop: 'Open the PDF', fout: 'That did not work. Please try again or email kyle@slim-geregeld.nl.', door: 'Made by Kyle Bouwmeester, Becon-registered bookkeeper.' },
@@ -517,16 +517,16 @@ document.querySelectorAll('form[data-download]').forEach(function (f) {
     var knop = f.querySelector('button[type=submit]'), melding = f.querySelector('[data-melding]'), klaar = f.parentNode.querySelector('[data-klaar]');
     var tekst = knop.textContent; knop.disabled = true; knop.textContent = knop.getAttribute('data-bezig'); melding.hidden = true;
     var data = { naam: f.naam.value.trim(), email: f.email.value.trim(), nieuwsbrief: f.nieuwsbrief.checked, website: f.website.value,
-      download: f.getAttribute('data-download'), taal: f.getAttribute('data-taal'), pagina: location.pathname };
+      download: f.getAttribute('data-download'), taal: f.getAttribute('data-taal'), bron: location.origin + location.pathname };
     if (/[?&]droog=true\b/.test(location.search)) data.droog = true;
     fetch(f.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (j) {
-        var url = j && j[f.getAttribute('data-veld')];
-        if (!url) throw new Error('geen url');
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, j: j }; }); })
+      .then(function (a) {
+        var url = a.j && a.j.ok && a.j[f.getAttribute('data-veld')];
+        if (!url) { var e = new Error('mislukt'); e.fout = a.status === 429 && a.j.fout; throw e; }
         klaar.querySelector('a').href = url; f.hidden = true; klaar.hidden = false; klaar.querySelector('a').focus();
       })
-      .catch(function () { melding.hidden = false; knop.disabled = false; knop.textContent = tekst; });
+      .catch(function (e) { if (e && e.fout) melding.textContent = e.fout; melding.hidden = false; knop.disabled = false; knop.textContent = tekst; });
   });
 });
 </script>`;
@@ -565,9 +565,10 @@ function bouwDownloads({ sjabloon, dist, B, sitemap }) {
 <p class="text-sm text-gray-500">${esc(t.door)}</p>
 </div>
 <section class="md:col-span-2 bg-white border border-gray-100 rounded-2xl shadow-sm p-6" aria-labelledby="formulier-kop">
-<h2 id="formulier-kop" class="text-xl font-bold text-gray-900 mb-4">${esc(t.formKop)}</h2>
+<h2 id="formulier-kop" class="text-xl font-bold text-gray-900 mb-2">${esc(t.formKop)}</h2>
+<p class="text-sm text-gray-600 mb-4">${esc(t.formIntro)}</p>
 <form method="post" action="${esc(DOWNLOADS.webhook)}" data-download="${esc(d.sleutel)}" data-taal="${taal}" data-veld="${esc(DOWNLOADS.antwoordVeld)}" class="space-y-4">
-<div><label for="naam" class="block text-sm font-medium text-gray-700 mb-1">${esc(t.naam)}</label><input id="naam" name="naam" type="text" autocomplete="name" required class="${veld}"></div>
+<div><label for="naam" class="block text-sm font-medium text-gray-700 mb-1">${esc(t.naam)}</label><input id="naam" name="naam" type="text" autocomplete="name" maxlength="120" required class="${veld}"></div>
 <div><label for="email" class="block text-sm font-medium text-gray-700 mb-1">${esc(t.email)}</label><input id="email" name="email" type="email" autocomplete="email" required class="${veld}"></div>
 <div class="hidden" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
 <label class="flex items-start gap-2 text-sm text-gray-700"><input name="nieuwsbrief" type="checkbox" class="mt-1"> <span>${esc(t.nieuwsbrief)}</span></label>
@@ -584,9 +585,11 @@ ${FORM_SCRIPT}`;
       sitemap.push({ loc: u, lastmod: DOWNLOADS.gewijzigd, alternates });
     }
   }
-  // De pdf's zelf niet in de zoekresultaten.
+  // De pdf's zelf niet in de zoekresultaten. Per pdf een regel: een wildcard als
+  // /downloads/* zou ook de downloadpagina's (/downloads/<slug>/) op noindex zetten.
   const hPad = join(dist, '_headers');
   const bestaand = existsSync(hPad) ? readFileSync(hPad, 'utf8') : '';
+  if (/^\/downloads\/\*\s*$/m.test(bestaand) || /^\/en\/downloads\/\*\s*$/m.test(bestaand)) throw new Error('blog: _headers bevat /downloads/* en zet daarmee de downloadpagina\'s op noindex; de build schrijft zelf een regel per pdf');
   if (headers.length) writeFileSync(hPad, bestaand + (bestaand && !bestaand.endsWith('\n') ? '\n' : '') + '# Downloads: pdf\'s niet indexeren (scripts/blog.mjs)\n' + headers.map((p) => `${p}\n  X-Robots-Tag: noindex\n`).join(''));
 }
 
