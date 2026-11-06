@@ -121,7 +121,7 @@ export const CLUSTERS = {
     dienst: { nl: ['/pakketten', 'Een BV in de administratie?', 'Voor BV\'s maakt Kyle een voorstel op maat, met loonadministratie, jaarrekening en de aangifte vennootschapsbelasting.', 'Bekijk de pakketten'], en: PLAN_EN, ja: PLAN_JA } },
   jaarwerk: { label: { nl: 'Jaarwerk', en: 'Year-end', ja: '決算' }, dienst: { nl: PAKKETTEN_NL, en: PLAN_EN, ja: PLAN_JA } },
   'ib-aangifte': { label: { nl: 'Aangifte inkomstenbelasting', en: 'Income tax return', ja: '所得税申告' },
-    dienst: { nl: ['/pakketten', 'Aangifte inkomstenbelasting uitbesteden?', 'Voor ondernemers doet Kyle de aangifte inkomstenbelasting voor een vaste €235.', 'Bekijk de pakketten'], en: PLAN_EN, ja: PLAN_JA } },
+    dienst: { nl: ['/pakketten', 'Aangifte inkomstenbelasting uitbesteden?', 'Voor ondernemers doet Kyle de aangifte inkomstenbelasting voor € 245 excl. btw, of voor € 395 excl. btw als fiscale partners samen.', 'Bekijk de pakketten'], en: PLAN_EN, ja: PLAN_JA } },
   moneybird: { label: { nl: 'Moneybird', en: 'Moneybird', ja: 'Moneybird' }, dienst: { nl: PAKKETTEN_NL, en: PLAN_EN, ja: PLAN_JA } },
 };
 const clusterLabel = (c, taal) => CLUSTERS[c]?.label[taal] || c;

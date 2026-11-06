@@ -37,7 +37,7 @@ const FAQ = () => {
     },
     {
       question: "Doen jullie ook de aangifte inkomstenbelasting voor ondernemers?",
-      answer: "Ja, zeker! We verzorgen ook de inkomstenbelasting voor zzp'ers en ondernemers. Deze zit alleen niet standaard in onze pakketten inbegrepen. Wil je dat wij dit voor je regelen? Geen probleem: voor een vast bedrag van €235 nemen we de hele aangifte uit handen. Wel zo makkelijk."
+      answer: "Ja, zeker! We verzorgen ook de inkomstenbelasting voor zzp'ers en ondernemers. Deze zit alleen niet standaard in onze pakketten inbegrepen. Wil je dat wij dit voor je regelen? Geen probleem: voor € 245 excl. btw nemen we de hele aangifte uit handen, of voor € 395 excl. btw als fiscale partners samen. Wel zo makkelijk."
     },
     {
       question: "Hoe werkt de 30 dagen gratis proefperiode?",

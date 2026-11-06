@@ -111,7 +111,7 @@ Zet tekst met een dubbele punt, aanhalingstekens of een `#` tussen dubbele aanha
 | `zzp-btw` | Zzp en btw / VAT for freelancers | NL: `/pakketten`, EN: `/daft/#pricing` (Compliance Plan) |
 | `bv-dga` | BV en DGA / BV and director | NL: `/pakketten`, EN: `/daft/#pricing` |
 | `jaarwerk` | Jaarwerk / Year-end | NL: `/pakketten`, EN: `/daft/#pricing` |
-| `ib-aangifte` | Aangifte inkomstenbelasting / Income tax return | NL: `/pakketten` (IB €235), EN: `/daft/#pricing` |
+| `ib-aangifte` | Aangifte inkomstenbelasting / Income tax return | NL: `/pakketten` (IB € 245 excl. btw, fiscale partners € 395 excl. btw), EN: `/daft/#pricing` |
 | `moneybird` | Moneybird / Moneybird | NL: `/pakketten`, EN: `/daft/#pricing` |
 
 Een nieuw cluster werkt meteen (label = de sleutel, geen dienstlink) en geeft een

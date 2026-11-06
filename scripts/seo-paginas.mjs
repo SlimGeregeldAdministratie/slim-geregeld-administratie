@@ -57,7 +57,8 @@ function graaf(p) {
       hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Pakketten', itemListElement: [
         { '@type': 'Offer', name: 'Alleen Slim', description: 'WhatsApp-chatbot voor ondernemers die zelf hun administratie doen', priceSpecification: { '@type': 'UnitPriceSpecification', price: '75', priceCurrency: 'EUR', unitCode: 'MON' } },
         { '@type': 'Offer', name: 'Volledige Service', description: 'Boekhouding, btw-aangifte, jaarrekening en persoonlijk contact, introductieprijs (normaal €125)', priceSpecification: { '@type': 'UnitPriceSpecification', price: '95', priceCurrency: 'EUR', unitCode: 'MON' } },
-        { '@type': 'Offer', name: 'Aangifte inkomstenbelasting', description: 'Vaste prijs voor de IB-aangifte van een ondernemer', price: '235', priceCurrency: 'EUR' },
+        { '@type': 'Offer', name: 'Aangifte inkomstenbelasting', description: 'Vaste prijs voor de IB-aangifte van één ondernemer, excl. btw', priceSpecification: { '@type': 'PriceSpecification', price: '245', priceCurrency: 'EUR', valueAddedTaxIncluded: false } },
+        { '@type': 'Offer', name: 'Aangifte inkomstenbelasting voor fiscale partners', description: 'Vaste prijs voor de IB-aangifte van fiscale partners samen, excl. btw', priceSpecification: { '@type': 'PriceSpecification', price: '395', priceCurrency: 'EUR', valueAddedTaxIncluded: false } },
         { '@type': 'Offer', name: 'Maatwerk', description: 'Voor BV\'s, VOF\'s en complexe administraties, prijs op aanvraag' },
       ] },
     });
