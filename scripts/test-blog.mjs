@@ -156,6 +156,17 @@ test('sitemap: blogs met lastmod en xhtml:link', () => {
   assert.match(s, /<loc>https:\/\/slim-geregeld\.nl\/blog\/<\/loc>/);
 });
 
+test('blogoverzicht: Meest gelezen alleen met klikken, rang zonder getallen, statisch op nieuwste', () => {
+  const en = lees('en/blog/index.html');
+  assert.match(en, /data-volgorde hidden/);
+  const data = JSON.parse(en.match(/<script type="application\/json" data-gelezen>(.*?)<\/script>/s)[1]);
+  assert.deepEqual(data.map((x) => x.r), [1, 2], 'per dag: 37 in 4 dagen gaat voor 53 in 16 dagen');
+  assert.ok(data.every((x) => !('klikken' in x)));
+  assert.doesNotMatch(en, /\b(37|53)\b/);
+  assert.ok(en.indexOf('daft-renewal-what-the-ind-wants') < en.indexOf('owners-equity-quarterly-check'), 'statisch nieuwste eerst');
+  assert.doesNotMatch(lees('blog/index.html'), /data-volgorde|data-gelezen/, 'NL zonder klikken: geen knop');
+});
+
 test('llms.txt: blogsectie met clusters en nieuwste stukken', () => {
   const l = lees('llms.txt');
   assert.match(l, /## Blog/);
@@ -191,17 +202,6 @@ test('/nieuws/: carrousel als dia\'s met tekst en pdf, video met transcript en V
   assert.equal(video.embedUrl, 'https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ');
   assert.ok(video.thumbnailUrl && video.transcript && video.name);
   assert.equal(posts.find((x) => Array.isArray(x.image)).image.length, 3);
-});
-
-test('blogoverzicht: Meest gelezen alleen met klikken, rang zonder getallen, statisch op nieuwste', () => {
-  const en = lees('en/blog/index.html');
-  assert.match(en, /data-volgorde hidden/);
-  const data = JSON.parse(en.match(/<script type="application\/json" data-gelezen>(.*?)<\/script>/s)[1]);
-  assert.deepEqual(data.map((x) => x.r), [1, 2], 'per dag: 37 in 4 dagen gaat voor 53 in 16 dagen');
-  assert.ok(data.every((x) => !('klikken' in x)));
-  assert.doesNotMatch(en, /\b(37|53)\b/);
-  assert.ok(en.indexOf('daft-renewal-what-the-ind-wants') < en.indexOf('owners-equity-quarterly-check'), 'statisch nieuwste eerst');
-  assert.doesNotMatch(lees('blog/index.html'), /data-volgorde|data-gelezen/, 'NL zonder klikken: geen knop');
 });
 
 test('dist: nergens een map naast een gelijknamig .html-bestand', () => {
