@@ -187,7 +187,7 @@ const TechLanding = () => {
             <div className="lg:pl-4">
               <div className="relative">
                 <div className="bg-white rounded-2xl shadow-xl p-6 relative overflow-hidden">
-                  <img 
+                  <img width={3749} height={5623} 
                     src="/IMG_4370 (2).jpg" 
                     alt="Kyle" 
                     className="w-full h-96 object-cover rounded-xl"
@@ -310,7 +310,7 @@ const TechLanding = () => {
                   <p className="text-gray-600 text-sm">Factuur maken via WhatsApp</p>
                 </div>
                 <div className="overflow-hidden rounded-xl shadow-md">
-                  <img 
+                  <img width={4000} height={6000} loading="lazy" 
                     src="/SGA Foto 4 (1).jpg" 
                     alt="WhatsApp chat met Slim - factuur maken" 
                     className="w-full h-[28rem] object-cover object-center"
@@ -487,7 +487,7 @@ const TechLanding = () => {
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start space-x-4 mb-4">
-                  <img 
+                  <img width={48} height={48} loading="lazy" 
                     src={testimonial.avatar} 
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover"
@@ -569,7 +569,7 @@ const TechLanding = () => {
             <div className="flex flex-col space-y-8">
               <div className="bg-white rounded-2xl shadow-lg p-6 flex-grow">
                 <div className="text-center h-full flex flex-col">
-                  <img 
+                  <img width={3969} height={5953} loading="lazy" 
                     src="/SGA Foto 2.jpg" 
                     alt="Kyle aan de telefoon" 
                     className="w-full h-[28rem] object-cover rounded-xl flex-grow"

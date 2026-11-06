@@ -235,7 +235,7 @@ const Testimonials = () => {
                   <div className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow h-80 md:h-72 flex flex-col">
                     {/* Review Header */}
                     <div className="flex items-start space-x-4 mb-4">
-                      <img 
+                      <img width={48} height={48} loading="lazy" 
                         src={testimonial.avatar} 
                         alt={testimonial.name}
                         className="w-12 h-12 rounded-full object-cover"
@@ -307,7 +307,7 @@ const Testimonials = () => {
             <div key={index} className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
               {/* Review Header */}
               <div className="flex items-start space-x-4 mb-4">
-                <img 
+                <img width={48} height={48} loading="lazy" 
                   src={testimonial.avatar} 
                   alt={testimonial.name}
                   className="w-12 h-12 rounded-full object-cover"

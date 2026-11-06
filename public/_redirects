@@ -1,5 +1,9 @@
-# Schone deelbare URLs voor de DAFT-pagina. Deze moeten boven de catch-all staan,
-# want die vangt anders alles op naar de React-app.
+# Eén canonieke host: www en http gaan in één stap naar https://slim-geregeld.nl.
+http://www.slim-geregeld.nl/*   https://slim-geregeld.nl/:splat   301!
+https://www.slim-geregeld.nl/*  https://slim-geregeld.nl/:splat   301!
+http://slim-geregeld.nl/*       https://slim-geregeld.nl/:splat   301!
+
+# Schone deelbare URLs voor de DAFT-pagina.
 /daft/request     /daft/#request     301
 /daft/request/    /daft/#request     301
 /daft/pricing     /daft/#pricing     301
@@ -25,9 +29,14 @@
 # de mail in plaats van een webhook-URL.
 /start/*   https://n8n.slim-geregeld.nl/webhook/daft-start?r=:splat&m=2   302!
 
-/bedankt       /index.html   200
-/sitemap.xml   /sitemap.xml  200
-/llms.txt      /llms.txt     200
-/robots.txt    /robots.txt   200
-/favicon.png   /favicon.png  200
-/*             /index.html   200
+# Blog: artikelen met status "ingetrokken" krijgen hier bij de build een 410.
+# BLOG: ingetrokken artikelen (scripts/blog.mjs vult dit aan)
+
+# React-routes zonder eigen bestand (zoals /bouw/faq) serveren het bestand van
+# hun hoofdroute, met de canonical daarvan. Elke route met een eigen bestand
+# (dist/bouw.html, dist/daft/index.html, ...) heeft geen regel nodig.
+# SPA: subroutes (scripts/seo-paginas.mjs vult dit aan)
+
+# Geen catch-all naar /index.html: een onbekende URL krijgt dist/404.html met
+# een echte status 404 (Netlify doet dat vanzelf), geen homepage met status 200.
+# Nieuwe React-route? Zet hem in src/seo/paginas.json, dan krijgt hij een bestand.

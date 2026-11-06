@@ -68,7 +68,7 @@ const Features = () => {
                 <p className="text-gray-600 text-sm">Factuur maken via WhatsApp</p>
               </div>
               <div className="overflow-hidden rounded-xl shadow-md">
-                <img 
+                <img width={4000} height={6000} loading="lazy" 
                   src="/SGA Foto 4 (1).jpg" 
                   alt="WhatsApp chat met Slim - factuur maken" 
                   className="w-full h-[28rem] object-cover object-center"

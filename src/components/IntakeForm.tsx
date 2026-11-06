@@ -562,7 +562,7 @@ const IntakeForm = () => {
               </div>
               <div className="bg-white rounded-lg border border-gray-300 p-6">
                 <label className="block text-sm font-semibold text-gray-900 mb-3">Wat is je omzetbelastingnummer? *</label>
-                <p className="text-sm text-gray-600 mb-3">Je kunt dit vinden in Mijn Belastingdienst Zakelijk (<a href="https://mijn.belastingdienstzakelijk.nl" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">mijn.belastingdienstzakelijk.nl</a>) onder Omzetbelasting → Overzicht aangiften (rechtsboven).</p>
+                <p className="text-sm text-gray-600 mb-3">Je kunt dit vinden in Mijn Belastingdienst Zakelijk (<a href="https://www.belastingdienst.nl/wps/wcm/connect/nl/ondernemers/content/inloggen-voor-ondernemers" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">inloggen voor ondernemers</a>) onder Omzetbelasting → Overzicht aangiften (rechtsboven).</p>
                 <input
                   type="text"
                   name="vatNumber"

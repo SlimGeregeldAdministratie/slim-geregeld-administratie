@@ -133,7 +133,7 @@ const Header = () => {
             onClick={handleLogoClick}
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
-            <img 
+            <img width={3750} height={1963} 
               src="/Slim Geregeld Administratie - Volledig logo transparant 1200x628.png" 
               alt="Slim Geregeld Administratie" 
               className="h-12 w-auto"
@@ -141,7 +141,7 @@ const Header = () => {
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-4 lg:space-x-5 xl:space-x-8 whitespace-nowrap">
             {/* Branches Dropdown */}
             <div
               className="relative"
@@ -195,6 +195,8 @@ const Header = () => {
             </div>
 
             <button onClick={() => handleNavClick('pakketten')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Pakketten</button>
+            {/* De blog is statische HTML (scripts/blog.mjs), dus een gewone link en geen router-Link. */}
+            <a href="/blog/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Blog</a>
             <button onClick={() => handleNavClick('contact')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contact</button>
 
             {/* Over Ons Dropdown */}
@@ -371,6 +373,7 @@ const Header = () => {
               </div>
               
               <button onClick={() => handleNavClick('pakketten')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Pakketten</button>
+              <a href="/blog/" className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Blog</a>
               <a href="/en/" hrefLang="en" lang="en" className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">English: DAFT and DJTT</a>
               <a href="/djtt/ja/" hrefLang="ja" lang="ja" className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">日本語</a>
               <button onClick={() => handleNavClick('contact')} className="text-gray-600 hover:text-blue-600 transition-colors font-medium text-left">Contact</button>

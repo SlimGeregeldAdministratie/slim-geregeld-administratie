@@ -56,6 +56,10 @@
      "Gratis tools"
     ],
     [
+     "/blog/",
+     "Blog over boekhouding, btw en de BV"
+    ],
+    [
      "/nettocheck",
      "NettoCheck"
     ],
@@ -114,7 +118,8 @@
    ],
    "dienst": {
     "naam": "Boekhouding voor aannemers, elektriciens en installateurs",
-    "doelgroep": "aannemers, elektriciens en installateurs"
+    "doelgroep": "aannemers, elektriciens en installateurs",
+    "prijs": "95"
    }
   },
   {
@@ -133,7 +138,8 @@
    ],
    "dienst": {
     "naam": "Boekhouding voor fotografen, ontwerpers en videomakers",
-    "doelgroep": "fotografen, ontwerpers en videomakers"
+    "doelgroep": "fotografen, ontwerpers en videomakers",
+    "prijs": "95"
    }
   },
   {
@@ -152,7 +158,8 @@
    ],
    "dienst": {
     "naam": "Boekhouding voor coaches, kappers en trainers",
-    "doelgroep": "coaches, kappers en trainers"
+    "doelgroep": "coaches, kappers en trainers",
+    "prijs": "95"
    }
   },
   {
@@ -171,7 +178,8 @@
    ],
    "dienst": {
     "naam": "Boekhouding voor developers en IT-consultants",
-    "doelgroep": "developers en IT-consultants"
+    "doelgroep": "developers en IT-consultants",
+    "prijs": "95"
    }
   },
   {
@@ -190,7 +198,8 @@
    ],
    "dienst": {
     "naam": "Boekhouding voor webshops en bol.com-verkopers",
-    "doelgroep": "webshops en bol.com-verkopers"
+    "doelgroep": "webshops en bol.com-verkopers",
+    "prijs": "95"
    }
   },
   {
@@ -252,8 +261,16 @@
    "intro": "Slim Geregeld Administratie is het boekhoudkantoor van Kyle Bouwmeester, Becon-geregistreerd boekhouder en Moneybird Expert. Kyle helpt ondernemers met moderne, efficiënte oplossingen en is zelf je vaste aanspreekpunt.",
    "links": [
     [
+     "/over/kyle-bouwmeester/",
+     "Kyle Bouwmeester, Becon-geregistreerd boekhouder"
+    ],
+    [
      "/nieuws",
      "Nieuws en tips"
+    ],
+    [
+     "/blog/",
+     "Blog"
     ],
     [
      "/contact",
@@ -269,7 +286,9 @@
    "kruimel": "Nieuws",
    "ouder": "/over-ons",
    "h1": "Nieuws en updates",
-   "intro": "Praktische tips over administratie, ondernemerschap en belastingen, zoals een holdingstructuur of de fiscale gevolgen van een zakelijke auto."
+   "intro": "De posts van Kyle Bouwmeester op LinkedIn, als gewone tekst: praktische tips over administratie, btw, de BV en belastingen voor ondernemers.",
+   "nieuws": true,
+   "collectie": true
   },
   {
    "pad": "/intake",
@@ -443,5 +462,31 @@
    "canonical": "/ecommerce",
    "kopie_van": "/ecommerce"
   }
+ ],
+ "statisch": [
+  {
+   "pad": "/en/"
+  },
+  {
+   "pad": "/daft/"
+  },
+  {
+   "pad": "/djtt/"
+  },
+  {
+   "pad": "/djtt/ja/"
+  },
+  {
+   "pad": "/daft/renewal/"
+  },
+  {
+   "pad": "/daft/contact/"
+  }
+ ],
+ "spa_rewrites": [
+  [
+   "/intake/*",
+   "/intake.html"
+  ]
  ]
 }
