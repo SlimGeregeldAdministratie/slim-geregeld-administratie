@@ -6,6 +6,8 @@ author: miguel
 lang: en
 cluster: daft-verlenging
 status: live
+klikken: 53
+klikkenBijgewerkt: 2026-11-05
 ---
 
 Test text by Miguel.

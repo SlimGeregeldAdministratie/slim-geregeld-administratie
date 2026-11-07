@@ -48,7 +48,7 @@ const T = {
     overzichtOmschrijving: 'Artikelen van Becon-geregistreerd boekhouder Kyle Bouwmeester over btw, de BV, de aangifte inkomstenbelasting, Moneybird en verdragsvergunningen.',
     overzichtH1: 'Blog', overzichtIntro: 'Praktische artikelen over boekhouding, btw, de BV en de aangifte inkomstenbelasting, met rekenvoorbeelden uit de praktijk.',
     leeg: 'Hier verschijnen binnenkort de eerste artikelen. Tot die tijd staan de korte tips op de nieuwspagina.', leegLink: ['/nieuws/', 'Naar het nieuws'],
-    alleOnderwerpen: 'Alle onderwerpen', onderwerp: 'Onderwerp',
+    alleOnderwerpen: 'Alle onderwerpen', onderwerp: 'Onderwerp', volgorde: 'Volgorde', nieuwste: 'Nieuwste', meestGelezen: 'Meest gelezen', nieuw: 'Nieuw',
     gepubliceerd: 'Gepubliceerd op', bijgewerkt: 'Bijgewerkt op', door: 'Door',
     inhoud: 'Inhoud', faq: 'Veelgestelde vragen', overAuteur: 'Over de auteur', gerelateerd: 'Lees ook',
     vorige: 'Vorige', volgende: 'Volgende', pagina: 'Pagina', paginaPad: 'pagina', onderwerpPad: 'onderwerp',
@@ -66,7 +66,7 @@ const T = {
     overzichtOmschrijving: 'Articles by Becon-registered bookkeeper Kyle Bouwmeester on DAFT and DJTT permits, renewals, owner\'s equity and Dutch bookkeeping, with worked figures.',
     overzichtH1: 'Blog', overzichtIntro: 'Articles on the DAFT and DJTT residence permits, the renewal, owner\'s equity and running a Dutch business, with worked figures from practice.',
     leeg: 'The first articles will appear here soon. Until then, the treaty pages answer the most common questions.', leegLink: ['/en/', 'Treaty services in English'],
-    alleOnderwerpen: 'All topics', onderwerp: 'Topic',
+    alleOnderwerpen: 'All topics', onderwerp: 'Topic', volgorde: 'Order', nieuwste: 'Newest', meestGelezen: 'Most read', nieuw: 'New',
     gepubliceerd: 'Published', bijgewerkt: 'Updated', door: 'By',
     inhoud: 'Contents', faq: 'Frequently asked questions', overAuteur: 'About the author', gerelateerd: 'Read next',
     vorige: 'Previous', volgende: 'Next', pagina: 'Page', paginaPad: 'page', onderwerpPad: 'topic',
@@ -84,7 +84,7 @@ const T = {
     overzichtOmschrijving: 'Becon登録ブックキーパー Kyle Bouwmeester による、日蘭通商航海条約に基づく滞在許可、更新、自己資本、オランダでの記帳についての記事。',
     overzichtH1: 'ブログ', overzichtIntro: '日蘭通商航海条約に基づく滞在許可、更新、自己資本、オランダでの事業運営についての記事です。英語版が正文です。',
     leeg: '記事は近日公開予定です。', leegLink: ['/djtt/ja/', '日本語ページへ'],
-    alleOnderwerpen: 'すべてのトピック', onderwerp: 'トピック',
+    alleOnderwerpen: 'すべてのトピック', onderwerp: 'トピック', volgorde: '並べ替え', nieuwste: '新着順', meestGelezen: 'よく読まれている順', nieuw: '新着',
     gepubliceerd: '公開日', bijgewerkt: '更新日', door: '著者',
     inhoud: '目次', faq: 'よくある質問', overAuteur: '著者について', gerelateerd: '関連記事',
     vorige: '前へ', volgende: '次へ', pagina: 'ページ', paginaPad: 'page', onderwerpPad: 'topic',
@@ -197,7 +197,10 @@ export function leesBlogs(map = CONTENT) {
         author: fm.author, lang: fm.lang, translationKey: fm.translationKey ? String(fm.translationKey) : slug,
         cluster: fm.cluster, tags: fm.tags ?? [], faq: fm.faq ?? [], status: fm.status ?? 'live', image: fm.image ?? null,
         linkedin: fm.linkedin == null ? [] : (Array.isArray(fm.linkedin) ? fm.linkedin : [fm.linkedin]),
+        klikken: fm.klikken ?? null, klikkenBijgewerkt: datumTekst(fm.klikkenBijgewerkt) || null,
       };
+      if (s.klikken != null && !(Number.isInteger(s.klikken) && s.klikken >= 0)) fout('klikken moet een heel getal zijn');
+      if (s.klikkenBijgewerkt && !geldigeDatum(s.klikkenBijgewerkt)) fout('klikkenBijgewerkt moet JJJJ-MM-DD zijn');
       if (!s.title || typeof s.title !== 'string') fout('title ontbreekt');
       else if (s.title.length > TITEL_MAX) let_op(`title is ${s.title.length} tekens; boven ${TITEL_MAX} valt "| Slim Geregeld" weg en kapt Google de titel af`);
       if (!s.description || typeof s.description !== 'string') fout('description ontbreekt');
@@ -645,13 +648,51 @@ export function bouwBlog({ sjabloon, dist, B, content = CONTENT }) {
     return `<span>${esc(a.naam)}</span><span aria-hidden="true">·</span><time datetime="${s.date}">${esc(datumMooi(s.date, s.taal))}</time>`;
   };
   const kaart = (s) => `<li><article class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 p-6">
-<div class="mb-3">${label(s.cluster, s.taal)}</div>
+<div class="mb-3 flex flex-wrap items-center gap-2">${label(s.cluster, s.taal)}<!--nieuw--></div>
 <h2 class="text-xl font-bold text-gray-900 mb-2 leading-snug"><a href="${artikelPad(s)}" class="hover:text-blue-600">${esc(s.title)}</a></h2>
 <p class="text-sm text-gray-500 mb-3 flex flex-wrap gap-x-2">${metaRegel(s)}</p>
 <p class="text-gray-600 leading-relaxed">${esc(s.description)}</p></article></li>`;
 
   const geschreven = [];
   const sitemap = [];
+
+  // "Meest gelezen": de knoppen en de lijst staan in de pagina; de statische HTML blijft op
+  // nieuwste. In de data staat per stuk alleen de kaart-HTML, de datum en een rang
+  // (1 = meeste klikken per dag tussen publicatie en klikkenBijgewerkt), geen getallen.
+  // Stukken jonger dan 14 dagen staan in de browser bovenaan met het label Nieuw.
+  const dag = (d) => Date.parse(d + 'T00:00:00Z') / 86400000;
+  const vandaag = new Date().toISOString().slice(0, 10);
+  const volgordeKnoppen = (t) => `<div data-volgorde hidden class="flex items-center gap-2 text-sm mb-6" role="group" aria-label="${esc(t.volgorde)}"><span class="text-gray-500">${esc(t.volgorde)}:</span><button type="button" data-kies="nieuwste" aria-pressed="true" class="rounded-full px-3 py-1 font-semibold bg-blue-600 text-white">${esc(t.nieuwste)}</button><button type="button" data-kies="gelezen" aria-pressed="false" class="rounded-full px-3 py-1 font-semibold bg-white text-gray-700 border border-gray-200 hover:border-blue-300">${esc(t.meestGelezen)}</button></div>`;
+  const gelezenData = (lijst, t) => {
+    const perDag = (s) => s.klikken / Math.max(1, dag(s.klikkenBijgewerkt || vandaag) - dag(s.date));
+    const gemeten = lijst.filter((s) => s.klikken != null).sort((a, b) => perDag(b) - perDag(a));
+    const rang = new Map(gemeten.map((s, i) => [s, i + 1]));
+    const data = lijst.map((s) => ({ d: s.date, r: rang.get(s) || null, h: kaart(s) }));
+    return `<script type="application/json" data-gelezen>${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
+<script>
+(function () {
+  var data = JSON.parse(document.querySelector('script[data-gelezen]').textContent);
+  var box = document.querySelector('[data-volgorde]'), lijst = document.querySelector('[data-lijst]'), pag = document.querySelector('[data-paginering]');
+  var origineel = lijst.innerHTML, nieuw = '<span class="inline-block rounded-full bg-blue-600 text-white text-xs font-semibold px-3 py-1">${esc(t.nieuw)}</span>';
+  var isNieuw = function (x) { return Date.now() - Date.parse(x.d + 'T00:00:00Z') < 14 * 86400000; };
+  box.hidden = false;
+  box.querySelectorAll('button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var g = b.getAttribute('data-kies') === 'gelezen';
+      box.querySelectorAll('button').forEach(function (k) {
+        var aan = k === b; k.setAttribute('aria-pressed', aan);
+        k.className = 'rounded-full px-3 py-1 font-semibold ' + (aan ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-300');
+      });
+      if (!g) { lijst.innerHTML = origineel; pag.hidden = false; return; }
+      var jong = data.filter(isNieuw).sort(function (a, b) { return a.d < b.d ? 1 : -1; });
+      var oud = data.filter(function (x) { return !isNieuw(x); }).sort(function (a, b) { return (a.r || 1e9) - (b.r || 1e9) || (a.d < b.d ? 1 : -1); });
+      lijst.innerHTML = jong.map(function (x) { return x.h.replace('<!--nieuw-->', nieuw); }).concat(oud.map(function (x) { return x.h; })).join('');
+      pag.hidden = true;
+    });
+  });
+})();
+</script>`;
+  };
 
   // ---------- artikelen
   for (const s of zichtbaar) {
@@ -725,6 +766,8 @@ ${voet(s.taal)}`;
     const t = T[taal];
     const paginas = Math.max(1, Math.ceil(lijst.length / PER_PAGINA));
     const clusters = [...new Set(zichtbaar.filter((s) => s.taal === taal && s.status === 'live').map((s) => s.cluster))].sort();
+    // "Meest gelezen" alleen als er klikken-data is; anders geen knop.
+    const gelezen = lijst.some((s) => s.klikken != null);
     for (let n = 1; n <= paginas; n++) {
       const pad = n === 1 ? pad1 : padN(n);
       const u = abs(pad);
@@ -744,8 +787,10 @@ ${kruimelHtml(pk)}
 <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">${esc(h1)}</h1>
 <p class="text-lg text-gray-600 mb-8 max-w-2xl">${esc(intro)}</p>
 ${filters}
-${leeg ? `<p class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 text-gray-700">${esc(t.leeg)} <a href="${t.leegLink[0]}" class="text-blue-600 underline">${esc(t.leegLink[1])}</a></p>` : `<ul class="space-y-6">${deel.map(kaart).join('')}</ul>`}
-${nav}
+${gelezen ? volgordeKnoppen(t) : ''}
+${leeg ? `<p class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 text-gray-700">${esc(t.leeg)} <a href="${t.leegLink[0]}" class="text-blue-600 underline">${esc(t.leegLink[1])}</a></p>` : `<ul class="space-y-6" data-lijst>${deel.map(kaart).join('')}</ul>`}
+<div data-paginering>${nav}</div>
+${gelezen ? gelezenData(lijst, t) : ''}
 </div></main>
 ${voet(taal)}`;
       schrijf(join(dist, pad.slice(1), 'index.html'), pagina(sjabloon, {
