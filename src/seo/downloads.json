@@ -1,0 +1,98 @@
+{
+ "_uitleg": "Downloadpagina's met formulier (scripts/blog.mjs, bouwDownloads). De pdf's staan in public/downloads/. Het formulier post naar de n8n-webhook; die antwoordt met de downloadlink. Contract: ~/slim-geregeld-documenten/tools/content-engine/downloads-contract.md.",
+ "webhook": "https://n8n.slim-geregeld.nl/webhook/download-aanvraag",
+ "antwoordVeld": "url",
+ "gewijzigd": "2026-11-06",
+ "downloads": [
+  {
+   "sleutel": "daft-verlenging-checklist",
+   "clusters": [
+    "daft-verlenging"
+   ],
+   "nl": {
+    "pad": "/downloads/daft-verlenging-checklist/",
+    "pdf": "/downloads/daft-verlenging-checklist-nl.pdf",
+    "titel": "Checklist verlenging DAFT-vergunning (pdf) | Slim Geregeld",
+    "omschrijving": "Gratis checklist voor de verlenging van je DAFT- of DJTT-vergunning: welke stukken de IND vraagt, de eigenvermogentoets en de planning.",
+    "h1": "Checklist: je DAFT-vergunning verlengen",
+    "intro": "Na twee jaar verleng je je verblijfsvergunning als zelfstandige onder het Amerikaans-Nederlands vriendschapsverdrag (DAFT) of het Nederlands-Japanse handelsverdrag (DJTT). Deze checklist zet op een rij wat je nodig hebt.",
+    "inhoud": [
+     "Welke stukken de IND bij de verlenging vraagt: een balans en een winst-en-verliesrekening over het lopende en het vorige boekjaar",
+     "Waarom een bankafschrift alleen niet genoeg is",
+     "Hoe je controleert of je eigen vermogen op of boven €4.500 staat",
+     "Wie de stukken mag opstellen en tekenen",
+     "Een planning: wat je wanneer regelt voor je vergunning verloopt"
+    ],
+    "voorWie": "Voor ondernemers met een DAFT- of DJTT-vergunning die binnen een jaar moeten verlengen.",
+    "kader": [
+     "Download de checklist",
+     "Gratis checklist voor de verlenging van je DAFT- of DJTT-vergunning, als pdf."
+    ]
+   },
+   "en": {
+    "pad": "/en/downloads/daft-renewal-checklist/",
+    "pdf": "/downloads/daft-verlenging-checklist-en.pdf",
+    "titel": "DAFT renewal checklist (free PDF) | Slim Geregeld",
+    "omschrijving": "Free checklist for renewing your DAFT or DJTT residence permit: the documents the IND asks for, the owner's equity test and a timeline.",
+    "h1": "Checklist: renewing your DAFT permit",
+    "intro": "After two years you renew your self-employed residence permit under the Dutch-American Friendship Treaty (DAFT) or the Dutch-Japanese Trade Treaty (DJTT). This checklist lists what you need.",
+    "inhoud": [
+     "The documents the IND asks for at renewal: a balance sheet and a profit and loss account for the current and the previous financial year",
+     "Why a bank statement alone is not enough",
+     "How to check that your owner's equity is at or above €4,500",
+     "Who may prepare and sign the documents",
+     "A timeline: what to arrange when before your permit expires"
+    ],
+    "voorWie": "For entrepreneurs with a DAFT or DJTT permit who need to renew within a year.",
+    "kader": [
+     "Download the checklist",
+     "Free checklist for renewing your DAFT or DJTT permit, as a PDF."
+    ]
+   }
+  },
+  {
+   "sleutel": "kor-rekensom",
+   "clusters": [
+    "zzp-btw"
+   ],
+   "nl": {
+    "pad": "/downloads/kor-rekensom/",
+    "pdf": "/downloads/kor-rekensom-nl.pdf",
+    "titel": "KOR-rekensom: levert de KOR jou iets op? | Slim Geregeld",
+    "omschrijving": "Gratis rekensom (pdf) om te bepalen of de kleineondernemersregeling (KOR) voor jou voordelig is: omzetgrens, btw die je niet terugkrijgt en een voorbeeld.",
+    "h1": "Rekensom: levert de KOR jou iets op?",
+    "intro": "Met de kleineondernemersregeling (KOR) reken je geen btw, maar je vraagt ook geen btw meer terug. Of dat voordelig is, hangt af van je klanten, je kosten en je investeringen. Deze rekensom helpt je kiezen.",
+    "inhoud": [
+     "De voorwaarden van de KOR, waaronder de omzetgrens van €20.000 per jaar",
+     "Een rekenvoorbeeld: btw die je niet meer afdraagt tegenover btw die je niet meer terugkrijgt",
+     "Voor wie de KOR meestal wel en meestal niet uitpakt",
+     "Wat er gebeurt als je de omzetgrens tijdens het jaar overschrijdt"
+    ],
+    "voorWie": "Voor zzp'ers en kleine ondernemers met een omzet onder of rond de €20.000 per jaar.",
+    "kader": [
+     "Download de rekensom",
+     "Gratis rekensom om te bepalen of de kleineondernemersregeling voor jou voordelig is, als pdf."
+    ]
+   },
+   "en": {
+    "pad": "/en/downloads/kor-calculation/",
+    "pdf": "/downloads/kor-rekensom-en.pdf",
+    "titel": "KOR calculation for Dutch small businesses | Slim Geregeld",
+    "omschrijving": "Free PDF calculation to decide whether the Dutch small business scheme (KOR) pays off for you: turnover limit, VAT you stop reclaiming, an example.",
+    "h1": "Calculation: does the KOR pay off for you?",
+    "intro": "Under the Dutch small business scheme (kleineondernemersregeling, KOR) you charge no VAT, but you also stop reclaiming VAT. Whether that pays off depends on your clients, your costs and your investments. This calculation helps you decide.",
+    "inhoud": [
+     "The KOR conditions, including the turnover limit of €20,000 a year",
+     "A worked example: VAT you no longer pay against VAT you no longer reclaim",
+     "Who usually gains from the KOR and who usually does not",
+     "What happens when you pass the turnover limit during the year"
+    ],
+    "voorWie": "For freelancers and small business owners in the Netherlands with a turnover below or around €20,000 a year.",
+    "kader": [
+     "Download the calculation",
+     "Free calculation to decide whether the Dutch small business scheme pays off for you, as a PDF."
+    ]
+   }
+  }
+ ]
+}

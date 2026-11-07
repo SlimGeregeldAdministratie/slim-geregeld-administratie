@@ -1,0 +1,4 @@
+# Netlify-headers. Geen wildcard op /downloads/*: daaronder staan ook de
+# downloadpagina's (/downloads/<slug>/), die wel gevonden moeten worden.
+# scripts/blog.mjs zet bij de build per pdf in public/downloads/ een regel
+# "X-Robots-Tag: noindex" onder dit commentaar.

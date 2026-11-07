@@ -494,6 +494,105 @@ function schrijf(pad, html) {
   writeFileSync(pad, html);
 }
 
+// ---------------------------------------------------------------- downloadpagina's
+// Per download een NL- en een EN-pagina met inhoudsbeschrijving en formulier. De
+// tekst staat als HTML in de pagina; alleen het formulier gebruikt JavaScript: het
+// post naar de n8n-webhook en toont daarna de downloadknop met de url uit het antwoord.
+// De pdf's (public/downloads/) krijgen X-Robots-Tag: noindex via dist/_headers.
+export const DOWNLOADS = JSON.parse(readFileSync('src/seo/downloads.json', 'utf8'));
+const DL_T = {
+  nl: { home: 'Home', downloads: 'Downloads', inhoud: 'Wat staat erin', voorWie: 'Voor wie', formKop: 'Ontvang de pdf', formIntro: 'Vul je naam en e-mailadres in, dan krijg je de pdf direct. Wil je ook af en toe een mail met nieuwe stukken? Zet dan het vinkje aan.', naam: 'Naam', email: 'E-mailadres',
+    nieuwsbrief: 'Ik wil de maandelijkse nieuwsbrief ontvangen', knop: 'Download de pdf', bezig: 'Even geduld...',
+    privacy: ['Je gegevens gebruiken we om je de download te sturen en, als je dat aanvinkt, voor de nieuwsbrief. Lees ons ', '/privacybeleid', 'privacybeleid', '.'],
+    klaar: 'Je download staat klaar.', downloadKnop: 'Open de pdf', fout: 'Dat lukte niet. Probeer het opnieuw of mail kyle@slim-geregeld.nl.', door: 'Gemaakt door Kyle Bouwmeester, Becon-geregistreerd boekhouder.' },
+  en: { home: 'Treaty services', downloads: 'Downloads', inhoud: 'What is inside', voorWie: 'Who it is for', formKop: 'Get the PDF', formIntro: 'Enter your name and email and the PDF is yours right away. Tick the box if you would also like an occasional email with new articles.', naam: 'Name', email: 'Email address',
+    nieuwsbrief: 'Send me the monthly newsletter', knop: 'Download the PDF', bezig: 'One moment...',
+    privacy: ['We use your details to send you the download and, if you tick the box, for the newsletter. Read our ', '/privacybeleid', 'privacy policy', ' (in Dutch).'],
+    klaar: 'Your download is ready.', downloadKnop: 'Open the PDF', fout: 'That did not work. Please try again or email kyle@slim-geregeld.nl.', door: 'Made by Kyle Bouwmeester, Becon-registered bookkeeper.' },
+};
+const FORM_SCRIPT = `<script>
+document.querySelectorAll('form[data-download]').forEach(function (f) {
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var knop = f.querySelector('button[type=submit]'), melding = f.querySelector('[data-melding]'), klaar = f.parentNode.querySelector('[data-klaar]');
+    var tekst = knop.textContent; knop.disabled = true; knop.textContent = knop.getAttribute('data-bezig'); melding.hidden = true;
+    var data = { naam: f.naam.value.trim(), email: f.email.value.trim(), nieuwsbrief: f.nieuwsbrief.checked, website: f.website.value,
+      download: f.getAttribute('data-download'), taal: f.getAttribute('data-taal'), bron: location.origin + location.pathname };
+    if (/[?&]droog=true\b/.test(location.search)) data.droog = true;
+    fetch(f.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, j: j }; }); })
+      .then(function (a) {
+        var url = a.j && a.j.ok && a.j[f.getAttribute('data-veld')];
+        if (!url) { var e = new Error('mislukt'); e.fout = a.status === 429 && a.j.fout; throw e; }
+        klaar.querySelector('a').href = url; f.hidden = true; klaar.hidden = false; klaar.querySelector('a').focus();
+      })
+      .catch(function (e) { if (e && e.fout) melding.textContent = e.fout; melding.hidden = false; knop.disabled = false; knop.textContent = tekst; });
+  });
+});
+</script>`;
+
+function bouwDownloads({ sjabloon, dist, B, sitemap }) {
+  const abs = (p) => B + p;
+  const headers = [];
+  for (const d of DOWNLOADS.downloads) {
+    const alternates = [['nl', abs(d.nl.pad)], ['en', abs(d.en.pad)], ['x-default', abs(d.en.pad)]];
+    for (const taal of ['nl', 'en']) {
+      const x = d[taal];
+      const t = DL_T[taal];
+      const u = abs(x.pad);
+      if (!existsSync(join('public', x.pdf))) console.warn(`blog: let op: ${x.pdf} bestaat nog niet in public/`);
+      else headers.push(x.pdf);
+      const kruimels = [[t.home, T[taal].homePad], [x.h1, x.pad]];
+      const graaf = { '@context': 'https://schema.org', '@graph': [ORG, SITE, kyle(taal),
+        { '@type': 'WebPage', '@id': u + '#webpage', url: u, name: x.titel, description: x.omschrijving, inLanguage: taal, isPartOf: { '@id': B + '/#website' },
+          breadcrumb: { '@id': u + '#breadcrumb' }, dateModified: DOWNLOADS.gewijzigd,
+          mainEntity: { '@type': 'DigitalDocument', name: x.h1, description: x.omschrijving, encodingFormat: 'application/pdf', inLanguage: taal,
+            author: { '@id': B + '/#kyle' }, publisher: { '@id': B + '/#org' }, isAccessibleForFree: true } },
+        { '@type': 'BreadcrumbList', '@id': u + '#breadcrumb', itemListElement: kruimels.map(([naam, pad], i) => ({ '@type': 'ListItem', position: i + 1, name: naam, item: abs(pad) })) }] };
+      const veld = 'block w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100';
+      const lichaam = `${kop(taal, null)}
+<main class="bg-gradient-to-b from-blue-50 to-white"><div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+<nav aria-label="Breadcrumb" class="text-sm text-gray-500 mb-6"><ol class="flex flex-wrap items-center gap-x-2"><li><a href="${T[taal].homePad}" class="hover:text-blue-600">${esc(t.home)}</a></li><li aria-hidden="true">/</li><li class="text-gray-700">${esc(x.h1)}</li></ol></nav>
+<div class="grid md:grid-cols-5 gap-10 items-start">
+<div class="md:col-span-3">
+<p class="inline-block rounded-full bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1 mb-4">PDF</p>
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">${esc(x.h1)}</h1>
+<p class="text-lg text-gray-600 leading-relaxed mb-8">${esc(x.intro)}</p>
+<h2 class="text-xl font-bold text-gray-900 mb-3">${esc(t.inhoud)}</h2>
+<ul class="list-disc pl-5 space-y-2 text-gray-700 mb-8">${x.inhoud.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+<h2 class="text-xl font-bold text-gray-900 mb-3">${esc(t.voorWie)}</h2>
+<p class="text-gray-700 mb-4">${esc(x.voorWie)}</p>
+<p class="text-sm text-gray-500">${esc(t.door)}</p>
+</div>
+<section class="md:col-span-2 bg-white border border-gray-100 rounded-2xl shadow-sm p-6" aria-labelledby="formulier-kop">
+<h2 id="formulier-kop" class="text-xl font-bold text-gray-900 mb-2">${esc(t.formKop)}</h2>
+<p class="text-sm text-gray-600 mb-4">${esc(t.formIntro)}</p>
+<form method="post" action="${esc(DOWNLOADS.webhook)}" data-download="${esc(d.sleutel)}" data-taal="${taal}" data-veld="${esc(DOWNLOADS.antwoordVeld)}" class="space-y-4">
+<div><label for="naam" class="block text-sm font-medium text-gray-700 mb-1">${esc(t.naam)}</label><input id="naam" name="naam" type="text" autocomplete="name" maxlength="120" required class="${veld}"></div>
+<div><label for="email" class="block text-sm font-medium text-gray-700 mb-1">${esc(t.email)}</label><input id="email" name="email" type="email" autocomplete="email" required class="${veld}"></div>
+<div class="hidden" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<label class="flex items-start gap-2 text-sm text-gray-700"><input name="nieuwsbrief" type="checkbox" class="mt-1"> <span>${esc(t.nieuwsbrief)}</span></label>
+<p class="text-xs text-gray-500">${esc(t.privacy[0])}<a href="${t.privacy[1]}" class="underline hover:text-blue-600">${esc(t.privacy[2])}</a>${esc(t.privacy[3])}</p>
+<button type="submit" data-bezig="${esc(t.bezig)}" class="w-full bg-blue-600 text-white font-semibold px-5 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-60">${esc(t.knop)}</button>
+<p data-melding hidden class="text-sm text-red-700" role="alert">${esc(t.fout)}</p>
+</form>
+<div data-klaar hidden class="space-y-3" role="status"><p class="font-semibold text-gray-900">${esc(t.klaar)}</p><a href="#" class="inline-block w-full text-center bg-blue-600 text-white font-semibold px-5 py-3 rounded-lg hover:bg-blue-700" target="_blank" rel="noopener">${esc(t.downloadKnop)}</a></div>
+</section>
+</div></div></main>
+${voet(taal)}
+${FORM_SCRIPT}`;
+      schrijf(join(dist, x.pad.slice(1), 'index.html'), pagina(sjabloon, { taal, titel: x.titel, omschrijving: x.omschrijving, canonical: u, robots: 'index, follow', alternates, graaf, afbeelding: null, type: 'website', lichaam }));
+      sitemap.push({ loc: u, lastmod: DOWNLOADS.gewijzigd, alternates });
+    }
+  }
+  // De pdf's zelf niet in de zoekresultaten. Per pdf een regel: een wildcard als
+  // /downloads/* zou ook de downloadpagina's (/downloads/<slug>/) op noindex zetten.
+  const hPad = join(dist, '_headers');
+  const bestaand = existsSync(hPad) ? readFileSync(hPad, 'utf8') : '';
+  if (/^\/downloads\/\*\s*$/m.test(bestaand) || /^\/en\/downloads\/\*\s*$/m.test(bestaand)) throw new Error('blog: _headers bevat /downloads/* en zet daarmee de downloadpagina\'s op noindex; de build schrijft zelf een regel per pdf');
+  if (headers.length) writeFileSync(hPad, bestaand + (bestaand && !bestaand.endsWith('\n') ? '\n' : '') + '# Downloads: pdf\'s niet indexeren (scripts/blog.mjs)\n' + headers.map((p) => `${p}\n  X-Robots-Tag: noindex\n`).join(''));
+}
+
 // ---------------------------------------------------------------- hoofdfunctie
 export function bouwBlog({ sjabloon, dist, B, content = CONTENT }) {
   const { stukken, fouten, waarschuwingen } = leesBlogs(content);
@@ -568,6 +667,9 @@ export function bouwBlog({ sjabloon, dist, B, content = CONTENT }) {
     const kruimels = [[t.home, t.homePad], [t.blog, blogBasis(s.taal)], [s.title, pad]];
     const verwant = zichtbaar.filter((x) => x !== s && x.taal === s.taal && x.cluster === s.cluster && x.status === 'live').sort(nieuwsteEerst).slice(0, 3);
     const dienst = CLUSTERS[s.cluster]?.dienst[s.taal];
+    // Downloadkader: de download bij dit cluster, in de taal van het artikel (Japans: de Engelse).
+    const dl = DOWNLOADS.downloads.find((d) => d.clusters.includes(s.cluster));
+    const dlTaal = dl ? (dl[s.taal] ? s.taal : 'en') : null;
     const afbeelding = s.image ? abs(padUrl(s.image)) : null;
 
     const graaf = {
@@ -603,6 +705,7 @@ ${s.faq.length ? `<section class="mt-12" aria-labelledby="${faqId}"><h2 id="${fa
 <section id="auteur" class="mt-12 bg-white border border-gray-100 rounded-2xl shadow-sm p-6 flex gap-4 items-start" aria-label="${esc(t.overAuteur)}">${avatar(a, true)}<div>
 <p class="text-sm text-gray-500">${esc(t.overAuteur)}</p><p class="font-semibold text-gray-900"><a href="${a.url[s.taal]}" class="hover:text-blue-600">${esc(a.naam)}</a></p><p class="text-sm text-gray-600 mb-2">${esc(a.functie[s.taal])}</p>
 <p class="text-gray-700 leading-relaxed">${esc(a.bio[s.taal])}</p></div></section>
+${dl ? `<section class="mt-8 rounded-2xl border border-blue-100 bg-white shadow-sm p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between"><div><p class="text-lg font-bold text-gray-900">${esc(dl[dlTaal].kader[0])}</p><p class="text-gray-600">${esc(dl[dlTaal].kader[1])}</p></div><a href="${dl[dlTaal].pad}" class="inline-block whitespace-nowrap bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-700">${esc(dl[dlTaal].kader[0])}</a></section>` : ''}
 ${dienst ? `<section class="mt-8 rounded-2xl p-6 md:p-8 bg-gradient-to-r from-blue-600 to-blue-700 text-white"><p class="text-xl font-bold mb-2">${esc(dienst[1])}</p><p class="text-blue-100 mb-5 leading-relaxed">${esc(dienst[2])}</p><a href="${dienst[0]}" class="inline-block bg-white text-blue-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-50">${esc(dienst[3])}</a></section>` : ''}
 ${s.linkedin.length ? `<p class="mt-8 text-sm text-gray-600">${esc(t.linkedin)}: ${s.linkedin.map((l, i) => `<a href="${esc(l)}" rel="noopener" class="text-blue-600 underline">${esc(t.bekijkLinkedin)}${s.linkedin.length > 1 ? ' ' + (i + 1) : ''}</a>`).join(', ')}</p>` : ''}
 ${verwant.length ? `<section class="mt-12"><h2 class="text-2xl font-bold text-gray-900 mb-4">${esc(t.gerelateerd)}</h2><ul class="space-y-4">${verwant.map(kaart).join('')}</ul></section>` : ''}
@@ -723,6 +826,7 @@ ${voet(taal)}`;
   }
 
   console.log(`blog: ${zichtbaar.length} artikelen, ${ingetrokken.length} ingetrokken, ${geschreven.length} pagina's geschreven (bron ${content})`);
+  bouwDownloads({ sjabloon, dist, B, sitemap });
   return { stukken, nieuws: nieuws.items, sitemap };
 }
 

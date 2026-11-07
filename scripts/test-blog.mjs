@@ -23,7 +23,15 @@ const test = (naam, fn) => { fn(); geslaagd++; console.log('  ok  ' + naam); };
 console.log('bouwen met testinhoud...');
 execSync('npx vite build --logLevel error', { env, stdio: 'inherit' });
 const sjabloon = readFileSync('dist/index.html', 'utf8');
-execSync('node scripts/seo-paginas.mjs', { env, stdio: 'inherit' });
+// Tijdelijke pdf zodat de _headers-regel getest wordt; alleen als de echte er nog niet is.
+const TEST_PDF = 'public/downloads/daft-verlenging-checklist-nl.pdf';
+const tijdelijkePdf = !existsSync(TEST_PDF);
+if (tijdelijkePdf) { mkdirSync('public/downloads', { recursive: true }); writeFileSync(TEST_PDF, '%PDF-1.4\n%%EOF\n'); }
+try {
+  execSync('node scripts/seo-paginas.mjs', { env, stdio: 'inherit' });
+} finally {
+  if (tijdelijkePdf) { rmSync(TEST_PDF); try { rmSync('public/downloads'); } catch { /* map niet leeg: laten staan */ } }
+}
 
 const lees = (p) => readFileSync(join('dist', p), 'utf8');
 const ldVan = (html) => [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map((m) => JSON.parse(m[1]));
@@ -191,6 +199,34 @@ test('/nieuws/: carrousel als dia\'s met tekst en pdf, video met transcript en V
   assert.equal(video.embedUrl, 'https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ');
   assert.ok(video.thumbnailUrl && video.transcript && video.name);
   assert.equal(posts.find((x) => Array.isArray(x.image)).image.length, 3);
+});
+
+test('downloads: pagina\'s met inhoud, hreflang nl-en, formulier en noindex op de pdf', () => {
+  const nl = lees('downloads/daft-verlenging-checklist/index.html');
+  const en = lees('en/downloads/daft-renewal-checklist/index.html');
+  assert.equal(head(nl).canonical, B + '/downloads/daft-verlenging-checklist/');
+  assert.deepEqual(Object.fromEntries(head(en).hreflang), { nl: B + '/downloads/daft-verlenging-checklist/', en: B + '/en/downloads/daft-renewal-checklist/', 'x-default': B + '/en/downloads/daft-renewal-checklist/' });
+  assert.match(nl, /<h2[^>]*>Wat staat erin<\/h2>/);
+  assert.match(nl, /<input name="nieuwsbrief" type="checkbox" class="mt-1">/, 'nieuwsbrief niet aangevinkt');
+  assert.match(nl, /Ik wil de maandelijkse nieuwsbrief ontvangen/);
+  assert.match(en, /Send me the monthly newsletter/);
+  assert.match(nl, /<input id="website" name="website" type="text" tabindex="-1" autocomplete="off">/);
+  assert.match(nl, /href="\/privacybeleid"/);
+  assert.match(nl, /data-download="daft-verlenging-checklist" data-taal="nl"/);
+  assert.equal(soort(nl, 'DigitalDocument').length + knopen(nl).filter((k) => k.mainEntity?.['@type'] === 'DigitalDocument').length > 0, true);
+  const sm = lees('sitemap.xml');
+  for (const u of ['/downloads/daft-verlenging-checklist/', '/en/downloads/daft-renewal-checklist/', '/downloads/kor-rekensom/', '/en/downloads/kor-calculation/']) assert.match(sm, new RegExp(`<loc>${B}${u}</loc>`));
+  assert.doesNotMatch(sm, /\.pdf/);
+  assert.match(lees('_headers'), /\/downloads\/daft-verlenging-checklist-nl\.pdf\n  X-Robots-Tag: noindex/);
+  assert.match(lees('llms.txt'), /downloads\/daft-renewal-checklist\//);
+});
+
+test('downloads: kader onder blogs in daft-verlenging en zzp-btw, link op /daft/renewal/', () => {
+  assert.match(lees(NL), /href="\/downloads\/daft-verlenging-checklist\/"[^>]*>Download de checklist/);
+  assert.match(lees(EN), /href="\/en\/downloads\/daft-renewal-checklist\/"[^>]*>Download the checklist/);
+  assert.match(lees(JA), /href="\/en\/downloads\/daft-renewal-checklist\/"/);
+  assert.match(lees('blog/btw-aangifte-eerste-kwartaal/index.html'), /href="\/downloads\/kor-rekensom\/"[^>]*>Download de rekensom/);
+  assert.match(lees('daft/renewal/index.html'), /href="\/en\/downloads\/daft-renewal-checklist\/"/);
 });
 
 test('dist: nergens een map naast een gelijknamig .html-bestand', () => {
