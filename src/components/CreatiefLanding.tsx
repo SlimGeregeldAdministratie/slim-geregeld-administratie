@@ -111,7 +111,7 @@ const CreatiefLanding = () => {
         "24/7 vragen beantwoorden",
         "Klanten beheer",
         "BTW-aangifte voor creatieve sector",
-        "Jaarrekening",
+        "Financieel jaaroverzicht",
         "Persoonlijk contact met Kyle",
         "Creatieve aftrekposten optimalisatie"
       ],

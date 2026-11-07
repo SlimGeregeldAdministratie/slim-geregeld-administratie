@@ -57,7 +57,7 @@ const T = {
     cta: ['/contact', 'Plan een gratis kennismaking'],
     nav: [['/branches', 'Branches'], ['/pakketten', 'Pakketten'], ['/blog/', 'Blog'], ['/nieuws/', 'Nieuws'], ['/over-ons', 'Over ons'], ['/contact', 'Contact']],
     talen: [['/en/', 'EN', 'en'], ['/djtt/ja/', '日本語', 'ja']],
-    voet: 'Boekhouding, btw-aangifte en jaarrekening voor zzp\'ers en kleine ondernemers. Becon-geregistreerd boekhouder Kyle Bouwmeester.',
+    voet: 'Boekhouding, btw-aangifte en financieel jaaroverzicht voor zzp\'ers en kleine ondernemers. Becon-geregistreerd boekhouder Kyle Bouwmeester.',
     voetLinks: [['/privacybeleid', 'Privacybeleid'], ['/algemene-voorwaarden', 'Algemene voorwaarden'], ['/en/', 'English']],
   },
   en: {
@@ -100,7 +100,7 @@ const T = {
 
 // Clusters: label per taal en de vaste dienstlink onderaan elk artikel.
 // Een onbekend cluster mag, dan is het label de sleutel en is er geen dienstlink.
-const PAKKETTEN_NL = ['/pakketten', 'Boekhouding uit handen geven?', 'Boekhouding, btw-aangifte en jaarrekening voor €95 per maand, met Kyle als vast aanspreekpunt. De eerste 30 dagen zijn gratis.', 'Bekijk de pakketten'];
+const PAKKETTEN_NL = ['/pakketten', 'Boekhouding uit handen geven?', 'Boekhouding, btw-aangifte en financieel jaaroverzicht voor €95 per maand, met Kyle als vast aanspreekpunt. De eerste 30 dagen zijn gratis.', 'Bekijk de pakketten'];
 const PLAN_EN = ['/daft/#pricing', 'Bookkeeping for treaty entrepreneurs', 'The Compliance Plan covers monthly bookkeeping, the quarterly equity check and the renewal statement for €79 or €149 a month excluding VAT.', 'See the Compliance Plan'];
 const PLAN_JA = ['/djtt/ja/#pricing', '条約ビザの方の記帳', '月次の記帳、四半期ごとの自己資本チェック、更新用の書類を含むプランです。', '料金を見る'];
 export const CLUSTERS = {
@@ -133,7 +133,7 @@ function auteurs(B) {
       naam: 'Kyle Bouwmeester', initialen: 'KB', foto: '/Pofielfoto Kyle.jpg', id: B + '/#kyle',
       functie: { nl: 'Becon-geregistreerd boekhouder', en: 'Becon-registered bookkeeper', ja: 'Becon登録ブックキーパー' },
       bio: {
-        nl: 'Kyle Bouwmeester is Becon-geregistreerd boekhouder (Becon 781794) en eigenaar van Slim Geregeld Administratie. Hij doet de boekhouding, btw-aangifte en jaarrekening voor zzp\'ers en kleine ondernemers, en stelt de balansen op voor verdragsondernemers uit de VS en Japan.',
+        nl: 'Kyle Bouwmeester is Becon-geregistreerd boekhouder (Becon 781794) en eigenaar van Slim Geregeld Administratie. Hij doet de boekhouding, btw-aangifte en het financieel jaaroverzicht voor zzp\'ers en kleine ondernemers, en stelt de balansen op voor verdragsondernemers uit de VS en Japan.',
         en: 'Kyle Bouwmeester is a Becon-registered bookkeeper (Becon 781794) and the owner of Slim Geregeld Administratie. He prepares and signs the balance sheets for DAFT and DJTT entrepreneurs and keeps the books for Dutch freelancers and small businesses.',
         ja: 'Kyle Bouwmeester は Becon 登録ブックキーパー（Becon 781794）で、Slim Geregeld Administratie の代表です。DAFT・DJTT の起業家向けに貸借対照表を作成し署名しています。',
       },

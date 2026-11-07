@@ -57,7 +57,7 @@ const Pricing = () => {
         "24/7 vragen beantwoorden",
         "Klanten beheer",
         "BTW-aangifte",
-        "Jaarrekening",
+        "Financieel jaaroverzicht",
         "Persoonlijk contact met Kyle"
       ],
       buttonText: "Start gratis proef",
