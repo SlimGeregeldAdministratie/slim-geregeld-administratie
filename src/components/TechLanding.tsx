@@ -111,7 +111,7 @@ const TechLanding = () => {
         "24/7 vragen beantwoorden",
         "Klanten beheer",
         "BTW-aangifte voor tech sector",
-        "Jaarrekening",
+        "Financieel jaaroverzicht",
         "Persoonlijk contact met Kyle",
         "Tech aftrekposten optimalisatie"
       ],

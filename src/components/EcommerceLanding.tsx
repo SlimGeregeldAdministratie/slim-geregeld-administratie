@@ -111,7 +111,7 @@ const EcommerceLanding = () => {
         "24/7 vragen beantwoorden",
         "Klanten beheer",
         "BTW-aangifte voor e-commerce",
-        "Jaarrekening",
+        "Financieel jaaroverzicht",
         "Persoonlijk contact met Kyle",
         "E-commerce aftrekposten optimalisatie"
       ],

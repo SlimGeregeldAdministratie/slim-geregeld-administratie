@@ -111,7 +111,7 @@ const PersoonlijkLanding = () => {
         "24/7 vragen beantwoorden",
         "Klanten beheer",
         "BTW-aangifte voor dienstverlening",
-        "Jaarrekening",
+        "Financieel jaaroverzicht",
         "Persoonlijk contact met Kyle",
         "Dienstverlening aftrekposten optimalisatie"
       ],

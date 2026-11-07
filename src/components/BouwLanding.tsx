@@ -111,7 +111,7 @@ const BouwLanding = () => {
         "24/7 vragen beantwoorden",
         "Klanten beheer",
         "BTW-aangifte voor bouw & installatie",
-        "Jaarrekening",
+        "Financieel jaaroverzicht",
         "Persoonlijk contact met Kyle",
         "Bouw & installatie aftrekposten optimalisatie"
       ],
