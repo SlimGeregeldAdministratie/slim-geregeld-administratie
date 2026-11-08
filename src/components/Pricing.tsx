@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check, ArrowRight, Bot, Star, Users } from 'lucide-react';
+import MoneybirdWidget from './MoneybirdWidget';
 
 const Pricing = () => {
   const handlePackageClick = (packageType: string) => {
@@ -211,6 +212,10 @@ const Pricing = () => {
               </button>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <MoneybirdWidget />
         </div>
       </div>
     </section>
