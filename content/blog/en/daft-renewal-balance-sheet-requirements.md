@@ -19,6 +19,8 @@ faq:
     a: "A spreadsheet is an acceptable starting point. Moneybird is not required to prepare a balance sheet."
   - q: "Does a personal capital contribution count as profit?"
     a: "No. It increases business equity, while business profit remains separate."
+klikken: 0
+klikkenBijgewerkt: 2026-11-09
 status: live
 image: /blog/img/daft-renewal-balance-sheet-requirements.png
 ---

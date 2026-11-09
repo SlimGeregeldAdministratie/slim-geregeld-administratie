@@ -17,6 +17,8 @@ faq:
     a: "De deelnemingsvrijstelling kan voorkomen dat kwalificerend dividend of een verkoopwinst nogmaals bij de moedermaatschappij wordt belast. Daarvoor gelden voorwaarden."
   - q: "Vervalt mijn persoonlijke belasting door een holding?"
     a: "Nee. Dividend en winst op aandelen kunnen in box 2 belast zijn. Ook kan de gebruikelijkloonregeling gelden als je werkt voor een vennootschap waarin je een aanmerkelijk belang hebt."
+klikken: 0
+klikkenBijgewerkt: 2026-11-09
 status: live
 image: /blog/img/holding-oprichten-boven-bv-nodig.png
 ---

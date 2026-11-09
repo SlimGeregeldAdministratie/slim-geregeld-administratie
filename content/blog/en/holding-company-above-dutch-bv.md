@@ -17,6 +17,8 @@ faq:
     a: "The participation exemption can prevent another corporate tax charge on qualifying dividends. It can also apply to gains on the sale of a participation, subject to the applicable conditions."
   - q: "Does a holding remove my personal tax obligations?"
     a: "Personal dividends and gains on shares can remain taxable in Box 2. The customary salary rules can also apply when you work for a company in which you have a substantial interest."
+klikken: 0
+klikkenBijgewerkt: 2026-11-09
 status: live
 image: /blog/img/holding-company-above-dutch-bv.png
 ---
