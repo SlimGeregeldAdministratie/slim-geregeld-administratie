@@ -1,6 +1,6 @@
 ---
 title: "DAFT renewal: balance sheet requirements and who signs"
-description: "What forms 7035 and 7535 ask for at DAFT renewal: two financial years, a balance sheet, profit and loss, and an independent expert."
+description: "What forms 7035 and 7535 ask for at DAFT renewal: the previous financial year plus the current year so far, a balance sheet, profit and loss, and an independent expert."
 date: 2026-11-05
 updated: 2026-11-07
 author: kyle
