@@ -452,6 +452,32 @@
     var over = document.getElementById('overdracht-blok');
     if (over) over.classList.toggle('verborgen', gekozen('bestaand') === 'Niets' || !gekozen('bestaand'));
   }
+  // Vooraf invullen (16-11-2026), net als /intake: Kyle stuurt een link met
+  // #v=<base64url van JSON> met wat hij al weet. Het #-deel gaat niet naar de
+  // server of naar analytics, en wordt na het inlezen uit de adresbalk gehaald.
+  // Geboortedatum en IBAN neemt het formulier nooit over.
+  (function(){
+    var m = location.hash.match(/[#&]v=([A-Za-z0-9_-]+)/);
+    if (!m) return;
+    try {
+      var b = m[1].replace(/-/g,'+').replace(/_/g,'/');
+      while (b.length % 4) b += '=';
+      var ruw = atob(b), bytes = new Uint8Array(ruw.length);
+      for (var i = 0; i < ruw.length; i++) bytes[i] = ruw.charCodeAt(i);
+      var v = JSON.parse(new TextDecoder().decode(bytes));
+      var nooit = { geboortedatum:1, iban:1, 'bot-field':1, 'form-name':1 };
+      Object.keys(v).forEach(function(k){
+        if (nooit[k]) return;
+        var waarde = String(v[k]);
+        form.querySelectorAll('[name="' + k.replace(/"/g,'') + '"]').forEach(function(el){
+          if (el.type === 'radio' || el.type === 'checkbox') { if (el.value === waarde) el.checked = true; }
+          else if (!el.value) el.value = waarde;
+        });
+      });
+    } catch (e) {}
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  })();
+
   form.addEventListener('change', bijwerken);
   bijwerken();
 
