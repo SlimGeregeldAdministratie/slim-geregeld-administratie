@@ -79,8 +79,35 @@ const IntakeForm = () => {
     moneybirdAppDownloadedExistingOther: ''
   });
 
+  const [vooraf, setVooraf] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Vooraf invullen: Kyle stuurt een link met #v=<base64url van JSON>. Het #-deel gaat
+  // niet naar de server of naar analytics. Gevoelige velden worden nooit overgenomen.
+  useEffect(() => {
+    const m = window.location.hash.match(/[#&]v=([A-Za-z0-9_-]+)/);
+    if (!m) return;
+    try {
+      const b64 = m[1].replace(/-/g, '+').replace(/_/g, '/');
+      const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+      const data = JSON.parse(new TextDecoder().decode(bytes));
+      const nooit = ['apiToken', 'businessIban', 'birthDate'];
+      setFormData((huidig) => {
+        const uit: Record<string, unknown> = { ...huidig };
+        for (const [k, v] of Object.entries(data)) {
+          if (nooit.includes(k) || !(k in huidig)) continue;
+          if (typeof v === typeof (huidig as Record<string, unknown>)[k]) uit[k] = v;
+        }
+        return uit as typeof huidig;
+      });
+      setVooraf(true);
+    } catch {
+      // ongeldige link: gewoon een leeg formulier
+    }
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
   }, []);
 
   useEffect(() => {
@@ -1704,6 +1731,12 @@ const IntakeForm = () => {
           <input type="hidden" name="apiToken" value={formData.apiToken} />
           <input type="hidden" name="moneybirdAppDownloadedExisting" value={formData.moneybirdAppDownloadedExisting} />
           <input type="hidden" name="moneybirdAppDownloadedExistingOther" value={formData.moneybirdAppDownloadedExistingOther} />
+
+          {vooraf && currentSection === 0 && (
+            <p className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-gray-700">
+              Wat je me al hebt verteld, heb ik alvast ingevuld. Kijk het even na en vul de rest aan.
+            </p>
+          )}
 
           {/* Current Section Content */}
           {renderSection()}
