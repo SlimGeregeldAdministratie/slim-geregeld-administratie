@@ -17,6 +17,8 @@ faq:
     a: "Btw die je niet kunt terugvragen wordt onderdeel van je bedrijfskosten. In het rekenvoorbeeld stijgen de kosten daardoor van € 1.000 naar € 1.200."
   - q: "Is een lage omzet genoeg om te bepalen of de KOR financieel aantrekkelijk is?"
     a: "Nee, de omzet laat niet zien hoeveel btw op inkopen je niet meer terugvraagt. Vergelijk daarom ook je kosten inclusief die btw."
+klikken: 0
+klikkenBijgewerkt: 2026-11-16
 status: live
 image: /blog/img/kor-aanvragen-2026-moneybird-deadline.png
 ---

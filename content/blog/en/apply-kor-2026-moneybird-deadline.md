@@ -17,6 +17,8 @@ faq:
     a: "VAT you cannot reclaim becomes part of your business costs. In the worked example, EUR 200 of supplier VAT increases costs from EUR 1,000 to EUR 1,200."
   - q: "Does low turnover alone make KOR financially attractive?"
     a: "The turnover figure does not show how much supplier VAT you would lose. Compare your costs including that VAT before making the decision."
+klikken: 0
+klikkenBijgewerkt: 2026-11-16
 status: live
 image: /blog/img/apply-kor-2026-moneybird-deadline.png
 ---

@@ -19,6 +19,8 @@ faq:
     a: "Yes. A spreadsheet is a normal starting point, and Moneybird is not required to prepare a balance sheet."
   - q: "Who prepares and signs the balance at Slim Geregeld?"
     a: "Miguel Weema guides DAFT applicants until the file is ready for signing. Kyle Bouwmeester prepares and signs the balance."
+klikken: 0
+klikkenBijgewerkt: 2026-11-16
 status: live
 image: /blog/img/daft-after-approval-six-months-to-invest.png
 ---
