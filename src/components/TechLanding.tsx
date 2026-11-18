@@ -158,7 +158,7 @@ const TechLanding = () => {
               </h1>
               
               <div className="text-xl md:text-2xl font-normal text-gray-600 mb-6 leading-relaxed">
-                – vanaf nu is administratie <span className="text-blue-600 font-bold">Slim Geregeld.</span>
+                Vanaf nu is administratie <span className="text-blue-600 font-bold">Slim Geregeld.</span>
               </div>
               
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
@@ -224,7 +224,7 @@ const TechLanding = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Meer tijd voor je bedrijf</h3>
               <p className="text-gray-700 leading-relaxed">
-                Bespaar gemiddeld <span className="font-bold">8 uur per maand</span>. Facturen opmaken via WhatsApp, 
+                Bespaar <span className="font-bold">elke maand uren</span>. Facturen opmaken via WhatsApp, 
                 bonnetjes inscannen via je telefoon. Zo heb je je avonden weer vrij!
               </p>
             </div>
@@ -247,7 +247,7 @@ const TechLanding = () => {
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Eerlijk tarief, persoonlijk contact</h3>
               <p className="text-gray-700 leading-relaxed">
                 <span className="font-bold">Één vast maandbedrag</span>, geen verrassingen. 
-                Onbeperkt advies – bel, mail of app wanneer je wilt.
+                Onbeperkt advies: bel, mail of app wanneer je wilt.
               </p>
             </div>
           </div>
@@ -261,7 +261,7 @@ const TechLanding = () => {
             <div>
               <div className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
                 <Star className="h-4 w-4 mr-2" />
-                Uniek in Nederland!
+                Uniek aan Slim Geregeld
               </div>
               
               <h2 className="text-4xl font-bold text-gray-900 mb-6">
@@ -274,8 +274,8 @@ const TechLanding = () => {
                     <Bot className="h-5 w-5 text-blue-600" />
                   </div>
                   <p className="text-gray-700 leading-relaxed">
-                    <span className="font-semibold">🤖</span> Wij zijn de enige boekhoudservice in Nederland met een 
-                    WhatsApp chatbot, genaamd <span className="font-bold text-blue-600">Slim</span>.
+                    <span className="font-semibold">🤖</span> Bij ons krijg je er een eigen 
+                    WhatsApp-chatbot bij, genaamd <span className="font-bold text-blue-600">Slim</span>.
                   </p>
                 </div>
 

@@ -119,7 +119,7 @@ const SlimChatbot = () => {
 
             {/* Subtitle */}
             <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed max-w-4xl mx-auto">
-              Regel je administratie rechtstreeks via WhatsApp. Facturen, offertes, vragen en meer – altijd binnen handbereik.
+              Regel je administratie rechtstreeks via WhatsApp. Facturen, offertes, vragen en meer, altijd binnen handbereik.
             </p>
 
             {/* CTA Buttons */}
@@ -148,7 +148,7 @@ const SlimChatbot = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mb-12">
-              Slim is de enige boekhoud-chatbot in Nederland die jouw administratie direct via WhatsApp regelt. 
+              Slim is de boekhoud-chatbot die jouw administratie direct via WhatsApp regelt. 
               Hij is speciaal gemaakt voor zelfstandigen die minder tijd willen besteden aan administratie.
             </p>
           </div>
@@ -204,7 +204,7 @@ const SlimChatbot = () => {
             Probeer Slim Chatbot 180 dagen gratis
           </h2>
           <p className="text-xl text-gray-600 mb-12 leading-relaxed">
-            Normaal €75 per maand – nu tijdelijk een half jaar volledig gratis. Je krijgt onbeperkt toegang tot Slim 
+            Normaal €75 per maand, nu tijdelijk een half jaar volledig gratis. Je krijgt onbeperkt toegang tot Slim 
             en kunt zelf ervaren hoeveel tijd en stress je bespaart.
           </p>
           

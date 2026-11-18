@@ -18,7 +18,7 @@ const Features = () => {
           <div>
             <div className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               <Star className="h-4 w-4 mr-2" />
-              Uniek in Nederland!
+              Uniek aan Slim Geregeld
             </div>
             
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
@@ -31,8 +31,8 @@ const Features = () => {
                   <Bot className="h-5 w-5 text-blue-600" />
                 </div>
                 <p className="text-gray-700 leading-relaxed">
-                  <span className="font-semibold">🤖</span> Wij zijn de enige boekhoudservice in Nederland met een 
-                  WhatsApp chatbot, genaamd <span className="font-bold text-blue-600">Slim</span>.
+                  <span className="font-semibold">🤖</span> Bij ons krijg je er een eigen 
+                  WhatsApp-chatbot bij, genaamd <span className="font-bold text-blue-600">Slim</span>.
                 </p>
               </div>
 

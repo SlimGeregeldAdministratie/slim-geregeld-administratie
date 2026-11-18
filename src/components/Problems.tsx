@@ -22,7 +22,7 @@ const Problems = () => {
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Meer tijd voor je bedrijf</h3>
             <p className="text-gray-700 leading-relaxed">
-              Bespaar gemiddeld <span className="font-bold">8 uur per maand</span>. Facturen opmaken via WhatsApp, 
+              Bespaar <span className="font-bold">elke maand uren</span>. Facturen opmaken via WhatsApp, 
               bonnetjes inscannen via je telefoon. Zo heb je je avonden weer vrij!
             </p>
           </div>
@@ -45,7 +45,7 @@ const Problems = () => {
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Eerlijk tarief, persoonlijk contact</h3>
             <p className="text-gray-700 leading-relaxed">
               <span className="font-bold">Één vast maandbedrag</span>, geen verrassingen. 
-              Onbeperkt advies – bel, mail of app wanneer je wilt.
+              Onbeperkt advies: bel, mail of app wanneer je wilt.
             </p>
           </div>
         </div>
