@@ -200,6 +200,12 @@ const Footer = () => {
               >
                 Algemene Voorwaarden
               </button>
+              <button
+                onClick={() => (window as unknown as { sgCookieInstellingen?: () => void }).sgCookieInstellingen?.()}
+                className="hover:text-white transition-colors cursor-pointer"
+              >
+                Cookie-instellingen
+              </button>
             </div>
           </div>
         </div>
