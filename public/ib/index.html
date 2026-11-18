@@ -82,6 +82,31 @@
   .melding.fout{color:#b91c1c}
   .voet{font-size:.82rem;color:var(--muted);margin-top:1.4rem}
   .verplicht{color:#b91c1c;font-weight:400}
+  /* Stappen: één onderdeel tegelijk, met voortgang erboven. */
+  .stap-weg{display:none !important}
+  .voortgang{margin-top:1.4rem}
+  .voortgang .tekst{display:flex;justify-content:space-between;font-size:.84rem;color:var(--muted);margin-bottom:.35rem}
+  .voortgang .tekst b{color:var(--ink-2);font-weight:600}
+  .balk{height:6px;border-radius:999px;background:var(--rand);overflow:hidden}
+  .balk span{display:block;height:100%;background:var(--blauw);border-radius:999px;transition:width .25s}
+  .stapknoppen{display:flex;justify-content:space-between;gap:.8rem;margin-top:1.4rem;flex-wrap:wrap}
+  .stapknoppen button{margin-top:0}
+  button.terug{background:var(--bg);color:var(--ink-2);border:1px solid var(--rand)}
+  button.terug:hover{background:var(--bg-zacht)}
+  .stapmelding{margin-top:.8rem;font-size:.9rem;color:#b91c1c}
+  .bewaard{font-size:.8rem;color:var(--muted);margin-top:.6rem}
+  /* Uploadvak: de knop van de browser is verborgen (die toont de taal van de
+     browser, niet van het formulier); dit is onze eigen knop met de gekozen bestanden eronder. */
+  .onzichtbaar{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .kies{display:inline-flex;align-items:center;gap:.45rem;margin-top:.45rem;padding:.5rem .9rem;border:1px solid var(--blauw-rand);
+    border-radius:10px;background:var(--blauw-tint);color:var(--blauw-donker);font-size:.88rem;font-weight:600;cursor:pointer}
+  .kies:hover{background:#dbeafe}
+  .kies svg{width:16px;height:16px;flex:none}
+  input[type=file]:focus-visible + .kies{outline:2px solid var(--blauw);outline-offset:2px}
+  ul.gekozen{list-style:none;margin:.45rem 0 0;padding:0;font-size:.84rem;color:var(--ink-2)}
+  ul.gekozen li{display:flex;gap:.4rem;align-items:baseline;padding:.15rem 0}
+  ul.gekozen li::before{content:"✓";color:#16a34a;font-weight:700}
+  ul.gekozen .maat{color:var(--muted)}
   .taal{display:inline-flex;border:1px solid var(--rand);border-radius:999px;background:var(--bg);padding:3px;margin-bottom:1rem}
   .taal button{margin:0;padding:.35rem .9rem;border-radius:999px;background:transparent;color:var(--body);font-size:.85rem;font-weight:600}
   .taal button[aria-pressed="true"]{background:var(--blauw);color:#fff}
@@ -408,6 +433,22 @@
             <label class="keuze"><input type="radio" name="{p}ov" value="nee"><span class="titel">Nee</span></label>
           </div>
         </div>
+        <div class="veld">
+          <span class="vraag">Werkte {wie} een deel van het jaar vanuit het buitenland?</span>
+          <div class="opties">
+            <label class="keuze"><input type="radio" name="{p}werk_buitenland" value="ja" required><span class="titel">Ja</span></label>
+            <label class="keuze"><input type="radio" name="{p}werk_buitenland" value="nee"><span class="titel">Nee</span></label>
+          </div>
+        </div>
+        <div class="veld">
+          <span class="vraag">Gold de 30%-regeling?
+            <span class="bij">Een belastingvoordeel voor werknemers die uit het buitenland zijn aangenomen. Staat in je arbeidscontract of op je loonstrook.</span></span>
+          <div class="opties">
+            <label class="keuze"><input type="radio" name="{p}regeling30" value="ja" required><span class="titel">Ja</span></label>
+            <label class="keuze"><input type="radio" name="{p}regeling30" value="nee"><span class="titel">Nee</span></label>
+            <label class="keuze"><input type="radio" name="{p}regeling30" value="weet_niet"><span class="titel">Weet ik niet</span></label>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -465,6 +506,15 @@
           <div class="vervolg" data-als="{p}starter=ja">
             <label class="vraag">Sinds wanneer, ongeveer?</label>
             <input name="{p}start" type="text" placeholder="bijvoorbeeld: oktober 2024" required>
+            <div class="veld">
+              <span class="vraag">In de 5 jaar daarvoor ook al ondernemer geweest?
+                <span class="bij">Met een ander bedrijf, of als zzp'er. Dat bepaalt welke starterskorting je krijgt.</span></span>
+              <div class="opties">
+                <label class="keuze"><input type="radio" name="{p}eerder_ondernemer" value="ja" required><span class="titel">Ja</span></label>
+                <label class="keuze"><input type="radio" name="{p}eerder_ondernemer" value="nee"><span class="titel">Nee</span></label>
+                <label class="keuze"><input type="radio" name="{p}eerder_ondernemer" value="weet_niet"><span class="titel">Weet ik niet</span></label>
+              </div>
+            </div>
           </div>
         </div>
         <div class="veld">
@@ -584,7 +634,12 @@
     'Dan haal ik de cijfers daar zelf uit.': 'Then I take the figures from there myself.',
     'Je cijfers over het jaar': 'Your figures for the year',
     'Een winst-en-verliesrekening als je die hebt. Zo niet, dan je verstuurde facturen, bonnetjes en bankafschriften van je zakelijke rekening. Dan maak ik hem.': 'A profit and loss account if you have one. If not, your sales invoices, receipts and business bank statements, and I will make it.',
-    'Werkte {wie} 1.225 uur of meer aan het bedrijf?': 'Did {wie} work 1,225 hours or more on the business?',
+    'Werkte {wie} een deel van het jaar vanuit het buitenland?': 'Did {wie} work from abroad for part of the year?',
+    'Gold de 30%-regeling?': 'Did the 30% ruling apply?',
+    'Een belastingvoordeel voor werknemers die uit het buitenland zijn aangenomen. Staat in je arbeidscontract of op je loonstrook.': 'A tax benefit for employees hired from abroad. It is in your employment contract or on your payslip.',
+    'In de 5 jaar daarvoor ook al ondernemer geweest?': 'Self-employed at any time in the 5 years before that?',
+    'Met een ander bedrijf, of als zzp\'er. Dat bepaalt welke starterskorting je krijgt.': 'With another business, or as a freelancer. This decides which starter deduction you get.',
+    'Werkte {wie} 1.225 uur of meer aan het bedrijf?':'Did {wie} work 1,225 hours or more on the business?',
     'Gemiddeld 24 uur per week. Reistijd, acquisitie en administratie tellen mee. Uren in loondienst niet.': 'About 24 hours a week. Travel, finding clients and admin count. Hours as an employee do not.',
     'Urenoverzicht, als je dat hebt': 'Hours overview, if you have one',
     'Per week of maand wat je deed is genoeg. Heb je het niet, dan help ik je het te maken.': 'What you did per week or month is enough. If you do not have one, I will help you make it.',
@@ -752,6 +807,9 @@
       vorigeSleutel = sleutel;
       document.querySelectorAll('[data-sjabloon]').forEach(function(c){
         var w = bewaar(c);
+        // gekozen bestanden gaan mee naar de nieuwe kaarten (bij taal- of partnerwissel)
+        var oudeBestanden = {};
+        c.querySelectorAll('input[type=file]').forEach(function(i){ if (i.files && i.files.length) oudeBestanden[i.dataset.vak] = i.files; });
         var html = vertaalHTML(document.getElementById(c.dataset.sjabloon).innerHTML);
         c.innerHTML = lijst.map(function(x){
           var nm = '<span class="nm-' + x.p + '"></span>';
@@ -762,6 +820,9 @@
         }).join('');
         c.classList.toggle('met-partner', lijst.length > 1);
         herstel(c, w);
+        c.querySelectorAll('input[type=file]').forEach(function(i){
+          if (oudeBestanden[i.dataset.vak]) { try { i.files = oudeBestanden[i.dataset.vak]; } catch(e) {} }
+        });
       });
     }
     lijst.forEach(function(x){
@@ -787,6 +848,48 @@
     form.querySelectorAll('input,select,textarea').forEach(function(i){
       i.disabled = !!i.closest('.verborgen');
     });
+    bestandVelden(form);
+  }
+
+  // ---- Uploadvakken in eigen stijl ----
+  var MAP_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>';
+  function toonGekozen(inp){
+    var ul = inp.__lijst; if (!ul) return;
+    ul.innerHTML = '';
+    Array.prototype.forEach.call(inp.files || [], function(f){
+      var li = document.createElement('li');
+      var kb = f.size < 1024 * 1024 ? Math.max(1, Math.round(f.size / 1024)) + ' KB' : (f.size / 1048576).toFixed(1).replace('.', T(',', '.')) + ' MB';
+      li.innerHTML = '<span></span><span class="maat"></span>';
+      li.firstChild.textContent = f.name; li.lastChild.textContent = kb;
+      ul.appendChild(li);
+    });
+    kiesTeksten();
+  }
+  function kiesTeksten(){
+    form.querySelectorAll('input[type=file]').forEach(function(inp){
+      if (!inp.__tekst) return;
+      var al = inp.files && inp.files.length;
+      inp.__tekst.textContent = al ? T('Andere bestanden kiezen', 'Choose other files') : T('Bestanden kiezen', 'Choose files');
+    });
+  }
+  function bestandVelden(root){
+    root.querySelectorAll('input[type=file]').forEach(function(inp){
+      if (inp.__klaar) return;
+      inp.__klaar = true;
+      if (!inp.id) inp.id = 'bf' + Math.random().toString(36).slice(2, 9);
+      inp.classList.add('onzichtbaar');
+      var lab = document.createElement('label');
+      lab.className = 'kies'; lab.htmlFor = inp.id;
+      lab.innerHTML = MAP_SVG + '<span></span>';
+      inp.__tekst = lab.lastChild;
+      var ul = document.createElement('ul'); ul.className = 'gekozen';
+      inp.__lijst = ul;
+      inp.parentNode.insertBefore(lab, inp.nextSibling);
+      lab.parentNode.insertBefore(ul, lab.nextSibling);
+      inp.addEventListener('change', function(){ toonGekozen(inp); });
+      toonGekozen(inp);
+    });
+    kiesTeksten();
   }
 
   // "Niets hiervan" sluit de andere vinkjes uit, en andersom.
@@ -817,6 +920,7 @@
     vertaal(main);
     kaarten.forEach(function(c){ c.__weg.parentNode.replaceChild(c, c.__weg); });
     bijwerken();
+    naTaal();
   }
   document.querySelectorAll('.taal button').forEach(function(b){
     b.addEventListener('click', function(){ zetTaal(b.dataset.taal); });
@@ -844,22 +948,135 @@
     return som % 11 === 0;
   }
 
+  // Eerste fout binnen een stap (of het hele formulier), met de uitleg erbij.
+  function fout(binnen){
+    var tekst = T('Een paar verplichte vragen staan nog open. Ze hebben een rood sterretje.', 'A few required questions are still open. They are marked with a red asterisk.');
+    var velden = Array.prototype.filter.call(binnen.querySelectorAll('input,select,textarea'), function(i){ return !i.disabled; });
+    var el = velden.filter(function(i){ return !i.checkValidity(); })[0] || null;
+    if (!el) {
+      var g = groepFout();
+      if (g && binnen.contains(g)) el = g;
+    }
+    if (el && el.type === 'file') tekst = T('Hier ontbreekt nog een bestand. Na een onderbreking moet je bestanden opnieuw kiezen.', 'A file is still missing here. After a break you need to choose your files again.');
+    var bsn = form.elements.bsn, pbsn = form.elements.p_bsn, pc = form.elements.postcode;
+    if (!el && binnen.contains(bsn) && !bsnOk(bsn.value)) { el = bsn; tekst = T('Dit BSN klopt niet. Kijk het even na op je ID-bewijs.', 'This BSN is not valid. Please check it on your ID or residence permit.'); }
+    if (!el && binnen.contains(pbsn) && !pbsn.disabled && !bsnOk(pbsn.value)) { el = pbsn; tekst = T('Het BSN van je partner klopt niet.', 'Your partner\'s BSN is not valid.'); }
+    if (!el && binnen.contains(pc) && !/^\s*\d{4}\s?[A-Za-z]{2}\s*$/.test(pc.value)) { el = pc; tekst = T('Vul de postcode in als 1234 AB.', 'Enter the postcode as 1234 AB.'); }
+    return el ? { el: el, tekst: tekst } : null;
+  }
+
+  // ---- Stappen: één onderdeel per scherm ----
+  var stappen = Array.prototype.slice.call(form.querySelectorAll(':scope > fieldset'));
+  var nu = 0;
+  var voortgang = document.createElement('div');
+  voortgang.className = 'voortgang';
+  voortgang.innerHTML = '<div class="tekst"><b></b><span></span></div><div class="balk"><span></span></div><p class="bewaard"></p>';
+  form.parentNode.insertBefore(voortgang, form);
+  stappen.forEach(function(s, k){
+    var rij = document.createElement('div'); rij.className = 'stapknoppen';
+    var terug = document.createElement('button'); terug.type = 'button'; terug.className = 'terug';
+    terug.addEventListener('click', function(){ toonStap(k - 1); });
+    rij.appendChild(k > 0 ? terug : document.createElement('span'));
+    if (k < stappen.length - 1) {
+      var verder = document.createElement('button'); verder.type = 'button'; verder.className = 'verder';
+      verder.addEventListener('click', function(){
+        bijwerken();
+        var f = fout(s);
+        if (f) { toonFout(f); return; }
+        form.querySelectorAll('.stapmelding').forEach(function(x){ x.textContent = ''; });
+        toonStap(k + 1);
+      });
+      rij.appendChild(verder);
+      s.appendChild(rij);
+      var m = document.createElement('p'); m.className = 'stapmelding'; m.setAttribute('role', 'alert'); s.appendChild(m);
+    } else {
+      knop.parentNode.insertBefore(rij, knop);
+      rij.appendChild(knop);
+      var m2 = document.createElement('p'); m2.className = 'stapmelding'; m2.setAttribute('role', 'alert'); rij.parentNode.insertBefore(m2, rij.nextSibling);
+    }
+  });
+  function toonFout(f){
+    var s = f.el.closest('fieldset');
+    var k = stappen.indexOf(s);
+    if (k >= 0 && k !== nu) toonStap(k);
+    form.querySelectorAll('.stapmelding').forEach(function(x){ x.textContent = ''; });
+    var m = s && s.querySelector('.stapmelding');
+    if (m) m.textContent = f.tekst;
+    var doel = f.el.type === 'file' && f.el.nextSibling ? f.el.nextSibling : f.el;
+    doel.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    if (f.el.type !== 'file' && f.el.type !== 'radio' && f.el.type !== 'checkbox') { try { f.el.focus({ preventScroll: true }); } catch(e) {} }
+  }
+  function toonStap(k){
+    if (k < 0 || k >= stappen.length) return;
+    nu = k;
+    stappen.forEach(function(s, i){ s.classList.toggle('stap-weg', i !== k); });
+    naTaal();
+    voortgang.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    opslaan();
+  }
+  function naTaal(){
+    if (!stappen || !stappen.length) return;
+    var titel = (stappen[nu].querySelector('legend') || {}).textContent || '';
+    voortgang.querySelector('b').textContent = titel.replace(/^\d+\.\s*/, '');
+    voortgang.querySelector('.tekst span').textContent = T('Stap ', 'Step ') + (nu + 1) + T(' van ', ' of ') + stappen.length;
+    voortgang.querySelector('.balk span').style.width = Math.round((nu + 1) / stappen.length * 100) + '%';
+    voortgang.querySelector('.bewaard').textContent = T('Je antwoorden worden op dit apparaat bewaard tot je verstuurt. Je BSN en bestanden niet: die vul je na een onderbreking opnieuw in.',
+      'Your answers are kept on this device until you send them. Your BSN and files are not: after a break you add those again.');
+    form.querySelectorAll('button.terug').forEach(function(b){ b.textContent = T('Vorige', 'Back'); });
+    form.querySelectorAll('button.verder').forEach(function(b){ b.textContent = T('Volgende', 'Next'); });
+    kiesTeksten();
+  }
+
+  // ---- Tussentijds bewaren op dit apparaat, zonder BSN en bestanden ----
+  var SLEUTEL = 'ib-concept-' + (token || 'zonder-link');
+  var NIET_BEWAREN = { bsn: 1, p_bsn: 1 };
+  var wachtOpslaan = null;
+  function opslaan(){
+    clearTimeout(wachtOpslaan);
+    wachtOpslaan = setTimeout(function(){
+      var v = {};
+      form.querySelectorAll('input,select,textarea').forEach(function(i){
+        if (!i.name || i.type === 'file' || NIET_BEWAREN[i.name]) return;
+        if (i.type === 'radio') { if (i.checked) v[i.name] = i.value; return; }
+        if (i.type === 'checkbox') { if (i.checked) (v[i.name] = v[i.name] || []).push(i.value); return; }
+        if (i.value) v[i.name] = i.value;
+      });
+      try { localStorage.setItem(SLEUTEL, JSON.stringify({ v: v, stap: nu, taal: taal, t: Date.now() })); } catch(e) {}
+    }, 300);
+  }
+  function zetWaarden(v){
+    Object.keys(v).forEach(function(naam){
+      form.querySelectorAll('[name="' + naam + '"]').forEach(function(i){
+        if (i.type === 'radio') i.checked = i.value === v[naam];
+        else if (i.type === 'checkbox') i.checked = [].concat(v[naam]).indexOf(i.value) >= 0;
+        else if (i.type !== 'file') i.value = v[naam];
+      });
+    });
+  }
+  function terugzetten(){
+    var d = null;
+    try { d = JSON.parse(localStorage.getItem(SLEUTEL) || 'null'); } catch(e) {}
+    if (!d || !d.v) return false;
+    if (Date.now() - d.t > 30 * 24 * 3600 * 1000) { try { localStorage.removeItem(SLEUTEL); } catch(e) {} return false; }
+    if (!hash.get('l') && d.taal) zetTaal(d.taal);
+    // twee keer: de kaarten per persoon bestaan pas als de partnervraag is ingevuld
+    zetWaarden(d.v); zetJaar(); bijwerken(); zetWaarden(d.v); bijwerken();
+    toonStap(Math.min(d.stap || 0, stappen.length - 1));
+    voortgang.querySelector('.bewaard').textContent = T('Welkom terug. Je eerdere antwoorden staan er weer. Vul je BSN en de bestanden opnieuw in.',
+      'Welcome back. Your earlier answers are filled in again. Please add your BSN and files again.');
+    return true;
+  }
+  form.addEventListener('change', opslaan);
+  form.addEventListener('input', opslaan);
+  if (!terugzetten()) toonStap(0);
+
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     melding.className = 'melding'; melding.textContent = '';
     bijwerken();
 
-    var eerste = null, tekst = T('Een paar verplichte vragen staan nog open. Ze hebben een rood sterretje.', 'A few required questions are still open. They are marked with a red asterisk.');
-    if (!form.checkValidity()) eerste = form.querySelector(':invalid');
-    if (!eerste) { var g = groepFout(); if (g) eerste = g; }
-    if (!eerste && !bsnOk(form.elements.bsn.value)) { eerste = form.elements.bsn; tekst = T('Dit BSN klopt niet. Kijk het even na op je ID-bewijs.', 'This BSN is not valid. Please check it on your ID or residence permit.'); }
-    if (!eerste && metPartner() && !bsnOk(form.elements.p_bsn.value)) { eerste = form.elements.p_bsn; tekst = T('Het BSN van je partner klopt niet.', 'Your partner\'s BSN is not valid.'); }
-    if (!eerste && !/^\s*\d{4}\s?[A-Za-z]{2}\s*$/.test(form.elements.postcode.value)) { eerste = form.elements.postcode; tekst = T('Vul de postcode in als 1234 AB.', 'Enter the postcode as 1234 AB.'); }
-    if (eerste) {
-      melding.className = 'melding fout'; melding.textContent = tekst;
-      eerste.scrollIntoView({ block:'center', behavior:'smooth' });
-      return;
-    }
+    var f = fout(form);
+    if (f) { toonFout(f); return; }
 
     // Antwoorden als JSON, bestanden apart met hun vak in de naam.
     var antwoorden = {};
@@ -911,6 +1128,8 @@
         return;
       }
       if (!r.ok) throw new Error('http ' + r.status);
+      try { localStorage.removeItem(SLEUTEL); } catch(e) {}
+      voortgang.remove();
       form.innerHTML = '<fieldset><legend>' + T('Dank je wel', 'Thank you') + '</legend><p class="hint" style="margin:0">' +
         T('Alles is binnen. Ik kijk het na en mail je binnen twee werkdagen. Heb ik nog iets nodig, dan staat dat in die mail. Daarna krijg je eerst een concept van je aangifte.',
           'Everything is in. I will review it and email you within two working days. If I need anything else, it will be in that email. After that you first get a draft of your return.') +
