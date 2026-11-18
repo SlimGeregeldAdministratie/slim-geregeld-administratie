@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Aangifte inkomstenbelasting | Slim Geregeld Administratie</title>
+<style>
+  :root{
+    --ink:#0b1220; --ink-2:#1f2937; --body:#4b5563; --muted:#6b7280;
+    --blauw:#2563eb; --blauw-donker:#1d4ed8; --blauw-tint:#eff6ff; --blauw-rand:#bfdbfe;
+    --amber-tint:#fffbeb; --amber-rand:#fde68a; --amber:#92400e;
+    --groen-tint:#f0fdf4; --groen-rand:#bbf7d0;
+    --bg:#ffffff; --bg-zacht:#f8fafc; --rand:#e5e7eb;
+    --r:14px; --r-groot:20px;
+    --schaduw:0 1px 2px rgba(11,18,32,.04), 0 8px 24px rgba(11,18,32,.06);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg-zacht);color:var(--ink-2);line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+  .kop{background:var(--bg);border-bottom:1px solid var(--rand)}
+  .kop .binnen{max-width:760px;margin:0 auto;padding:1rem clamp(1rem,4vw,1.5rem);display:flex;align-items:center;gap:.6rem}
+  .merk{font-weight:700;color:var(--ink);font-size:.98rem}
+  .merk small{display:block;font-weight:500;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blauw)}
+  .blok{width:28px;height:28px;flex:none;border-radius:8px;background:var(--blauw);color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700}
+  main{max-width:760px;margin:0 auto;padding:clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,1.5rem) 4rem}
+  h1{color:var(--ink);font-size:clamp(1.6rem,4.5vw,2.1rem);letter-spacing:-.02em;line-height:1.2}
+  .lead{color:var(--body);margin-top:.6rem;max-width:60ch}
+  fieldset{border:0;background:var(--bg);border:1px solid var(--rand);border-radius:var(--r-groot);
+    padding:1.4rem clamp(1rem,3vw,1.5rem);box-shadow:var(--schaduw);margin-top:1.2rem;min-width:0}
+  legend{float:left;width:100%;font-weight:700;color:var(--ink);font-size:1.02rem;margin-bottom:.2rem}
+  legend + .hint{clear:both}
+  .hint{font-size:.86rem;color:var(--muted);margin-bottom:.4rem;max-width:62ch}
+  .veld{margin-top:1rem}
+  .vraag{display:block;font-size:.9rem;font-weight:600;color:var(--ink-2);margin-bottom:.3rem}
+  .vraag .bij,.bij{font-weight:400;font-size:.82rem;color:var(--muted);display:block;margin-top:.15rem}
+  input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
+    width:100%;font:inherit;font-size:.95rem;padding:.6rem .75rem;border:1px solid var(--rand);
+    border-radius:10px;background:var(--bg);color:var(--ink-2)}
+  input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select{height:2.875rem}
+  textarea{height:auto;min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--blauw);outline-offset:1px;border-color:var(--blauw)}
+  .twee{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:end}
+  .drie{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:1rem;align-items:end}
+  @media (max-width:560px){.twee,.drie{grid-template-columns:1fr}}
+  .opties{display:flex;flex-wrap:wrap;gap:.45rem}
+  .keuze{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem .8rem;
+    border:1px solid var(--rand);border-radius:10px;cursor:pointer;background:var(--bg);font-size:.92rem}
+  .opties .keuze{flex:0 1 auto}
+  .lijst .keuze{margin-top:.45rem}
+  .keuze:hover{border-color:var(--blauw-rand);background:var(--blauw-tint)}
+  .keuze input{flex:none;width:1.05rem;height:1.05rem;margin:.18rem 0 0 0}
+  .keuze .titel{display:block;flex:1 1 auto}
+  .keuze .uitleg{display:block;font-size:.82rem;color:var(--muted);margin-top:.1rem}
+  .keuze:has(input:checked){border-color:var(--blauw);background:var(--blauw-tint)}
+  .vervolg{border-left:3px solid var(--blauw-rand);padding-left:.9rem;margin-top:.6rem}
+  .let-op{background:var(--amber-tint);border:1px solid var(--amber-rand);border-radius:10px;
+    padding:.75rem .9rem;margin-top:.7rem;font-size:.86rem;color:var(--amber)}
+  .goed{background:var(--groen-tint);border:1px solid var(--groen-rand);border-radius:10px;
+    padding:.75rem .9rem;margin-top:.7rem;font-size:.86rem;color:#166534}
+  /* Per persoon: bij een fiscale partner staan jij en je partner naast elkaar,
+     elk in een eigen kaart met de voornaam erboven. Zo is nooit onduidelijk
+     voor wie een antwoord of upload is. */
+  .personen{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:.8rem}
+  .personen.met-partner{grid-template-columns:1fr 1fr}
+  @media (max-width:640px){.personen.met-partner{grid-template-columns:1fr}}
+  .persoon{border:1px solid var(--rand);border-radius:var(--r);padding:1rem;background:var(--bg-zacht)}
+  .personen:not(.met-partner) .persoon{border:0;padding:0;background:transparent}
+  .persoon > h3{font-size:.95rem;color:var(--blauw-donker);margin-bottom:.2rem}
+  .personen:not(.met-partner) .persoon > h3{display:none}
+  .persoon .veld:first-of-type{margin-top:.4rem}
+  input[type=file]{font-size:.85rem;margin-top:.2rem;max-width:100%}
+  .upload{border:1px dashed var(--blauw-rand);border-radius:10px;padding:.7rem .8rem;background:var(--bg);margin-top:.5rem}
+  .upload .vraag{margin-bottom:.1rem}
+  .verborgen{display:none !important}
+  button{font:inherit;font-size:.98rem;font-weight:700;border:0;background:var(--blauw);color:#fff;
+    border-radius:12px;padding:.8rem 1.6rem;cursor:pointer;margin-top:1.4rem}
+  button:hover{background:var(--blauw-donker)}
+  button:disabled{opacity:.55;cursor:not-allowed}
+  .melding{margin-top:1rem;font-size:.9rem}
+  .melding.fout{color:#b91c1c}
+  .voet{font-size:.82rem;color:var(--muted);margin-top:1.4rem}
+  .verplicht{color:#b91c1c;font-weight:400}
+</style>
+</head>
+<body>
+<div class="kop"><div class="binnen">
+  <span class="blok">SG</span>
+  <span class="merk">Slim Geregeld<small>Administratie</small></span>
+</div></div>
+
+<main>
+  <h1>Je aangifte inkomstenbelasting</h1>
+  <p class="lead">Met deze vragen weet ik in één keer wat ik nodig heb. Je ziet alleen de vragen die
+  voor jou gelden. Twijfel je ergens? Kies dan "Weet ik niet": dan kijk ik het na en kom ik er in mijn
+  mail op terug. Reken op ongeveer 15 minuten, met je jaaropgaven bij de hand.</p>
+
+  <form id="f" novalidate>
+    <!-- 1. Over jou -->
+    <fieldset>
+      <legend>1. Over jou</legend>
+      <p class="hint">Je BSN en adres gebruik ik alleen voor je aangifte. Ze gaan niet mee in mails.</p>
+
+      <div class="veld">
+        <label class="vraag" for="jaar">Over welk jaar doen we aangifte? <span class="verplicht">*</span></label>
+        <select id="jaar" name="jaar" required></select>
+      </div>
+
+      <div class="twee veld">
+        <div><label class="vraag" for="voornaam">Voornaam <span class="verplicht">*</span></label>
+          <input id="voornaam" name="voornaam" type="text" autocomplete="given-name" required></div>
+        <div><label class="vraag" for="achternaam">Achternaam <span class="verplicht">*</span></label>
+          <input id="achternaam" name="achternaam" type="text" autocomplete="family-name" required></div>
+      </div>
+      <div class="twee veld">
+        <div><label class="vraag" for="geboortedatum">Geboortedatum <span class="verplicht">*</span></label>
+          <input id="geboortedatum" name="geboortedatum" type="date" required></div>
+        <div><label class="vraag" for="bsn">BSN <span class="verplicht">*</span>
+          <span class="bij">Staat op je paspoort, ID-kaart of rijbewijs.</span></label>
+          <input id="bsn" name="bsn" type="text" inputmode="numeric" autocomplete="off" maxlength="11" required></div>
+      </div>
+      <div class="twee veld">
+        <div><label class="vraag" for="email">E-mailadres <span class="verplicht">*</span></label>
+          <input id="email" name="email" type="email" autocomplete="email" required></div>
+        <div><label class="vraag" for="telefoon">Telefoonnummer</label>
+          <input id="telefoon" name="telefoon" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="drie veld">
+        <div><label class="vraag" for="straat">Straat en huisnummer <span class="verplicht">*</span></label>
+          <input id="straat" name="straat" type="text" autocomplete="street-address" required></div>
+        <div><label class="vraag" for="postcode">Postcode <span class="verplicht">*</span></label>
+          <input id="postcode" name="postcode" type="text" autocomplete="postal-code" maxlength="7" required></div>
+        <div><label class="vraag" for="plaats">Plaats <span class="verplicht">*</span></label>
+          <input id="plaats" name="plaats" type="text" autocomplete="address-level2" required></div>
+      </div>
+
+      <div class="veld">
+        <span class="vraag">Ben je in <span class="j">dit jaar</span> in Nederland komen wonen, of uit Nederland vertrokken? <span class="verplicht">*</span></span>
+        <div class="opties">
+          <label class="keuze"><input type="radio" name="verhuisd" value="nee" required><span class="titel">Nee</span></label>
+          <label class="keuze"><input type="radio" name="verhuisd" value="gekomen"><span class="titel">Ja, gekomen</span></label>
+          <label class="keuze"><input type="radio" name="verhuisd" value="vertrokken"><span class="titel">Ja, vertrokken</span></label>
+        </div>
+        <div class="vervolg" data-als="verhuisd=gekomen|vertrokken">
+          <div class="twee veld">
+            <div><label class="vraag" for="verhuisdatum">Op welke datum?</label>
+              <input id="verhuisdatum" name="verhuisdatum" type="date" required></div>
+            <div><label class="vraag" for="ander_land">Uit of naar welk land?</label>
+              <input id="ander_land" name="ander_land" type="text" required></div>
+          </div>
+          <p class="let-op">Dan doen we een migratie-aangifte. Ik stel je over je inkomen en bezit in het andere land een paar vragen per mail.</p>
+        </div>
+      </div>
+
+      <div class="veld">
+        <span class="vraag">Heb ik je aangifte over het jaar daarvoor ook gedaan? <span class="verplicht">*</span></span>
+        <div class="opties">
+          <label class="keuze"><input type="radio" name="vorige_bij_mij" value="ja" required><span class="titel">Ja</span></label>
+          <label class="keuze"><input type="radio" name="vorige_bij_mij" value="nee"><span class="titel">Nee</span></label>
+          <label class="keuze"><input type="radio" name="vorige_bij_mij" value="eerste"><span class="titel">Dit is mijn eerste aangifte in Nederland</span></label>
+        </div>
+        <div class="vervolg" data-als="vorige_bij_mij=nee">
+          <div class="upload">
+            <label class="vraag" for="up_vorige">Upload je aangifte of aanslag over het jaar daarvoor
+              <span class="bij">Te vinden in Mijn Belastingdienst. Ik zie daarin bijvoorbeeld welke aftrek je al eerder hebt gebruikt.</span></label>
+            <input id="up_vorige" type="file" data-vak="aangifte_vorig_jaar" multiple accept=".pdf,.jpg,.jpeg,.png">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- 2. Partner en kinderen -->
+    <fieldset>
+      <legend>2. Partner en kinderen</legend>
+      <div class="veld">
+        <span class="vraag">Had je in <span class="j">dit jaar</span> een fiscale partner? <span class="verplicht">*</span>
+          <span class="bij">Dat is zo als je getrouwd was of een geregistreerd partnerschap had. Of als je samenwoonde op hetzelfde adres
+          en jullie samen een kind of een koophuis hadden, of een samenlevingscontract bij de notaris.</span></span>
+        <div class="opties">
+          <label class="keuze"><input type="radio" name="partner" value="ja" required><span class="titel">Ja</span></label>
+          <label class="keuze"><input type="radio" name="partner" value="nee"><span class="titel">Nee</span></label>
+          <label class="keuze"><input type="radio" name="partner" value="weet_niet"><span class="titel">Weet ik niet</span></label>
+        </div>
+        <div class="vervolg" data-als="partner=weet_niet">
+          <p class="let-op">Geen probleem. Vul dan hieronder toch de gegevens van je huisgenoot in, dan beoordeel ik het.</p>
+        </div>
+        <div class="vervolg" data-als="partner=ja|weet_niet">
+          <div class="twee veld">
+            <div><label class="vraag" for="p_voornaam">Voornaam partner <span class="verplicht">*</span></label>
+              <input id="p_voornaam" name="p_voornaam" type="text" required></div>
+            <div><label class="vraag" for="p_achternaam">Achternaam partner <span class="verplicht">*</span></label>
+              <input id="p_achternaam" name="p_achternaam" type="text" required></div>
+          </div>
+          <div class="twee veld">
+            <div><label class="vraag" for="p_geboortedatum">Geboortedatum partner <span class="verplicht">*</span></label>
+              <input id="p_geboortedatum" name="p_geboortedatum" type="date" required></div>
+            <div><label class="vraag" for="p_bsn">BSN partner <span class="verplicht">*</span></label>
+              <input id="p_bsn" name="p_bsn" type="text" inputmode="numeric" autocomplete="off" maxlength="11" required></div>
+          </div>
+          <div class="veld">
+            <span class="vraag">Waren jullie het hele jaar partner? <span class="verplicht">*</span></span>
+            <div class="opties">
+              <label class="keuze"><input type="radio" name="p_heel_jaar" value="ja" required><span class="titel">Ja</span></label>
+              <label class="keuze"><input type="radio" name="p_heel_jaar" value="nee"><span class="titel">Nee, een deel van het jaar</span></label>
+            </div>
+            <div class="vervolg" data-als="p_heel_jaar=nee">
+              <label class="vraag" for="p_periode">Vanaf of tot wanneer?</label>
+              <input id="p_periode" name="p_periode" type="text" placeholder="bijvoorbeeld: samen gaan wonen op 1 juni" required>
+            </div>
+          </div>
+          <p class="goed">Vanaf hier vraag ik alles voor jullie allebei apart, met je naam en die van je partner erboven.</p>
+        </div>
+      </div>
+
+      <div class="veld">
+        <span class="vraag">Woonden er kinderen bij je die op 1 januari jonger waren dan 12? <span class="verplicht">*</span>
+          <span class="bij">Dan krijgt de werkende ouder met het laagste inkomen soms extra korting.</span></span>
+        <div class="opties">
+          <label class="keuze"><input type="radio" name="kinderen" value="ja" required><span class="titel">Ja</span></label>
+          <label class="keuze"><input type="radio" name="kinderen" value="nee"><span class="titel">Nee</span></label>
+        </div>
+        <div class="vervolg" data-als="kinderen=ja">
+          <label class="vraag" for="kinderen_info">Voornaam en geboortedatum van elk kind</label>
+          <textarea id="kinderen_info" name="kinderen_info" placeholder="bijvoorbeeld: Noor, 14-03-2019" required></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- 3. Werk en inkomen, per persoon -->
+    <fieldset>
+      <legend>3. Werk en inkomen</legend>
+      <p class="hint">Upload de jaaropgaven die je hebt. Een foto met je telefoon is ook goed.</p>
+      <div class="personen" data-sjabloon="t-werk"></div>
+    </fieldset>
+
+    <!-- 4. Huis -->
+    <fieldset>
+      <legend>4. Je huis</legend>
+      <div class="veld">
+        <span class="vraag">Woonde je in een koophuis? <span class="verplicht">*</span></span>
+        <div class="opties">
+          <label class="keuze"><input type="radio" name="koophuis" value="ja" required><span class="titel">Ja</span></label>
+          <label class="keuze"><input type="radio" name="koophuis" value="nee"><span class="titel">Nee, ik huurde of woonde bij iemand in</span></label>
+        </div>
+        <div class="vervolg" data-als="koophuis=ja">
+          <div class="upload">
+            <label class="vraag" for="up_hypotheek">Jaaroverzicht van je hypotheek <span class="verplicht">*</span>
+              <span class="bij">Krijg je begin van het jaar van je bank of hypotheekverstrekker. Heb je meer leningdelen of een tweede lening, upload ze allemaal.</span></label>
+            <input id="up_hypotheek" type="file" data-vak="hypotheek" multiple accept=".pdf,.jpg,.jpeg,.png" required>
+          </div>
+          <div class="upload">
+            <label class="vraag" for="up_woz">WOZ-beschikking van de gemeente
+              <span class="bij">Heb je hem niet bij de hand? Laat dan leeg, dan zoek ik de WOZ-waarde op.</span></label>
+            <input id="up_woz" type="file" data-vak="woz" multiple accept=".pdf,.jpg,.jpeg,.png">
+          </div>
+          <div class="veld met-partner-alleen">
+            <span class="vraag">Van wie is het huis?</span>
+            <div class="opties">
+              <label class="keuze"><input type="radio" name="huis_van" value="samen" required><span class="titel">Van ons samen</span></label>
+              <label class="keuze"><input type="radio" name="huis_van" value="ik"><span class="titel naam-jij">Van mij</span></label>
+              <label class="keuze"><input type="radio" name="huis_van" value="partner"><span class="titel naam-partner">Van mijn partner</span></label>
+            </div>
+          </div>
+          <div class="veld">
+            <span class="vraag">Heb je dit jaar een huis gekocht of verkocht? <span class="verplicht">*</span></span>
+            <div class="opties">
+              <label class="keuze"><input type="radio" name="huis_mutatie" value="nee" required><span class="titel">Nee</span></label>
+              <label class="keuze"><input type="radio" name="huis_mutatie" value="gekocht"><span class="titel">Gekocht</span></label>
+              <label class="keuze"><input type="radio" name="huis_mutatie" value="verkocht"><span class="titel">Verkocht</span></label>
+              <label class="keuze"><input type="radio" name="huis_mutatie" value="beide"><span class="titel">Allebei</span></label>
+            </div>
+            <div class="vervolg" data-als="huis_mutatie=gekocht|verkocht|beide">
+              <div class="upload">
+                <label class="vraag" for="up_notaris">Afrekening van de notaris <span class="verplicht">*</span>
+                  <span class="bij">Daarin staan de kosten die je mag aftrekken.</span></label>
+                <input id="up_notaris" type="file" data-vak="notaris" multiple accept=".pdf,.jpg,.jpeg,.png" required>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- 5. Spaargeld en bezit -->
+    <fieldset>
+      <legend>5. Spaargeld, beleggingen en schulden</legend>
+      <div class="veld">
+        <span class="vraag">Had je op 1 januari van <span class="j">dit jaar</span> een van deze dingen? <span class="verplicht">*</span>
+          <span class="bij met-partner-alleen">Tel jullie samen.</span></span>
+        <div class="lijst">
+          <label class="keuze"><input type="checkbox" name="bezit" value="spaargeld"><span class="titel">Meer dan € 10.000 op spaar- en betaalrekeningen</span></label>
+          <label class="keuze"><input type="checkbox" name="bezit" value="beleggingen"><span class="titel">Beleggingen of crypto</span></label>
+          <label class="keuze"><input type="checkbox" name="bezit" value="tweede_huis"><span class="titel">Een tweede huis, vakantiehuis of verhuurde woning</span></label>
+          <label class="keuze"><input type="checkbox" name="bezit" value="geleend"><span class="titel">Geld uitgeleend aan iemand</span></label>
+          <label class="keuze"><input type="checkbox" name="bezit" value="geen" data-exclusief><span class="titel">Niets hiervan</span></label>
+        </div>
+        <div class="vervolg" data-als="bezit=spaargeld|beleggingen|tweede_huis|geleend">
+          <div class="upload">
+            <label class="vraag" for="up_bezit">Jaaroverzichten van je banken en beleggingen
+              <span class="bij">Met het saldo op 1 januari. Staan ze niet bij de hand, dan vraag ik ze later.</span></label>
+            <input id="up_bezit" type="file" data-vak="box3" multiple accept=".pdf,.jpg,.jpeg,.png">
+          </div>
+          <div class="veld">
+            <span class="vraag">Had je toen ook schulden, buiten je hypotheek en studieschuld?
+              <span class="bij">Bijvoorbeeld een persoonlijke lening, rood staan of een lening bij familie.</span></span>
+            <div class="opties">
+              <label class="keuze"><input type="radio" name="schulden" value="ja" required><span class="titel">Ja</span></label>
+              <label class="keuze"><input type="radio" name="schulden" value="nee"><span class="titel">Nee</span></label>
+            </div>
+            <div class="vervolg" data-als="schulden=ja">
+              <label class="vraag" for="schulden_info">Wat voor schuld, en hoeveel stond er open op 1 januari?</label>
+              <input id="schulden_info" name="schulden_info" type="text" placeholder="bijvoorbeeld: lening ouders € 8.000" required>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="veld">
+        <span class="vraag">Had je 5% of meer van de aandelen in een bv? <span class="verplicht">*</span></span>
+        <div class="opties">
+          <label class="keuze"><input type="radio" name="ab" value="ja" required><span class="titel">Ja</span></label>
+          <label class="keuze"><input type="radio" name="ab" value="nee"><span class="titel">Nee</span></label>
+        </div>
+        <div class="vervolg" data-als="ab=ja">
+          <label class="vraag" for="ab_info">Welke bv, en heb je dit jaar dividend gekregen of aandelen verkocht?</label>
+          <input id="ab_info" name="ab_info" type="text" required>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- 6. Aftrek, per persoon -->
+    <fieldset>
+      <legend>6. Kosten die je misschien mag aftrekken</legend>
+      <p class="hint">Vink aan wat je had. De bedragen en voorwaarden zoek ik zelf uit.</p>
+      <div class="personen" data-sjabloon="t-aftrek"></div>
+    </fieldset>
+
+    <!-- 7. Afronden -->
+    <fieldset>
+      <legend>7. Afronden</legend>
+      <div class="veld">
+        <span class="vraag">Heb je van de Belastingdienst al een voorlopige aanslag of teruggave over dit jaar gekregen? <span class="verplicht">*</span>
+          <span class="bij">Dat is een bedrag dat je elke maand betaalt of terugkrijgt.</span></span>
+        <div class="opties">
+          <label class="keuze"><input type="radio" name="voorlopig" value="ja" required><span class="titel">Ja</span></label>
+          <label class="keuze"><input type="radio" name="voorlopig" value="nee"><span class="titel">Nee</span></label>
+          <label class="keuze"><input type="radio" name="voorlopig" value="weet_niet"><span class="titel">Weet ik niet</span></label>
+        </div>
+        <div class="vervolg" data-als="voorlopig=ja">
+          <div class="upload">
+            <label class="vraag" for="up_voorlopig">Brief van de voorlopige aanslag of teruggave</label>
+            <input id="up_voorlopig" type="file" data-vak="voorlopig" multiple accept=".pdf,.jpg,.jpeg,.png">
+          </div>
+        </div>
+      </div>
+      <div class="veld">
+        <label class="vraag" for="opmerkingen">Wil je nog iets kwijt?
+          <span class="bij">Iets bijzonders dit jaar, een vraag, of iets waar je over twijfelt.</span></label>
+        <textarea id="opmerkingen" name="opmerkingen"></textarea>
+      </div>
+      <div class="upload">
+        <label class="vraag" for="up_overig">Nog andere stukken?</label>
+        <input id="up_overig" type="file" data-vak="overig" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv">
+      </div>
+      <div class="veld">
+        <label class="keuze"><input type="checkbox" name="akkoord" value="ja" required>
+          <span class="titel">Ik heb alles naar waarheid ingevuld
+          <span class="uitleg">Je krijgt eerst een concept. Ik dien pas in als jij akkoord geeft.</span></span></label>
+      </div>
+      <button type="submit" id="knop">Versturen</button>
+      <p class="melding" id="melding" role="status"></p>
+    </fieldset>
+    <p class="voet">Je gegevens gaan via een beveiligde verbinding rechtstreeks naar mijn administratie en
+    worden alleen gebruikt voor je aangifte. Vragen? Mail kyle@slim-geregeld.nl.</p>
+  </form>
+</main>
+
+<!-- Sjablonen per persoon. {wie} wordt "je" of de voornaam van de partner,
+     {Wie} hetzelfde met hoofdletter, {p} het voorvoegsel van de veldnamen. -->
+<template id="t-werk">
+  <div class="persoon">
+    <h3>{Naam}</h3>
+    <div class="veld">
+      <span class="vraag">Werkte {wie} in loondienst? <span class="verplicht">*</span></span>
+      <div class="opties">
+        <label class="keuze"><input type="radio" name="{p}loondienst" value="ja" required><span class="titel">Ja</span></label>
+        <label class="keuze"><input type="radio" name="{p}loondienst" value="nee"><span class="titel">Nee</span></label>
+      </div>
+      <div class="vervolg" data-als="{p}loondienst=ja">
+        <div class="upload">
+          <label class="vraag">Jaaropgave van elke werkgever <span class="verplicht">*</span>
+            <span class="bij">Krijg je in januari of februari van je werkgever, of staat in je salarisportaal.</span></label>
+          <input type="file" data-vak="{p}jaaropgave" multiple accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+        <div class="veld">
+          <span class="vraag">Reisde {wie} met het ov naar het werk, zonder vergoeding van de werkgever?</span>
+          <div class="opties">
+            <label class="keuze"><input type="radio" name="{p}ov" value="ja" required><span class="titel">Ja</span></label>
+            <label class="keuze"><input type="radio" name="{p}ov" value="nee"><span class="titel">Nee</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="veld">
+      <span class="vraag">Had {wie} een eigen bedrijf, als zzp'er of met een eenmanszaak of vof? <span class="verplicht">*</span>
+        <span class="bij">Alleen een bv? Kies dan Nee; dat staat bij Spaargeld en bezit.</span></span>
+      <div class="opties">
+        <label class="keuze"><input type="radio" name="{p}onderneming" value="ja" required><span class="titel">Ja</span></label>
+        <label class="keuze"><input type="radio" name="{p}onderneming" value="nee"><span class="titel">Nee</span></label>
+      </div>
+      <div class="vervolg" data-als="{p}onderneming=ja">
+        <div class="twee veld">
+          <div><label class="vraag">Naam bedrijf <span class="verplicht">*</span></label>
+            <input name="{p}bedrijf" type="text" required></div>
+          <div><label class="vraag">KvK-nummer</label>
+            <input name="{p}kvk" type="text" inputmode="numeric" maxlength="8"></div>
+        </div>
+        <div class="veld">
+          <span class="vraag">Doe ik de boekhouding in Moneybird? <span class="verplicht">*</span></span>
+          <div class="opties">
+            <label class="keuze"><input type="radio" name="{p}moneybird" value="ja" required><span class="titel">Ja</span></label>
+            <label class="keuze"><input type="radio" name="{p}moneybird" value="nee"><span class="titel">Nee</span></label>
+          </div>
+          <div class="vervolg" data-als="{p}moneybird=ja"><p class="goed">Dan haal ik de cijfers daar zelf uit.</p></div>
+          <div class="vervolg" data-als="{p}moneybird=nee">
+            <div class="upload">
+              <label class="vraag">Je cijfers over het jaar <span class="verplicht">*</span>
+                <span class="bij">Een winst-en-verliesrekening als je die hebt. Zo niet, dan je verstuurde facturen, bonnetjes en bankafschriften van je zakelijke rekening. Dan maak ik hem.</span></label>
+              <input type="file" data-vak="{p}jaarcijfers" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv" required>
+            </div>
+          </div>
+        </div>
+        <div class="veld">
+          <span class="vraag">Werkte {wie} 1.225 uur of meer aan het bedrijf? <span class="verplicht">*</span>
+            <span class="bij">Gemiddeld 24 uur per week. Reistijd, acquisitie en administratie tellen mee. Uren in loondienst niet.</span></span>
+          <div class="opties">
+            <label class="keuze"><input type="radio" name="{p}uren" value="ja" required><span class="titel">Ja</span></label>
+            <label class="keuze"><input type="radio" name="{p}uren" value="nee"><span class="titel">Nee</span></label>
+            <label class="keuze"><input type="radio" name="{p}uren" value="weet_niet"><span class="titel">Weet ik niet</span></label>
+          </div>
+          <div class="vervolg" data-als="{p}uren=ja|weet_niet">
+            <div class="upload">
+              <label class="vraag">Urenoverzicht, als je dat hebt
+                <span class="bij">Per week of maand wat je deed is genoeg. Heb je het niet, dan help ik je het te maken.</span></label>
+              <input type="file" data-vak="{p}uren" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv">
+            </div>
+          </div>
+        </div>
+        <div class="veld">
+          <span class="vraag">Is {wie} met dit bedrijf in de laatste 5 jaar gestart? <span class="verplicht">*</span></span>
+          <div class="opties">
+            <label class="keuze"><input type="radio" name="{p}starter" value="ja" required><span class="titel">Ja</span></label>
+            <label class="keuze"><input type="radio" name="{p}starter" value="nee"><span class="titel">Nee</span></label>
+          </div>
+          <div class="vervolg" data-als="{p}starter=ja">
+            <label class="vraag">Sinds wanneer onderneem {wie}, ongeveer?</label>
+            <input name="{p}start" type="text" placeholder="bijvoorbeeld: oktober 2024" required>
+          </div>
+        </div>
+        <div class="veld">
+          <span class="vraag">Speelde een van deze dingen?</span>
+          <div class="lijst">
+            <label class="keuze"><input type="checkbox" name="{p}bijzonder" value="investering"><span class="titel">Spullen voor het bedrijf gekocht van € 450 of meer per stuk
+              <span class="uitleg">Bijvoorbeeld een laptop, camera of bus.</span></span></label>
+            <label class="keuze"><input type="checkbox" name="{p}bijzonder" value="auto"><span class="titel">Een auto op naam van het bedrijf</span></label>
+            <label class="keuze"><input type="checkbox" name="{p}bijzonder" value="aov"><span class="titel">Een arbeidsongeschiktheidsverzekering (AOV)</span></label>
+            <label class="keuze"><input type="checkbox" name="{p}bijzonder" value="gestopt"><span class="titel">Het bedrijf is gestopt of verkocht</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="veld">
+      <span class="vraag">Had {wie} nog ander inkomen?</span>
+      <div class="lijst">
+        <label class="keuze"><input type="checkbox" name="{p}ander_inkomen" value="uitkering"><span class="titel">Een uitkering, bijvoorbeeld WW, Ziektewet of bijstand</span></label>
+        <label class="keuze"><input type="checkbox" name="{p}ander_inkomen" value="pensioen"><span class="titel">AOW of pensioen</span></label>
+        <label class="keuze"><input type="checkbox" name="{p}ander_inkomen" value="klussen"><span class="titel">Losse klussen zonder eigen bedrijf</span></label>
+        <label class="keuze"><input type="checkbox" name="{p}ander_inkomen" value="alimentatie"><span class="titel">Partneralimentatie van een ex</span></label>
+        <label class="keuze"><input type="checkbox" name="{p}ander_inkomen" value="buitenland"><span class="titel">Inkomen uit het buitenland</span></label>
+      </div>
+      <div class="vervolg" data-als="{p}ander_inkomen=uitkering|pensioen|klussen|alimentatie|buitenland">
+        <div class="upload">
+          <label class="vraag">Jaaropgaven of overzichten hiervan
+            <span class="bij">Bij losse klussen of alimentatie is een korte omschrijving met bedrag hieronder ook goed.</span></label>
+          <input type="file" data-vak="{p}ander_inkomen" multiple accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+        <div class="veld">
+          <label class="vraag">Toelichting</label>
+          <input name="{p}ander_inkomen_info" type="text" placeholder="bijvoorbeeld: klus fotografie € 400">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="t-aftrek">
+  <div class="persoon">
+    <h3>{Naam}</h3>
+    <div class="lijst">
+      <label class="keuze"><input type="checkbox" name="{p}aftrek" value="zorg"><span class="titel">Zorgkosten die niet vergoed zijn
+        <span class="uitleg">Bijvoorbeeld tandarts, fysio, hulpmiddelen of reiskosten naar het ziekenhuis. Je eigen risico telt niet mee.</span></span></label>
+      <label class="keuze"><input type="checkbox" name="{p}aftrek" value="giften"><span class="titel">Giften aan goede doelen of de kerk</span></label>
+      <label class="keuze"><input type="checkbox" name="{p}aftrek" value="pensioen"><span class="titel">Zelf geld ingelegd voor later
+        <span class="uitleg">Een lijfrente of pensioenrekening bij een bank of verzekeraar.</span></span></label>
+      <label class="keuze"><input type="checkbox" name="{p}aftrek" value="alimentatie"><span class="titel">Partneralimentatie betaald aan een ex</span></label>
+      <label class="keuze"><input type="checkbox" name="{p}aftrek" value="geen" data-exclusief><span class="titel">Niets hiervan</span></label>
+    </div>
+    <div class="vervolg" data-als="{p}aftrek=zorg|giften|pensioen|alimentatie">
+      <div class="upload">
+        <label class="vraag">Bewijs: rekeningen, jaaroverzichten of betaalbewijzen
+          <span class="bij">Heb je niets bij de hand? Zet hieronder de bedragen, dan kom ik erop terug.</span></label>
+        <input type="file" data-vak="{p}aftrek" multiple accept=".pdf,.jpg,.jpeg,.png">
+      </div>
+      <div class="veld">
+        <label class="vraag">Bedragen</label>
+        <input name="{p}aftrek_info" type="text" placeholder="bijvoorbeeld: tandarts € 420, Rode Kruis € 15 per maand">
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+(function(){
+  // Waar de inzending heen gaat: rechtstreeks naar n8n, niet via Netlify Forms,
+  // omdat Netlify inzendingen met BSN in zijn dashboard bewaart.
+  var ENDPOINT = 'https://n8n.slim-geregeld.nl/webhook/ib-intake';
+  var MAX_MB = 20;
+
+  var form = document.getElementById('f');
+  var melding = document.getElementById('melding');
+  var knop = document.getElementById('knop');
+
+  // Link: /ib/#t=<token>&v=<base64 json met bekende gegevens>. Met #test wordt er
+  // niets verstuurd en zie je in de console wat er verstuurd zou worden.
+  var hash = new URLSearchParams(location.hash.slice(1));
+  var token = hash.get('t') || '';
+  var testModus = hash.has('test');
+
+  // Aangiftejaren: het vorige kalenderjaar staat voor, plus twee jaar terug.
+  var nu = new Date().getFullYear();
+  var jaarSel = document.getElementById('jaar');
+  for (var j = nu - 1; j >= nu - 3; j--) {
+    var o = document.createElement('option'); o.value = j; o.textContent = j; jaarSel.appendChild(o);
+  }
+
+  function zetJaar(){
+    var y = jaarSel.value;
+    document.querySelectorAll('.j').forEach(function(el){ el.textContent = y; });
+  }
+  jaarSel.addEventListener('change', zetJaar);
+
+  // Bekende gegevens vooraf invullen.
+  try {
+    var v = hash.get('v');
+    if (v) {
+      var bekend = JSON.parse(decodeURIComponent(escape(atob(v.replace(/-/g,'+').replace(/_/g,'/')))));
+      Object.keys(bekend).forEach(function(k){
+        var el = form.elements[k];
+        if (el && el.type !== 'file' && !el.length) el.value = bekend[k];
+        else if (el && el.length) Array.prototype.forEach.call(el, function(r){ if (r.value === String(bekend[k])) r.checked = true; });
+      });
+    }
+  } catch(e) {}
+  zetJaar();
+
+  function gekozen(naam){
+    return Array.prototype.filter.call(form.querySelectorAll('[name="'+naam+'"]'), function(i){
+      return (i.type === 'radio' || i.type === 'checkbox') ? i.checked : !!i.value;
+    }).map(function(i){ return i.value; });
+  }
+  function metPartner(){ var p = gekozen('partner')[0]; return p === 'ja' || p === 'weet_niet'; }
+
+  // Personen opbouwen: alleen opnieuw als er iets verandert aan partner of namen,
+  // en antwoorden blijven bewaard.
+  var vorigeSleutel = '';
+  function personen(){
+    var lijst = [{ p:'jij_', naam:(form.elements.voornaam.value.trim() || 'Jij'), wie:'je', Wie:'Je' }];
+    if (metPartner()) {
+      var pn = form.elements.p_voornaam.value.trim() || 'Je partner';
+      lijst.push({ p:'partner_', naam:pn, wie:pn, Wie:pn });
+    }
+    return lijst;
+  }
+  function bewaar(container){
+    var w = {};
+    container.querySelectorAll('input,textarea').forEach(function(i){
+      if (i.type === 'file') return;
+      if (i.type === 'radio' || i.type === 'checkbox') { if (i.checked) w[i.name+'='+i.value] = true; }
+      else w[i.name] = i.value;
+    });
+    return w;
+  }
+  function herstel(container, w){
+    container.querySelectorAll('input,textarea').forEach(function(i){
+      if (i.type === 'file') return;
+      if (i.type === 'radio' || i.type === 'checkbox') i.checked = !!w[i.name+'='+i.value];
+      else if (w[i.name] != null) i.value = w[i.name];
+    });
+  }
+  function bouwPersonen(){
+    var lijst = personen();
+    var sleutel = lijst.map(function(x){ return x.p + x.naam; }).join('|');
+    if (sleutel === vorigeSleutel) return;
+    vorigeSleutel = sleutel;
+    document.querySelectorAll('[data-sjabloon]').forEach(function(c){
+      var w = bewaar(c);
+      var html = document.getElementById(c.dataset.sjabloon).innerHTML;
+      c.innerHTML = lijst.map(function(x){
+        return html.replace(/\{p\}/g, x.p).replace(/\{Naam\}/g, x.naam).replace(/\{wie\}/g, x.wie).replace(/\{Wie\}/g, x.Wie);
+      }).join('');
+      c.classList.toggle('met-partner', lijst.length > 1);
+      herstel(c, w);
+    });
+    var jij = lijst[0].naam, partner = lijst[1] ? lijst[1].naam : '';
+    document.querySelectorAll('.naam-jij').forEach(function(el){ el.textContent = 'Van ' + jij; });
+    document.querySelectorAll('.naam-partner').forEach(function(el){ el.textContent = 'Van ' + partner; });
+  }
+
+  // Tonen en verbergen. Verborgen velden worden uitgezet, zodat een verplicht
+  // veld in een dichte vraag nooit het versturen blokkeert en niet meegaat.
+  function bijwerken(){
+    bouwPersonen();
+    var mp = metPartner();
+    document.querySelectorAll('.met-partner-alleen').forEach(function(el){ el.classList.toggle('verborgen', !mp); });
+    document.querySelectorAll('[data-als]').forEach(function(el){
+      var delen = el.dataset.als.split('=');
+      var waarden = delen[1].split('|');
+      var zien = gekozen(delen[0]).some(function(x){ return waarden.indexOf(x) >= 0; });
+      el.classList.toggle('verborgen', !zien);
+    });
+    form.querySelectorAll('input,select,textarea').forEach(function(i){
+      i.disabled = !!i.closest('.verborgen');
+    });
+  }
+
+  // "Niets hiervan" sluit de andere vinkjes uit, en andersom.
+  form.addEventListener('change', function(e){
+    var t = e.target;
+    if (t.type === 'checkbox' && t.checked) {
+      form.querySelectorAll('input[type=checkbox][name="'+t.name+'"]').forEach(function(c){
+        if (c !== t && (t.hasAttribute('data-exclusief') || c.hasAttribute('data-exclusief'))) c.checked = false;
+      });
+    }
+    bijwerken();
+  });
+  form.addEventListener('input', function(e){
+    if (e.target.name === 'voornaam' || e.target.name === 'p_voornaam') bijwerken();
+  });
+  bijwerken();
+
+  // Een checkboxgroep met een sterretje is verplicht als geheel.
+  function groepFout(){
+    var fout = null;
+    ['bezit'].concat(personen().map(function(x){ return x.p+'aftrek'; })).forEach(function(n){
+      var vakjes = form.querySelectorAll('input[name="'+n+'"]:not(:disabled)');
+      if (vakjes.length && !Array.prototype.some.call(vakjes, function(c){ return c.checked; })) fout = fout || vakjes[0];
+    });
+    return fout;
+  }
+
+  function bsnOk(s){
+    s = String(s || '').replace(/\D/g,'');
+    if (s.length === 8) s = '0' + s;
+    if (s.length !== 9) return false;
+    var som = 0;
+    for (var i = 0; i < 8; i++) som += Number(s[i]) * (9 - i);
+    som -= Number(s[8]);
+    return som % 11 === 0;
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    melding.className = 'melding'; melding.textContent = '';
+    bijwerken();
+
+    var eerste = null, tekst = 'Een paar verplichte vragen staan nog open. Ze hebben een rood sterretje.';
+    if (!form.checkValidity()) eerste = form.querySelector(':invalid');
+    if (!eerste) { var g = groepFout(); if (g) eerste = g; }
+    if (!eerste && !bsnOk(form.elements.bsn.value)) { eerste = form.elements.bsn; tekst = 'Dit BSN klopt niet. Kijk het even na op je ID-bewijs.'; }
+    if (!eerste && metPartner() && !bsnOk(form.elements.p_bsn.value)) { eerste = form.elements.p_bsn; tekst = 'Het BSN van je partner klopt niet.'; }
+    if (!eerste && !/^\s*\d{4}\s?[A-Za-z]{2}\s*$/.test(form.elements.postcode.value)) { eerste = form.elements.postcode; tekst = 'Vul de postcode in als 1234 AB.'; }
+    if (eerste) {
+      melding.className = 'melding fout'; melding.textContent = tekst;
+      eerste.scrollIntoView({ block:'center', behavior:'smooth' });
+      return;
+    }
+
+    // Antwoorden als JSON, bestanden apart met hun vak in de naam.
+    var antwoorden = {};
+    form.querySelectorAll('input,select,textarea').forEach(function(i){
+      if (i.disabled || !i.name || i.type === 'file') return;
+      if (i.type === 'radio') { if (i.checked) antwoorden[i.name] = i.value; return; }
+      if (i.type === 'checkbox') { if (i.checked) (antwoorden[i.name] = antwoorden[i.name] || []).push(i.value); return; }
+      antwoorden[i.name] = i.value.trim();
+    });
+    antwoorden.bsn = antwoorden.bsn && antwoorden.bsn.replace(/\D/g,'');
+    if (antwoorden.p_bsn) antwoorden.p_bsn = antwoorden.p_bsn.replace(/\D/g,'');
+    antwoorden.postcode = antwoorden.postcode.replace(/\s/g,'').toUpperCase();
+
+    var data = new FormData();
+    data.append('token', token);
+    data.append('antwoorden', JSON.stringify(antwoorden));
+    var totaal = 0, n = 0;
+    form.querySelectorAll('input[type=file]:not(:disabled)').forEach(function(i){
+      Array.prototype.forEach.call(i.files, function(f){
+        totaal += f.size; n++;
+        data.append('bestand_' + i.dataset.vak + '_' + n, f, f.name);
+      });
+    });
+    if (totaal > MAX_MB * 1024 * 1024) {
+      melding.className = 'melding fout';
+      melding.textContent = 'Samen zijn de bestanden groter dan ' + MAX_MB + ' MB. Stuur de grootste dan per mail na.';
+      return;
+    }
+
+    if (testModus) {
+      var kopie = JSON.parse(JSON.stringify(antwoorden));
+      if (kopie.bsn) kopie.bsn = '[BSN]'; if (kopie.p_bsn) kopie.p_bsn = '[BSN]';
+      console.log('TEST, niet verstuurd', { token:token, antwoorden:kopie, bestanden:n });
+      window.__ibTest = { antwoorden:kopie, bestanden:n };
+      melding.className = 'melding'; melding.textContent = 'Testmodus: niets verstuurd. ' + Object.keys(antwoorden).length + ' antwoorden en ' + n + ' bestanden klaar.';
+      return;
+    }
+
+    knop.disabled = true; knop.textContent = 'Versturen...';
+    try {
+      var r = await fetch(ENDPOINT, { method:'POST', body:data });
+      if (!r.ok) throw new Error('http ' + r.status);
+      form.innerHTML = '<fieldset><legend>Dank je wel</legend><p class="hint" style="margin:0">' +
+        'Alles is binnen. Ik kijk het na en mail je binnen twee werkdagen. Heb ik nog iets nodig, ' +
+        'dan staat dat in die mail. Daarna krijg je eerst een concept van je aangifte.</p></fieldset>';
+      window.scrollTo({ top:0, behavior:'smooth' });
+    } catch(err) {
+      knop.disabled = false; knop.textContent = 'Versturen';
+      melding.className = 'melding fout';
+      melding.textContent = 'Dat ging niet goed. Probeer het zo nog eens, of mail kyle@slim-geregeld.nl.';
+    }
+  });
+})();
+</script>
+</body>
+</html>
