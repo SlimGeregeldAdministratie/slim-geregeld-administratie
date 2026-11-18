@@ -486,10 +486,28 @@
           </div>
           <div class="vervolg" data-als="{p}moneybird=ja"><p class="goed">Dan haal ik de cijfers daar zelf uit.</p></div>
           <div class="vervolg" data-als="{p}moneybird=nee">
-            <div class="upload">
-              <label class="vraag">Je cijfers over het jaar <span class="verplicht">*</span>
-                <span class="bij">Een winst-en-verliesrekening als je die hebt. Zo niet, dan je verstuurde facturen, bonnetjes en bankafschriften van je zakelijke rekening. Dan maak ik hem.</span></label>
-              <input type="file" data-vak="{p}jaarcijfers" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv" required>
+            <div class="veld">
+              <span class="vraag">Heb je een balans en winst-en-verliesrekening over het jaar? <span class="verplicht">*</span>
+                <span class="bij">Die zijn nodig voor de aangifte. Heb je ze niet, dan maak ik een financieel jaaroverzicht met balans en winst-en-verliesrekening voor je.</span></span>
+              <div class="lijst">
+                <label class="keuze"><input type="radio" name="{p}jaaroverzicht" value="zelf" required><span class="titel">Ja, die lever ik aan</span></label>
+                <label class="keuze"><input type="radio" name="{p}jaaroverzicht" value="tot50"><span class="titel">Nee, maak het voor me: tot 50 facturen en bonnetjes<span class="uitleg">€ 395 excl. btw</span></span></label>
+                <label class="keuze"><input type="radio" name="{p}jaaroverzicht" value="tot150"><span class="titel">Nee, maak het voor me: 50 tot 150 facturen en bonnetjes<span class="uitleg">€ 695 excl. btw</span></span></label>
+                <label class="keuze"><input type="radio" name="{p}jaaroverzicht" value="meer"><span class="titel">Nee, maak het voor me: meer dan 150, of geen aparte zakelijke rekening<span class="uitleg">Prijs na inzage, ik laat het je eerst weten</span></span></label>
+              </div>
+            </div>
+            <div class="vervolg" data-als="{p}jaaroverzicht=zelf">
+              <div class="upload">
+                <label class="vraag">Balans en winst-en-verliesrekening <span class="verplicht">*</span></label>
+                <input type="file" data-vak="{p}jaarcijfers" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv" required>
+              </div>
+            </div>
+            <div class="vervolg" data-als="{p}jaaroverzicht=tot50|tot150|meer">
+              <div class="upload">
+                <label class="vraag">Je facturen, bonnetjes en bankafschriften van het jaar <span class="verplicht">*</span>
+                  <span class="bij">Verstuurde facturen, bonnetjes van kosten en de afschriften van je zakelijke rekening. Een export uit je boekhoudprogramma is ook goed.</span></label>
+                <input type="file" data-vak="{p}stukken" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.csv,.zip" required>
+              </div>
             </div>
           </div>
         </div>
@@ -644,8 +662,17 @@
     'Naam bedrijf': 'Business name', 'KvK-nummer': 'KvK number',
     'Doe ik de boekhouding in Moneybird?': 'Do I do your bookkeeping in Moneybird?',
     'Dan haal ik de cijfers daar zelf uit.': 'Then I take the figures from there myself.',
-    'Je cijfers over het jaar': 'Your figures for the year',
-    'Een winst-en-verliesrekening als je die hebt. Zo niet, dan je verstuurde facturen, bonnetjes en bankafschriften van je zakelijke rekening. Dan maak ik hem.': 'A profit and loss account if you have one. If not, your sales invoices, receipts and business bank statements, and I will make it.',
+    'Heb je een balans en winst-en-verliesrekening over het jaar?': 'Do you have a balance sheet and profit and loss account for the year?',
+    'Die zijn nodig voor de aangifte. Heb je ze niet, dan maak ik een financieel jaaroverzicht met balans en winst-en-verliesrekening voor je.': 'They are needed for the tax return. If you do not have them, I will prepare an annual financial overview with balance sheet and profit and loss account for you.',
+    'Ja, die lever ik aan': 'Yes, I will provide them',
+    'Nee, maak het voor me: tot 50 facturen en bonnetjes': 'No, please prepare it: up to 50 invoices and receipts',
+    'Nee, maak het voor me: 50 tot 150 facturen en bonnetjes': 'No, please prepare it: 50 to 150 invoices and receipts',
+    'Nee, maak het voor me: meer dan 150, of geen aparte zakelijke rekening': 'No, please prepare it: more than 150, or no separate business account',
+    '€ 395 excl. btw': '€ 395 excl. VAT', '€ 695 excl. btw': '€ 695 excl. VAT',
+    'Prijs na inzage, ik laat het je eerst weten': 'Price after I have seen it; I will let you know first',
+    'Balans en winst-en-verliesrekening': 'Balance sheet and profit and loss account',
+    'Je facturen, bonnetjes en bankafschriften van het jaar': 'Your invoices, receipts and bank statements for the year',
+    'Verstuurde facturen, bonnetjes van kosten en de afschriften van je zakelijke rekening. Een export uit je boekhoudprogramma is ook goed.': 'Sales invoices, receipts for costs and statements of your business account. An export from your bookkeeping software is fine too.',
     'Werkte {wie} een deel van het jaar vanuit het buitenland?': 'Did {wie} work from abroad for part of the year?',
     'Gold de 30%-regeling?': 'Did the 30% ruling apply?',
     'Een belastingvoordeel voor werknemers die uit het buitenland zijn aangenomen. Staat in je arbeidscontract of op je loonstrook.': 'A tax benefit for employees hired from abroad. It is in your employment contract or on your payslip.',
