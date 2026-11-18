@@ -1,0 +1,222 @@
+---
+import Basis from '../layouts/Basis.astro';
+import SlimGesprek from '../components/SlimGesprek.astro';
+
+const faq = [
+  ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
+  ['Wat kost Moneybird?', 'Het Moneybird-abonnement staat op jouw naam en begint bij een paar euro per maand. In de intake zie je welk pakket past.'],
+  ['Zit de aangifte inkomstenbelasting erbij?', 'Die is los: €245 excl. btw, of €395 excl. btw samen met je fiscale partner.'],
+  ['Ik heb een bv. Kan dat ook?', 'Zeker. Voor een bv maak ik een prijs op maat, afhankelijk van wat er speelt.'],
+  ['Is Slim echt gratis?', 'Ja. Slim werkt via WhatsApp, ook zonder Moneybird. Wil je dat ik je boekhouding doe, dan stap je over op de volledige service.'],
+];
+const reviews = [
+  ['Onderweg kan ik vrij rap wat facturen versturen door een simpel appje. Top systeem.', 'Jeremy Gomes', 'Gomes Media'],
+  ['Efficiënt en overzichtelijk. Kyle begeleidt je op een ondersteunende en begripvolle manier.', 'Umesh ten Kate', 'personal trainer'],
+  ['Alles was heel duidelijk en scheelt super veel tijd. Aanrader!', 'Dany Cramer', 'OMNI fit coaching'],
+  ['Prima, lekker makkelijk zo.', 'Andries', 'timmerman'],
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+---
+<Basis
+  titel="Boekhouder voor zzp'ers en kleine bv's | €95 p/m | Slim Geregeld"
+  omschrijving="Boekhouding, btw-aangifte en jaarcijfers voor zzp'ers en kleine bv's in Moneybird, met een vaste boekhouder en Slim op WhatsApp. €95 per maand."
+  alternatief={{ nl: '/', en: '/en/', ja: '/djtt/ja/' }}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="tag">Boekhouder voor zzp'ers en kleine bv's</span>
+          <h1>Je administratie op orde. Elk kwartaal, zonder gedoe.</h1>
+          <p class="sub">Btw-aangiftes, jaarcijfers en de inkomstenbelasting, gedaan door een vaste boekhouder in Moneybird. Bonnetjes stuur je gewoon via WhatsApp.</p>
+          <div class="knoppen"><a class="knop vol" href="/intake">Aanmelden</a><a class="knop leeg" href="/tarieven">Tarieven bekijken</a></div>
+          <p class="prijsregel"><span>Volledige service</span><b>€95</b><s>€125</s><span>per maand, excl. btw</span></p>
+        </div>
+        <div class="paneel" aria-label="Voorbeeld van je overzicht">
+          <div class="pkop"><img src="/img/kyle-profiel.jpg" alt="" width="46" height="46"><div><b>Jouw administratie</b><small>bijgehouden door Kyle</small></div></div>
+          <div class="regel"><span>Btw-aangifte Q3 2026</span><span class="st ok">Ingediend</span></div>
+          <div class="regel"><span>Bonnetjes oktober (14)</span><span class="st ok">Geboekt</span></div>
+          <div class="regel"><span>Btw-aangifte Q4 2026</span><span class="st bezig">Loopt</span></div>
+          <div class="regel"><span>Bonnetje Coolblue €249</span><span class="st jij">Stuur nog even</span></div>
+          <div class="regel"><span>Aangifte IB 2026</span><span class="st bezig">Vanaf maart</span></div>
+        </div>
+      </div>
+      <div class="trust">
+        <div><b>Becon-geregistreerd</b>boekhouder</div>
+        <div><b>Moneybird Expert</b>officieel kantoor</div>
+        <div><b>Eén aanspreekpunt</b>je spreekt Kyle</div>
+        <div><b>Ook in het Engels</b><a href="/en/">for expats and treaty →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="diensten">
+    <div class="wrap">
+      <h2>Wat ik voor je doe</h2>
+      <p class="sub">Kies wat bij je past. Alles in één administratie.</p>
+      <div class="grid3">
+        <div class="blok"><h3>Eenmanszaak</h3><p>Boekhouding, btw-aangifte per kwartaal en je financieel jaaroverzicht.</p><a class="meer" href="/boekhouding-eenmanszaak">Volledige service →</a></div>
+        <div class="blok"><h3>BV en holding</h3><p>Jaarrekening, Vpb, DGA-loon en dividend. Prijs op aanvraag.</p><a class="meer" href="/boekhouding-bv">Boekhouding bv →</a></div>
+        <div class="blok"><h3>Inkomstenbelasting</h3><p>Ook los: je aangifte IB, met of zonder fiscale partner.</p><a class="meer" href="/aangifte-inkomstenbelasting">Aangifte IB →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht slimblok">
+    <div class="wrap slim-grid">
+      <div>
+        <span class="tag">Slim op WhatsApp</span>
+        <h2>Bonnetje? App het.</h2>
+        <p class="sub">Slim is je assistent op WhatsApp. Stuur een foto van een bonnetje, vraag om een factuur of offerte, of stel een vraag over je cijfers. Slim regelt het in je administratie, en kijkt Kyle mee waar het nodig is.</p>
+        <ul class="vinkjes">
+          <li>Facturen en offertes in een minuut</li>
+          <li>Bonnetjes boeken met een foto</li>
+          <li>Herinneringen voor openstaande facturen</li>
+          <li>Ook los te gebruiken, gratis</li>
+        </ul>
+        <div class="knoppen"><a class="knop vol" href="/slim">Meer over Slim</a></div>
+      </div>
+      <SlimGesprek />
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Zo werkt het</h2>
+      <div class="grid3">
+        <div class="blok"><div class="nr">1</div><h3>Aanmelden</h3><p>Een korte intake van vijf minuten. Overstappen midden in het jaar kan.</p></div>
+        <div class="blok"><div class="nr">2</div><h3>Inrichten</h3><p>Ik zet Moneybird, je bankkoppeling en Slim op WhatsApp voor je klaar.</p></div>
+        <div class="blok"><div class="nr">3</div><h3>Jij appt, ik boek</h3><p>Ik doe de aangiftes en laat je vooraf weten wat je moet betalen.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tarieven" class="zacht">
+    <div class="wrap">
+      <h2>Tarieven</h2>
+      <p class="sub">Vaste prijzen, exclusief btw. Het Moneybird-abonnement staat op je eigen naam.</p>
+      <div class="prijzen">
+        <div class="pk hl"><span class="badge">Meest gekozen</span><h3>Volledige service</h3><div class="bedrag">€95<s>€125</s></div><small>per maand, eenmanszaak</small>
+          <ul><li>Btw-aangifte elk kwartaal</li><li>Financieel jaaroverzicht</li><li>Vragen tussendoor</li><li>Slim op WhatsApp</li></ul><a class="knop vol" href="/intake">Aanmelden</a></div>
+        <div class="pk"><h3>Aangifte IB</h3><div class="bedrag">€245</div><small>€395 met fiscale partner</small>
+          <ul><li>Volledige aangifte</li><li>Concept eerst ter controle</li><li>Ingediend door Kyle</li></ul><a class="knop leeg" href="/aangifte-inkomstenbelasting">Aangifte laten doen</a></div>
+        <div class="pk"><h3>BV en holding</h3><div class="bedrag klein">Op aanvraag</div><small>prijs op maat</small>
+          <ul><li>Jaarrekening en Vpb</li><li>DGA-loon en dividend</li><li>Meerdere entiteiten</li></ul><a class="knop leeg" href="/contact">Prijs aanvragen</a></div>
+      </div>
+      <p class="slimregel">Alleen Slim, de WhatsApp-assistent voor facturen en bonnetjes, is gratis. <a href="/slim">Meer over Slim →</a></p>
+    </div>
+  </section>
+
+  <section id="over">
+    <div class="wrap kyle">
+      <figure class="kylefoto"><img src="/img/kyle-1.jpg" alt="Kyle Bouwmeester op de bank met zijn laptop" width="933" height="1400" loading="lazy"></figure>
+      <div>
+        <h2>Je spreekt altijd mij</h2>
+        <p class="sub">Ik ben Kyle Bouwmeester, Becon-geregistreerd boekhouder en Moneybird Expert. Ik werk voor zzp'ers en bv's door heel Nederland en voor ondernemers uit de VS en Japan die hier starten.</p>
+        <p class="sub" style="margin-top:12px">Het herhaalwerk heb ik geautomatiseerd. Zo heb ik tijd voor wat telt: meedenken over jouw cijfers.</p>
+        <div class="feiten"><div><b>Becon</b><span>geregistreerd boekhouder</span></div><div><b>Moneybird</b><span>Expert-kantoor</span></div><div><b>NL en EN</b><span>beide talen</span></div><div><b>Op afstand</b><span>heel Nederland</span></div></div>
+        <a class="knop leeg" href="/over" style="margin-top:20px">Meer over mij</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap">
+      <h2>Wat klanten zeggen</h2>
+      <div class="reviews">
+        {reviews.map(([t, n, r]) => <figure class="rv"><div class="s" aria-label="5 sterren">★★★★★</div><blockquote>"{t}"</blockquote><figcaption><b>{n}</b> · {r}</figcaption></figure>)}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Veelgestelde vragen</h2>
+      <div class="faq">
+        {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap"><div class="cta"><h2>Binnen een week geregeld</h2><p>Meld je aan. Ik richt alles in en laat weten wat ik nog van je nodig heb.</p><div class="knoppen"><a class="knop vol" href="/intake">Aanmelden</a><a class="knop leeg" href="https://wa.me/31623818236">Stuur een WhatsApp</a></div></div></div>
+  </section>
+</Basis>
+
+<style>
+.hero{padding:36px 0 56px;background:linear-gradient(180deg,var(--blauw-t),#fff 70%)}
+.hero-grid{display:grid;gap:36px}
+.hero .sub{margin:16px 0 24px}
+.prijsregel{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-top:22px;font-size:.95rem;color:var(--grijs)}
+.prijsregel span{white-space:nowrap}
+.prijsregel b{font-size:1.6rem;color:var(--inkt);letter-spacing:-.02em}
+.prijsregel s{color:#94a3b8}
+.paneel{background:#fff;border:1px solid var(--lijn);border-radius:var(--r-groot);box-shadow:var(--schaduw);padding:18px;display:grid;gap:12px}
+.pkop{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--lijn)}
+.pkop img{width:46px;height:46px;border-radius:50%;object-fit:cover}
+.pkop small{display:block;color:var(--grijs);font-size:.8rem}
+.regel{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:var(--zacht);font-size:.92rem}
+.st{font-size:.75rem;font-weight:650;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.st.ok{background:#e7f6ee;color:var(--groen)}.st.bezig{background:var(--blauw-t);color:var(--blauw)}.st.jij{background:#fff4e5;color:var(--oranje)}
+.trust{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:28px}
+.trust div{border:1px solid var(--lijn);border-radius:12px;padding:12px 14px;font-size:.85rem;color:var(--grijs);background:#fff}
+.trust b{display:block;color:var(--inkt);font-size:.95rem}
+.trust a{color:var(--blauw);text-decoration:none}
+.slim-grid{display:grid;gap:36px;align-items:center}
+.vinkjes{list-style:none;display:grid;gap:8px;margin:18px 0 24px}
+.vinkjes li{padding-left:26px;position:relative}
+.vinkjes li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
+.prijzen{display:grid;gap:14px;margin-top:26px}
+.pk{border:1px solid var(--lijn);border-radius:18px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:2px}
+.pk.hl{border:2px solid var(--blauw);box-shadow:0 14px 40px rgba(37,99,235,.12)}
+.pk h3{margin-top:10px}
+.bedrag{font-size:2.3rem;font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.bedrag s{font-size:1rem;color:#94a3b8;font-weight:500;margin-left:6px}
+.bedrag.klein{font-size:1.6rem;margin-top:12px}
+.pk small{color:var(--grijs)}
+.pk ul{list-style:none;margin:16px 0 18px;display:grid;gap:8px}
+.pk li{padding-left:24px;position:relative;font-size:.95rem}
+.pk li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
+.pk .knop{margin-top:auto}
+.badge{align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--blauw);padding:3px 10px;border-radius:999px}
+.slimregel{margin-top:18px;color:var(--grijs)}
+.slimregel a{color:var(--blauw);font-weight:650;text-decoration:none}
+.kyle{display:grid;gap:28px;align-items:center}
+.kylefoto{border-radius:var(--r-groot);overflow:hidden;aspect-ratio:4/5;max-height:560px}
+.kylefoto img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.feiten{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+.feiten div{background:var(--zacht);border-radius:12px;padding:12px}
+.feiten b{display:block;font-size:1.05rem}
+.feiten span{font-size:.82rem;color:var(--grijs)}
+.reviews{display:grid;gap:14px;margin-top:26px}
+.rv{border:1px solid var(--lijn);border-radius:var(--r);padding:20px;background:#fff}
+.rv .s{color:#f5a524;letter-spacing:2px;font-size:.85rem}
+.rv blockquote{margin:8px 0 12px}
+.rv figcaption{font-size:.85rem;color:var(--grijs)}.rv figcaption b{color:var(--inkt)}
+.faq{display:grid;gap:10px;margin-top:22px;max-width:780px}
+.faq details{border:1px solid var(--lijn);border-radius:14px;padding:16px 18px;background:#fff}
+.faq summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blauw);font-weight:700}
+.faq details[open] summary::after{content:"−"}
+.faq p{color:var(--grijs);margin-top:8px}
+.cta{background:var(--inkt);color:#fff;border-radius:24px;padding:36px 24px;text-align:center}
+.cta p{color:#b6c0d4;margin:10px auto 22px;max-width:30rem}
+.cta .knoppen{justify-content:center}
+.cta .knop.leeg{background:transparent;color:#fff;border-color:#fff}
+@media (min-width:760px){
+  .hero{padding:64px 0 88px}
+  .hero-grid{grid-template-columns:1.05fr .95fr;align-items:center;gap:56px}
+  .trust{grid-template-columns:repeat(4,1fr)}
+  .slim-grid{grid-template-columns:1.1fr .9fr;gap:56px}
+  .prijzen{grid-template-columns:repeat(3,1fr)}
+  .kyle{grid-template-columns:.8fr 1.2fr;gap:56px}
+  .reviews{grid-template-columns:repeat(4,1fr)}
+  .cta{padding:56px}
+}
+</style>

@@ -1,0 +1,60 @@
+---
+interface Props { taal: 'nl' | 'en' | 'ja' }
+const { taal } = Astro.props;
+const T = {
+  nl: { kolommen: [
+        ['Diensten', [['Boekhouding eenmanszaak', '/boekhouding-eenmanszaak'], ['Boekhouding bv', '/boekhouding-bv'], ['Aangifte inkomstenbelasting', '/aangifte-inkomstenbelasting'], ['Slim op WhatsApp', '/slim'], ['Tarieven', '/tarieven']]],
+        ['In English', [['DAFT opening balance', '/daft/'], ['Japanese treaty (DJTT)', '/djtt/'], ['Renewal', '/daft/renewal/'], ['English home', '/en/']]],
+        ['Slim Geregeld', [['Over Kyle', '/over'], ['Blog', '/blog/'], ['Contact', '/contact'], ['NettoCheck', '/nettocheck']]],
+      ],
+      regel: ['Privacybeleid', '/privacybeleid', 'Algemene voorwaarden', '/algemene-voorwaarden', 'Cookie-instellingen'] },
+  en: { kolommen: [
+        ['Services', [['DAFT opening balance', '/daft/'], ['Japanese treaty (DJTT)', '/djtt/'], ['Renewal', '/daft/renewal/'], ['Compliance Plan', '/en/compliance-plan/'], ['Pricing', '/en/pricing/']]],
+        ['Slim Geregeld', [['About', '/en/about/'], ['Blog', '/en/blog/'], ['Ask a question', '/daft/contact/']]],
+        ['Nederlands', [['Boekhouding voor zzp\'ers', '/'], ['Tarieven', '/tarieven']]],
+      ],
+      regel: ['Privacy', '/en/privacy/', 'Terms (Dutch)', '/algemene-voorwaarden', 'Cookie settings'] },
+  ja: { kolommen: [
+        ['サービス', [['開業貸借対照表（DJTT）', '/djtt/ja/'], ['English', '/en/']]],
+      ],
+      regel: ['プライバシー', '/en/privacy/', '利用規約（オランダ語）', '/algemene-voorwaarden', 'Cookie設定'] },
+}[taal];
+const jaar = new Date().getFullYear();
+---
+<footer class="voet">
+  <div class="wrap">
+    <div class="kolommen">
+      <div class="merkblok">
+        <b>Slim Geregeld Administratie</b>
+        <p>{taal === 'nl' ? 'Boekhouding voor zzp\'ers en kleine bv\'s, door Becon-geregistreerd boekhouder Kyle Bouwmeester.' : 'Dutch bookkeeping by Becon-registered bookkeeper Kyle Bouwmeester.'}</p>
+        <p><a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a><br><a href="tel:+31621311043">06 21311043</a></p>
+      </div>
+      {T.kolommen.map(([kop, links]) => (
+        <div><b>{kop}</b><ul>{(links as string[][]).map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul></div>
+      ))}
+    </div>
+    <div class="regel">
+      <span>© {jaar} Slim Geregeld Administratie · KvK 92596991 · btw NL004963420B24</span>
+      <span class="links">
+        <a href={T.regel[1]}>{T.regel[0]}</a>
+        <a href={T.regel[3]}>{T.regel[2]}</a>
+        <a href="#" onclick="window.sgCookieInstellingen&&sgCookieInstellingen();return false">{T.regel[4]}</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.voet{background:var(--inkt);color:#c3cad8;font-size:.92rem;padding:48px 0 28px;margin-top:0}
+.voet b{color:#fff;display:block;margin-bottom:10px}
+.voet a{text-decoration:none}.voet a:hover{color:#fff}
+.kolommen{display:grid;gap:28px}
+.merkblok p{margin-bottom:10px;max-width:22rem}
+ul{list-style:none;display:grid;gap:6px}
+.regel{border-top:1px solid #1f2a3d;margin-top:36px;padding-top:20px;display:grid;gap:10px;font-size:.82rem}
+.links{display:flex;flex-wrap:wrap;gap:6px 18px}
+@media (min-width:760px){
+  .kolommen{grid-template-columns:1.4fr repeat(3,1fr)}
+  .regel{grid-template-columns:1fr auto;align-items:center}
+}
+</style>

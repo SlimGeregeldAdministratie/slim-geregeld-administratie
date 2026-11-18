@@ -1,0 +1,55 @@
+---
+import '../styles/basis.css';
+import Kop from '../components/Kop.astro';
+import Voet from '../components/Voet.astro';
+
+interface Props {
+  titel: string;
+  omschrijving: string;
+  taal?: 'nl' | 'en' | 'ja';
+  /** Pad van deze pagina in de andere talen, voor de taalknop en hreflang. */
+  alternatief?: { nl?: string; en?: string; ja?: string };
+  robots?: string;
+}
+const { titel, omschrijving, taal = 'nl', alternatief = {}, robots = 'index, follow' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogLocale = { nl: 'nl_NL', en: 'en_US', ja: 'ja_JP' }[taal];
+---
+<!doctype html>
+<html lang={taal}>
+<head>
+<meta charset="utf-8">
+<script is:inline src="/consent.js"></script>
+<!-- Google Tag Manager -->
+<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WJ483GR8');</script>
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{titel}</title>
+<meta name="description" content={omschrijving}>
+<meta name="robots" content={robots}>
+<link rel="canonical" href={canonical}>
+<link rel="icon" type="image/png" href="/favicon.png">
+{alternatief.nl && <link rel="alternate" hreflang="nl" href={new URL(alternatief.nl, Astro.site).href}>}
+{alternatief.en && <link rel="alternate" hreflang="en" href={new URL(alternatief.en, Astro.site).href}>}
+{alternatief.ja && <link rel="alternate" hreflang="ja" href={new URL(alternatief.ja, Astro.site).href}>}
+<meta property="og:type" content="website">
+<meta property="og:url" content={canonical}>
+<meta property="og:title" content={titel}>
+<meta property="og:description" content={omschrijving}>
+<meta property="og:locale" content={ogLocale}>
+<meta property="og:site_name" content="Slim Geregeld">
+<slot name="head" />
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ483GR8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<Kop taal={taal} alternatief={alternatief} />
+<main id="inhoud">
+<slot />
+</main>
+<Voet taal={taal} />
+</body>
+</html>

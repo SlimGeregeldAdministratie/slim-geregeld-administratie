@@ -1,0 +1,69 @@
+---
+/* Geanimeerd WhatsApp-gesprek met Slim. Puur CSS, start pas als het blok in
+   beeld komt (IntersectionObserver), respecteert prefers-reduced-motion. */
+interface Props { taal?: 'nl' | 'en' }
+const { taal = 'nl' } = Astro.props;
+const T = taal === 'en' ? {
+  label: 'Example of a WhatsApp conversation with Slim',
+  b: [
+    ['mij', 'bon', 'Receipt Coolblue, monitor', '09:12'],
+    ['slim', '', 'Booked: €249.00 office costs, including €43.21 VAT you get back.', '09:12'],
+    ['mij', '', 'Invoice Studio Noord, 8 hours at €65', '09:14'],
+    ['slim', 'fac', 'Invoice ready|2026-041 · Studio Noord|€520.00 + €109.20 VAT = €629.20|Shall I send it?', '09:14'],
+    ['mij', '', 'Yes please 👍', '09:15'],
+    ['slim', '', 'Sent. I\'ll let you know when it\'s paid.', '09:15'],
+  ],
+} : {
+  label: 'Voorbeeld van een WhatsApp-gesprek met Slim',
+  b: [
+    ['mij', 'bon', 'Bonnetje Coolblue, monitor', '09:12'],
+    ['slim', '', 'Geboekt: €249,00 kantoorkosten, waarvan €43,21 btw die je terugkrijgt.', '09:12'],
+    ['mij', '', 'Factuur Studio Noord, 8 uur à €65', '09:14'],
+    ['slim', 'fac', 'Factuur staat klaar|2026-041 · Studio Noord|€520,00 + €109,20 btw = €629,20|Zal ik hem versturen?', '09:14'],
+    ['mij', '', 'Ja graag 👍', '09:15'],
+    ['slim', '', 'Verstuurd. Ik laat het weten als er betaald is.', '09:15'],
+  ],
+};
+---
+<div class="tel" role="img" aria-label={T.label}>
+  <div class="scherm">
+    <div class="wakop"><img src="/img/logo.png" alt="" width="34" height="34"><div><b>Slim</b><small>online</small></div></div>
+    <div class="gesprek">
+      {T.b.map(([wie, soort, tekst, tijd], i) => {
+        if (soort === 'fac') {
+          const [a, k, bedrag, vraag] = tekst.split('|');
+          return <div class={`b ${wie}`} style={`--i:${i}`}>{a}:<span class="fac"><b>{k}</b>{bedrag}</span>{vraag}<span class="t">{tijd}</span></div>;
+        }
+        return <div class={`b ${wie}`} style={`--i:${i}`}>{soort === 'bon' ? <span class="bon"><i></i>{tekst}</span> : tekst}<span class="t">{tijd}{wie === 'mij' ? ' ✓✓' : ''}</span></div>;
+      })}
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function(){
+  var el=document.currentScript.previousElementSibling;
+  if(!('IntersectionObserver' in window)){el.classList.add('speel');return;}
+  var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){el.classList.add('speel');io.disconnect();}},{threshold:.35});
+  io.observe(el);
+})();
+</script>
+
+<style>
+.tel{max-width:340px;margin:0 auto;border-radius:34px;background:#0b1220;padding:10px;box-shadow:0 30px 60px rgba(16,24,40,.18)}
+.scherm{border-radius:26px;overflow:hidden;background:#efeae2}
+.wakop{background:#075e54;color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px}
+.wakop img{width:34px;height:34px;border-radius:50%;background:#fff;padding:3px}
+.wakop small{display:block;font-size:.72rem;opacity:.8}
+.gesprek{padding:14px 12px 18px;display:flex;flex-direction:column;gap:8px;min-height:420px;font-size:.88rem;line-height:1.4}
+.b{max-width:84%;padding:8px 10px 6px;border-radius:10px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.08);opacity:0;transform:translateY(8px)}
+.b.mij{align-self:flex-end;background:#d9fdd3}
+.speel .b{animation:in .45s ease forwards;animation-delay:calc(var(--i) * 1.15s + .2s)}
+.t{display:block;text-align:right;font-size:.66rem;color:#667;margin-top:2px}
+.bon{display:flex;gap:8px;align-items:center}
+.bon i{width:34px;height:42px;border-radius:4px;background:repeating-linear-gradient(#fff 0 5px,#e6e6e6 5px 6px);border:1px solid #ddd;flex:none}
+.fac{display:block;border-left:3px solid var(--blauw);padding-left:8px;margin:4px 0}
+.fac b{display:block}
+@keyframes in{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.b{opacity:1;transform:none}.speel .b{animation:none}}
+</style>
