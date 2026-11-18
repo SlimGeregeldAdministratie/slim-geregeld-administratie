@@ -107,11 +107,12 @@
   ul.gekozen li{display:flex;gap:.4rem;align-items:baseline;padding:.15rem 0}
   ul.gekozen li::before{content:"✓";color:#16a34a;font-weight:700}
   ul.gekozen .maat{color:var(--muted)}
-  .taal{display:inline-flex;border:1px solid var(--rand);border-radius:999px;background:var(--bg);padding:3px;margin-bottom:1rem}
-  .taal button{margin:0;padding:.35rem .9rem;border-radius:999px;background:transparent;color:var(--body);font-size:.85rem;font-weight:600}
-  .taal button[aria-pressed="true"]{background:var(--blauw);color:#fff}
-  .taal button:hover{background:var(--blauw-tint);color:var(--ink)}
-  .taal button[aria-pressed="true"]:hover{background:var(--blauw-donker);color:#fff}
+  .taalkeuze{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem}
+  @media (max-width:480px){.taalkeuze{grid-template-columns:1fr}}
+  .keuze.groot{padding:1rem 1.1rem;margin:0;font-size:1rem;font-weight:600}
+  .keuze.groot .uitleg{font-weight:400}
+  button.wissel{background:none;border:0;padding:0;margin:0;color:var(--blauw);font-size:.82rem;font-weight:600;text-decoration:underline;cursor:pointer}
+  button.wissel:hover{background:none;color:var(--blauw-donker)}
 </style>
 </head>
 <body>
@@ -121,16 +122,26 @@
 </div></div>
 
 <main>
-  <div class="taal" role="group" aria-label="Taal / Language">
-    <button type="button" data-taal="nl" aria-pressed="true">Nederlands</button>
-    <button type="button" data-taal="en" aria-pressed="false">English</button>
-  </div>
-  <h1>Je aangifte inkomstenbelasting</h1>
+  <h1 id="kop-taal" class="verborgen">Aangifte inkomstenbelasting<br><span style="color:var(--muted);font-weight:600">Dutch income tax return</span></h1>
+  <h1 id="kop">Je aangifte inkomstenbelasting</h1>
   <p class="lead">Met deze vragen weet ik in één keer wat ik nodig heb. Je ziet alleen de vragen die
   voor jou gelden. Twijfel je ergens? Kies dan "Weet ik niet": dan kijk ik het na en kom ik er in mijn
   mail op terug. Reken op ongeveer 15 minuten, met je jaaropgaven bij de hand.</p>
 
   <form id="f" novalidate>
+    <!-- 0. Taal. Staat de taal al in de link, dan valt deze stap weg. De tekst
+         is bewust in beide talen en wordt niet vertaald. -->
+    <fieldset id="taalstap">
+      <legend>Nederlands of English?</legend>
+      <p class="hint">In welke taal wil je de vragen? / Which language would you like for the questions?</p>
+      <div class="taalkeuze">
+        <label class="keuze groot"><input type="radio" name="taal_keuze" value="nl" required>
+          <span class="titel">Nederlands<span class="uitleg">Ik vul het formulier in het Nederlands in.</span></span></label>
+        <label class="keuze groot"><input type="radio" name="taal_keuze" value="en">
+          <span class="titel">English<span class="uitleg">I will fill in the form in English.</span></span></label>
+      </div>
+    </fieldset>
+
     <!-- 1. Over jou -->
     <fieldset>
       <legend>1. Over jou</legend>
@@ -404,6 +415,7 @@
       <button type="submit" id="knop">Versturen</button>
       <p class="melding" id="melding" role="status"></p>
     </fieldset>
+    <p class="voet"><button type="button" class="wissel" id="wissel"></button></p>
     <p class="voet">Je gegevens gaan via een beveiligde verbinding rechtstreeks naar mijn administratie en
     worden alleen gebruikt voor je aangifte. Vragen? Mail kyle@slim-geregeld.nl.</p>
   </form>
@@ -912,7 +924,7 @@
     taal = t === 'en' ? 'en' : 'nl';
     document.documentElement.lang = taal;
     document.title = T('Aangifte inkomstenbelasting', 'Dutch income tax return') + ' | Slim Geregeld Administratie';
-    document.querySelectorAll('.taal button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.taal === taal)); });
+    form.querySelectorAll('input[name="taal_keuze"]').forEach(function(r){ r.checked = r.value === taal; });
     var main = document.querySelector('main');
     // de kaarten per persoon worden opnieuw opgebouwd in de juiste taal
     var kaarten = [].slice.call(document.querySelectorAll('[data-sjabloon]'));
@@ -922,11 +934,20 @@
     bijwerken();
     naTaal();
   }
-  document.querySelectorAll('.taal button').forEach(function(b){
-    b.addEventListener('click', function(){ zetTaal(b.dataset.taal); });
+  // Staat de taal in de link, dan is de taalvraag niet nodig.
+  var taalUitLink = hash.get('l') || window.__bekendTaal || '';
+  if (taalUitLink === 'nl' || taalUitLink === 'en') {
+    var ts = document.getElementById('taalstap'); if (ts) ts.parentNode.removeChild(ts);
+  }
+  zetTaal(taalUitLink === 'en' ? 'en' : 'nl');
+  if (!(taalUitLink === 'nl' || taalUitLink === 'en')) form.querySelectorAll('input[name="taal_keuze"]').forEach(function(r){ r.checked = false; });
+  form.addEventListener('change', function(e){
+    if (e.target.name !== 'taal_keuze') return;
+    zetTaal(e.target.value);
+    // na de keuze meteen door naar de eerste vragen
+    if (stappen && stappen[nu] && stappen[nu].id === 'taalstap') setTimeout(function(){ toonStap(nu + 1); }, 250);
   });
-  var startTaal = hash.get('l') || (window.__bekendTaal || '');
-  zetTaal(startTaal === 'en' ? 'en' : 'nl');
+  document.getElementById('wissel').addEventListener('click', function(){ zetTaal(taal === 'en' ? 'nl' : 'en'); opslaan(); });
 
   // Een checkboxgroep met een sterretje is verplicht als geheel.
   function groepFout(){
@@ -1016,10 +1037,19 @@
   }
   function naTaal(){
     if (!stappen || !stappen.length) return;
+    // de taalstap telt niet mee in "Stap x van y"
+    var extra = stappen[0] && stappen[0].id === 'taalstap' ? 1 : 0;
+    var opTaal = stappen[nu].id === 'taalstap';
     var titel = (stappen[nu].querySelector('legend') || {}).textContent || '';
+    voortgang.classList.toggle('verborgen', opTaal);
+    document.getElementById('kop').classList.toggle('verborgen', opTaal);
+    document.querySelector('.lead').classList.toggle('verborgen', opTaal);
+    document.getElementById('kop-taal').classList.toggle('verborgen', !opTaal);
     voortgang.querySelector('b').textContent = titel.replace(/^\d+\.\s*/, '');
-    voortgang.querySelector('.tekst span').textContent = T('Stap ', 'Step ') + (nu + 1) + T(' van ', ' of ') + stappen.length;
-    voortgang.querySelector('.balk span').style.width = Math.round((nu + 1) / stappen.length * 100) + '%';
+    voortgang.querySelector('.tekst span').textContent = T('Stap ', 'Step ') + (nu + 1 - extra) + T(' van ', ' of ') + (stappen.length - extra);
+    voortgang.querySelector('.balk span').style.width = Math.round((nu + 1 - extra) / (stappen.length - extra) * 100) + '%';
+    var w = document.getElementById('wissel');
+    if (w) { w.textContent = T('Switch to English', 'Liever in het Nederlands'); w.parentNode.classList.toggle('verborgen', opTaal); }
     voortgang.querySelector('.bewaard').textContent = T('Je antwoorden worden op dit apparaat bewaard tot je verstuurt. Je BSN en bestanden niet: die vul je na een onderbreking opnieuw in.',
       'Your answers are kept on this device until you send them. Your BSN and files are not: after a break you add those again.');
     form.querySelectorAll('button.terug').forEach(function(b){ b.textContent = T('Vorige', 'Back'); });
