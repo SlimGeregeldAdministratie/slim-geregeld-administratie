@@ -25,7 +25,7 @@ const Hero = () => {
             </h1>
             
             <div className="text-xl md:text-2xl font-normal text-gray-600 mb-6 leading-relaxed">
-              – vanaf nu is administratie <span className="text-blue-600 font-bold">Slim Geregeld.</span>
+              Vanaf nu is administratie <span className="text-blue-600 font-bold">Slim Geregeld.</span>
             </div>
             
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">

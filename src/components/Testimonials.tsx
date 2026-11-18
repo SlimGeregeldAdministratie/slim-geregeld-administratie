@@ -17,10 +17,6 @@ const Testimonials = () => {
     window.open('https://www.google.com/maps/place/Slim+Geregeld+Administratie/@52.1615328,2.640828,583026m/data=!3m1!1e3!4m18!1m9!3m8!1s0x6e2416ab86cbb037:0xbe819561033f9841!2sSlim+Geregeld+Administratie!8m2!3d52.1909763!4d5.2795551!9m1!1b1!16s%2Fg%2F11xgj0kk8j!3m7!1s0x6e2416ab86cbb037:0xbe819561033f9841!8m2!3d52.1909763!4d5.2795551!9m1!1b1!16s%2Fg%2F11xgj0kk8j?entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D', '_blank');
   };
 
-  const handleSerenaReviewClick = () => {
-    window.open('https://maps.app.goo.gl/mWxn26yeQ85gMNfh6', '_blank');
-  };
-
   const handleAndriesReviewClick = () => {
     window.open('https://maps.app.goo.gl/cz2LpkpYzyJQTiyg6', '_blank');
   };
@@ -42,15 +38,6 @@ const Testimonials = () => {
   };
 
   const testimonials = [
-    {
-      name: "byserenaarendzen / Serena Arendzen",
-      role: "Fotograaf",
-      text: "Ik ben altijd een grote kluns geweest als het aankomt op mijn administratie. Rekeningen, deadlines, formulieren… het was altijd een rommeltje. Sinds ik gebruik maak van Slim Geregeld is dat volledig veranderd. Alles is ...",
-      rating: 5,
-      avatar: "/IMG_4113.PNG",
-      hasFullReview: true,
-      onReadMore: handleSerenaReviewClick
-    },
     {
       name: "Marimin / andries",
       role: "Timmerman", 

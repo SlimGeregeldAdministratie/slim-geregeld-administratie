@@ -879,7 +879,7 @@ const IntakeForm = () => {
             <div className="space-y-4">
               <div className="bg-white rounded-lg border border-gray-300 p-6">
                 <label className="block text-sm font-semibold text-gray-900 mb-3">Wil je dat wij je Moneybird-account voor je aanmaken? *</label>
-                <p className="text-sm text-gray-600 mb-3">We raden dit wel aan – dat is het snelst geregeld</p>
+                <p className="text-sm text-gray-600 mb-3">We raden dit wel aan, dat is het snelst geregeld</p>
                 <div className="space-y-2">
                   {[
                     'Ja, maak jij het account voor mij aan en geef mij eigenaarstoegang',
@@ -1089,7 +1089,7 @@ const IntakeForm = () => {
                 <p className="text-sm text-gray-700 mb-3">Wil je overstappen van een ander boekhoudprogramma? Dan hebben we enkele gegevens nodig om je administratie volledig en foutloos over te zetten naar Moneybird.</p>
                 <p className="text-sm text-gray-700 mb-3">Je hebt twee opties:</p>
                 <ul className="text-sm text-gray-700 space-y-2 ml-5 list-disc">
-                  <li>Tijdelijk toegang geven tot je oude boekhoudprogramma (aanbevolen – wij regelen alles voor je), of</li>
+                  <li>Tijdelijk toegang geven tot je oude boekhoudprogramma (aanbevolen, wij regelen alles voor je), of</li>
                   <li>Zelf de benodigde gegevens verzamelen en e-mailen naar intake.slimgeregeld@gmail.com</li>
                 </ul>
               </div>
