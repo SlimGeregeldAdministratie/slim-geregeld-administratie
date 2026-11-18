@@ -448,13 +448,13 @@
           </div>
         </div>
         <div class="veld">
-          <span class="vraag">Is {wie} met dit bedrijf in de laatste 5 jaar gestart? <span class="verplicht">*</span></span>
+          <span class="vraag">Is het bedrijf in de laatste 5 jaar gestart? <span class="verplicht">*</span></span>
           <div class="opties">
             <label class="keuze"><input type="radio" name="{p}starter" value="ja" required><span class="titel">Ja</span></label>
             <label class="keuze"><input type="radio" name="{p}starter" value="nee"><span class="titel">Nee</span></label>
           </div>
           <div class="vervolg" data-als="{p}starter=ja">
-            <label class="vraag">Sinds wanneer onderneem {wie}, ongeveer?</label>
+            <label class="vraag">Sinds wanneer, ongeveer?</label>
             <input name="{p}start" type="text" placeholder="bijvoorbeeld: oktober 2024" required>
           </div>
         </div>
@@ -599,19 +599,28 @@
       else if (w[i.name] != null) i.value = w[i.name];
     });
   }
+  // De kaarten worden alleen opnieuw opgebouwd als de partner erbij komt of
+  // weggaat. Een naam wijzigen past alleen de tekst aan, zodat gekozen
+  // bestanden in de uploadvelden blijven staan.
   function bouwPersonen(){
     var lijst = personen();
-    var sleutel = lijst.map(function(x){ return x.p + x.naam; }).join('|');
-    if (sleutel === vorigeSleutel) return;
-    vorigeSleutel = sleutel;
-    document.querySelectorAll('[data-sjabloon]').forEach(function(c){
-      var w = bewaar(c);
-      var html = document.getElementById(c.dataset.sjabloon).innerHTML;
-      c.innerHTML = lijst.map(function(x){
-        return html.replace(/\{p\}/g, x.p).replace(/\{Naam\}/g, x.naam).replace(/\{wie\}/g, x.wie).replace(/\{Wie\}/g, x.Wie);
-      }).join('');
-      c.classList.toggle('met-partner', lijst.length > 1);
-      herstel(c, w);
+    var sleutel = lijst.map(function(x){ return x.p; }).join('|');
+    if (sleutel !== vorigeSleutel) {
+      vorigeSleutel = sleutel;
+      document.querySelectorAll('[data-sjabloon]').forEach(function(c){
+        var w = bewaar(c);
+        var html = document.getElementById(c.dataset.sjabloon).innerHTML;
+        c.innerHTML = lijst.map(function(x){
+          var nm = '<span class="nm-' + x.p + '"></span>';
+          return html.replace(/\{p\}/g, x.p).replace(/\{Naam\}/g, nm)
+            .replace(/\{wie\}/g, x.p === 'jij_' ? 'je' : nm).replace(/\{Wie\}/g, x.p === 'jij_' ? 'Je' : nm);
+        }).join('');
+        c.classList.toggle('met-partner', lijst.length > 1);
+        herstel(c, w);
+      });
+    }
+    lijst.forEach(function(x){
+      document.querySelectorAll('.nm-' + x.p).forEach(function(el){ el.textContent = x.naam; });
     });
     var jij = lijst[0].naam, partner = lijst[1] ? lijst[1].naam : '';
     document.querySelectorAll('.naam-jij').forEach(function(el){ el.textContent = 'Van ' + jij; });
