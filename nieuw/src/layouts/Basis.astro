@@ -2,6 +2,7 @@
 import '../styles/basis.css';
 import Kop from '../components/Kop.astro';
 import Voet from '../components/Voet.astro';
+import Extras from '../components/Extras.astro';
 
 interface Props {
   titel: string;
@@ -47,6 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ483GR8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <Kop taal={taal} alternatief={alternatief} />
+<Extras taal={taal} />
 <main id="inhoud">
 <slot />
 </main>

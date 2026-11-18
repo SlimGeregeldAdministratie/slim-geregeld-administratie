@@ -1,6 +1,9 @@
 ---
 import Basis from '../layouts/Basis.astro';
 import SlimGesprek from '../components/SlimGesprek.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import MoneybirdWidget from '../components/MoneybirdWidget.astro';
+import { google, moneybird } from '../data/reviews';
 
 const faq = [
   ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
@@ -8,12 +11,6 @@ const faq = [
   ['Zit de aangifte inkomstenbelasting erbij?', 'Die is los: €245 excl. btw, of €395 excl. btw samen met je fiscale partner.'],
   ['Ik heb een bv. Kan dat ook?', 'Zeker. Voor een bv maak ik een prijs op maat, afhankelijk van wat er speelt.'],
   ['Is Slim echt gratis?', 'Ja. Slim werkt via WhatsApp, ook zonder Moneybird. Wil je dat ik je boekhouding doe, dan stap je over op de volledige service.'],
-];
-const reviews = [
-  ['Onderweg kan ik vrij rap wat facturen versturen door een simpel appje. Top systeem.', 'Jeremy Gomes', 'Gomes Media'],
-  ['Efficiënt en overzichtelijk. Kyle begeleidt je op een ondersteunende en begripvolle manier.', 'Umesh ten Kate', 'personal trainer'],
-  ['Alles was heel duidelijk en scheelt super veel tijd. Aanrader!', 'Dany Cramer', 'OMNI fit coaching'],
-  ['Prima, lekker makkelijk zo.', 'Andries', 'timmerman'],
 ];
 const faqLd = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -48,8 +45,8 @@ const faqLd = {
       </div>
       <div class="trust">
         <div><b>Becon-geregistreerd</b>boekhouder</div>
-        <div><b>Moneybird Expert</b>officieel kantoor</div>
-        <div><b>Eén aanspreekpunt</b>je spreekt Kyle</div>
+        <div><b>Moneybird Expert</b>{moneybird.score} uit {moneybird.aantal} reviews</div>
+        <div><b>{google.score} op Google</b><a href={google.profiel} target="_blank" rel="noopener">{google.aantal} reviews →</a></div>
         <div><b>Ook in het Engels</b><a href="/en/">for expats and treaty →</a></div>
       </div>
     </div>
@@ -108,6 +105,7 @@ const faqLd = {
         <div class="pk"><h3>BV en holding</h3><div class="bedrag klein">Op aanvraag</div><small>prijs op maat</small>
           <ul><li>Jaarrekening en Vpb</li><li>DGA-loon en dividend</li><li>Meerdere entiteiten</li></ul><a class="knop leeg" href="/contact">Prijs aanvragen</a></div>
       </div>
+      <MoneybirdWidget />
       <p class="slimregel">Alleen Slim, de WhatsApp-assistent voor facturen en bonnetjes, is gratis. <a href="/slim">Meer over Slim →</a></p>
     </div>
   </section>
@@ -127,10 +125,7 @@ const faqLd = {
 
   <section class="zacht">
     <div class="wrap">
-      <h2>Wat klanten zeggen</h2>
-      <div class="reviews">
-        {reviews.map(([t, n, r]) => <figure class="rv"><div class="s" aria-label="5 sterren">★★★★★</div><blockquote>"{t}"</blockquote><figcaption><b>{n}</b> · {r}</figcaption></figure>)}
-      </div>
+      <GoogleReviews />
     </div>
   </section>
 
@@ -193,11 +188,6 @@ const faqLd = {
 .feiten div{background:var(--zacht);border-radius:12px;padding:12px}
 .feiten b{display:block;font-size:1.05rem}
 .feiten span{font-size:.82rem;color:var(--grijs)}
-.reviews{display:grid;gap:14px;margin-top:26px}
-.rv{border:1px solid var(--lijn);border-radius:var(--r);padding:20px;background:#fff}
-.rv .s{color:#f5a524;letter-spacing:2px;font-size:.85rem}
-.rv blockquote{margin:8px 0 12px}
-.rv figcaption{font-size:.85rem;color:var(--grijs)}.rv figcaption b{color:var(--inkt)}
 .faq{display:grid;gap:10px;margin-top:22px;max-width:780px}
 .faq details{border:1px solid var(--lijn);border-radius:14px;padding:16px 18px;background:#fff}
 .faq summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:12px}
@@ -216,7 +206,6 @@ const faqLd = {
   .slim-grid{grid-template-columns:1.1fr .9fr;gap:56px}
   .prijzen{grid-template-columns:repeat(3,1fr)}
   .kyle{grid-template-columns:.8fr 1.2fr;gap:56px}
-  .reviews{grid-template-columns:repeat(4,1fr)}
   .cta{padding:56px}
 }
 </style>
