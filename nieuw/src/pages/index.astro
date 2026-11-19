@@ -2,7 +2,6 @@
 import Basis from '../layouts/Basis.astro';
 import SlimGesprek from '../components/SlimGesprek.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
-import MoneybirdWidget from '../components/MoneybirdWidget.astro';
 import { google, moneybird } from '../data/reviews';
 
 const faq = [
@@ -45,7 +44,7 @@ const faqLd = {
       </div>
       <div class="trust">
         <div><b>Becon-geregistreerd</b>boekhouder</div>
-        <div><b>Moneybird Expert</b>{moneybird.score} uit {moneybird.aantal} reviews</div>
+        <div><b>Moneybird Expert</b><a href={moneybird.profiel} target="_blank" rel="noopener">{moneybird.score} uit {moneybird.aantal} reviews →</a></div>
         <div><b>{google.score} op Google</b><a href={google.profiel} target="_blank" rel="noopener">{google.aantal} reviews →</a></div>
         <div><b>Ook in het Engels</b><a href="/en/">for expats and treaty →</a></div>
       </div>
@@ -105,7 +104,6 @@ const faqLd = {
         <div class="pk"><h3>BV en holding</h3><div class="bedrag klein">Op aanvraag</div><small>prijs op maat</small>
           <ul><li>Jaarrekening en Vpb</li><li>DGA-loon en dividend</li><li>Meerdere entiteiten</li></ul><a class="knop leeg" href="/contact">Prijs aanvragen</a></div>
       </div>
-      <MoneybirdWidget />
       <p class="slimregel">Alleen Slim, de WhatsApp-assistent voor facturen en bonnetjes, is gratis. <a href="/slim">Meer over Slim →</a></p>
     </div>
   </section>
