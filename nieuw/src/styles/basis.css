@@ -27,7 +27,7 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
 .knop.leeg:hover{background:var(--blauw-t)}
 .knop:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--blauw-rand);outline-offset:2px}
 .knoppen{display:flex;flex-wrap:wrap;gap:10px}
-section{padding:60px 0}
+section{padding:44px 0}
 .zacht{background:var(--zacht)}
 .grid3{display:grid;gap:14px;margin-top:26px}
 .blok{border:1px solid var(--lijn);border-radius:var(--r);padding:22px;background:#fff}
@@ -36,6 +36,6 @@ section{padding:60px 0}
 .nr{width:34px;height:34px;border-radius:10px;background:var(--blauw-t);color:var(--blauw);font-weight:750;display:grid;place-items:center;margin-bottom:12px}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (min-width:760px){
-  section{padding:88px 0}
+  section{padding:64px 0}
   .grid3{grid-template-columns:repeat(3,1fr)}
 }
