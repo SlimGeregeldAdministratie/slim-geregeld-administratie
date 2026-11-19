@@ -1,5 +1,43 @@
 [
   {
+    "id": "urn:li:ugcPost:7529121364872552448",
+    "datum": "2026-11-19",
+    "kanaal": "profiel",
+    "titel": "DAFT renewal: four checks before it goes to the IND",
+    "tekst": "Four things I check before a DAFT renewal goes to the IND.\n\nThe renewal asks for figures over the previous financial year and the current year so far. One balance sheet date is not enough, and a bank statement is not enough either.\n\nThe four checks, also in the document above:\n\n1. A balance sheet for both periods.\n2. A profit and loss account for both periods.\n3. Owner's equity still at or above the EUR 4,500 you put in.\n4. A signature from an authorised independent expert.\n\nPoint 3 is where I see the most surprises. Equity drops every time private costs are paid from the business account, and in the files I see nobody notices until the year-end figures are made.\n\nPage 7 has a worked example: EUR 6,200 in the bank, EUR 1,800 in equipment and EUR 1,300 in VAT and tax still to pay leaves EUR 6,700 in equity. That passes.\n\nIf your figures for this year are still in a spreadsheet, that is fine as a start. Put them in order before December 31.",
+    "afbeelding": "/nieuws/media/7529121364872552448/1.png",
+    "urlProfiel": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7529121364872552448/",
+    "urlPagina": null,
+    "taal": "en",
+    "blogSlug": null,
+    "cluster": "daft-verlenging",
+    "toon": true,
+    "media": {
+      "type": "carrousel",
+      "pdf": "/nieuws/media/7529121364872552448/carrousel.pdf",
+      "paginas": [
+        "/nieuws/media/7529121364872552448/1.png",
+        "/nieuws/media/7529121364872552448/2.png",
+        "/nieuws/media/7529121364872552448/3.png",
+        "/nieuws/media/7529121364872552448/4.png",
+        "/nieuws/media/7529121364872552448/5.png",
+        "/nieuws/media/7529121364872552448/6.png",
+        "/nieuws/media/7529121364872552448/7.png",
+        "/nieuws/media/7529121364872552448/8.png"
+      ],
+      "tekstPerPagina": [
+        "DAFT renewal\nWhat I check before a DAFT renewal goes to the IND\nLast year, this year so far, four checks.",
+        "The rule\n2\nperiods: the previous year and this year so far\nA bank statement is explicitly not enough.",
+        "Step 1\nA balance sheet for both periods\nWhat the business owns, what it owes, and what is left for you.",
+        "Step 2\nProfit and loss for both periods\nRevenue minus costs, so the IND sees a business that actually runs.",
+        "Step 3\nOwner's equity at least EUR 4,500\nPrivate costs paid from the business account lower it every time.",
+        "Step 4\nSigned by an independent expert\nForms 7035 and 7535 ask for figures signed off by an authorised expert.",
+        "Worked example\nOwner's equity at year end\nItem | EUR\nBusiness account | 6,200\nLaptop and equipment | 1,800\nVAT and tax to pay | -1,300\nOwner's equity | 6,700\nAbove EUR 4,500, so this one passes.",
+        "Before December 31\nPut this year in order now\nRebuilding everything from bank exports is where renewals stall."
+      ]
+    }
+  },
+  {
     "id": "urn:li:share:7528758960368041984",
     "datum": "2026-11-18",
     "kanaal": "pagina",
