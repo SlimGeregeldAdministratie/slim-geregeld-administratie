@@ -54,6 +54,15 @@ const pagina = Astro.url.pathname;
           <button class="knop vol breed" type="submit">Verstuur</button>
           <p class="breed klein">Ik gebruik je gegevens alleen om contact met je op te nemen. <a href="/privacybeleid">Privacybeleid</a></p>
         </form>
+        <script is:inline>
+          /* Een link met data-vraag (bijv. op tarieven) vult de vraag alvast in. */
+          document.addEventListener('click', function (e) {
+            var a = e.target.closest && e.target.closest('a[data-vraag]');
+            if (!a) return;
+            var t = document.querySelector('#contact textarea[name="situation"]');
+            if (t && (!t.value || t.dataset.ingevuld === '1')) { t.value = a.dataset.vraag; t.dataset.ingevuld = '1'; }
+          });
+        </script>
       </div>
     </div>
   </section>

@@ -71,9 +71,9 @@ const faq: [string, string][] = [
       <p class="sub">Ook als ik je boekhouding niet doe.</p>
       <div class="los">
         <div class="blok"><h3>Aangifte inkomstenbelasting</h3><p class="pr">€245, of €395 met fiscale partner</p><p>Klant? Dan 15% korting.</p><a class="meer" href="/aangifte-inkomstenbelasting">Meer over de aangifte →</a></div>
-        <div class="blok"><h3>Financieel jaaroverzicht</h3><p class="pr">€395 tot 50 facturen en bonnetjes</p><p>Je balans en winst-en-verliesrekening, bijvoorbeeld voor je aangifte IB. €695 tot 150 stuks; daarboven hoor je de prijs vooraf.</p></div>
-        <div class="blok"><h3>Jaarrekening en Vpb voor je bv</h3><p class="pr">Vanaf €595 per jaar</p><p>Houd je de boekhouding zelf bij? Dan maak ik je jaarrekening en de aangifte vennootschapsbelasting, ook voor een holding. Je hoort de prijs vooraf.</p></div>
-        <div class="blok"><h3>Achterstand wegwerken</h3><p class="pr">Op maat</p><p>Een of meer jaren achter? Ik kijk eerst wat er ligt en geef je dan een vaste prijs.</p></div>
+        <div class="blok"><h3>Financieel jaaroverzicht</h3><p class="pr">€395 tot 50 facturen en bonnetjes</p><p>Je balans en winst-en-verliesrekening, bijvoorbeeld voor je aangifte IB. €695 tot 150 stuks; daarboven hoor je de prijs vooraf.</p><a class="meer" href="#contact" data-vraag="Ik wil graag een financieel jaaroverzicht laten maken.">Jaaroverzicht aanvragen →</a></div>
+        <div class="blok"><h3>Jaarrekening en Vpb voor je bv</h3><p class="pr">Vanaf €595 per jaar</p><p>Houd je de boekhouding zelf bij? Dan maak ik je jaarrekening en de aangifte vennootschapsbelasting, ook voor een holding. Je hoort de prijs vooraf.</p><a class="meer" href="#contact" data-vraag="Ik wil graag mijn jaarrekening en Vpb-aangifte laten maken.">Prijs aanvragen →</a></div>
+        <div class="blok"><h3>Achterstand wegwerken</h3><p class="pr">Op maat</p><p>Een of meer jaren achter? Ik kijk eerst wat er ligt en geef je dan een vaste prijs.</p><a class="meer" href="#contact" data-vraag="Ik heb een achterstand in mijn administratie en wil die laten wegwerken.">Prijs aanvragen →</a></div>
       </div>
       <p class="noot">Niet inbegrepen: het Moneybird-abonnement, dat op je eigen naam staat.</p>
     </div>
@@ -96,7 +96,9 @@ const faq: [string, string][] = [
 .inhoud .vinkjes{margin-bottom:0}
 .alles{padding-bottom:10px;margin-bottom:2px;border-bottom:1px solid var(--lijn)}
 .alles span{display:block;color:var(--grijs);font-size:.9rem}
+.los .blok{display:flex;flex-direction:column}
 .los .blok p:not(.pr){margin-top:6px}
+.los .meer{margin-top:auto;padding-top:14px}
 @media (min-width:760px){.inhoud{grid-template-columns:1fr 1fr}.los{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1100px){.los{grid-template-columns:repeat(4,1fr)}}
 </style>
