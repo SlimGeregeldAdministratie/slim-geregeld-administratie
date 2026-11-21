@@ -27,10 +27,13 @@ const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contactte
     </div>
   </section>
   <section class="zacht">
-    <div class="wrap">
-      <h2>Wat je krijgt</h2>
-      <ul class="vinkjes krijg">{krijg.map((k) => <li>{k}</li>)}</ul>
-      <a class="knop vol" href="#contact">Kennismaken</a>
+    <div class="wrap twee">
+      <div>
+        <h2>Wat je krijgt</h2>
+        <p class="sub">Alles voor €95 per maand bij een eenmanszaak of vof. Heb je een bv, dan krijg je vooraf een vaste prijs.</p>
+        <a class="knop vol" href="#contact">Kennismaken</a>
+      </div>
+      <div class="blok krijgblok"><ul class="vinkjes">{krijg.map((k) => <li>{k}</li>)}</ul></div>
     </div>
   </section>
   <section>
@@ -41,6 +44,6 @@ const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contactte
 </Basis>
 
 <style>
-.krijg{gap:10px 32px}
-@media (min-width:760px){.krijg{grid-template-columns:1fr 1fr}}
+.twee .sub{margin:10px 0 20px}
+.krijgblok .vinkjes{margin:0;gap:12px}
 </style>
