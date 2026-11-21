@@ -17,7 +17,9 @@ const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contactte
   <Paginakop
     kruimel={kruimel} tag={tag} titel={h1} sub={sub}
     prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof · bv op maat' }}
-  />
+  >
+    <SlimGesprek slot="rechts" variant={variant} />
+  </Paginakop>
   <section>
     <div class="wrap">
       <h2>Waar ik op let</h2>
@@ -25,13 +27,10 @@ const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contactte
     </div>
   </section>
   <section class="zacht">
-    <div class="wrap twee">
-      <div>
-        <h2>Wat je krijgt</h2>
-        <ul class="vinkjes">{krijg.map((k) => <li>{k}</li>)}</ul>
-        <a class="knop vol" href="#contact">Kennismaken</a>
-      </div>
-      <SlimGesprek variant={variant} />
+    <div class="wrap">
+      <h2>Wat je krijgt</h2>
+      <ul class="vinkjes krijg">{krijg.map((k) => <li>{k}</li>)}</ul>
+      <a class="knop vol" href="#contact">Kennismaken</a>
     </div>
   </section>
   <section>
@@ -40,3 +39,8 @@ const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contactte
   <Faq vragen={faq} />
   <Contactblok tekst={contacttekst} />
 </Basis>
+
+<style>
+.krijg{gap:10px 32px}
+@media (min-width:760px){.krijg{grid-template-columns:1fr 1fr}}
+</style>
