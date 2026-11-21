@@ -10,8 +10,9 @@ import Contactblok from './Contactblok.astro';
 interface Props {
   plaats: string; titel: string; omschrijving: string; h1: string; sub: string;
   plaatsen: string[]; faq: [string, string][];
+  foto: { src: string; alt: string; pos?: string };
 }
-const { plaats, titel, omschrijving, h1, sub, plaatsen, faq } = Astro.props;
+const { plaats, titel, omschrijving, h1, sub, plaatsen, faq, foto } = Astro.props;
 const rest = plaatsen.filter((p) => p !== plaats);
 const omgeving = rest.length ? `zoals ${rest.slice(0, -1).join(', ')}${rest.length > 1 ? ' of ' : ''}${rest[rest.length - 1]}` : '';
 const ld = {
@@ -31,16 +32,16 @@ const ld = {
     titel={h1}
     sub={sub}
     prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof, volledige service' }}
-  >
-      <div slot="rechts" class="blok waar">
+    foto={foto}
+  />
+  <section>
+    <div class="wrap twee boven">
+      <div class="lees"><slot /></div>
+      <div class="blok waar">
         <h3>Ik help ondernemers in heel Nederland</h3>
         <p>Bijna alles gaat via WhatsApp, mail of telefoon, dus waar je zit maakt niet uit. Zit je in {plaats} of omgeving, {omgeving}, dan spreken we ook gerust eens af.</p>
         <a class="meer" href="#contact">Kennismaken →</a>
       </div>
-  </Paginakop>
-  <section>
-    <div class="wrap">
-      <div class="lees"><slot /></div>
 
     </div>
   </section>
@@ -61,7 +62,6 @@ const ld = {
 <style>
 .boven{align-items:start}
 .lees :global(h2:first-child){margin-top:0}
-.waar{background:var(--blauw-t);border-color:var(--blauw-rand);max-width:440px;margin-left:auto;padding:28px}
-.waar h3{font-size:1.25rem}
+.waar{background:var(--blauw-t);border-color:var(--blauw-rand)}
 .waar p{color:var(--tekst)}
 </style>
