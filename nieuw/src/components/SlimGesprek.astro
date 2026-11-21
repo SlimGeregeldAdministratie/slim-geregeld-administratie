@@ -1,35 +1,50 @@
 ---
-/* Geanimeerd WhatsApp-gesprek met Slim. Start als het blok in beeld komt
-   (IntersectionObserver), herhaalt zich zolang het in beeld is, respecteert prefers-reduced-motion. */
+/* Geanimeerd WhatsApp-gesprek met Slim, twee scenario's om en om: eerst bon
+   en factuur, daarna openstaande facturen en een herinnering. Start als het
+   blok in beeld komt (IntersectionObserver), herhaalt zich zolang het in beeld
+   is, respecteert prefers-reduced-motion. Alleen dingen die Slim echt kan. */
 interface Props { taal?: 'nl' | 'en' }
 const { taal = 'nl' } = Astro.props;
 const T = taal === 'en' ? {
-  label: 'Example of a WhatsApp conversation with Slim',
-  b: [
+  label: 'Example of WhatsApp conversations with Slim',
+  g: [[
     ['mij', 'bon', 'Receipt Coolblue, monitor', '09:12'],
     ['slim', '', 'Booked: €249.00 office costs, including €43.21 VAT you get back.', '09:12'],
     ['mij', '', 'Invoice Studio Noord, 8 hours at €65', '09:14'],
     ['slim', 'fac', 'Your invoice is ready. Shall I send it?|Invoice|8 hours × €65.00|€520.00|VAT 21%|€109.20|Total|€629.20|Invoice 2026-041.pdf|1 page', '09:14'],
     ['mij', '', 'Yes please 👍', '09:15'],
     ['slim', '', 'Sent. I\'ll let you know when it\'s paid.', '09:15'],
-  ],
+  ], [
+    ['mij', '', 'Who still owes me money?', '16:40'],
+    ['slim', 'lijst', '💶 2 invoices are open:|*Studio Noord* €629.20, due Friday|*Bakkerij De Wit* €302.50, 14 days overdue§Send De Wit a reminder?§Send reminder§Cancel', '16:40'],
+    ['mij', '', 'Send reminder', '16:41'],
+    ['slim', '', '📨 Reminder sent to info@bakkerijdewit.nl.', '16:41'],
+  ]],
 } : {
-  label: 'Voorbeeld van een WhatsApp-gesprek met Slim',
-  b: [
+  label: 'Voorbeeld van WhatsApp-gesprekken met Slim',
+  g: [[
     ['mij', 'bon', 'Bonnetje Coolblue, monitor', '09:12'],
     ['slim', '', 'Geboekt: €249,00 kantoorkosten, waarvan €43,21 btw die je terugkrijgt.', '09:12'],
     ['mij', '', 'Factuur Studio Noord, 8 uur à €65', '09:14'],
     ['slim', 'fac', 'Je factuur staat klaar. Zal ik hem versturen?|Factuur|8 uur × €65,00|€520,00|Btw 21%|€109,20|Totaal|€629,20|Factuur 2026-041.pdf|1 pagina', '09:14'],
     ['mij', '', 'Ja graag 👍', '09:15'],
     ['slim', '', 'Verstuurd. Ik laat het weten als er betaald is.', '09:15'],
-  ],
+  ], [
+    ['mij', '', 'Wie moet mij nog betalen?', '16:40'],
+    ['slim', 'lijst', '💶 Er staan 2 facturen open:|*Studio Noord* €629,20, vervalt vrijdag|*Bakkerij De Wit* €302,50, 14 dagen te laat§Herinnering sturen aan De Wit?§Verstuur herinnering§Annuleren', '16:40'],
+    ['mij', '', 'Verstuur herinnering', '16:41'],
+    ['slim', '', '📨 Herinnering verstuurd naar info@bakkerijdewit.nl.', '16:41'],
+  ]],
 };
+const vet = (t: string) => t.replace(/\*([^*]+)\*/g, '<b>$1</b>');
 ---
 <div class="tel" role="img" aria-label={T.label}>
   <div class="scherm">
     <div class="wakop"><img src="/img/logo.png" alt="" width="34" height="34"><div><b>Slim</b><small>online</small></div></div>
-    <div class="gesprek">
-      {T.b.map(([wie, soort, tekst, tijd], i) => {
+    {T.g.map((gesprek, gi) => (
+    <div class={`gesprek${gi === 0 ? ' actief' : ''}`} aria-hidden={gi === 0 ? undefined : 'true'}>
+      {gesprek.map(([wie, soort, tekst, tijd], i) => {
+        const t = <span class="t">{tijd}{wie === 'mij' ? ' ✓✓' : ''}</span>;
         if (soort === 'fac') {
           const [vraag, kop, r1, b1, r2, b2, r3, b3, bestand, pag] = tekst.split('|');
           return <div class={`b ${wie} doc`} style={`--i:${i}`}>
@@ -43,25 +58,32 @@ const T = taal === 'en' ? {
               </span>
               <span class="bestand"><i>PDF</i><span><b>{bestand}</b><small>{pag} · 48 kB</small></span></span>
             </span>
-            <span class="vraag">{vraag}</span><span class="t">{tijd}</span></div>;
+            <span class="vraag">{vraag}</span>{t}</div>;
         }
-        return <div class={`b ${wie}`} style={`--i:${i}`}>{soort === 'bon' ? <span class="bon"><i></i>{tekst}</span> : tekst}<span class="t">{tijd}{wie === 'mij' ? ' ✓✓' : ''}</span></div>;
+        if (soort === 'lijst') {
+          const [deel, vraag, ...knoppen] = tekst.split('§');
+          const [kop, ...regels] = deel.split('|');
+          return <div class={`b ${wie} met-knop`} style={`--i:${i}`}><span class="vraag-k">{kop}<span class="lijst">{regels.map((r) => <span set:html={vet(r)} />)}</span><span class="na-lijst">{vraag}</span>{t}</span>{knoppen.map((k) => <span class="wa-knop">{k}</span>)}</div>;
+        }
+        return <div class={`b ${wie}`} style={`--i:${i}`}>{soort === 'bon' ? <span class="bon"><i></i>{tekst}</span> : tekst}{t}</div>;
       })}
     </div>
+    ))}
   </div>
 </div>
 
 <script is:inline>
 (function(){
-  var el=document.currentScript.previousElementSibling, g=el.querySelector('.gesprek');
+  var el=document.currentScript.previousElementSibling, gs=el.querySelectorAll('.gesprek');
   var rustig=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!('IntersectionObserver' in window)||rustig){el.classList.add('speel');return;}
-  /* Gesprek loopt ~6,5 s, blijft 6 s staan, vervaagt en begint opnieuw.
+  if(!('IntersectionObserver' in window)||rustig){gs[0].classList.add('speel');return;}
+  /* Elk gesprek loopt ~6,5 s, blijft 6 s staan, vervaagt; dan het volgende.
      Alleen zolang het blok in beeld is; buiten beeld blijft het eindbeeld staan. */
-  var zicht=false, timer=null;
+  var zicht=false, timer=null, nu=-1;
   function ronde(){
-    el.classList.remove('speel'); g.classList.remove('weg'); void el.offsetWidth;
-    el.classList.add('speel');
+    if(nu>=0){gs[nu].classList.remove('actief','speel','weg');gs[nu].setAttribute('aria-hidden','true');}
+    nu=(nu+1)%gs.length; var g=gs[nu];
+    g.removeAttribute('aria-hidden'); g.classList.add('actief'); void g.offsetWidth; g.classList.add('speel');
     timer=setTimeout(function(){
       if(!zicht){timer=null;return;}
       g.classList.add('weg');
@@ -78,7 +100,8 @@ const T = taal === 'en' ? {
 .wakop{background:#075e54;color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px}
 .wakop img{width:34px;height:34px;border-radius:50%;background:#fff;padding:3px}
 .wakop small{display:block;font-size:.72rem;opacity:.8}
-.gesprek{transition:opacity .5s;padding:6px 12px 16px;display:flex;flex-direction:column;justify-content:flex-end;height:420px;overflow:hidden;font-size:.88rem;line-height:1.4}
+.gesprek{display:none;transition:opacity .5s;padding:6px 12px 16px;display:flex;flex-direction:column;justify-content:flex-end;height:452px;overflow:hidden;font-size:.88rem;line-height:1.4}
+.gesprek.actief{display:flex}
 .gesprek.weg{opacity:0}
 .b{--pt:8px;--pb:6px;max-width:84%;padding:0 10px;margin-top:0;max-height:0;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.08);opacity:0;flex:none}
 .b.mij{align-self:flex-end;background:#d9fdd3}
@@ -99,6 +122,13 @@ const T = taal === 'en' ? {
 .bestand b{display:block;font-size:.78rem;font-weight:600}
 .bestand small{font-size:.66rem;color:#667}
 .vraag{display:block;padding:6px 6px 0}
+.lijst{display:grid;gap:4px;margin-top:6px}
+.lijst span{padding-left:10px;position:relative}
+.lijst span::before{content:"•";position:absolute;left:0}
+.b.met-knop{padding-left:0;padding-right:0;--pb:0px}
+.vraag-k{display:block;padding:0 10px 6px}
+.na-lijst{display:block;margin-top:6px}
+.wa-knop{display:block;text-align:center;color:#027eb5;font-weight:600;padding:8px 10px;border-top:1px solid #e9edef}
 @keyframes in{to{opacity:1;max-height:420px;margin-top:8px;padding-top:var(--pt);padding-bottom:var(--pb)}}
 @media (prefers-reduced-motion:reduce){.b{opacity:1;max-height:none;margin-top:8px;padding-top:var(--pt);padding-bottom:var(--pb)}.speel .b{animation:none}}
 </style>
