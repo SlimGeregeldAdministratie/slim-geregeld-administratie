@@ -1,5 +1,6 @@
 ---
-/* Geanimeerd WhatsApp-gesprek met Slim, twee scenario's om en om. Per branche
+/* Geanimeerd WhatsApp-gesprek met Slim, drie korte scenario's om en om; elk past
+   helemaal in het venster. Per branche
    een eigen variant (standaard, bouw, webshop). Start als het blok in beeld
    komt (IntersectionObserver), herhaalt zich zolang het in beeld is,
    respecteert prefers-reduced-motion. Alleen dingen die Slim echt kan.
@@ -11,57 +12,69 @@ const { taal = 'nl', variant = 'standaard' } = Astro.props;
 type Bel = [string, string, string, string];
 const NL: Record<string, Bel[][]> = {
   standaard: [[
-    ['mij', 'bon', 'Bonnetje Coolblue, monitor', '09:12'],
-    ['slim', '', 'Geboekt: €249,00 kantoorkosten, waarvan €43,21 btw die je terugkrijgt.', '09:12'],
-    ['mij', 'spraak', '0:06|Factuur voor Studio Noord, acht uur à vijfenzestig euro.', '09:14'],
-    ['slim', 'fac', 'Je factuur staat klaar. Zal ik hem versturen?|Factuur|2026-041|Studio Noord|Amsterdam|8 uur × €65,00|€520,00|Btw 21%|€109,20|Totaal|€629,20|Factuur 2026-041.pdf|1 pagina', '09:14'],
+    ['mij', 'spraak', '0:05|Factuur Studio Noord, acht uur à 65 euro.', '09:14'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-041|Studio Noord|Amsterdam|8 uur × €65,00|€520,00|Btw 21%|€109,20|Totaal|€629,20|Factuur 2026-041.pdf|1 pagina', '09:14'],
     ['mij', '', 'Ja graag 👍', '09:15'],
-    ['slim', '', 'Verstuurd. Ik laat het weten als er betaald is.', '09:15'],
+    ['slim', '', '📨 Verstuurd naar Studio Noord.', '09:15'],
   ], [
     ['mij', '', 'Wie moet mij nog betalen?', '16:40'],
     ['slim', 'lijst', '💶 Er staan 2 facturen open:|*Studio Noord* €629,20, vervalt vrijdag|*Bakkerij De Wit* €302,50, 14 dagen te laat§Herinnering sturen aan De Wit?§Verstuur herinnering§Annuleren', '16:40'],
     ['mij', '', 'Verstuur herinnering', '16:41'],
     ['slim', '', '📨 Herinnering verstuurd naar info@bakkerijdewit.nl.', '16:41'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Coolblue, monitor', '12:02'],
+    ['slim', '', 'Geboekt: €249,00 kantoorkosten, waarvan €43,21 btw die je terugkrijgt.', '12:02'],
+    ['mij', 'bon', 'Bonnetje Shell, tanken', '18:27'],
+    ['slim', '', 'Geboekt: €78,40 brandstof, waarvan €13,61 btw die je terugkrijgt.', '18:27'],
   ]],
   bouw: [[
-    ['mij', 'bon', 'Bonnetje Hornbach, kit en schroeven', '07:48'],
-    ['slim', '', 'Geboekt: €86,40 materiaal, waarvan €15,00 btw die je terugkrijgt.', '07:48'],
-    ['mij', 'spraak', '0:07|Factuur voor Bouwbedrijf De Vries, veertig uur à achtenveertig euro, btw verlegd.', '17:32'],
-    ['slim', 'fac', 'Je factuur staat klaar, met btw verlegd. Zal ik hem versturen?|Factuur|2026-044|Bouwbedrijf De Vries|Zaandam|40 uur × €48,00|€1.920,00|Btw verlegd|€0,00|Totaal|€1.920,00|Factuur 2026-044.pdf|1 pagina', '17:32'],
+    ['mij', 'spraak', '0:06|Factuur De Vries, veertig uur à achtenveertig euro, btw verlegd.', '17:32'],
+    ['slim', 'fac', 'Met btw verlegd. Versturen?|Factuur|2026-044|Bouwbedrijf De Vries|Zaandam|40 uur × €48,00|€1.920,00|Btw verlegd|€0,00|Totaal|€1.920,00|Factuur 2026-044.pdf|1 pagina', '17:32'],
     ['mij', '', 'Ja graag 👍', '17:33'],
-    ['slim', '', 'Verstuurd. Ik laat het weten als er betaald is.', '17:33'],
+    ['slim', '', '📨 Verstuurd naar De Vries.', '17:33'],
   ], [
     ['mij', '', 'Offerte Jansen is akkoord, maak er een factuur van', '12:05'],
-    ['slim', 'lijst', '📄 Offerte 2026-012 is nu factuur 2026-045:|*Fam. Jansen* schilderwerk woning|*Totaal* €1.090,00, waarvan 9% btw§Zal ik hem versturen?§Versturen§Eerst aanpassen', '12:05'],
+    ['slim', 'lijst', '📄 Offerte 2026-012 is nu factuur 2026-045:|*Fam. Jansen* schilderwerk|*Totaal* €1.090,00 incl. 9% btw§Versturen?§Versturen§Eerst aanpassen', '12:05'],
     ['mij', '', 'Versturen', '12:06'],
     ['slim', '', '📨 Verstuurd naar Fam. Jansen.', '12:06'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Hornbach, kit en schroeven', '07:48'],
+    ['slim', '', 'Geboekt: €86,40 materiaal, waarvan €15,00 btw die je terugkrijgt.', '07:48'],
+    ['mij', 'bon', 'Bonnetje groothandel, kabel', '15:10'],
+    ['slim', '', 'Geboekt: €145,20 materiaal, waarvan €25,20 btw die je terugkrijgt.', '15:10'],
   ]],
   webshop: [[
-    ['mij', 'bon', 'Factuur groothandel, verzenddozen', '10:21'],
-    ['slim', '', 'Geboekt: €242,00 verpakkingen, waarvan €42,00 btw die je terugkrijgt.', '10:21'],
-    ['mij', 'spraak', '0:06|Factuur voor Concept Store Noord, vierentwintig vazen à achttien euro.', '10:24'],
-    ['slim', 'fac', 'Je factuur staat klaar. Zal ik hem versturen?|Factuur|2026-087|Concept Store Noord|Utrecht|24 × vaas à €18,00|€432,00|Btw 21%|€90,72|Totaal|€522,72|Factuur 2026-087.pdf|1 pagina', '10:24'],
+    ['mij', 'spraak', '0:05|Factuur Concept Store Noord, 24 vazen à 18 euro.', '10:24'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-087|Concept Store Noord|Utrecht|24 × vaas à €18,00|€432,00|Btw 21%|€90,72|Totaal|€522,72|Factuur 2026-087.pdf|1 pagina', '10:24'],
     ['mij', '', 'Ja graag 👍', '10:25'],
-    ['slim', '', 'Verstuurd. Ik laat het weten als er betaald is.', '10:25'],
+    ['slim', '', '📨 Verstuurd naar Concept Store Noord.', '10:25'],
   ], [
     ['mij', '', 'Hoeveel omzet heb ik dit kwartaal?', '21:14'],
     ['slim', 'lijst', '📊 Dit kwartaal tot nu toe:|*Omzet* €8.420,15|*Inkoop* €2.310,40', '21:14'],
     ['mij', '', 'Staat er nog iets open?', '21:15'],
     ['slim', '', '💶 Eén factuur: Concept Store Noord, €522,72. Vervalt over 9 dagen.', '21:15'],
+  ], [
+    ['mij', 'bon', 'Factuur groothandel, verzenddozen', '10:21'],
+    ['slim', '', 'Geboekt: €242,00 verpakkingen, waarvan €42,00 btw die je terugkrijgt.', '10:21'],
+    ['mij', 'bon', 'Factuur drukkerij, flyers', '14:52'],
+    ['slim', '', 'Geboekt: €60,50 reclamekosten, waarvan €10,50 btw die je terugkrijgt.', '14:52'],
   ]],
 };
 const EN: Bel[][] = [[
-    ['mij', 'bon', 'Receipt Coolblue, monitor', '09:12'],
-    ['slim', '', 'Booked: €249.00 office costs, including €43.21 VAT you get back.', '09:12'],
     ['mij', 'spraak', '0:05|Invoice for Studio Noord, eight hours at sixty-five euros.', '09:14'],
-    ['slim', 'fac', 'Your invoice is ready. Shall I send it?|Invoice|2026-041|Studio Noord|Amsterdam|8 hours × €65.00|€520.00|VAT 21%|€109.20|Total|€629.20|Invoice 2026-041.pdf|1 page', '09:14'],
+    ['slim', 'fac', 'Shall I send it?|Invoice|2026-041|Studio Noord|Amsterdam|8 hours × €65.00|€520.00|VAT 21%|€109.20|Total|€629.20|Invoice 2026-041.pdf|1 page', '09:14'],
     ['mij', '', 'Yes please 👍', '09:15'],
-    ['slim', '', 'Sent. I\'ll let you know when it\'s paid.', '09:15'],
+    ['slim', '', '📨 Sent to Studio Noord.', '09:15'],
   ], [
     ['mij', '', 'Who still owes me money?', '16:40'],
     ['slim', 'lijst', '💶 2 invoices are open:|*Studio Noord* €629.20, due Friday|*Bakkerij De Wit* €302.50, 14 days overdue§Send De Wit a reminder?§Send reminder§Cancel', '16:40'],
     ['mij', '', 'Send reminder', '16:41'],
     ['slim', '', '📨 Reminder sent to info@bakkerijdewit.nl.', '16:41'],
+  ], [
+    ['mij', 'bon', 'Receipt Coolblue, monitor', '12:02'],
+    ['slim', '', 'Booked: €249.00 office costs, including €43.21 VAT you get back.', '12:02'],
+    ['mij', 'bon', 'Receipt Shell, fuel', '18:27'],
+    ['slim', '', 'Booked: €78.40 fuel, including €13.61 VAT you get back.', '18:27'],
   ]];
 const T = {
   label: taal === 'en' ? 'Example of WhatsApp conversations with Slim' : 'Voorbeeld van WhatsApp-gesprekken met Slim',
@@ -83,7 +96,7 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9,5,7];
             <span class="pdf" aria-hidden="true">
               <span class="pagina">
                 <span class="p-kop"><b>{kop}</b><span>{nummer}</span></span>
-                <span class="p-aan">{klant}<br>{plaats}</span>
+                <span class="p-aan">{klant}, {plaats}</span>
                 <span class="p-r"><span>{r1}</span><span>{b1}</span></span>
                 <span class="p-r"><span>{r2}</span><span>{b2}</span></span>
                 <span class="p-r tot"><span>{r3}</span><span>{b3}</span></span>
@@ -138,7 +151,7 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9,5,7];
 .wakop{background:#075e54;color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px}
 .wakop img{width:34px;height:34px;border-radius:50%;background:#fff;padding:3px}
 .wakop small{display:block;font-size:.72rem;opacity:.8}
-.gesprek{display:none;transition:opacity .5s;padding:6px 12px 16px;flex-direction:column;justify-content:flex-end;height:452px;overflow:hidden;font-size:.88rem;line-height:1.4}
+.gesprek{display:none;transition:opacity .5s;padding:6px 12px 16px;flex-direction:column;justify-content:flex-end;height:484px;overflow:hidden;font-size:.88rem;line-height:1.4}
 .gesprek.actief{display:flex}
 .gesprek.weg{opacity:0}
 .b{--pt:8px;--pb:6px;max-width:84%;padding:0 10px;margin-top:0;max-height:0;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.08);opacity:0;flex:none}
@@ -149,13 +162,13 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9,5,7];
 .bon i{width:34px;height:42px;border-radius:4px;background:repeating-linear-gradient(#fff 0 5px,#e6e6e6 5px 6px);border:1px solid #ddd;flex:none}
 .b.doc{--pt:4px;--pb:6px;padding-left:4px;padding-right:4px;width:84%}
 .pdf{display:block;border-radius:8px;overflow:hidden;background:#f6f6f6}
-.pagina{display:grid;gap:5px;background:#fff;margin:8px 8px 0;padding:10px 12px 12px;border-radius:3px 3px 0 0;box-shadow:0 1px 3px rgba(0,0,0,.12);font-size:.68rem;line-height:1.3;color:#334155}
+.pagina{display:grid;gap:4px;background:#fff;margin:6px 6px 0;padding:8px 10px 10px;border-radius:3px 3px 0 0;box-shadow:0 1px 3px rgba(0,0,0,.12);font-size:.68rem;line-height:1.3;color:#334155}
 .p-kop{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--blauw);padding-bottom:4px}
 .p-kop b{font-size:.85rem;color:#0b1220}
 .p-aan{color:#64748b;margin-bottom:2px}
 .p-r{display:flex;justify-content:space-between;gap:8px}
 .p-r.tot{border-top:1px solid #cbd5e1;padding-top:4px;font-weight:700;color:#0b1220;font-size:.76rem}
-.bestand{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f0f0f0}
+.bestand{display:flex;align-items:center;gap:8px;padding:6px 10px;background:#f0f0f0}
 .bestand i{font-style:normal;font-size:.6rem;font-weight:800;color:#fff;background:#e5483b;border-radius:3px;padding:3px 4px}
 .bestand b{display:block;font-size:.78rem;font-weight:600}
 .bestand small{font-size:.66rem;color:#667}
