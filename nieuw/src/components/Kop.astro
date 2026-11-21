@@ -16,7 +16,7 @@ const pad = Astro.url.pathname;
 ---
 <header class="kop">
   <div class="wrap kop-in">
-    <a class="merk" href={MENU.home}><img src="/img/logo.png" alt="" width="32" height="32"><span>Slim Geregeld</span></a>
+    <a class="merk" href={MENU.home}><img src="/img/logo.png" alt="" width="34" height="34"><span class="naam">Slim Geregeld<small>Administratie</small></span></a>
     <nav class="hoofd" aria-label={taal === 'nl' ? 'Hoofdmenu' : 'Main menu'}>
       {MENU.items.map(([t, h]) => <a href={h} aria-current={pad === h ? 'page' : undefined}>{t}</a>)}
     </nav>
@@ -40,7 +40,9 @@ const pad = Astro.url.pathname;
 .kop{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--lijn)}
 .kop-in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
 .merk{display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none;font-weight:750;letter-spacing:-.02em}
-.merk img{width:32px;height:32px}
+.merk img{width:34px;height:34px}
+.naam{display:flex;flex-direction:column;line-height:1.05}
+.naam small{font-size:.68rem;font-weight:600;letter-spacing:.04em;color:var(--grijs);text-transform:uppercase;margin-top:2px}
 .hoofd{display:none;gap:24px;font-size:.93rem;font-weight:500}
 .hoofd a{text-decoration:none;color:var(--grijs)}
 .hoofd a:hover,.hoofd a[aria-current]{color:var(--inkt)}
