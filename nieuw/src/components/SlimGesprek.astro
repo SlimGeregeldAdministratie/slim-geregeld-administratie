@@ -1,6 +1,6 @@
 ---
-/* Geanimeerd WhatsApp-gesprek met Slim. Puur CSS, start pas als het blok in
-   beeld komt (IntersectionObserver), respecteert prefers-reduced-motion. */
+/* Geanimeerd WhatsApp-gesprek met Slim. Start als het blok in beeld komt
+   (IntersectionObserver), herhaalt zich zolang het in beeld is, respecteert prefers-reduced-motion. */
 interface Props { taal?: 'nl' | 'en' }
 const { taal = 'nl' } = Astro.props;
 const T = taal === 'en' ? {
@@ -53,10 +53,22 @@ const T = taal === 'en' ? {
 
 <script is:inline>
 (function(){
-  var el=document.currentScript.previousElementSibling;
-  if(!('IntersectionObserver' in window)){el.classList.add('speel');return;}
-  var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){el.classList.add('speel');io.disconnect();}},{threshold:.35});
-  io.observe(el);
+  var el=document.currentScript.previousElementSibling, g=el.querySelector('.gesprek');
+  var rustig=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!('IntersectionObserver' in window)||rustig){el.classList.add('speel');return;}
+  /* Gesprek loopt ~6,5 s, blijft 6 s staan, vervaagt en begint opnieuw.
+     Alleen zolang het blok in beeld is; buiten beeld blijft het eindbeeld staan. */
+  var zicht=false, timer=null;
+  function ronde(){
+    el.classList.remove('speel'); g.classList.remove('weg'); void el.offsetWidth;
+    el.classList.add('speel');
+    timer=setTimeout(function(){
+      if(!zicht){timer=null;return;}
+      g.classList.add('weg');
+      timer=setTimeout(ronde,600);
+    },12500);
+  }
+  new IntersectionObserver(function(e){zicht=e[0].isIntersecting;if(zicht&&!timer)ronde();},{threshold:.35}).observe(el);
 })();
 </script>
 
@@ -66,7 +78,8 @@ const T = taal === 'en' ? {
 .wakop{background:#075e54;color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px}
 .wakop img{width:34px;height:34px;border-radius:50%;background:#fff;padding:3px}
 .wakop small{display:block;font-size:.72rem;opacity:.8}
-.gesprek{padding:6px 12px 16px;display:flex;flex-direction:column;justify-content:flex-end;height:420px;overflow:hidden;font-size:.88rem;line-height:1.4}
+.gesprek{transition:opacity .5s;padding:6px 12px 16px;display:flex;flex-direction:column;justify-content:flex-end;height:420px;overflow:hidden;font-size:.88rem;line-height:1.4}
+.gesprek.weg{opacity:0}
 .b{--pt:8px;--pb:6px;max-width:84%;padding:0 10px;margin-top:0;max-height:0;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.08);opacity:0;flex:none}
 .b.mij{align-self:flex-end;background:#d9fdd3}
 .speel .b{animation:in .5s ease forwards;animation-delay:calc(var(--i) * 1.15s + .2s)}
