@@ -9,8 +9,9 @@ import Contactblok from './Contactblok.astro';
 interface Props {
   kruimel: string; tag: string; titel: string; omschrijving: string; h1: string; sub: string;
   krijg: string[]; eerst: string[]; faq: [string, string][]; contacttekst: string;
+  variant: 'bouw' | 'webshop';
 }
-const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contacttekst } = Astro.props;
+const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contacttekst, variant } = Astro.props;
 ---
 <Basis titel={titel} omschrijving={omschrijving}>
   <Paginakop
@@ -20,7 +21,7 @@ const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contactte
   <section>
     <div class="wrap">
       <h2>Waar ik op let</h2>
-      <div class="grid3"><slot /></div>
+      <div class="grid3 vier"><slot /></div>
     </div>
   </section>
   <section class="zacht">
@@ -30,7 +31,7 @@ const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contactte
         <ul class="vinkjes">{krijg.map((k) => <li>{k}</li>)}</ul>
         <a class="knop vol" href="#contact">Kennismaken</a>
       </div>
-      <SlimGesprek />
+      <SlimGesprek variant={variant} />
     </div>
   </section>
   <section>

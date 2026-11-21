@@ -4,13 +4,13 @@
 interface Props { titel?: string; tekst?: string; vinkjes?: string[] }
 const {
   titel = 'Binnen een week geregeld',
-  tekst = 'Laat je gegevens achter. Ik reageer binnen een werkdag met wat ik van je nodig heb. Liever appen? Dat kan ook.',
+  tekst = 'Laat je gegevens achter. Je hoort binnen een tot drie werkdagen wat ik van je nodig heb, meestal al dezelfde dag. Liever appen? Dat kan ook.',
   vinkjes = ['Vrijblijvend, je zit nergens aan vast', 'Overstappen midden in het jaar kan', 'Starters zijn ook welkom'],
 } = Astro.props;
 const WA = 'https://wa.me/31621311043';
 const pagina = Astro.url.pathname;
 ---
-  <section id="contact" style="padding-top:0">
+  <section class="contactsectie">
     <div class="wrap">
       <div class="contact">
         <div class="c-tekst">
@@ -21,7 +21,7 @@ const pagina = Astro.url.pathname;
           <a class="knop wa" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a>
           <p class="klein">Of mail naar <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a></p>
         </div>
-        <form class="formulier" name="contact" method="POST" action="/bedankt" data-netlify="true" netlify-honeypot="bot-field">
+        <form id="contact" class="formulier" name="contact" method="POST" action="/bedankt" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact">
           <input type="hidden" name="page" value={pagina}>
           <p class="visually-hidden"><label>Niet invullen <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>

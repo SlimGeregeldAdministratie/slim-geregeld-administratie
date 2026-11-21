@@ -8,7 +8,9 @@ import Contactblok from '../components/Contactblok.astro';
 const faq: [string, string][] = [
   ['Wat kost het laten doen van mijn aangifte inkomstenbelasting?', '€245 excl. btw voor één persoon, of €395 samen met je fiscale partner. Was je het hele jaar klant voor je boekhouding, dan krijg je 15% korting.'],
   ['Heb je mijn DigiD nodig?', 'Nee. Ik dien je aangifte in via mijn eigen beveiligde aansluiting als boekhouder. Jij geeft alleen akkoord op het concept.'],
-  ['Wanneer moet de aangifte binnen zijn?', 'De aangifte over een jaar moet uiterlijk 1 mei van het jaar erna binnen zijn. Lever je je gegevens op tijd aan, dan zorg ik dat het lukt.'],
+  ['Wanneer moet de aangifte binnen zijn?', 'Uiterlijk 1 mei van het jaar erna. Lever je je gegevens op tijd aan, dan zorg ik dat het lukt. Met uitstel heb je tot 1 september, maar dan kan er belastingrente bijkomen.'],
+  ['Wat als ik uitstel heb?', 'Vraag je zelf uitstel aan vóór 1 mei, dan heb je tot 1 september. Let wel op: moet je bijbetalen, dan rekent de Belastingdienst belastingrente vanaf 1 juli. Dien je vóór 1 mei in en neemt de Belastingdienst je aangifte over zoals hij is, dan betaal je geen belastingrente. Moet je bijbetalen, lever dan liever vroeg aan.'],
+  ['Wat kost belastingrente?', 'Belastingrente loopt vanaf 1 juli tot zes weken na de datum op je aanslag. Hoe later je aangifte binnen is, hoe later de aanslag komt en hoe meer rente je betaalt. Daarom plan ik aangiftes met een bijbetaling zo vroeg mogelijk.'],
   ['Wat als mijn situatie ingewikkelder is?', 'Bij bijvoorbeeld een emigratiejaar, de verkoop van een woning of aandelen in een bv kijk ik eerst wat er nodig is. Je hoort de prijs voordat ik begin.'],
   ['Hoe lever ik mijn gegevens aan?', 'Je krijgt een vaste link naar een korte vragenlijst, waar je ook je stukken uploadt. Mis ik iets, dan vraag ik het je.'],
 ];
@@ -52,24 +54,29 @@ const service = {
   </section>
 
   <section class="zacht">
-    <div class="wrap twee">
-      <div>
-        <h2>Voor wie?</h2>
-        <ul class="vinkjes">
-          <li>Zzp'ers met een eenmanszaak of vof</li>
-          <li>DGA's met een bv, voor hun eigen aangifte</li>
-          <li>Fiscale partners, samen in één keer</li>
-          <li>Iedereen met een jaar waarin iets bijzonders speelde</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Wat ik nakijk</h2>
-        <ul class="vinkjes">
-          <li>Ondernemersaftrek, zoals de zelfstandigenaftrek en startersaftrek</li>
-          <li>De verdeling van gezamenlijke posten met je fiscale partner</li>
-          <li>Je eigen woning, hypotheekrente en WOZ-waarde</li>
-          <li>Spaargeld, beleggingen en schulden in box 3</li>
-        </ul>
+    <div class="wrap">
+      <div class="twee boven">
+        <div>
+          <h2>Voor iedereen die aangifte moet doen</h2>
+          <p class="sub">Ondernemer, DGA, in loondienst of samen met je partner: ik doe je aangifte. Heb je een eigen bedrijf maar geen boekhouding bij mij? Dan lever je je jaarcijfers aan, of maak ik een financieel jaaroverzicht voor je, vanaf €395.</p>
+        </div>
+        <div>
+          <h2>Wat ik nakijk</h2>
+          <ul class="vinkjes kolom2">
+            <li>Zelfstandigenaftrek en startersaftrek</li>
+            <li>Mkb-winstvrijstelling</li>
+            <li>Investeringsaftrek (KIA)</li>
+            <li>Urencriterium</li>
+            <li>Heffingskortingen</li>
+            <li>Verdeling met je fiscale partner</li>
+            <li>Eigen woning en hypotheekrente</li>
+            <li>Sparen en beleggen in box 3</li>
+            <li>Aanmerkelijk belang in box 2</li>
+            <li>Lijfrente en jaarruimte</li>
+            <li>Giften en zorgkosten</li>
+            <li>Je voorlopige aanslag</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -81,9 +88,12 @@ const service = {
   </section>
 
   <Faq vragen={faq} />
-  <Contactblok titel="Aangifte laten doen" tekst="Laat je gegevens achter, dan stuur ik je binnen een werkdag de link naar de vragenlijst." vinkjes={['Eerst een concept, dan pas indienen', 'Geen DigiD nodig', 'Vaste prijs, vooraf bekend']} />
+  <Contactblok titel="Aangifte laten doen" tekst="Laat je gegevens achter, dan stuur ik je binnen een tot drie werkdagen de link naar de vragenlijst." vinkjes={['Eerst een concept, dan pas indienen', 'Geen DigiD nodig', 'Vaste prijs, vooraf bekend']} />
 </Basis>
 
 <style>
 @media (min-width:1000px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
+.boven{align-items:start}
+.kolom2{gap:8px 18px}
+@media (min-width:560px){.kolom2{grid-template-columns:1fr 1fr}}
 </style>

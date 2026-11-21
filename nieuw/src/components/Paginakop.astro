@@ -10,17 +10,28 @@ interface Props {
   wa?: boolean;
   kruimel?: string;
   foto?: { src: string; alt: string; pos?: string } | false;
+  /** Vervang "Hoi" in de titel door een groet op basis van het tijdstip. */
+  groet?: boolean;
 }
-const { tag, titel, sub, prijs, knop = ['Kennismaken', '#contact'], wa = true, kruimel, foto = { src: '/img/kyle-2.jpg', alt: 'Kyle Bouwmeester aan de telefoon met een klant' } } = Astro.props;
+const { groet = false, tag, titel, sub, prijs, knop = ['Kennismaken', '#contact'], wa = true, kruimel, foto = { src: '/img/kyle-2.jpg', alt: 'Kyle Bouwmeester aan de telefoon met een klant' } } = Astro.props;
 const WA = 'https://wa.me/31621311043';
 const heeftRechts = foto || Astro.slots.has('rechts');
+const kruimelLd = kruimel && {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://slim-geregeld.nl/' },
+    { '@type': 'ListItem', position: 2, name: kruimel, item: new URL(Astro.url.pathname, 'https://slim-geregeld.nl').href },
+  ],
+};
 ---
 <section class="pk-hero">
+  {kruimelLd && <script type="application/ld+json" set:html={JSON.stringify(kruimelLd)} />}
   <div class={`wrap pk-grid${heeftRechts ? '' : ' smal'}`}>
     <div>
       {kruimel && <nav class="kruimel" aria-label="Kruimelpad"><a href="/">Home</a> › {kruimel}</nav>}
-      <span class="tag">{tag}</span>
-      <h1>{titel}</h1>
+      {tag !== kruimel && <span class="tag">{tag}</span>}
+      <h1 data-groet={groet ? '' : undefined}>{titel}</h1>
+      {groet && <script is:inline>(function(){var h=document.currentScript.previousElementSibling,u=new Date().getHours(),g=u<12?'Goedemorgen':u<18?'Goedemiddag':'Goedenavond';h.textContent=h.textContent.replace(/^Hoi/,g);})();</script>}
       <p class="sub">{sub}</p>
       {prijs && <p class="prijsregel"><b>{prijs.bedrag}</b>{prijs.oud && <s>{prijs.oud}</s>}{prijs.per && <span>{prijs.per}</span>}{prijs.uitleg && <span class="pr-uit">{prijs.uitleg}</span>}</p>}
       <div class="knoppen">

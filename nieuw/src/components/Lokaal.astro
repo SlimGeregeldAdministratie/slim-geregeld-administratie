@@ -12,6 +12,8 @@ interface Props {
   plaatsen: string[]; faq: [string, string][];
 }
 const { plaats, titel, omschrijving, h1, sub, plaatsen, faq } = Astro.props;
+const rest = plaatsen.filter((p) => p !== plaats);
+const omgeving = rest.length ? `zoals ${rest.slice(0, -1).join(', ')}${rest.length > 1 ? ' of ' : ''}${rest[rest.length - 1]}` : '';
 const ld = {
   '@context': 'https://schema.org', '@type': 'AccountingService',
   '@id': 'https://slim-geregeld.nl/#org',
@@ -33,10 +35,10 @@ const ld = {
   <section>
     <div class="wrap twee boven">
       <div class="lees"><slot /></div>
-      <div class="blok plaatsen">
-        <h3>Ik help ondernemers in</h3>
-        <ul>{plaatsen.map((p) => <li>{p}</li>)}</ul>
-        <p>En daarbuiten: bijna alles gaat via WhatsApp, mail of telefoon.</p>
+      <div class="blok waar">
+        <h3>Ik help ondernemers in heel Nederland</h3>
+        <p>Bijna alles gaat via WhatsApp, mail of telefoon, dus waar je zit maakt niet uit. Zit je in {plaats} of omgeving, {omgeving}, dan spreken we ook gerust eens af.</p>
+        <a class="meer" href="#contact">Kennismaken →</a>
       </div>
     </div>
   </section>
@@ -57,6 +59,6 @@ const ld = {
 <style>
 .boven{align-items:start}
 .lees :global(h2:first-child){margin-top:0}
-.plaatsen ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
-.plaatsen li{background:var(--blauw-t);color:var(--blauw);border-radius:999px;padding:4px 12px;font-size:.88rem;font-weight:600}
+.waar{background:var(--blauw-t);border-color:var(--blauw-rand)}
+.waar p{color:var(--tekst)}
 </style>

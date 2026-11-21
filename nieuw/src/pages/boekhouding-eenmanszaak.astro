@@ -12,7 +12,7 @@ const faq: [string, string][] = [
   ['Ik start net. Kan ik al bij je terecht?', 'Ja. Ik richt je administratie meteen goed in, zodat je vanaf je eerste factuur op orde bent. Dan weet je ook meteen of je btw moet rekenen.'],
   ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
   ['Wat moet ik zelf nog doen?', 'Je facturen maken (of laten maken door Slim), je bonnetjes appen en je bank één keer koppelen aan Moneybird. De rest doe ik.'],
-  ['Wat kost Moneybird?', 'Moneybird staat op jouw naam en kost meestal €15 tot €35 per maand, afhankelijk van hoeveel banktransacties je hebt. Via mij heb je de eerste 120 dagen gratis, in plaats van 60.'],
+  ['Wat kost Moneybird?', 'Moneybird staat op jouw naam en kost meestal €15 tot €35 per maand, afhankelijk van hoeveel banktransacties je hebt. Via mijn link heb je de eerste 120 dagen gratis, in plaats van 60.'],
   ['Heb ik een aparte zakelijke rekening nodig?', 'Het hoeft niet, maar het maakt je boekhouding een stuk overzichtelijker en dus ook sneller. Ik raad het aan.'],
 ];
 const service = {
@@ -40,8 +40,9 @@ const service = {
   <section>
     <div class="wrap">
       <h2>Voor wie?</h2>
-      <div class="grid3">
+      <div class="grid3 vier">
         <div class="blok"><h3>Zzp'ers die het zat zijn</h3><p>Je doet het nu zelf, maar elke btw-deadline kost je een avond en je weet nooit zeker of het klopt.</p></div>
+        <div class="blok"><h3>Overstappers</h3><p>Je hebt al een boekhouder, maar mist contact, snelheid of overzicht. Overstappen kan midden in het jaar, ik regel de overdracht.</p></div>
         <div class="blok"><h3>Starters</h3><p>Je begint net. Ik richt alles goed in, zodat je vanaf je eerste factuur op orde bent.</p></div>
         <div class="blok"><h3>Vof met twee of meer</h3><p>Eén administratie voor de vof, met de winstverdeling per vennoot in je jaarcijfers.</p></div>
       </div>
@@ -53,8 +54,8 @@ const service = {
       <div>
         <h2>Wat je krijgt</h2>
         <ul class="vinkjes">
-          <li>Je boekhouding in Moneybird, elk kwartaal bijgewerkt en gecontroleerd</li>
-          <li>De btw-aangifte, op tijd ingediend. Je hoort vooraf wat je moet betalen</li>
+          <li>Je boekhouding in Moneybird, elk kwartaal bijgewerkt en door mij gecontroleerd</li>
+          <li>De btw-aangifte, op tijd ingediend. Je hoort vooraf wat je aan de Belastingdienst betaalt</li>
           <li>Je jaarcijfers, klaar voor je aangifte inkomstenbelasting</li>
           <li>Vragen tussendoor via WhatsApp of mail, zonder dat de meter loopt</li>
           <li>Slim op WhatsApp voor facturen, offertes en bonnetjes</li>
@@ -69,16 +70,16 @@ const service = {
     <div class="wrap">
       <h2>Zo werkt het</h2>
       <div class="grid3">
-        <div class="blok"><div class="nr">1</div><h3>Je meldt je aan</h3><p>Laat je gegevens achter of stuur een WhatsApp. Ik reageer binnen een werkdag.</p></div>
+        <div class="blok"><div class="nr">1</div><h3>Je meldt je aan</h3><p>Laat je gegevens achter of stuur een WhatsApp. Je hoort binnen een tot drie werkdagen van me.</p></div>
         <div class="blok"><div class="nr">2</div><h3>Ik richt alles in</h3><p>Ik zet Moneybird en Slim voor je klaar. Je bank koppel je zelf met een paar klikken, ik vertel je precies waar.</p></div>
-        <div class="blok"><div class="nr">3</div><h3>Jij appt, ik boek</h3><p>Ik doe de aangiftes en laat je vooraf weten wat je moet betalen.</p></div>
+        <div class="blok"><div class="nr">3</div><h3>Jij appt, ik boek</h3><p>Ik doe de aangiftes en laat je vooraf weten wat je aan de Belastingdienst moet betalen.</p></div>
       </div>
     </div>
   </section>
 
   <section class="zacht">
     <div class="wrap">
-      <GoogleReviews eerst={['Dany Cramer', 'Umesh ten Kate', 'Andries', 'Jeremy Gomes']} />
+      <GoogleReviews eerst={['Dany Cramer', 'Umesh ten Kate', 'Andries Min', 'Jeremy Gomes']} />
     </div>
   </section>
 
@@ -88,4 +89,6 @@ const service = {
 
 <style>
 .sub a{color:var(--blauw)}
+@media (min-width:760px) and (max-width:1099px){.grid3.vier{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
 </style>

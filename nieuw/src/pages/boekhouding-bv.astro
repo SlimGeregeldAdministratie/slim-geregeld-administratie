@@ -39,9 +39,10 @@ const service = {
   <section>
     <div class="wrap">
       <h2>Voor wie?</h2>
-      <div class="grid3">
+      <div class="grid3 vier">
         <div class="blok"><h3>DGA met één bv</h3><p>Je hebt een bv voor je eigen werk en wilt dat de cijfers, het loon en de aangiftes gewoon kloppen.</p></div>
         <div class="blok"><h3>Holding en werkmaatschappij</h3><p>Twee administraties die op elkaar aansluiten, met de onderlinge boekingen goed geregeld.</p></div>
+        <div class="blok"><h3>Overstappers</h3><p>Je hebt al een boekhouder, maar mist meedenken of snelheid. Ik neem het over, ook midden in het jaar.</p></div>
         <div class="blok"><h3>Van eenmanszaak naar bv</h3><p>Je overweegt de stap of hebt hem net gezet. Ik zet de nieuwe administratie goed neer.</p></div>
       </div>
     </div>
@@ -75,9 +76,11 @@ const service = {
   </section>
 
   <Faq vragen={faq} />
-  <Contactblok titel="Vraag je prijs aan" tekst="Vertel kort hoe je bv in elkaar zit: één bv of een holding, wel of geen DGA-loon. Ik reageer binnen een werkdag met een vaste prijs." vinkjes={['Vrijblijvend, je zit nergens aan vast', 'Overstappen midden in het jaar kan', 'Ook als je de bv nog moet oprichten']} />
+  <Contactblok titel="Vraag je prijs aan" tekst="Vertel kort hoe je bv in elkaar zit: één bv of een holding, wel of geen DGA-loon. Binnen een tot drie werkdagen heb je een vaste prijs." vinkjes={['Vrijblijvend, je zit nergens aan vast', 'Overstappen midden in het jaar kan', 'Ook als je de bv nog moet oprichten']} />
 </Basis>
 
 <style>
 .uitleg h3{margin-bottom:4px}
+@media (min-width:760px) and (max-width:1099px){.grid3.vier{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
 </style>

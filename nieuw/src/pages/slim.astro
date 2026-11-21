@@ -15,6 +15,20 @@ const faq: [string, string][] = [
   ['Wat als Slim het niet weet?', 'Dan zegt Slim dat eerlijk en zet hij je vraag door naar mij. Ik kijk mee en reageer zelf.'],
   ['Werkt Slim ook in het Engels?', 'Ja. Slim werkt in het Nederlands en in het Engels.'],
 ];
+const functies: { titel: string; tekst: string; chat: [string, string][] }[] = [
+  { titel: 'Facturen en offertes', tekst: 'Zeg voor wie, wat en hoeveel. Slim maakt de factuur, laat hem zien en verstuurt hem pas na jouw akkoord. Aanpassen kan gewoon in de chat.',
+    chat: [['mij', 'Offerte voor Studio Noord, logo-ontwerp €850'], ['slim', '📄 Je offerte staat klaar: logo-ontwerp €850,00 plus €178,50 btw. Zal ik hem versturen?'], ['mij', 'Maak er €800 van'], ['slim', 'Aangepast naar €800,00. Versturen?']] },
+  { titel: 'Bonnetjes', tekst: 'Stuur een foto of pdf. Slim leest hem en zet hem in je administratie, met de btw apart.',
+    chat: [['mij', '📷 Foto: bonnetje Shell'], ['slim', 'Geboekt: €78,40 brandstof, waarvan €13,61 btw die je terugkrijgt.']] },
+  { titel: 'Inspreken', tekst: 'Geen zin om te typen? Spreek je factuur of vraag in. Slim zet het om in tekst en gaat ermee aan de slag.',
+    chat: [['mij', '🎤 0:06 · "Factuur voor Studio Noord, acht uur à vijfenzestig euro."'], ['slim', 'Je factuur staat klaar: 8 uur × €65,00, totaal €629,20. Zal ik hem versturen?']] },
+  { titel: 'Klanten toevoegen', tekst: 'Noem het KvK-nummer en Slim haalt de naam en het adres zelf op.',
+    chat: [['mij', 'Nieuwe klant: Bakkerij De Wit, KvK 12345678'], ['slim', '👤 Toegevoegd: Bakkerij De Wit, Dorpsstraat 12, Zaandam. Klopt dit?']] },
+  { titel: 'Je eigen cijfers', tekst: 'Vraag wat er nog openstaat, wat je omzet is of welke offertes nog lopen.',
+    chat: [['mij', 'Hoeveel omzet heb ik dit kwartaal?'], ['slim', '📊 Dit kwartaal tot nu toe: €14.250,00 omzet en €3.120,40 inkoop.']] },
+  { titel: 'Betalingen en herinneringen', tekst: 'Wie moet je nog betalen? Slim zegt het je, en stuurt na jouw akkoord een herinnering.',
+    chat: [['mij', 'Wie moet mij nog betalen?'], ['slim', '💶 Bakkerij De Wit, €302,50, 14 dagen te laat. Herinnering sturen?'], ['mij', 'Ja'], ['slim', '📨 Herinnering verstuurd.']] },
+];
 ---
 <Basis
   titel="Slim: facturen en bonnetjes via WhatsApp | Slim Geregeld"
@@ -35,43 +49,83 @@ const faq: [string, string][] = [
   <section>
     <div class="wrap">
       <h2>Wat Slim voor je doet</h2>
-      <div class="grid3 zes">
-        <div class="blok"><h3>Facturen en offertes</h3><p>Zeg voor wie, wat en hoeveel. Slim maakt de factuur, laat hem zien en verstuurt hem na jouw akkoord. Aanpassen kan gewoon in de chat.</p></div>
-        <div class="blok"><h3>Bonnetjes</h3><p>Stuur een foto of pdf. Slim leest hem en zet hem in je administratie.</p></div>
-        <div class="blok"><h3>Klanten toevoegen</h3><p>Noem het KvK-nummer en Slim haalt het adres zelf op.</p></div>
-        <div class="blok"><h3>Je eigen cijfers</h3><p>Vraag wat er nog openstaat, wat je omzet is of welke offertes nog lopen.</p></div>
-        <div class="blok"><h3>Betalingen en herinneringen</h3><p>Zet een factuur op betaald of laat een herinnering sturen. Slim laat je eerst zien wat er verstuurd wordt.</p></div>
-        <div class="blok"><h3>Offerte wordt factuur</h3><p>Akkoord op je offerte? Slim zet hem in één keer om naar een factuur.</p></div>
+      <p class="sub">Tik op een kaart en zie hoe het eruitziet.</p>
+      <div class="functies">
+        {functies.map((f) => (
+          <details class="functie">
+            <summary><h3>{f.titel}</h3><p>{f.tekst}</p><span class="kijk">Bekijk een voorbeeld</span></summary>
+            <div class="mini" aria-label={`Voorbeeld: ${f.titel}`}>
+              {f.chat.map(([wie, t]) => <span class={`mb ${wie}`}>{t}</span>)}
+            </div>
+          </details>
+        ))}
       </div>
-      <p class="noot">Slim begrijpt ook spraakberichten. En weet Slim iets niet, dan komt je vraag bij mij terecht.</p>
     </div>
   </section>
 
   <section class="zacht">
     <div class="wrap twee">
       <div>
-        <h2>Slim los of met boekhouder</h2>
-        <p class="sub">Slim werkt ook als je je boekhouding zelf doet. Wil je dat ik het daarna van je overneem, dan zit Slim gewoon bij de volledige service.</p>
+        <h2>Slim typt, ik controleer</h2>
+        <p class="sub">Slim neemt je het typwerk uit handen, maar je administratie is geen automaat. Bij de volledige service kijk ik elk kwartaal zelf je boekhouding na voordat de btw-aangifte de deur uit gaat. Klopt er iets niet, of past een boeking beter ergens anders, dan hoor je het van mij.</p>
       </div>
+      <ul class="vinkjes">
+        <li>Niets gaat de deur uit zonder jouw akkoord</li>
+        <li>Weet Slim iets niet, dan komt je vraag bij mij</li>
+        <li>Elk kwartaal controleer ik je boekhouding zelf</li>
+        <li>Je hebt één vaste boekhouder die meekijkt</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Waarom via WhatsApp?</h2>
+      <div class="grid3">
+        <div class="blok"><h3>Geen nieuwe app</h3><p>WhatsApp heb je al. Geen inlog, geen wachtwoord, geen programma leren.</p></div>
+        <div class="blok"><h3>Direct, waar je ook bent</h3><p>Een factuur na de klus, een bonnetje bij de kassa. Je regelt het meteen, in plaats van op zondagavond.</p></div>
+        <div class="blok"><h3>Alles in Moneybird</h3><p>Wat je appt, komt netjes in je administratie. Je boekhouding is altijd bij.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap">
+      <h2>Slim los of met boekhouder</h2>
+      <p class="sub">Slim werkt ook als je je boekhouding zelf doet. Wil je dat ik het daarna van je overneem, dan zit Slim gewoon bij de volledige service.</p>
       <div class="keus">
-        <div class="blok"><h3>Alleen Slim</h3><p>Het eerste halfjaar gratis, daarna €75 per maand. Ook zonder Moneybird.</p><a class="meer" href={AANMELDEN}>Probeer Slim →</a></div>
-        <div class="blok"><h3>Volledige service</h3><p>€95 per maand: je boekhouding, btw-aangiftes en jaarcijfers, met Slim erbij.</p><a class="meer" href="/boekhouding-eenmanszaak">Meer over de volledige service →</a></div>
+        <div class="blok"><h3>Alleen Slim</h3><p class="pr">Eerste halfjaar gratis</p><p>Daarna €75 per maand. Ook zonder Moneybird.</p><a class="meer" href={AANMELDEN}>Probeer Slim →</a></div>
+        <div class="blok"><h3>Volledige service</h3><p class="pr">€95 per maand</p><p>Je boekhouding, btw-aangiftes en jaarcijfers, met Slim erbij.</p><a class="meer" href="/boekhouding-eenmanszaak">Meer over de volledige service →</a></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <GoogleReviews eerst={['Jeremy Gomes', 'Umesh ten Kate', 'Andries']} />
+      <GoogleReviews eerst={['Jeremy Gomes', 'Umesh ten Kate', 'Andries Min']} />
     </div>
   </section>
 
   <Faq vragen={faq} />
-  <Contactblok titel="Vragen over Slim?" tekst="Wil je eerst weten of Slim bij je past? Laat je gegevens achter of stuur een WhatsApp, dan hoor je het binnen een werkdag." />
+  <Contactblok titel="Vragen over Slim?" tekst="Wil je eerst weten of Slim bij je past? Laat je gegevens achter of stuur een WhatsApp, dan hoor je het binnen een tot drie werkdagen." />
 </Basis>
 
 <style>
-.noot{margin-top:16px;color:var(--grijs)}
-.keus{display:grid;gap:12px}
-@media (min-width:1000px){.grid3.zes{grid-template-columns:repeat(3,1fr)}}
+.keus{display:grid;gap:14px;margin-top:22px}
+.pr{color:var(--blauw);font-weight:700}
+.functies{display:grid;gap:14px;margin-top:22px;align-items:start}
+.functie{border:1px solid var(--lijn);border-radius:var(--r);background:#fff;transition:border-color .15s,box-shadow .15s,transform .15s}
+.functie:hover{border-color:var(--blauw-rand);box-shadow:0 10px 30px rgba(37,99,235,.08);transform:translateY(-2px)}
+.functie[open]{border-color:var(--blauw-rand)}
+.functie summary{list-style:none;cursor:pointer;padding:22px}
+.functie summary::-webkit-details-marker{display:none}
+.functie p{color:var(--grijs);margin-top:6px}
+.kijk{display:inline-block;margin-top:12px;color:var(--blauw);font-weight:650;font-size:.92rem}
+.kijk::after{content:" ↓"}
+.functie[open] .kijk::after{content:" ↑"}
+.mini{display:flex;flex-direction:column;gap:6px;background:#efeae2;margin:0 12px 12px;padding:12px;border-radius:12px;font-size:.86rem;line-height:1.4}
+.mb{max-width:86%;padding:6px 10px;border-radius:10px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.08);align-self:flex-start}
+.mb.mij{align-self:flex-end;background:#d9fdd3}
+@media (min-width:760px){.functies{grid-template-columns:repeat(2,1fr)}.keus{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.functies{grid-template-columns:repeat(3,1fr)}}
 </style>

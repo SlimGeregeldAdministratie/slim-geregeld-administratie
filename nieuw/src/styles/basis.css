@@ -10,7 +10,8 @@
   --font:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:76px}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{background:var(--bg);color:var(--inkt);font:16px/1.6 var(--font)}
 a{color:inherit}
 img{max-width:100%;display:block}
@@ -27,7 +28,9 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
 .knop.leeg:hover{background:var(--blauw-t)}
 .knop:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--blauw-rand);outline-offset:2px}
 .knoppen{display:flex;flex-wrap:wrap;gap:10px}
-section{padding:44px 0}
+section{padding:40px 0}
+/* Twee secties met dezelfde achtergrond na elkaar: geen dubbele witruimte. */
+section:not(.zacht)+section:not(.zacht),section.zacht+section.zacht{padding-top:0}
 .zacht{background:var(--zacht)}
 .grid3{display:grid;gap:14px;margin-top:26px}
 .blok{border:1px solid var(--lijn);border-radius:var(--r);padding:22px;background:#fff}
@@ -36,7 +39,7 @@ section{padding:44px 0}
 .nr{width:34px;height:34px;border-radius:10px;background:var(--blauw-t);color:var(--blauw);font-weight:750;display:grid;place-items:center;margin-bottom:12px}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (min-width:760px){
-  section{padding:64px 0}
+  section{padding:52px 0}
   .grid3{grid-template-columns:repeat(3,1fr)}
 }
 
@@ -56,4 +59,5 @@ section{padding:44px 0}
 .kruimel{font-size:.85rem;color:var(--grijs);margin-bottom:14px}
 .kruimel a{color:var(--grijs);text-decoration:none}
 .kruimel a:hover{color:var(--blauw)}
-@media (min-width:760px){.twee{grid-template-columns:1fr 1fr;gap:56px}}
+@media (min-width:760px){.twee{grid-template-columns:1fr 1fr;gap:56px}.grid3.vier{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
