@@ -35,14 +35,15 @@ const ld = {
     foto={foto}
   />
   <section>
-    <div class="wrap twee boven">
-      <div class="lees"><slot /></div>
+    <div class="wrap">
+      <div class="kolommen"><slot /></div>
       <div class="blok waar">
-        <h3>Ik help ondernemers in heel Nederland</h3>
-        <p>Bijna alles gaat via WhatsApp, mail of telefoon, dus waar je zit maakt niet uit. Zit je in {plaats} of omgeving, {omgeving}, dan spreken we ook gerust eens af.</p>
-        <a class="meer" href="#contact">Kennismaken →</a>
+        <div>
+          <h3>Ik help ondernemers in heel Nederland</h3>
+          <p>Bijna alles gaat via WhatsApp, mail of telefoon. Of je nu in {plaats} zit of ergens anders, het werkt overal hetzelfde.</p>
+        </div>
+        <a class="knop vol" href="#contact">Kennismaken</a>
       </div>
-
     </div>
   </section>
   <section class="zacht">
@@ -60,8 +61,13 @@ const ld = {
 </Basis>
 
 <style>
-.boven{align-items:start}
-.lees :global(h2:first-child){margin-top:0}
-.waar{background:var(--blauw-t);border-color:var(--blauw-rand)}
-.waar p{color:var(--tekst)}
+.kolommen{display:grid;gap:8px 56px}
+.kolommen :global(h2){margin-top:0}
+.kolommen :global(p),.kolommen :global(ul){color:var(--tekst);margin-top:12px}
+.kolommen :global(ul){padding-left:22px;display:grid;gap:6px}
+.kolommen :global(a){color:var(--blauw)}
+.kolommen > :global(div + div){margin-top:28px}
+.waar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:32px;background:var(--blauw-t);border-color:var(--blauw-rand)}
+.waar p{color:var(--tekst);margin-top:4px}
+@media (min-width:760px){.kolommen{grid-template-columns:1fr 1fr}.kolommen > :global(div + div){margin-top:0}}
 </style>
