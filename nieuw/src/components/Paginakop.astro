@@ -28,8 +28,7 @@ const kruimelLd = kruimel && {
   {kruimelLd && <script type="application/ld+json" set:html={JSON.stringify(kruimelLd)} />}
   <div class={`wrap pk-grid${heeftRechts ? '' : ' smal'}`}>
     <div>
-      {kruimel && <nav class="kruimel" aria-label="Kruimelpad"><a href="/">Home</a> › {kruimel}</nav>}
-      {tag !== kruimel && <span class="tag">{tag}</span>}
+      <span class="tag">{tag}</span>
       <h1 data-groet={groet ? '' : undefined}>{titel}</h1>
       {groet && <script is:inline>(function(){var h=document.currentScript.previousElementSibling,u=new Date().getHours(),g=u<12?'Goedemorgen':u<18?'Goedemiddag':'Goedenavond';h.textContent=h.textContent.replace(/^Hoi/,g);})();</script>}
       <p class="sub">{sub}</p>

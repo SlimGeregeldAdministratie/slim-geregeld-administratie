@@ -40,7 +40,7 @@ export const reviews: Review[] = [
     tekst: 'Slim Geregeld is efficiënt en overzichtelijk. Verder begeleidt Kyle je op een ondersteunende en begripvolle manier.' },
   { bron: 'moneybird', naam: 'Dany Cramer', bedrijf: 'Cramer D Events', branche: 'evenementen', datum: '2026-07-29', sterren: 5, taal: 'nl',
     tekst: 'Ik ben al een aantal jaar zzp’er, hierdoor heb ik altijd moeite gehad met het bijhouden van mijn financiën en alles wat hierbij komt kijken. Sinds ik met Kyle werk is alles overzichtelijk en duidelijk. Hij communiceert goed en staat altijd paraat wanneer ik dat nodig heb. Ik kan Kyle en “Slim geregeld admin” aan iedereen aanraden!' },
-  { bron: 'moneybird', naam: 'Make Bouw', branche: 'bouwbedrijf', datum: '2026-10-30', sterren: 5, taal: 'nl',
+  { bron: 'moneybird', naam: 'Edwin Postma', bedrijf: 'Make Bouw', branche: 'bouwbedrijf', datum: '2026-10-30', sterren: 5, taal: 'nl',
     tekst: 'Super fijne samenwerking, altijd duidelijk en snel!' },
   { bron: 'google', naam: 'Andries Min', bedrijf: 'Marimin', branche: 'timmerman', sterren: 5, taal: 'nl', foto: '/img/reviews/andries.png', link: 'https://maps.app.goo.gl/cz2LpkpYzyJQTiyg6',
     tekst: 'Prima, lekker makkelijk zo.' },

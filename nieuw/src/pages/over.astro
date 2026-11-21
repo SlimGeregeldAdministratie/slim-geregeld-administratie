@@ -29,27 +29,31 @@ const persoon = {
   />
 
   <section>
-    <div class="wrap twee boven">
-      <div class="lees">
-        <h2>Waarom ik dit ben gestart</h2>
-        <p>Mijn oude huisgenoot werkte zes jaar in de bouw. Elk kwartaal zat hij twee nachten vlak voor de btw-aangifte aan de keukentafel, met overal papier, en kwam hij er niet uit. Ik dacht: dat moet veel slimmer kunnen.</p>
-        <p>Met mijn achtergrond in finance en in automatisering en AI ben ik eind 2024 Slim Geregeld begonnen. Het herhaalwerk heb ik zo veel mogelijk geautomatiseerd. Daardoor heb ik tijd voor wat telt: je cijfers controleren en meedenken.</p>
-        <p>Bij mij heb je één vaste boekhouder. Je appt of mailt mij, en je krijgt antwoord van mij.</p>
-        <h2>Hoe ik werk</h2>
-        <p>Mijn belangrijkste doel: jou ontzorgen. Jij doet waar je goed in bent, ik zorg dat je administratie klopt en dat je niet verrast wordt door de Belastingdienst.</p>
-        <ul>
-          <li>Alles in Moneybird, op jouw naam. Je houdt altijd zelf toegang.</li>
-          <li>Vaste prijzen, vooraf bekend.</li>
-          <li>Voor ondernemers in heel Nederland. Bijna alles gaat via WhatsApp, mail of telefoon; elkaar zien kan ook, in Amsterdam of de Zaanstreek.</li>
-          <li>In het Nederlands en het Engels. Ik help ook ondernemers uit de VS en Japan die hier een bedrijf starten.</li>
-        </ul>
-      </div>
+    <div class="wrap">
       <div class="feiten">
         <div><b>Becon</b><span>geregistreerd boekhouder</span></div>
         <div><b>Moneybird</b><span>Expert-kantoor</span></div>
-        <div><b>Amsterdam</b><span>en de Zaanstreek</span></div>
+        <div><b>Heel Nederland</b><span>vanuit Amsterdam en de Zaanstreek</span></div>
         <div><b>NL en EN</b><span>beide talen</span></div>
-        <a class="li" href="https://www.linkedin.com/in/kylebouwmeester" target="_blank" rel="noopener">Volg me op LinkedIn ↗</a>
+      </div>
+      <div class="twee boven verhaal">
+        <div class="lees">
+          <h2>Waarom ik dit ben gestart</h2>
+          <p>Mijn oude huisgenoot werkte zes jaar als zzp'er in de bouw. Elk kwartaal zat hij vlak voor de deadline van de btw-aangifte twee nachten aan de keukentafel, met overal papier, en kwam hij er niet uit. Ik dacht: dat moet veel slimmer kunnen.</p>
+          <p>Met mijn achtergrond in finance en in automatisering en AI ben ik eind 2024 Slim Geregeld begonnen. Het herhaalwerk heb ik zo veel mogelijk geautomatiseerd. Daardoor heb ik tijd voor wat telt: je cijfers controleren en meedenken.</p>
+        </div>
+        <div class="lees">
+          <h2>Hoe ik werk</h2>
+          <p>Mijn belangrijkste doel: jou ontzorgen. Jij doet waar je goed in bent, ik zorg dat je administratie klopt en dat je niet verrast wordt door de Belastingdienst.</p>
+          <ul>
+            <li>Eén vaste boekhouder: je appt of mailt mij, en je krijgt antwoord van mij.</li>
+            <li>Alles in Moneybird, op jouw naam. Je houdt altijd zelf toegang.</li>
+            <li>Vaste prijzen, vooraf bekend.</li>
+            <li>Bijna alles via WhatsApp, mail of telefoon. Elkaar zien kan ook, in Amsterdam of de Zaanstreek.</li>
+            <li>In het Nederlands en het Engels, ook voor ondernemers uit de VS en Japan.</li>
+          </ul>
+          <p><a href="https://www.linkedin.com/in/kylebouwmeester" target="_blank" rel="noopener">Volg me op LinkedIn ↗</a></p>
+        </div>
       </div>
     </div>
   </section>
@@ -65,9 +69,10 @@ const persoon = {
 
 <style>
 .boven{align-items:start}
-.feiten{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.feiten{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:8px}
+.verhaal .lees :global(h2){margin-top:28px}
+@media (min-width:760px){.feiten{grid-template-columns:repeat(4,1fr)}}
 .feiten div{background:var(--zacht);border-radius:12px;padding:14px}
 .feiten b{display:block;font-size:1.05rem}
 .feiten span{font-size:.85rem;color:var(--grijs)}
-.feiten .li{grid-column:1/-1;color:var(--blauw);font-weight:650;text-decoration:none;padding:6px 2px}
 </style>

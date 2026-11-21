@@ -14,7 +14,8 @@ const { knopVolledig = '#contact' } = Astro.props;
 
 <style>
 .prijzen{display:grid;gap:14px;margin-top:24px}
-.pk{border:1px solid var(--lijn);border-radius:18px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:2px}
+.pk{border:1px solid var(--lijn);border-radius:18px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:2px;transition:border-color .15s,box-shadow .15s}
+.pk:hover{border-color:var(--blauw-rand);box-shadow:0 10px 28px rgba(37,99,235,.08)}
 .pk.hl{border:2px solid var(--blauw);box-shadow:0 14px 40px rgba(37,99,235,.12)}
 .pk h3{margin-top:10px}
 .bedrag{font-size:2.3rem;font-weight:800;letter-spacing:-.03em;margin-top:6px}

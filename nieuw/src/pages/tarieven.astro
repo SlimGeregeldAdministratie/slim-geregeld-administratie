@@ -12,7 +12,7 @@ const faq: [string, string][] = [
   ['Zit de aangifte inkomstenbelasting bij de €95?', 'Je jaarcijfers zitten erbij, de aangifte zelf is los: €245, of €395 samen met je fiscale partner. Was je het hele jaar klant, dan krijg je 15% korting.'],
   ['Wat kost een bv?', 'Dat hangt af van wat er speelt: één bv of een holding met werkmaatschappij, wel of geen DGA-loon, hoeveel boekingen. Je krijgt vooraf een vaste prijs, zodat je niet voor verrassingen komt te staan.'],
   ['Zit ik ergens aan vast?', 'Nee. Je betaalt per maand en je administratie blijft van jou, in je eigen Moneybird.'],
-  ['Wat kost Slim los?', 'Gebruik je alleen Slim, zonder dat ik je boekhouding doe, dan is het eerste halfjaar gratis en daarna €75 per maand. Bij de volledige service zit Slim erbij.'],
+  ['Wat kost Slim los?', 'Gebruik je alleen Slim, zonder dat ik je boekhouding doe, dan is het eerste halfjaar gratis en daarna €9,95 per maand. Bij de volledige service zit Slim erbij.'],
 ];
 ---
 <Basis
@@ -42,7 +42,7 @@ const faq: [string, string][] = [
         <div class="blok">
           <h3>Eenmanszaak of vof</h3><p class="pr">€95 per maand</p>
           <ul class="vinkjes">
-            <li>Je boekhouding in Moneybird, elk kwartaal bijgewerkt en door mij gecontroleerd</li>
+            <li>Je boekhouding in Moneybird, doorlopend bijgewerkt en voor elke btw-aangifte door mij gecontroleerd</li>
             <li>De btw-aangifte, op tijd ingediend. Je hoort vooraf wat je aan de Belastingdienst betaalt</li>
             <li>Je jaarcijfers, klaar voor je aangifte inkomstenbelasting</li>
             <li>Vragen tussendoor via WhatsApp of mail, zonder dat de meter loopt</li>
@@ -51,12 +51,13 @@ const faq: [string, string][] = [
         </div>
         <div class="blok">
           <h3>BV en holding</h3><p class="pr">Op maat, vaste prijs vooraf</p>
+          <p class="plus">Alles van de eenmanszaak, plus:</p>
           <ul class="vinkjes">
-            <li>Je boekhouding in Moneybird, elk kwartaal bijgewerkt en door mij gecontroleerd</li>
-            <li>De btw-aangifte, op tijd ingediend</li>
-            <li>Jaarrekening en aangifte vennootschapsbelasting</li>
-            <li>DGA-loon via mijn vaste salarispartner, en meedenken over dividend</li>
-            <li>Vragen tussendoor via WhatsApp of mail, en Slim op WhatsApp</li>
+            <li>Je jaarrekening, klaar voor de KvK</li>
+            <li>De aangifte vennootschapsbelasting</li>
+            <li>DGA-loon via mijn vaste salarispartner</li>
+            <li>Meedenken over salaris, dividend en je rekening-courant</li>
+            <li>Ook voor een holding met werkmaatschappij</li>
           </ul>
         </div>
       </div>
@@ -70,7 +71,7 @@ const faq: [string, string][] = [
       <div class="los">
         <div class="blok"><h3>Aangifte inkomstenbelasting</h3><p class="pr">€245, of €395 met fiscale partner</p><p>Klant? Dan 15% korting.</p><a class="meer" href="/aangifte-inkomstenbelasting">Meer over de aangifte →</a></div>
         <div class="blok"><h3>Financieel jaaroverzicht</h3><p class="pr">€395 tot 50 facturen en bonnetjes</p><p>Je balans en winst-en-verliesrekening, bijvoorbeeld voor je aangifte IB. €695 tot 150 stuks; daarboven hoor je de prijs vooraf.</p></div>
-        <div class="blok"><h3>Losse jaarrekening bv</h3><p class="pr">Op maat</p><p>Alleen je jaarrekening en Vpb-aangifte, als je de boekhouding zelf bijhoudt. Je hoort de prijs vooraf.</p></div>
+        <div class="blok"><h3>Jaarrekening en Vpb voor je bv</h3><p class="pr">Vanaf €850 per jaar</p><p>Houd je de boekhouding zelf bij? Dan maak ik je jaarrekening en de aangifte vennootschapsbelasting. Je hoort de prijs vooraf.</p></div>
         <div class="blok"><h3>Achterstand wegwerken</h3><p class="pr">Op maat</p><p>Een of meer jaren achter? Ik kijk eerst wat er ligt en geef je dan een vaste prijs.</p></div>
       </div>
       <p class="noot">Niet inbegrepen: het Moneybird-abonnement, dat op je eigen naam staat.</p>
@@ -92,6 +93,8 @@ const faq: [string, string][] = [
 .inhoud,.los{display:grid;gap:14px;margin-top:22px}
 .pr{color:var(--blauw);font-weight:700;margin-top:2px}
 .inhoud .vinkjes{margin-bottom:0}
+.plus{margin-top:14px;font-weight:650}
+.plus + .vinkjes{margin-top:8px}
 .los .blok p:not(.pr){margin-top:6px}
 @media (min-width:760px){.inhoud{grid-template-columns:1fr 1fr}.los{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1100px){.los{grid-template-columns:repeat(4,1fr)}}

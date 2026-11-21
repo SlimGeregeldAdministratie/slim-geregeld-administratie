@@ -51,8 +51,8 @@ const NL: Record<string, Bel[][]> = {
   ], [
     ['mij', '', 'Hoeveel omzet heb ik dit kwartaal?', '21:14'],
     ['slim', 'lijst', '📊 Dit kwartaal tot nu toe:|*Omzet* €8.420,15|*Inkoop* €2.310,40', '21:14'],
-    ['mij', '', 'Staat er nog iets open?', '21:15'],
-    ['slim', '', '💶 Eén factuur: Concept Store Noord, €522,72. Vervalt over 9 dagen.', '21:15'],
+    ['mij', '', 'En wat staat er nog open?', '21:15'],
+    ['slim', 'lijst', '💶 Nog open:|*Interieurzaak Mooi* €1.210,00, 12 dagen te laat§Herinnering sturen?§Verstuur herinnering§Annuleren', '21:15'],
   ], [
     ['mij', 'bon', 'Factuur groothandel, verzenddozen', '10:21'],
     ['slim', '', 'Geboekt: €242,00 verpakkingen, waarvan €42,00 btw die je terugkrijgt.', '10:21'],
@@ -158,8 +158,9 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9,5,7];
 .b.mij{align-self:flex-end;background:#d9fdd3}
 .speel .b{animation:in .5s ease forwards;animation-delay:calc(var(--i) * 1.15s + .2s)}
 .t{display:block;text-align:right;font-size:.66rem;color:#667;margin-top:2px}
-.bon{display:flex;gap:8px;align-items:center}
-.bon i{width:34px;height:42px;border-radius:4px;background:repeating-linear-gradient(#fff 0 5px,#e6e6e6 5px 6px);border:1px solid #ddd;flex:none}
+.bon{display:block}
+.bon i{display:grid;place-items:center;width:190px;height:64px;border-radius:8px;background:linear-gradient(135deg,#c9d3c4,#a7b4a2);margin:0 -6px 6px}
+.bon i::before{content:"";width:38px;height:54px;border-radius:2px;background:repeating-linear-gradient(#fff 0 6px,#e4e4e4 6px 7px);box-shadow:0 2px 6px rgba(0,0,0,.2);transform:rotate(-4deg)}
 .b.doc{--pt:4px;--pb:6px;padding-left:4px;padding-right:4px;width:84%}
 .pdf{display:block;border-radius:8px;overflow:hidden;background:#f6f6f6}
 .pagina{display:grid;gap:4px;background:#fff;margin:6px 6px 0;padding:8px 10px 10px;border-radius:3px 3px 0 0;box-shadow:0 1px 3px rgba(0,0,0,.12);font-size:.68rem;line-height:1.3;color:#334155}
