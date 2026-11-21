@@ -25,19 +25,7 @@ const faq: [string, string][] = [
     titel="Vaste prijzen, vooraf duidelijk"
     sub="Geen uurtje-factuurtje en geen verrassingen achteraf. Je weet vooraf wat je betaalt. Alle prijzen zijn exclusief btw."
     prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof, volledige service' }}
-  >
-    <div slot="rechts" class="reken">
-      <h2 class="r-kop">Rekenvoorbeeld per jaar</h2>
-      <p class="r-sub">Eenmanszaak, het hele jaar klant</p>
-      <dl>
-        <div><dt>Volledige service<small>12 × €95</small></dt><dd>€1.140,00</dd></div>
-        <div><dt>Aangifte inkomstenbelasting<small>€245 met 15% korting</small></dt><dd>€208,25</dd></div>
-        <div class="tot"><dt>Totaal bij mij</dt><dd>€1.348,25</dd></div>
-      </dl>
-      <p class="r-mb">Plus Moneybird op je eigen naam: meestal €15 tot €35 per maand, de eerste 120 dagen gratis.</p>
-      <p class="r-noot">Alle bedragen excl. btw. Ben je btw-ondernemer, dan trek je die btw weer af.</p>
-    </div>
-  </Paginakop>
+  />
 
   <section style="padding-top:0">
     <div class="wrap">
@@ -100,18 +88,6 @@ const faq: [string, string][] = [
 </Basis>
 
 <style>
-.reken{background:#fff;border:1px solid var(--lijn);border-radius:var(--r-groot);box-shadow:var(--schaduw);padding:22px;max-width:440px;margin-left:auto;width:100%}
-.r-kop{font-size:1.15rem;margin:0}
-.r-sub{color:var(--grijs);font-size:.9rem;margin-top:2px}
-.reken dl{display:grid;gap:10px;margin:16px 0 14px}
-.reken dl div{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.reken dt small{display:block;color:var(--grijs);font-size:.82rem}
-.reken dd{font-variant-numeric:tabular-nums;font-weight:600}
-.reken .tot{border-top:1px solid var(--lijn);padding-top:10px;font-weight:750}
-.reken .tot dd{font-size:1.3rem;color:var(--blauw);font-weight:800}
-.r-mb{font-size:.9rem;background:var(--zacht);border-radius:10px;padding:10px 12px}
-.r-noot{font-size:.78rem;color:var(--grijs);margin-top:10px}
-.noot{margin-top:16px;color:var(--grijs);font-size:.95rem}
 .inhoud,.los{display:grid;gap:14px;margin-top:22px}
 .pr{color:var(--blauw);font-weight:700;margin-top:2px}
 .inhoud .vinkjes{margin-bottom:0}
