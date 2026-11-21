@@ -1,0 +1,78 @@
+---
+import Basis from '../../layouts/Basis.astro';
+import Paginakop from '../../components/Paginakop.astro';
+import GoogleReviews from '../../components/GoogleReviews.astro';
+import CtaEn from '../../components/CtaEn.astro';
+
+const persoon = {
+  '@context': 'https://schema.org', '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person', name: 'Kyle Bouwmeester', jobTitle: 'Bookkeeper',
+    worksFor: { '@type': 'AccountingService', name: 'Slim Geregeld Administratie', url: 'https://slim-geregeld.nl/' },
+    sameAs: ['https://www.linkedin.com/in/kylebouwmeester'],
+    knowsLanguage: ['nl', 'en'],
+  },
+};
+---
+<Basis
+  titel="About Kyle Bouwmeester, Dutch bookkeeper | Slim Geregeld"
+  omschrijving="Kyle Bouwmeester is a Becon-registered Dutch bookkeeper and Moneybird Expert. He helps freelancers and treaty entrepreneurs across the Netherlands, in English."
+  taal="en"
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(persoon)} />
+  <Paginakop
+    taal="en"
+    tag="About"
+    titel="Hi, I'm Kyle"
+    sub="Becon-registered bookkeeper and Moneybird Expert. I help freelancers, small companies and treaty entrepreneurs across the Netherlands, from Amsterdam and the Zaanstreek. In English when you prefer."
+    foto={{ src: '/img/kyle-1.jpg', alt: 'Kyle Bouwmeester on a sofa with his laptop', pos: '50% 40%' }}
+  />
+
+  <section>
+    <div class="wrap">
+      <div class="feiten">
+        <div><b>Becon</b><span>registered bookkeeper</span></div>
+        <div><b>Moneybird</b><span>Expert practice</span></div>
+        <div><b>All of NL</b><span>from Amsterdam and the Zaanstreek</span></div>
+        <div><b>US and Japan</b><span>both treaty routes</span></div>
+      </div>
+      <div class="twee boven verhaal">
+        <div class="lees">
+          <h2>Why I started</h2>
+          <p>A former housemate of mine worked as a freelancer in construction. Every quarter he spent two nights at the kitchen table right before the VAT deadline, paper everywhere, and still could not make it add up. I thought: this has to be smarter.</p>
+          <p>With my background in finance and automation &amp; AI, I started Slim Geregeld at the end of 2024. The repetitive work is automated wherever possible, so my time goes to what matters: checking your numbers and thinking along.</p>
+          <a class="li" href="https://www.linkedin.com/in/kylebouwmeester" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Follow me on LinkedIn</a>
+        </div>
+        <div class="lees">
+          <h2>How I work</h2>
+          <p>My main goal is simple: take the worry off your plate. You do what you are good at; I make sure your administration is right and the Dutch tax office never surprises you.</p>
+          <ul>
+            <li>One bookkeeper: you message or email me, and you get an answer from me.</li>
+            <li>Everything in Moneybird, in your own name. You always keep access.</li>
+            <li>Fixed prices, known upfront.</li>
+            <li>Almost everything by WhatsApp, email or phone, wherever you are in the Netherlands.</li>
+            <li>Experience with both the American and the Japanese treaty route.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap"><GoogleReviews taal="en" eerst={['Anoniem']} /></div>
+  </section>
+
+  <CtaEn titel="Let's talk" />
+</Basis>
+
+<style>
+.boven{align-items:start}
+.feiten{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:8px}
+.feiten div{background:var(--zacht);border-radius:12px;padding:14px}
+.feiten b{display:block;font-size:1.05rem}
+.feiten span{font-size:.85rem;color:var(--grijs)}
+.verhaal .lees :global(h2){margin-top:28px}
+.li{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:8px 14px;border:1px solid var(--lijn);border-radius:10px;color:#0a66c2;font-weight:650;text-decoration:none;transition:border-color .15s}
+.li:hover{border-color:#0a66c2}
+@media (min-width:760px){.feiten{grid-template-columns:repeat(4,1fr)}}
+</style>

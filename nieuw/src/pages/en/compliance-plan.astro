@@ -1,0 +1,86 @@
+---
+import Basis from '../../layouts/Basis.astro';
+import Paginakop from '../../components/Paginakop.astro';
+import Faq from '../../components/Faq.astro';
+import CtaEn from '../../components/CtaEn.astro';
+
+const faq: [string, string][] = [
+  ['Which level do I need?', 'Quiet (€79) fits when you send up to one invoice and three receipts a month and use the small business scheme (KOR), so there are no VAT returns. Active (€149) is for anything more, or when you charge VAT. You get one busy month a year without changing level.'],
+  ['How long do I commit?', 'The plan runs for at least twelve months. That covers a full year of bookkeeping, your income tax return and the equity checks that matter for your renewal.'],
+  ['Is the balance sheet really included?', 'Yes. On the plan your opening balance sheet costs nothing extra, and the statement for your renewal is included too.'],
+  ['I have a BV. Can I use the plan?', 'The plan is for an eenmanszaak or VOF. A BV gets its own quote with a fixed price upfront.'],
+  ['Why does the equity check matter?', 'Your permit depends on keeping at least €4,500 of equity in the business. Most renewal problems start when nobody looks at it between the start and the renewal. On the plan I check it every quarter, so you hear about it early.'],
+];
+---
+<Basis
+  titel="Compliance Plan for DAFT and DJTT | From €79 a month | Slim Geregeld"
+  omschrijving="Monthly bookkeeping in English for DAFT and DJTT entrepreneurs: VAT, income tax return, quarterly equity check and your renewal statement. From €79 a month excl. VAT."
+  taal="en"
+>
+  <Paginakop
+    taal="en"
+    tag="Compliance Plan"
+    titel="Stay on the right side of your permit, every month"
+    sub="Monthly bookkeeping for DAFT and DJTT entrepreneurs with an eenmanszaak or VOF. Your VAT, your income tax return and your equity, all looked after, so your renewal is a formality."
+    prijs={{ bedrag: '€79', per: 'a month, excl. VAT', uitleg: 'or €149 when you are busier · 12 months · balance sheet included' }}
+    knop={['Start with your balance sheet', '/daft/#request']}
+    foto={{ src: '/img/kyle-bureau.jpg', alt: 'Kyle Bouwmeester working on the numbers', pos: '30% 50%' }}
+  />
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Two levels, one plan</h2>
+      <div class="niveaus">
+        <div class="blok">
+          <h3>Quiet</h3><p class="pr">€79 a month</p>
+          <p>Up to 1 invoice and 3 receipts a month, on the small business scheme (KOR), so no VAT returns.</p>
+          <ul class="vinkjes">
+            <li>Balance sheet at no extra cost</li>
+            <li>Annual Dutch income tax return</li>
+            <li>Equity checked every quarter</li>
+            <li>Your statement for the renewal</li>
+          </ul>
+        </div>
+        <div class="blok hl">
+          <h3>Active</h3><p class="pr">€149 a month</p>
+          <p>More invoices and receipts, or you charge VAT. Quarterly VAT returns are filed for you.</p>
+          <ul class="vinkjes">
+            <li>Everything in Quiet</li>
+            <li>Quarterly VAT returns filed for you</li>
+            <li>The VAT on your rent, supplies and equipment claimed back</li>
+            <li>The right VAT rate on everything you sell</li>
+          </ul>
+        </div>
+      </div>
+      <p class="noot">One busy month a year is fine on Quiet. From the second busy month, Active applies. All prices excl. 21% VAT.</p>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <div class="grid3 vier">
+        <div class="blok"><div class="nr">1</div><h3>Request your balance sheet</h3><p>Choose the plan in the request form on the DAFT or DJTT page.</p></div>
+        <div class="blok"><div class="nr">2</div><h3>I set everything up</h3><p>Your administration in Moneybird, ready for your invoices and receipts.</p></div>
+        <div class="blok"><div class="nr">3</div><h3>You send, I book</h3><p>Receipts and invoices by WhatsApp or email. I do the returns.</p></div>
+        <div class="blok"><div class="nr">4</div><h3>Renewal ready</h3><p>Your equity checked every quarter, and the renewal statement included.</p></div>
+      </div>
+      <p class="links"><a href="/daft/#request">Request via DAFT →</a> <a href="/djtt/#request">Request via DJTT →</a></p>
+    </div>
+  </section>
+
+  <Faq titel="Questions about the plan" vragen={faq} />
+  <CtaEn />
+</Basis>
+
+<style>
+.pr{color:var(--blauw);font-weight:700;margin-top:2px}
+.niveaus{display:grid;gap:14px;margin-top:22px}
+.niveaus .blok p:not(.pr){color:var(--grijs);margin-top:6px}
+.niveaus .vinkjes{margin:16px 0 0}
+.niveaus .hl{border:2px solid var(--blauw)}
+.noot{margin-top:20px;color:var(--grijs);text-align:center}
+.links{margin-top:20px;display:flex;gap:20px;flex-wrap:wrap}
+.links a{color:var(--blauw);font-weight:650;text-decoration:none}
+@media (min-width:760px){.niveaus{grid-template-columns:1fr 1fr}}
+</style>

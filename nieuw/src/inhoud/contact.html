@@ -1,0 +1,186 @@
+<section>
+    <div class="container">
+      <div class="kop">
+        <h1>Just have a question?</h1>
+        <p>Not everyone is ready to send a request, and that is fine. Ask whatever you need to know about the opening balance sheet, the €4,500, or whether this route even applies to you. You get a straight answer from me personally, usually the same day and always within one working day.</p>
+      </div>
+
+      <div class="grid">
+        <div class="vraagblok">
+          <form id="vraagform" novalidate>
+            <div class="veld-rij">
+              <div class="veld">
+                <label for="v-naam">Your name</label>
+                <input id="v-naam" name="naam" type="text" autocomplete="name" required>
+              </div>
+              <div class="veld">
+                <label for="v-email">Your email</label>
+                <input id="v-email" name="email" type="email" autocomplete="email" required>
+              </div>
+            </div>
+            <div class="veld">
+              <label for="v-tel">Phone or WhatsApp <span class="opt">optional</span></label>
+              <input id="v-tel" name="telefoon" type="tel" autocomplete="tel">
+            </div>
+            <div class="veld">
+              <label for="v-over">What is it about?</label>
+              <select id="v-over" name="over">
+                <option value="daft">A first DAFT application (US citizens)</option>
+                <option value="djft">A first application under the Japanese treaty</option>
+                <option value="renewal">Renewing my permit</option>
+                <option value="plan">Monthly bookkeeping (Compliance Plan)</option>
+                <option value="anders">Something else, or not sure yet</option>
+              </select>
+            </div>
+            <div class="veld">
+              <label for="v-vraag">Your question</label>
+              <textarea id="v-vraag" name="vraag" placeholder="For example: I am moving in October and have not registered anything yet. What should I do first?" required></textarea>
+            </div>
+            <div class="veld">
+              <label for="v-gevonden">How did you find us?</label>
+              <select id="v-gevonden" name="gevonden" required>
+                <option value="" disabled selected>Choose one</option>
+                <option value="zegniet">Rather not say</option>
+                <option value="ai">An AI assistant like ChatGPT</option>
+                <option value="zoekmachine">A search engine like Google</option>
+                <option value="reddit">Reddit</option>
+                <option value="facebook">A Facebook group for expats</option>
+                <option value="bekend">Friends, family or a colleague</option>
+                <option value="adviseur">My immigration lawyer or adviser</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="mail">An email from you</option>
+                <option value="anders">Somewhere else</option>
+              </select>
+              <div class="verborgen" id="v-gevonden-blok" style="margin-top:.7rem">
+                <label for="v-gevonden-tekst" id="v-gevonden-label">Which one? <span class="opt">optional</span></label>
+                <input id="v-gevonden-tekst" name="gevondenTekst" type="text">
+              </div>
+            </div>
+            <div class="hp" aria-hidden="true">
+              <label for="v-website2">Website</label>
+              <input id="v-website2" name="website2" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="voet">
+              <button class="knop" type="submit" id="v-verstuur">Send your question →</button>
+              <span class="privacy">No sales call, no mailing list. Your details are only used to answer you.</span>
+            </div>
+            <p class="melding" id="v-melding"></p>
+          </form>
+        </div>
+
+        <aside class="zij">
+          <div class="kaart">
+            <div class="wie">
+              <span class="foto"><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56"></span>
+              <div>
+                <b>Kyle Bouwmeester</b>
+                <span>Becon-registered bookkeeper</span>
+              </div>
+            </div>
+            <p style="margin-top:.9rem">I read and answer everything myself. Prefer email or a message instead of a form? That works just as well.</p>
+            <div class="direct">
+              <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a>
+              <a href="https://wa.me/31621311043">WhatsApp +31 6 21 31 10 43</a>
+            </div>
+          </div>
+
+          <div class="kaart">
+            <h3>Already know what you need?</h3>
+            <p>Skip the questions and send a request. It takes two minutes, you pay nothing yet, and you get your delivery date in the reply.</p>
+            <p style="margin-top:.6rem"><a href="/daft/#request">DAFT balance sheet (US) →</a><br><a href="/djtt/#request">DJTT balance sheet (Japan) →</a><br><a href="/daft/renewal/#request">Renewal statement →</a></p>
+          </div>
+
+          <div class="kaart">
+            <h3>Maybe it is already answered</h3>
+            <p>The most common questions are covered on the main page: what the €4,500 really means, who may sign, what happens with a loan or a gift, and how fast it can be done.</p>
+            <p style="margin-top:.6rem"><a href="/daft/#faq">Read the questions →</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+<script>
+(function(){
+  var form=document.getElementById('vraagform');
+  var melding=document.getElementById('v-melding');
+  var knop=document.getElementById('v-verstuur');
+
+  // Onderwerp alvast goed zetten vanaf de DJTT- en verlengingspagina (?over=djft).
+  var over=document.getElementById('v-over');
+  var via='';
+  try{
+    var p=new URLSearchParams(location.search);
+    var o=(p.get('over')||'').toLowerCase();
+    if(over.querySelector('option[value="'+o+'"]')) over.value=o;
+    // Partnerlink ?via=<partner>, ook als die eerder in deze sessie binnenkwam.
+    var v=(p.get('via')||'').toLowerCase();
+    if(/^[a-z0-9-]{2,30}$/.test(v)) sessionStorage.setItem('sg_via',v);
+    via=sessionStorage.getItem('sg_via')||'';
+  }catch(e){}
+
+  // Hoe iemand hier terechtkwam, zelfde keuzes als het aanvraagformulier.
+  var gevonden=document.getElementById('v-gevonden');
+  var gevondenBlok=document.getElementById('v-gevonden-blok');
+  var gevondenLabel=document.getElementById('v-gevonden-label');
+  var gevondenTekst=document.getElementById('v-gevonden-tekst');
+  var VRAAG={
+    ai:['Which one? <span class="opt">optional</span>','ChatGPT, Claude, Gemini, Copilot'],
+    reddit:['Which subreddit, if you remember? <span class="opt">optional</span>','r/Netherlands'],
+    facebook:['Which group? <span class="opt">optional</span>','Americans in the Netherlands'],
+    adviseur:['Who was it? We would like to thank them. <span class="opt">optional</span>','Name of the lawyer or adviser'],
+    anders:['Where was it? <span class="opt">optional</span>','']
+  };
+  gevonden.addEventListener('change',function(){
+    var q=VRAAG[gevonden.value];
+    gevondenBlok.classList.toggle('verborgen',!q);
+    if(q){ gevondenLabel.innerHTML=q[0]; gevondenTekst.placeholder=q[1]; }
+    else { gevondenTekst.value=''; }
+  });
+  if(via){
+    gevonden.value='adviseur';
+    gevonden.dispatchEvent(new Event('change'));
+  }
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    melding.className='melding';
+    var naam=document.getElementById('v-naam').value.trim();
+    var email=document.getElementById('v-email').value.trim();
+    var vraag=document.getElementById('v-vraag').value.trim();
+    if(!naam||!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)||!vraag){
+      melding.textContent='Please fill in your name, a valid email address and your question.';
+      melding.className='melding fout';return;
+    }
+    if(!gevonden.value){
+      melding.textContent='Please tell us how you found us, or choose Rather not say.';
+      melding.className='melding fout';gevonden.focus();return;
+    }
+    knop.disabled=true;knop.textContent='Sending...';
+    try{
+      var r=await fetch('https://n8n.slim-geregeld.nl/webhook/daft-vraag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        naam:naam,email:email,
+        telefoon:document.getElementById('v-tel').value.trim(),
+        vraag:vraag,
+        over:over.value,
+        gevonden:gevonden.value,
+        gevondenTekst:gevondenTekst.value.trim(),
+        via:via,
+        website2:document.getElementById('v-website2').value
+      })});
+      if(!r.ok)throw new Error('status '+r.status);
+      var verstuurdOver=over.value;
+      form.reset();
+      gevondenBlok.classList.add('verborgen');
+      over.value=verstuurdOver;
+      melding.textContent='Sent. I read every message myself and you will have an answer within one working day, usually sooner.';
+      melding.className='melding ok';
+      knop.disabled=false;knop.textContent='Send your question →';
+      window.dataLayer=window.dataLayer||[];
+      window.dataLayer.push({event:'daft_vraag_verstuurd',aanbod:verstuurdOver});
+    }catch(err){
+      melding.textContent='Sending failed. Please email kyle@slim-geregeld.nl directly and you will get the same fast reply.';
+      melding.className='melding fout';
+      knop.disabled=false;knop.textContent='Send your question →';
+    }
+  });
+})();
+</script>

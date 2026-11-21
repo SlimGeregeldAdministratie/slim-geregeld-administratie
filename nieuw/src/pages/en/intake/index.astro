@@ -1,0 +1,17 @@
+---
+/* Verdragspagina in de nieuwe huisstijl. De inhoud en het formulier zijn letterlijk
+   overgenomen van de oude pagina (src/inhoud/intake.html), zodat de koppeling met
+   n8n blijft werken. Kop, voet en meting komen uit Basis. */
+import Basis from '../../../layouts/Basis.astro';
+import '../../../styles/verdrag/intake.css';
+import '../../../styles/verdrag.css';
+import inhoud from '../../../inhoud/intake.html?raw';
+---
+<Basis
+  titel="Getting started | Slim Geregeld Administratie"
+  omschrijving=""
+  taal="en"
+  robots="noindex, nofollow"
+>
+  <div class="verdrag v-intake" set:html={inhoud} />
+</Basis>

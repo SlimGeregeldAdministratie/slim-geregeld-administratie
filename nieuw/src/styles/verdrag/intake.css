@@ -1,0 +1,51 @@
+/* Overgenomen van de oude pagina, alleen binnen .v-intake. */
+.v-intake *::before,.v-intake *::after{box-sizing:border-box;margin:0;padding:0}
+.v-intake .kop{background:var(--bg);border-bottom:1px solid var(--rand)}
+.v-intake .kop .binnen{max-width:760px;margin:0 auto;padding:1rem clamp(1rem,4vw,1.5rem);display:flex;align-items:center;gap:.6rem}
+.v-intake .blok{width:28px;height:28px;flex:none;border-radius:8px;background:var(--blauw);color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700}
+.v-intake .intake-main{max-width:760px;margin:0 auto;padding:clamp(1.5rem,4vw,2.5rem) clamp(1rem,4vw,1.5rem) 4rem}
+.v-intake h1{color:var(--ink);font-size:clamp(1.6rem,4.5vw,2.1rem);letter-spacing:-.02em;line-height:1.2}
+.v-intake .lead{color:var(--body);margin-top:.6rem;max-width:60ch}
+.v-intake fieldset{border:0;background:var(--bg);border:1px solid var(--rand);border-radius:var(--r-groot);
+    padding:1.4rem clamp(1rem,3vw,1.5rem);box-shadow:var(--schaduw);margin-top:1.2rem}
+.v-intake legend{float:left;width:100%;font-weight:700;color:var(--ink);font-size:1.02rem;margin-bottom:.2rem}
+.v-intake legend + .hint{clear:both}
+.v-intake .hint{font-size:.86rem;color:var(--muted);margin-bottom:1rem;max-width:62ch}
+.v-intake .veld{margin-top:1rem}
+.v-intake ul.kader{margin:.3rem 0 0;padding-left:1.15rem;font-size:.88rem;color:var(--body)}
+.v-intake ul.kader li{margin-bottom:.3rem}
+.v-intake .veld > label{display:block;font-size:.88rem;font-weight:600;color:var(--ink-2);margin-bottom:.3rem}
+.v-intake .veld .bij{font-weight:400;font-size:.82rem;color:var(--muted);display:block;margin-top:.15rem}
+.v-intake input[type=text],.v-intake input[type=email],.v-intake input[type=tel],.v-intake input[type=date],.v-intake input[type=number],.v-intake select,.v-intake textarea{width:100%;font:inherit;font-size:.95rem;padding:.6rem .75rem;border:1px solid var(--rand);
+    border-radius:10px;background:var(--bg);color:var(--ink-2)}
+.v-intake input[type=text],.v-intake input[type=email],.v-intake input[type=tel],.v-intake input[type=date],.v-intake input[type=number],.v-intake select{height:2.875rem}
+.v-intake textarea{height:auto;min-height:84px;resize:vertical}
+.v-intake input:focus,.v-intake select:focus,.v-intake textarea:focus{outline:2px solid var(--blauw);outline-offset:1px;border-color:var(--blauw)}
+.v-intake .twee{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:end}
+@media (max-width:560px){
+.v-intake .twee{grid-template-columns:1fr}
+}
+.v-intake .keuze,.v-intake .veld > label.keuze{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem .8rem;
+    border:1px solid var(--rand);border-radius:10px;margin-top:.45rem;cursor:pointer;background:var(--bg)}
+.v-intake .keuze:hover{border-color:var(--blauw-rand);background:var(--blauw-tint)}
+.v-intake .keuze input{flex:none;width:1.05rem;height:1.05rem;margin:.15rem 0 0 0}
+.v-intake .keuze .titel{display:block;flex:1 1 auto;font-size:.92rem;color:var(--ink-2)}
+.v-intake .keuze .uitleg{display:block;font-size:.82rem;color:var(--muted);margin-top:.1rem}
+.v-intake .keuze:has(input:checked){border-color:var(--blauw);background:var(--blauw-tint)}
+.v-intake .let-op{background:var(--amber-tint);border:1px solid var(--amber-rand);border-radius:10px;
+    padding:.8rem .9rem;margin-top:.7rem}
+.v-intake .let-op .keuze{border:0;background:transparent;margin:0;padding:0}
+.v-intake .let-op .titel{color:var(--amber)}
+.v-intake .verborgen{display:none}
+.v-intake button{font:inherit;font-size:.98rem;font-weight:700;border:0;background:var(--blauw);color:#fff;
+    border-radius:12px;padding:.8rem 1.6rem;cursor:pointer;margin-top:1.4rem}
+.v-intake button:hover{background:var(--blauw-donker)}
+.v-intake button:disabled{opacity:.55;cursor:not-allowed}
+.v-intake .melding{margin-top:1rem;font-size:.9rem}
+.v-intake .melding.fout{color:#b91c1c}
+.v-intake .voet{font-size:.82rem;color:var(--muted);margin-top:1.4rem}
+
+/* Nieuwe huisstijl: zachte kop zoals de andere pagina's */
+.v-intake{background:linear-gradient(180deg,var(--blauw-t),#fff 320px)}
+.v-intake h1{font-size:clamp(2rem,6vw,2.8rem);letter-spacing:-.03em;font-weight:800}

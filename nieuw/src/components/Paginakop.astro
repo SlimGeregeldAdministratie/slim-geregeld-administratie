@@ -12,9 +12,13 @@ interface Props {
   foto?: { src: string; alt: string; pos?: string; bijschrift?: boolean } | false;
   /** Vervang "Hoi" in de titel door een groet op basis van het tijdstip. */
   groet?: boolean;
+  taal?: 'nl' | 'en';
 }
-const { groet = false, tag, titel, sub, prijs, knop = ['Kennismaken', '#contact'], wa = true, kruimel, foto = { src: '/img/kyle-2.jpg', alt: 'Kyle Bouwmeester aan de telefoon met een klant' } } = Astro.props;
+const { taal = 'nl', groet = false, tag, titel, sub, prijs, knop = taal === 'en' ? ['Get started', '/en/intake/'] : ['Kennismaken', '#contact'], wa = true, kruimel, foto = { src: '/img/kyle-2.jpg', alt: 'Kyle Bouwmeester aan de telefoon met een klant' } } = Astro.props;
 const WA = 'https://wa.me/31621311043';
+const L = taal === 'en'
+  ? { wa: 'Send a WhatsApp', becon: 'bookkeeper', rol: 'your own bookkeeper' }
+  : { wa: 'Stuur een WhatsApp', becon: 'boekhouder', rol: 'jouw vaste boekhouder' };
 const heeftRechts = foto || Astro.slots.has('rechts');
 const kruimelLd = kruimel && {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -35,18 +39,18 @@ const kruimelLd = kruimel && {
       {prijs && <p class="prijsregel"><b>{prijs.bedrag}</b>{prijs.oud && <s>{prijs.oud}</s>}{prijs.per && <span>{prijs.per}</span>}{prijs.uitleg && <span class="pr-uit">{prijs.uitleg}</span>}</p>}
       <div class="knoppen">
         <a class="knop vol" href={knop[1]}>{knop[0]}</a>
-        {wa && <a class="knop leeg" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a>}
+        {wa && <a class="knop leeg" href={WA} target="_blank" rel="noopener">{L.wa}</a>}
       </div>
       <div class="bewijs">
         <a href={google.profiel} target="_blank" rel="noopener"><span set:html={G} /><b>{google.score}</b><span class="ster">★★★★★</span><span>({google.aantal})</span><span class="visually-hidden">Google-reviews</span></a>
         <a href={moneybird.profiel} target="_blank" rel="noopener"><img src="/img/moneybird.svg" alt="" width="16" height="16"><b>{moneybird.score}</b><span class="ster">★★★★★</span><span>({moneybird.aantal})</span><span class="visually-hidden">Moneybird-reviews</span></a>
-        <span class="becon"><b>Becon</b> boekhouder</span>
+        <span class="becon"><b>Becon</b> {L.becon}</span>
       </div>
     </div>
     {Astro.slots.has('rechts') ? <div class="pk-rechts"><slot name="rechts" /></div> : foto && (
       <figure class="pk-foto">
         <img src={foto.src} alt={foto.alt} width="933" height="1400" fetchpriority="high" style={foto.pos ? `object-position:${foto.pos}` : undefined}>
-        {foto.bijschrift !== false && <figcaption><img src="/img/kyle-profiel.jpg" alt="" width="40" height="40"><span><b>Kyle Bouwmeester</b>jouw vaste boekhouder</span></figcaption>}
+        {foto.bijschrift !== false && <figcaption><img src="/img/kyle-profiel.jpg" alt="" width="40" height="40"><span><b>Kyle Bouwmeester</b>{L.rol}</span></figcaption>}
       </figure>
     )}
   </div>

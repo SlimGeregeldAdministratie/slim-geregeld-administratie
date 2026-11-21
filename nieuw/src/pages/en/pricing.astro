@@ -1,0 +1,72 @@
+---
+import Basis from '../../layouts/Basis.astro';
+import Paginakop from '../../components/Paginakop.astro';
+import Faq from '../../components/Faq.astro';
+import CtaEn from '../../components/CtaEn.astro';
+
+const faq: [string, string][] = [
+  ['Do the prices include VAT?', 'No, all prices exclude 21% Dutch VAT. Once your Dutch business is registered, you reclaim that VAT in your VAT return, so the real cost is the price shown.'],
+  ['Are there intake fees or hourly charges?', 'No. You pay the fixed price for the document or the monthly plan, nothing on top for an intake or for questions along the way.'],
+  ['When do I pay?', 'Not before your documents are in. You first get a personal reply with your delivery date and the invoice, so you know exactly what you pay and when you receive it.'],
+  ['I have a BV. What does it cost?', 'A BV or NV gets its own quote, because the work depends on the structure. You get a fixed price upfront.'],
+];
+---
+<Basis
+  titel="Pricing | Bookkeeping in English | Slim Geregeld"
+  omschrijving="Fixed prices in English: DAFT or DJTT opening balance sheet from €495, renewal statement from €495, monthly Compliance Plan from €79. All excl. VAT, no hourly fees."
+  taal="en"
+>
+  <Paginakop
+    taal="en"
+    tag="Pricing"
+    titel="Fixed prices, clear upfront"
+    sub="No intake fees, no hourly surprises. You know what you pay before anything starts. All prices exclude 21% Dutch VAT."
+    prijs={{ bedrag: '€495', per: 'opening balance sheet, excl. VAT', uitleg: 'DAFT or DJTT, signed by a Becon-registered bookkeeper' }}
+    knop={['Request your balance sheet', '/daft/#request']}
+    foto={{ src: '/img/kyle-3.jpg', alt: 'Kyle Bouwmeester, Dutch bookkeeper', pos: '50% 35%' }}
+  />
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>For your permit</h2>
+      <div class="grid3 prijzen-en">
+        <div class="blok"><h3>Opening balance sheet</h3><p class="pr">€495 · €595 within 48 hours</p><p>Signed balance sheet on IND form 7524, for DAFT (purpose 453) or DJTT (purpose 510). Delivered within five working days.</p><span class="meer twee-links"><a href="/daft/">DAFT →</a><a href="/djtt/">DJTT →</a></span></div>
+        <div class="blok"><h3>Renewal statement</h3><p class="pr">€495 · €595 within 48 hours</p><p>Balance sheet and profit and loss account over two years, checked and signed for your permit renewal.</p><a class="meer" href="/daft/renewal/">Renewal →</a></div>
+        <div class="blok hl"><span class="badge">Best value long term</span><h3>Compliance Plan</h3><p class="pr">€79 or €149 a month</p><p>Monthly bookkeeping for your eenmanszaak or VOF, with the balance sheet, your income tax return and the renewal statement included.</p><a class="meer" href="/en/compliance-plan/">See the plan →</a></div>
+      </div>
+      <p class="noot">BV or NV gets its own quote. The IND charges its own fee for the application.</p>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>Not on a treaty?</h2>
+        <p class="sub">I also do regular bookkeeping in English for expats with a Dutch eenmanszaak or VOF: your books in Moneybird, quarterly VAT returns and your annual figures, for €95 a month excl. VAT, the same as Dutch clients.</p>
+        <a class="knop vol" href="/en/intake/" style="margin-top:18px">Get started</a>
+      </div>
+      <ul class="vinkjes">
+        <li>Bookkeeping in Moneybird, checked by me</li>
+        <li>Quarterly VAT returns, you know upfront what you pay</li>
+        <li>Annual figures, ready for your income tax return</li>
+        <li>Questions by WhatsApp or email, in English</li>
+        <li>Income tax return €245, or €395 with your tax partner</li>
+      </ul>
+    </div>
+  </section>
+
+  <Faq titel="Questions about pricing" vragen={faq} />
+  <CtaEn />
+</Basis>
+
+<style>
+.pr{color:var(--blauw);font-weight:700;margin-top:2px}
+.prijzen-en .blok{display:flex;flex-direction:column}
+.prijzen-en .blok p:not(.pr){margin-top:6px}
+.prijzen-en .meer{margin-top:auto;padding-top:12px}
+.twee-links{display:flex;gap:18px}
+.twee-links a{color:var(--blauw);font-weight:650;text-decoration:none}
+.prijzen-en .hl{border:2px solid var(--blauw)}
+.badge{align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--blauw);padding:3px 10px;border-radius:999px;margin-bottom:8px}
+.noot{margin-top:20px;color:var(--grijs);text-align:center}
+</style>
