@@ -34,7 +34,7 @@ export const reviews: Review[] = [
     tekst: 'Begin dit jaar ben ik de samenwerking gestart met Kyle van SlimGeregeld Administratie voor de boekhouding van mijn BV. Kyle is betrokken, communiceert proactief en komt zijn afspraken na. Hij ondersteunt waar nodig, denkt mee en geeft waardevol advies wanneer hij mogelijkheden zie. Een prettige en betrouwbare samenwerking. Zeker een aanrader!' },
   { bron: 'google', naam: 'Jeremy Gomes', bedrijf: 'Gomes Media', branche: 'online marketeer', sterren: 5, taal: 'nl', foto: '/img/reviews/jeremy.png', link: 'https://maps.app.goo.gl/4hzddgC4sesnrEkZ8',
     tekst: 'Maakt het boekhouden veel gemakkelijker en ook sneller! Onderweg kan ik vrij rap wat facturen versturen door een simpel appje. Top systeem.' },
-  { bron: 'moneybird', naam: 'Zusjes Groen', bedrijf: 'Zusjes Groen', datum: '2026-09-21', sterren: 5, taal: 'nl',
+  { bron: 'moneybird', naam: 'Zusjes Groen', bedrijf: 'Zusjes Groen', branche: 'e-commerce', datum: '2026-09-21', sterren: 5, taal: 'nl',
     tekst: 'Kyle en Slim Geregeld Administratie hebben ons super goed geholpen om Moneybird op te zetten én beter onze administratie te doen. Wij zijn er erg blij mee.' },
   { bron: 'google', naam: 'Umesh ten Kate', branche: 'personal trainer', sterren: 5, taal: 'nl', foto: '/img/reviews/umesh.png', link: 'https://maps.app.goo.gl/gQpY9LhWrDCwau2v7',
     tekst: 'Slim Geregeld is efficiënt en overzichtelijk. Verder begeleidt Kyle je op een ondersteunende en begripvolle manier.' },
