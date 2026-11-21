@@ -39,8 +39,20 @@ const service = {
     sub="Ik doe je aangifte, loop je aftrekposten na en stuur je eerst een concept. Pas na jouw akkoord dien ik hem in. Je DigiD heb ik niet nodig."
     prijs={{ bedrag: '€245', per: 'per aangifte, excl. btw', uitleg: '€395 samen met je fiscale partner · klant? 15% korting' }}
     knop={['Aangifte laten doen', '#contact']}
-    foto={false}
-  />
+  >
+    <div slot="rechts" class="concept" aria-label="Voorbeeld van een concept-aangifte">
+      <div class="c-kop"><span>Concept aangifte IB 2025</span><span class="c-label">Wacht op jouw akkoord</span></div>
+      <dl>
+        <div><dt>Winst uit onderneming</dt><dd>€48.200</dd></div>
+        <div><dt>Zelfstandigenaftrek</dt><dd>− €2.470</dd></div>
+        <div><dt>Mkb-winstvrijstelling</dt><dd>− €5.808</dd></div>
+        <div><dt>Hypotheekrente</dt><dd>− €6.120</dd></div>
+      </dl>
+      <div class="c-uit"><span>Je krijgt terug</span><b>€1.240</b></div>
+      <div class="c-knoppen"><span class="ja">Akkoord, dien in</span><span>Vraag stellen</span></div>
+      <p class="c-noot">Voorbeeld. Pas na jouw akkoord gaat hij naar de Belastingdienst.</p>
+    </div>
+  </Paginakop>
 
   <section style="padding-top:8px">
     <div class="wrap">
@@ -93,6 +105,19 @@ const service = {
 </Basis>
 
 <style>
+.concept{background:#fff;border:1px solid var(--lijn);border-radius:var(--r-groot);box-shadow:var(--schaduw);padding:22px;max-width:440px;margin-left:auto;width:100%}
+.c-kop{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--lijn)}
+.c-label{font-size:.75rem;font-weight:650;color:var(--oranje);background:#fff7ed;border-radius:999px;padding:3px 10px}
+.concept dl{display:grid;gap:8px;margin:14px 0}
+.concept dl div{display:flex;justify-content:space-between;gap:12px;font-size:.95rem}
+.concept dt{color:var(--grijs)}
+.concept dd{font-variant-numeric:tabular-nums}
+.c-uit{display:flex;justify-content:space-between;align-items:baseline;background:#ecfdf3;border-radius:12px;padding:12px 14px}
+.c-uit b{font-size:1.5rem;color:var(--groen)}
+.c-knoppen{display:flex;gap:8px;margin-top:14px}
+.c-knoppen span{flex:1;text-align:center;border:1.5px solid var(--blauw);border-radius:10px;padding:9px 6px;font-weight:650;font-size:.9rem;color:var(--blauw)}
+.c-knoppen .ja{background:var(--blauw);color:#fff}
+.c-noot{font-size:.78rem;color:var(--grijs);margin-top:10px}
 @media (min-width:1000px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
 .boven{align-items:start}
 .noot{color:var(--grijs);margin-top:-6px}
