@@ -2,6 +2,10 @@
 import Basis from '../layouts/Basis.astro';
 import SlimGesprek from '../components/SlimGesprek.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
+import Faq from '../components/Faq.astro';
+import Prijskaarten from '../components/Prijskaarten.astro';
+import Contactblok from '../components/Contactblok.astro';
+import { G } from '../data/iconen';
 import { google, moneybird } from '../data/reviews';
 
 const WA = 'https://wa.me/31621311043';
@@ -17,20 +21,14 @@ const faq = [
   ['Werk je ook voor mijn branche?', 'Ik werk voor zzp\'ers en kleine bv\'s in allerlei branches, van bouw en webshops tot marketing, events en coaching. Wat telt is dat je je administratie goed geregeld wilt hebben.'],
   ['Doe je ook de salarisadministratie?', 'Ja, voor het DGA-loon van je bv. Dat loopt via mijn vaste salarispartner: elke maand de loonstrook en de loonaangifte, en aan het eind van het jaar de jaaropgave. Je hoort vooraf wat het kost.'],
   ['Moet ik Moneybird gebruiken?', 'Ja, ik werk alleen in Moneybird. Gebruik je nu iets anders, dan zet ik je gegevens over. Je houdt zelf altijd toegang tot je eigen administratie.'],
-  ['Is Slim echt gratis?', 'Ja. Slim werkt via WhatsApp, ook zonder Moneybird. Wil je dat ik je boekhouding doe, dan stap je over op de volledige service.'],
+  ['Wat kost Slim?', 'Bij de volledige service zit Slim erbij. Gebruik je alleen Slim, dan is het eerste halfjaar gratis en daarna €75 per maand. Je zit nergens aan vast.'],
 ];
-const faqLd = {
-  '@context': 'https://schema.org', '@type': 'FAQPage',
-  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
-};
-const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`;
 ---
 <Basis
   titel="Boekhouder voor zzp'ers en kleine bv's | €95 p/m | Slim Geregeld"
   omschrijving="Boekhouding, btw-aangifte en jaarcijfers voor zzp'ers en kleine bv's in Moneybird, met een vaste boekhouder en Slim op WhatsApp. €95 per maand. Vanuit Amsterdam en de Zaanstreek, voor heel Nederland."
   alternatief={{ nl: '/', en: '/en/', ja: '/djtt/ja/' }}
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 
   <!-- 1. Hero: wat, voor wie, prijs, één hoofdknop, bewijs -->
   <section class="hero">
@@ -55,7 +53,7 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
   </section>
 
   <!-- 2. Kies je situatie -->
-  <section class="situatie">
+  <section class="situatie" id="diensten">
     <div class="wrap">
       <h2>Wat past bij jou?</h2>
       <div class="tegels">
@@ -112,7 +110,7 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
           <li>Facturen en offertes in een minuut</li>
           <li>Bonnetjes boeken met een foto</li>
           <li>Herinneringen voor openstaande facturen</li>
-          <li>Ook los te gebruiken, gratis</li>
+          <li>Ook los te gebruiken, eerste halfjaar gratis</li>
         </ul>
         <a class="knop leeg" href="/slim">Meer over Slim</a>
       </div>
@@ -125,15 +123,8 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
     <div class="wrap">
       <h2>Tarieven</h2>
       <p class="sub">Vaste prijzen, exclusief btw. Het Moneybird-abonnement staat op je eigen naam.</p>
-      <div class="prijzen">
-        <div class="pk hl"><span class="badge">Meest gekozen</span><h3>Volledige service</h3><div class="bedrag">€95<s>€125</s></div><small>per maand, eenmanszaak of vof</small>
-          <ul><li>Boekhouding in Moneybird</li><li>Btw-aangifte elk kwartaal</li><li>Jaarcijfers, klaar voor je aangifte IB</li><li>Vragen tussendoor, via WhatsApp of mail</li><li>Slim op WhatsApp</li></ul><a class="knop vol" href="#contact">Plan je overstap</a></div>
-        <div class="pk"><h3>Aangifte IB</h3><div class="bedrag">€245</div><small>€395 met fiscale partner</small>
-          <ul><li>Volledige aangifte inkomstenbelasting</li><li>Aftrekposten nagelopen</li><li>Concept eerst ter controle</li><li>Ingediend door mij</li><li>Klant? 15% korting</li></ul><a class="knop leeg" href="/aangifte-inkomstenbelasting">Aangifte laten doen</a></div>
-        <div class="pk"><h3>BV en holding</h3><div class="bedrag klein">Op maat</div><small>vaste prijs vooraf</small>
-          <ul><li>Boekhouding en btw-aangifte</li><li>Jaarrekening en deponering</li><li>Aangifte Vpb</li><li>DGA-loon en dividend</li><li>Ook voor holding en werkmaatschappij</li><li>Slim op WhatsApp</li></ul><a class="knop leeg" href="#contact">Prijs aanvragen</a></div>
-      </div>
-      <p class="slimregel">Alleen Slim, de WhatsApp-assistent voor facturen en bonnetjes, is gratis. <a href="/slim">Meer over Slim →</a></p>
+      <Prijskaarten />
+      <p class="slimregel">Alleen Slim gebruiken, zonder boekhouder? Het eerste halfjaar is gratis. <a href="/slim">Meer over Slim →</a></p>
     </div>
   </section>
 
@@ -151,66 +142,10 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
   </section>
 
   <!-- 7. FAQ -->
-  <section>
-    <div class="wrap">
-      <h2>Veelgestelde vragen</h2>
-      <div class="faq">
-        {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
-      </div>
-    </div>
-  </section>
+  <Faq vragen={faq} />
 
   <!-- 8. Kort formulier + WhatsApp -->
-  <section id="contact" style="padding-top:0">
-    <div class="wrap">
-      <div class="contact">
-        <div class="c-tekst">
-          <h2>Binnen een week geregeld</h2>
-          <p>Laat je gegevens achter. Ik reageer binnen een werkdag met wat ik van je nodig heb. Liever appen? Dat kan ook.</p>
-          <div class="ikzelf"><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56"><span><b>Je krijgt antwoord van mij</b>Kyle Bouwmeester, Becon-geregistreerd boekhouder</span></div>
-          <ul class="c-vink">
-            <li>Vrijblijvend, je zit nergens aan vast</li>
-            <li>Overstappen midden in het jaar kan</li>
-            <li>Starters zijn ook welkom</li>
-          </ul>
-          <a class="knop wa" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a>
-          <p class="klein">Of mail naar <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a></p>
-        </div>
-        <form class="formulier" name="contact" method="POST" action="/bedankt" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
-          <p class="visually-hidden"><label>Niet invullen <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-          <label>Naam<input name="name" required autocomplete="name"></label>
-          <label>E-mailadres<input type="email" name="email" required autocomplete="email"></label>
-          <label>Telefoon <span class="opt">optioneel</span><input type="tel" name="phone" autocomplete="tel"></label>
-          <label>Type onderneming
-            <select name="businessType" required>
-              <option value="" disabled selected>Kies</option>
-              <option value="eenmanszaak">Eenmanszaak</option>
-              <option value="vof">Vof</option>
-              <option value="bv">BV of holding</option>
-              <option value="nog-geen">Nog geen, ik start binnenkort</option>
-              <option value="anders">Anders</option>
-            </select>
-          </label>
-          <label class="breed">Waar kan ik je mee helpen? <span class="opt">optioneel</span><textarea name="situation" rows="3"></textarea></label>
-          <label class="breed">Hoe heb je me gevonden? <span class="opt">optioneel</span>
-            <select name="source">
-              <option value="" selected>Kies</option>
-              <option>Google</option>
-              <option>ChatGPT of andere AI</option>
-              <option>Moneybird</option>
-              <option>LinkedIn</option>
-              <option>Via iemand die ik ken</option>
-              <option value="anders">Anders</option>
-            </select>
-          </label>
-          <label class="breed anders-veld">Waar dan? <span class="opt">optioneel</span><input name="sourceOther" autocomplete="off"></label>
-          <button class="knop vol breed" type="submit">Verstuur</button>
-          <p class="breed klein">Ik gebruik je gegevens alleen om contact met je op te nemen. <a href="/privacybeleid">Privacybeleid</a></p>
-        </form>
-      </div>
-    </div>
-  </section>
+  <Contactblok />
 </Basis>
 
 <style>
@@ -240,22 +175,6 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
 .tegel .meer{color:var(--blauw);font-weight:650;font-size:.92rem;margin-top:auto;padding-top:4px}
 .tegel.en{background:var(--zacht)}
 .slim-grid{display:grid;gap:32px;align-items:center}
-.vinkjes{list-style:none;display:grid;gap:8px;margin:18px 0 22px}
-.vinkjes li{padding-left:26px;position:relative}
-.vinkjes li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
-.prijzen{display:grid;gap:14px;margin-top:24px}
-.pk{border:1px solid var(--lijn);border-radius:18px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:2px}
-.pk.hl{border:2px solid var(--blauw);box-shadow:0 14px 40px rgba(37,99,235,.12)}
-.pk h3{margin-top:10px}
-.bedrag{font-size:2.3rem;font-weight:800;letter-spacing:-.03em;margin-top:6px}
-.bedrag s{font-size:1rem;color:#94a3b8;font-weight:500;margin-left:6px}
-.bedrag.klein{font-size:1.6rem;margin-top:12px}
-.pk small{color:var(--grijs)}
-.pk ul{list-style:none;margin:16px 0 18px;display:grid;gap:8px}
-.pk li{padding-left:24px;position:relative;font-size:.95rem}
-.pk li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
-.pk .knop{margin-top:auto}
-.badge{align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--blauw);padding:3px 10px;border-radius:999px}
 .slimregel{margin-top:18px;color:var(--grijs)}
 .slimregel a{color:var(--blauw);font-weight:650;text-decoration:none}
 .kyle{display:grid;gap:28px;align-items:center}
@@ -265,48 +184,14 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
 .feiten div{background:#fff;border-radius:12px;padding:12px}
 .feiten b{display:block;font-size:1.05rem}
 .feiten span{font-size:.82rem;color:var(--grijs)}
-.faq{display:grid;gap:10px;margin-top:22px;max-width:780px}
-.faq details{border:1px solid var(--lijn);border-radius:14px;padding:16px 18px;background:#fff}
-.faq summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:12px}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--blauw);font-weight:700}
-.faq details[open] summary::after{content:"−"}
-.faq p{color:var(--grijs);margin-top:8px}
-.contact{background:var(--inkt);color:#fff;border-radius:24px;padding:28px 20px;display:grid;gap:24px}
-.c-tekst p{color:#b6c0d4;margin:10px 0 18px}
-.c-tekst .klein{margin:14px 0 0}
-.c-tekst a:not(.knop){color:#fff}
-.ikzelf{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:.85rem;color:#b6c0d4}
-.ikzelf img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2)}
-.ikzelf b{display:block;color:#fff;font-size:.98rem}
-.c-vink{list-style:none;display:grid;gap:8px;margin:0 0 22px;color:#e2e8f0}
-.c-vink li{padding-left:26px;position:relative}
-.c-vink li::before{content:"✓";position:absolute;left:0;color:#4ade80;font-weight:800}
-.knop.wa{background:#25d366;border-color:#25d366;color:#05351a}
-.formulier{background:#fff;color:var(--inkt);border-radius:18px;padding:20px;display:grid;gap:14px}
-.formulier label{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 6px;font-weight:600;font-size:.92rem}
-.formulier .opt{font-weight:400;color:var(--grijs);font-size:.8rem}
-.formulier input,.formulier select,.formulier textarea{font:inherit;font-weight:400;border:1px solid #cbd5e1;border-radius:10px;padding:11px 12px;min-height:46px;background:#fff;color:var(--inkt);width:100%;flex-basis:100%}
-.formulier textarea{resize:vertical;min-height:84px}
-.formulier input:focus,.formulier select:focus,.formulier textarea:focus{outline:3px solid var(--blauw-rand);border-color:var(--blauw)}
-.formulier .klein{font-size:.8rem;color:var(--grijs)}
-.formulier .klein a{color:var(--blauw)}
-.formulier .knop{width:100%}
-.anders-veld{display:none !important}
-.formulier:has(select[name=source] option[value=anders]:checked) .anders-veld{display:flex !important}
 @media (min-width:760px){
   .hero{padding:48px 0 60px}
   .hero-grid{grid-template-columns:1.1fr .9fr;align-items:center;gap:56px}
   .herofoto{aspect-ratio:4/5;max-height:540px}
   .tegels{grid-template-columns:repeat(2,1fr)}
   .slim-grid{grid-template-columns:1.1fr .9fr;gap:56px}
-  .prijzen{grid-template-columns:repeat(3,1fr)}
   .kyle{grid-template-columns:.8fr 1.2fr;gap:56px}
   .kylefoto{aspect-ratio:4/5;max-height:520px}
-  .contact{grid-template-columns:.85fr 1.15fr;padding:44px;gap:44px;align-items:start}
-  .c-tekst{padding-top:8px}
-  .formulier{grid-template-columns:1fr 1fr;padding:26px}
-  .formulier .breed{grid-column:1/-1}
 }
 @media (min-width:1100px){.tegels{grid-template-columns:repeat(4,1fr)}}
 </style>

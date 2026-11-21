@@ -39,3 +39,21 @@ section{padding:44px 0}
   section{padding:64px 0}
   .grid3{grid-template-columns:repeat(3,1fr)}
 }
+
+/* Gedeeld door alle pagina's (herbouw deel 2) */
+.vinkjes{list-style:none;display:grid;gap:8px;margin:18px 0 22px}
+.vinkjes li{padding-left:26px;position:relative}
+.vinkjes li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
+.knop.wa{background:#25d366;border-color:#25d366;color:#05351a}
+.knop.wa:hover{background:#1ebe5b;border-color:#1ebe5b}
+.lees{max-width:720px}
+.lees p,.lees ul,.lees ol{color:var(--tekst);margin-top:12px}
+.lees h2{margin-top:36px}
+.lees h3{margin-top:24px}
+.lees ul,.lees ol{padding-left:22px;display:grid;gap:6px}
+.lees a{color:var(--blauw)}
+.twee{display:grid;gap:28px;align-items:center}
+.kruimel{font-size:.85rem;color:var(--grijs);margin-bottom:14px}
+.kruimel a{color:var(--grijs);text-decoration:none}
+.kruimel a:hover{color:var(--blauw)}
+@media (min-width:760px){.twee{grid-template-columns:1fr 1fr;gap:56px}}

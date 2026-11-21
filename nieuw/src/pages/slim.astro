@@ -1,0 +1,77 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import SlimGesprek from '../components/SlimGesprek.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import Faq from '../components/Faq.astro';
+import Contactblok from '../components/Contactblok.astro';
+
+const AANMELDEN = '/slim-chatbot';
+const faq: [string, string][] = [
+  ['Wat kost Slim?', 'Bij de volledige service zit Slim erbij. Gebruik je alleen Slim, dan is het eerste halfjaar gratis en daarna €75 per maand. Je zit nergens aan vast.'],
+  ['Heb ik Moneybird nodig?', 'Nee, Slim werkt ook zonder Moneybird. Je facturen en offertes komen dan in een eigen overzicht. Met Moneybird zet Slim alles direct in je administratie.'],
+  ['Verstuurt Slim zomaar facturen?', 'Nee. Slim laat je altijd eerst de factuur zien. Pas als je op versturen tikt, gaat hij de deur uit. Herinneringen gaan ook pas na jouw akkoord.'],
+  ['Kan Slim ook spraakberichten aan?', 'Ja. Spreek je factuur of vraag in, Slim zet het om in tekst en gaat ermee aan de slag.'],
+  ['Wat als Slim het niet weet?', 'Dan zegt Slim dat eerlijk en zet hij je vraag door naar mij. Ik kijk mee en reageer zelf.'],
+  ['Werkt Slim ook in het Engels?', 'Ja. Slim werkt in het Nederlands en in het Engels.'],
+];
+---
+<Basis
+  titel="Slim: facturen en bonnetjes via WhatsApp | Slim Geregeld"
+  omschrijving="Slim is je boekhoudassistent op WhatsApp: facturen en offertes maken, bonnetjes boeken met een foto en vragen over je eigen cijfers. Eerste halfjaar gratis."
+>
+  <Paginakop
+    kruimel="Slim op WhatsApp"
+    tag="Slim op WhatsApp"
+    titel="Je administratie regel je gewoon in WhatsApp"
+    sub="Slim is je boekhoudassistent op WhatsApp. Stuur een foto van een bonnetje, vraag om een factuur of vraag wie je nog moet betalen. Slim regelt het, en ik kijk mee."
+    prijs={{ bedrag: 'Gratis', per: 'het eerste halfjaar', uitleg: 'daarna €75 per maand · bij de volledige service zit Slim erbij' }}
+    knop={['Probeer Slim', AANMELDEN]}
+    wa={false}
+  >
+    <SlimGesprek slot="rechts" />
+  </Paginakop>
+
+  <section>
+    <div class="wrap">
+      <h2>Wat Slim voor je doet</h2>
+      <div class="grid3 zes">
+        <div class="blok"><h3>Facturen en offertes</h3><p>Zeg voor wie, wat en hoeveel. Slim maakt de factuur, laat hem zien en verstuurt hem na jouw akkoord. Aanpassen kan gewoon in de chat.</p></div>
+        <div class="blok"><h3>Bonnetjes</h3><p>Stuur een foto of pdf. Slim leest hem en zet hem in je administratie.</p></div>
+        <div class="blok"><h3>Klanten toevoegen</h3><p>Noem het KvK-nummer en Slim haalt het adres zelf op.</p></div>
+        <div class="blok"><h3>Je eigen cijfers</h3><p>Vraag wat er nog openstaat, wat je omzet is of welke offertes nog lopen.</p></div>
+        <div class="blok"><h3>Betalingen en herinneringen</h3><p>Zet een factuur op betaald of laat een herinnering sturen. Slim laat je eerst zien wat er verstuurd wordt.</p></div>
+        <div class="blok"><h3>Offerte wordt factuur</h3><p>Akkoord op je offerte? Slim zet hem in één keer om naar een factuur.</p></div>
+      </div>
+      <p class="noot">Slim begrijpt ook spraakberichten. En weet Slim iets niet, dan komt je vraag bij mij terecht.</p>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>Slim los of met boekhouder</h2>
+        <p class="sub">Slim werkt ook als je je boekhouding zelf doet. Wil je dat ik het daarna van je overneem, dan zit Slim gewoon bij de volledige service.</p>
+      </div>
+      <div class="keus">
+        <div class="blok"><h3>Alleen Slim</h3><p>Het eerste halfjaar gratis, daarna €75 per maand. Ook zonder Moneybird.</p><a class="meer" href={AANMELDEN}>Probeer Slim →</a></div>
+        <div class="blok"><h3>Volledige service</h3><p>€95 per maand: je boekhouding, btw-aangiftes en jaarcijfers, met Slim erbij.</p><a class="meer" href="/boekhouding-eenmanszaak">Meer over de volledige service →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <GoogleReviews eerst={['Jeremy Gomes', 'Umesh ten Kate', 'Andries']} />
+    </div>
+  </section>
+
+  <Faq vragen={faq} />
+  <Contactblok titel="Vragen over Slim?" tekst="Wil je eerst weten of Slim bij je past? Laat je gegevens achter of stuur een WhatsApp, dan hoor je het binnen een werkdag." />
+</Basis>
+
+<style>
+.noot{margin-top:16px;color:var(--grijs)}
+.keus{display:grid;gap:12px}
+@media (min-width:1000px){.grid3.zes{grid-template-columns:repeat(3,1fr)}}
+</style>

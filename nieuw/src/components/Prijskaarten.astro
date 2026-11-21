@@ -1,0 +1,30 @@
+---
+/* De drie tariefkaarten. Eén bron voor homepage en tarievenpagina. */
+interface Props { knopVolledig?: string }
+const { knopVolledig = '#contact' } = Astro.props;
+---
+<div class="prijzen">
+  <div class="pk hl"><span class="badge">Meest gekozen</span><h3>Volledige service</h3><div class="bedrag">€95<s>€125</s></div><small>per maand, eenmanszaak of vof</small>
+    <ul><li>Boekhouding in Moneybird</li><li>Btw-aangifte elk kwartaal</li><li>Jaarcijfers, klaar voor je aangifte IB</li><li>Vragen tussendoor, via WhatsApp of mail</li><li>Slim op WhatsApp</li></ul><a class="knop vol" href={knopVolledig}>Plan je overstap</a></div>
+  <div class="pk"><h3>Aangifte IB</h3><div class="bedrag">€245</div><small>€395 met fiscale partner</small>
+    <ul><li>Volledige aangifte inkomstenbelasting</li><li>Aftrekposten nagelopen</li><li>Concept eerst ter controle</li><li>Ingediend door mij</li><li>Klant? 15% korting</li></ul><a class="knop leeg" href="/aangifte-inkomstenbelasting">Aangifte laten doen</a></div>
+  <div class="pk"><h3>BV en holding</h3><div class="bedrag klein">Op maat</div><small>vaste prijs vooraf</small>
+    <ul><li>Boekhouding en btw-aangifte</li><li>Jaarrekening en deponering</li><li>Aangifte Vpb</li><li>DGA-loon en dividend</li><li>Ook voor holding en werkmaatschappij</li><li>Slim op WhatsApp</li></ul><a class="knop leeg" href="/boekhouding-bv">Boekhouding bv</a></div>
+</div>
+
+<style>
+.prijzen{display:grid;gap:14px;margin-top:24px}
+.pk{border:1px solid var(--lijn);border-radius:18px;padding:24px;background:#fff;display:flex;flex-direction:column;gap:2px}
+.pk.hl{border:2px solid var(--blauw);box-shadow:0 14px 40px rgba(37,99,235,.12)}
+.pk h3{margin-top:10px}
+.bedrag{font-size:2.3rem;font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.bedrag s{font-size:1rem;color:#94a3b8;font-weight:500;margin-left:6px}
+.bedrag.klein{font-size:1.6rem;margin-top:12px}
+.pk small{color:var(--grijs)}
+.pk ul{list-style:none;margin:16px 0 18px;display:grid;gap:8px}
+.pk li{padding-left:24px;position:relative;font-size:.95rem}
+.pk li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
+.pk .knop{margin-top:auto}
+.badge{align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--blauw);padding:3px 10px;border-radius:999px}
+@media (min-width:760px){.prijzen{grid-template-columns:repeat(3,1fr)}}
+</style>

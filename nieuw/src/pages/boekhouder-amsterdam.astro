@@ -1,0 +1,25 @@
+---
+import Lokaal from '../components/Lokaal.astro';
+const faq: [string, string][] = [
+  ['Woon je zelf in Amsterdam?', 'Ja. Ik woon en werk in Amsterdam, en help ondernemers in de hele stad en daarbuiten.'],
+  ['Moet ik bij je langskomen?', 'Nee, bijna alles gaat via WhatsApp, mail of telefoon. Dat is sneller voor jou en houdt de prijs laag. Wil je elkaar toch een keer zien? Dan spreken we in Amsterdam iets af.'],
+  ['Wat kost een boekhouder in Amsterdam?', 'Bij mij €95 per maand excl. btw voor een eenmanszaak of vof, met je btw-aangiftes en jaarcijfers erbij. Voor een bv krijg je vooraf een vaste prijs.'],
+  ['Help je ook expats en internationale ondernemers?', 'Ja, in het Engels. Ik maak ook openingsbalansen voor Amerikanen en Japanners die hier via het verdrag een bedrijf starten. Kijk op de Engelse site.'],
+  ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
+];
+---
+<Lokaal
+  plaats="Amsterdam"
+  titel="Boekhouder Amsterdam voor zzp en bv | €95 p/m | Slim Geregeld"
+  omschrijving="Boekhouder in Amsterdam voor zzp'ers en kleine bv's. Boekhouding, btw-aangifte en jaarcijfers in Moneybird voor €95 per maand, in het Nederlands of Engels."
+  h1="Boekhouder in Amsterdam"
+  sub="Ik woon en werk in Amsterdam en help zzp'ers en kleine bv's met hun boekhouding, btw en jaarcijfers. In het Nederlands of in het Engels."
+  plaatsen={['Amsterdam', 'Amstelveen', 'Diemen', 'Zaandam']}
+  faq={faq}
+>
+  <h2>Een boekhouder in je eigen stad</h2>
+  <p>Amsterdam zit vol zzp'ers: creatieven, consultants, horeca, bouw en tech. Ik help ze met hun boekhouding in Moneybird, zodat ze zelf kunnen doen waar ze goed in zijn.</p>
+  <p>Je hebt één vaste boekhouder. Bonnetjes stuur je via WhatsApp, je btw-aangifte gaat elk kwartaal op tijd de deur uit, en je hoort vooraf wat je moet betalen.</p>
+  <h2>Ook in het Engels</h2>
+  <p>Veel ondernemers in Amsterdam komen uit het buitenland. Ik werk ook in het Engels, en maak openingsbalansen voor Amerikanen en Japanners die hier via het verdrag starten. <a href="/en/">Naar de Engelse site</a></p>
+</Lokaal>

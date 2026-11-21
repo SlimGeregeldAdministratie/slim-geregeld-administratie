@@ -1,0 +1,89 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import Faq from '../components/Faq.astro';
+import Contactblok from '../components/Contactblok.astro';
+
+const faq: [string, string][] = [
+  ['Wat kost het laten doen van mijn aangifte inkomstenbelasting?', '€245 excl. btw voor één persoon, of €395 samen met je fiscale partner. Was je het hele jaar klant voor je boekhouding, dan krijg je 15% korting.'],
+  ['Heb je mijn DigiD nodig?', 'Nee. Ik dien je aangifte in via mijn eigen beveiligde aansluiting als boekhouder. Jij geeft alleen akkoord op het concept.'],
+  ['Wanneer moet de aangifte binnen zijn?', 'De aangifte over een jaar moet uiterlijk 1 mei van het jaar erna binnen zijn. Lever je je gegevens op tijd aan, dan zorg ik dat het lukt.'],
+  ['Wat als mijn situatie ingewikkelder is?', 'Bij bijvoorbeeld een emigratiejaar, de verkoop van een woning of aandelen in een bv kijk ik eerst wat er nodig is. Je hoort de prijs voordat ik begin.'],
+  ['Hoe lever ik mijn gegevens aan?', 'Je krijgt een vaste link naar een korte vragenlijst, waar je ook je stukken uploadt. Mis ik iets, dan vraag ik het je.'],
+];
+const service = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  name: 'Aangifte inkomstenbelasting',
+  serviceType: 'Belastingaangifte',
+  provider: { '@type': 'AccountingService', name: 'Slim Geregeld Administratie', url: 'https://slim-geregeld.nl/' },
+  areaServed: { '@type': 'Country', name: 'Nederland' },
+  offers: [
+    { '@type': 'Offer', name: 'Eén persoon', price: '245', priceCurrency: 'EUR', description: 'Exclusief btw' },
+    { '@type': 'Offer', name: 'Met fiscale partner', price: '395', priceCurrency: 'EUR', description: 'Exclusief btw' },
+  ],
+};
+---
+<Basis
+  titel="Aangifte inkomstenbelasting laten doen | €245 | Slim Geregeld"
+  omschrijving="Je aangifte inkomstenbelasting laten doen door een Becon-geregistreerd boekhouder: €245 excl. btw, €395 met partner. Eerst een concept, geen DigiD nodig."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(service)} />
+  <Paginakop
+    kruimel="Aangifte inkomstenbelasting"
+    tag="Aangifte IB"
+    titel="Je aangifte inkomstenbelasting, goed en op tijd"
+    sub="Ik doe je aangifte, loop je aftrekposten na en stuur je eerst een concept. Pas na jouw akkoord dien ik hem in. Je DigiD heb ik niet nodig."
+    prijs={{ bedrag: '€245', per: 'per aangifte, excl. btw', uitleg: '€395 samen met je fiscale partner · klant? 15% korting' }}
+    knop={['Aangifte laten doen', '#contact']}
+    foto={false}
+  />
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <h2>Zo werkt het</h2>
+      <div class="grid3 vier">
+        <div class="blok"><div class="nr">1</div><h3>Vragenlijst</h3><p>Je krijgt een vaste link. Daar vul je een korte vragenlijst in en upload je je stukken.</p></div>
+        <div class="blok"><div class="nr">2</div><h3>Ik maak het concept</h3><p>Ik vul de aangifte in en loop je aftrekposten na. Mis ik iets, dan vraag ik het je.</p></div>
+        <div class="blok"><div class="nr">3</div><h3>Jij geeft akkoord</h3><p>Je krijgt het concept met de uitkomst: wat je terugkrijgt of moet betalen.</p></div>
+        <div class="blok"><div class="nr">4</div><h3>Ik dien hem in</h3><p>Pas na jouw akkoord gaat de aangifte naar de Belastingdienst.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>Voor wie?</h2>
+        <ul class="vinkjes">
+          <li>Zzp'ers met een eenmanszaak of vof</li>
+          <li>DGA's met een bv, voor hun eigen aangifte</li>
+          <li>Fiscale partners, samen in één keer</li>
+          <li>Iedereen met een jaar waarin iets bijzonders speelde</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Wat ik nakijk</h2>
+        <ul class="vinkjes">
+          <li>Ondernemersaftrek, zoals de zelfstandigenaftrek en startersaftrek</li>
+          <li>De verdeling van gezamenlijke posten met je fiscale partner</li>
+          <li>Je eigen woning, hypotheekrente en WOZ-waarde</li>
+          <li>Spaargeld, beleggingen en schulden in box 3</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <GoogleReviews eerst={['Dany Cramer', 'Benthe Lokhorst']} />
+    </div>
+  </section>
+
+  <Faq vragen={faq} />
+  <Contactblok titel="Aangifte laten doen" tekst="Laat je gegevens achter, dan stuur ik je binnen een werkdag de link naar de vragenlijst." vinkjes={['Eerst een concept, dan pas indienen', 'Geen DigiD nodig', 'Vaste prijs, vooraf bekend']} />
+</Basis>
+
+<style>
+@media (min-width:1000px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
+</style>

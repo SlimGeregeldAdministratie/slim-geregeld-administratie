@@ -11,8 +11,10 @@ interface Props {
   /** Pad van deze pagina in de andere talen, voor de taalknop en hreflang. */
   alternatief?: { nl?: string; en?: string; ja?: string };
   robots?: string;
+  /** Doel van de Kennismaken-knop; standaard het formulier op de pagina zelf. */
+  cta?: string;
 }
-const { titel, omschrijving, taal = 'nl', alternatief = {}, robots = 'index, follow' } = Astro.props;
+const { titel, omschrijving, taal = 'nl', alternatief = {}, robots = 'index, follow', cta = taal === 'nl' ? '#contact' : undefined } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogLocale = { nl: 'nl_NL', en: 'en_US', ja: 'ja_JP' }[taal];
 ---
@@ -47,7 +49,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ483GR8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<Kop taal={taal} alternatief={alternatief} />
+<Kop taal={taal} alternatief={alternatief} cta={cta} />
 <Extras taal={taal} />
 <main id="inhoud">
 <slot />

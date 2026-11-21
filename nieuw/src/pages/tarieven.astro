@@ -1,0 +1,75 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import Prijskaarten from '../components/Prijskaarten.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import Faq from '../components/Faq.astro';
+import Contactblok from '../components/Contactblok.astro';
+
+const faq: [string, string][] = [
+  ['Zijn de prijzen inclusief btw?', 'Nee, alle prijzen zijn exclusief 21% btw. Ben je btw-ondernemer, dan trek je die btw gewoon weer af.'],
+  ['Wat kost Moneybird daarnaast?', 'Moneybird staat op jouw naam en kost meestal €15 tot €35 per maand, afhankelijk van hoeveel banktransacties je hebt. Via mij heb je de eerste 120 dagen gratis, in plaats van 60.'],
+  ['Zit de aangifte inkomstenbelasting bij de €95?', 'Je jaarcijfers zitten erbij, de aangifte zelf is los: €245, of €395 samen met je fiscale partner. Was je het hele jaar klant, dan krijg je 15% korting.'],
+  ['Wat kost een bv?', 'Dat hangt af van wat er speelt: één bv of een holding met werkmaatschappij, wel of geen DGA-loon, hoeveel boekingen. Je krijgt vooraf een vaste prijs, zodat je niet voor verrassingen komt te staan.'],
+  ['Zit ik ergens aan vast?', 'Nee. Je betaalt per maand en je administratie blijft van jou, in je eigen Moneybird.'],
+  ['Wat kost Slim los?', 'Gebruik je alleen Slim, zonder dat ik je boekhouding doe, dan is het eerste halfjaar gratis en daarna €75 per maand. Bij de volledige service zit Slim erbij.'],
+];
+---
+<Basis
+  titel="Tarieven boekhouder zzp en bv | Vaste prijzen | Slim Geregeld"
+  omschrijving="Vaste prijzen excl. btw: volledige service voor eenmanszaak en vof €95 per maand, aangifte IB €245 (€395 met partner), bv op maat met een prijs vooraf."
+>
+  <Paginakop
+    kruimel="Tarieven"
+    tag="Tarieven"
+    titel="Vaste prijzen, vooraf duidelijk"
+    sub="Geen uurtje-factuurtje en geen verrassingen achteraf. Je weet vooraf wat je betaalt. Alle prijzen zijn exclusief btw."
+    prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof, volledige service' }}
+    foto={false}
+  />
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <Prijskaarten />
+      <p class="noot">Het Moneybird-abonnement staat op je eigen naam: meestal €15 tot €35 per maand, de eerste 120 dagen gratis via mij.</p>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>Wat zit er in de volledige service?</h2>
+        <ul class="vinkjes">
+          <li>Je boekhouding in Moneybird, elk kwartaal bijgewerkt en gecontroleerd</li>
+          <li>De btw-aangifte, op tijd ingediend. Je hoort vooraf wat je moet betalen</li>
+          <li>Je jaarcijfers, klaar voor je aangifte inkomstenbelasting</li>
+          <li>Vragen tussendoor via WhatsApp of mail, zonder dat de meter loopt</li>
+          <li>Slim op WhatsApp voor facturen, offertes en bonnetjes</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Wat zit er niet in?</h2>
+        <ul class="vinkjes min">
+          <li>De aangifte inkomstenbelasting zelf: €245, of €395 met fiscale partner</li>
+          <li>Het Moneybird-abonnement, dat op je eigen naam staat</li>
+          <li>Een achterstand van eerdere jaren wegwerken: daarvoor krijg je vooraf een prijs</li>
+        </ul>
+        <p class="sub">Liever alles in één keer duidelijk? Stuur me een WhatsApp met je situatie, dan zeg ik je wat het kost.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <GoogleReviews titel="Wat klanten zeggen" />
+    </div>
+  </section>
+
+  <Faq vragen={faq} />
+  <Contactblok titel="Vraag je prijs aan" tekst="Vertel kort wat je hebt: eenmanszaak, vof of bv, en wat je nu zelf doet. Ik reageer binnen een werkdag met een vaste prijs." />
+</Basis>
+
+<style>
+.noot{margin-top:16px;color:var(--grijs);font-size:.95rem}
+.vinkjes.min li::before{content:"–";color:var(--grijs)}
+</style>

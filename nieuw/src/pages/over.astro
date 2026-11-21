@@ -1,0 +1,71 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import Contactblok from '../components/Contactblok.astro';
+
+const persoon = {
+  '@context': 'https://schema.org', '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person', name: 'Kyle Bouwmeester', jobTitle: 'Boekhouder',
+    worksFor: { '@type': 'AccountingService', name: 'Slim Geregeld Administratie', url: 'https://slim-geregeld.nl/' },
+    sameAs: ['https://www.linkedin.com/in/kylebouwmeester'],
+    hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'Registratie', name: 'Becon-geregistreerd boekhouder' },
+  },
+};
+---
+<Basis
+  titel="Over Kyle Bouwmeester, boekhouder | Slim Geregeld"
+  omschrijving="Kyle Bouwmeester is Becon-geregistreerd boekhouder en Moneybird Expert. Hij helpt zzp'ers en kleine bv's vanuit Amsterdam en de Zaanstreek."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(persoon)} />
+  <Paginakop
+    kruimel="Over mij"
+    tag="Over mij"
+    titel="Hoi, ik ben Kyle"
+    sub="Becon-geregistreerd boekhouder en Moneybird Expert. Ik help zzp'ers en kleine bv's met hun administratie, vanuit Amsterdam en de Zaanstreek."
+    foto={{ src: '/img/kyle-1.jpg', alt: 'Kyle Bouwmeester op de bank met zijn laptop', pos: '50% 40%' }}
+  />
+
+  <section>
+    <div class="wrap twee boven">
+      <div class="lees">
+        <h2>Waarom ik dit doe</h2>
+        <p>Veel ondernemers zien hun administratie als iets wat erbij moet. Een avond per kwartaal zoeken naar bonnetjes, en dan hopen dat de btw-aangifte klopt. Dat kan anders.</p>
+        <p>Ik ben Slim Geregeld Administratie begonnen om boekhouding voor zzp'ers en kleine bv's eenvoudig en betaalbaar te maken. Het herhaalwerk heb ik zo veel mogelijk geautomatiseerd. Daardoor heb ik tijd voor wat telt: je cijfers controleren en meedenken.</p>
+        <p>Bij mij heb je één vaste boekhouder. Je appt of mailt mij, en je krijgt antwoord van mij.</p>
+        <h2>Hoe ik werk</h2>
+        <ul>
+          <li>Alles in Moneybird, op jouw naam. Je houdt altijd zelf toegang.</li>
+          <li>Vaste prijzen, vooraf bekend.</li>
+          <li>Bijna alles via WhatsApp, mail of telefoon. Elkaar zien kan ook, in Amsterdam of de Zaanstreek.</li>
+          <li>In het Nederlands en het Engels. Ik help ook ondernemers uit de VS en Japan die hier een bedrijf starten.</li>
+        </ul>
+      </div>
+      <div class="feiten">
+        <div><b>Becon</b><span>geregistreerd boekhouder</span></div>
+        <div><b>Moneybird</b><span>Expert-kantoor</span></div>
+        <div><b>Amsterdam</b><span>en de Zaanstreek</span></div>
+        <div><b>NL en EN</b><span>beide talen</span></div>
+        <a class="li" href="https://www.linkedin.com/in/kylebouwmeester" target="_blank" rel="noopener">Volg me op LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap">
+      <GoogleReviews />
+    </div>
+  </section>
+
+  <Contactblok titel="Kennismaken?" tekst="Vertel kort wat je hebt en waar je mee zit. Ik reageer binnen een werkdag." />
+</Basis>
+
+<style>
+.boven{align-items:start}
+.feiten{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.feiten div{background:var(--zacht);border-radius:12px;padding:14px}
+.feiten b{display:block;font-size:1.05rem}
+.feiten span{font-size:.85rem;color:var(--grijs)}
+.feiten .li{grid-column:1/-1;color:var(--blauw);font-weight:650;text-decoration:none;padding:6px 2px}
+</style>

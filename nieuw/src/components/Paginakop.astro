@@ -1,0 +1,72 @@
+---
+/* Kop van een dienstpagina: antwoord en prijs bovenaan, één hoofdknop,
+   WhatsApp, bewijs met bron. Rechts een foto of een eigen slot. */
+import { google, moneybird } from '../data/reviews';
+import { G } from '../data/iconen';
+interface Props {
+  tag: string; titel: string; sub: string;
+  prijs?: { bedrag: string; oud?: string; per?: string; uitleg?: string };
+  knop?: [string, string];
+  wa?: boolean;
+  kruimel?: string;
+  foto?: { src: string; alt: string; pos?: string } | false;
+}
+const { tag, titel, sub, prijs, knop = ['Kennismaken', '#contact'], wa = true, kruimel, foto = { src: '/img/kyle-2.jpg', alt: 'Kyle Bouwmeester aan de telefoon met een klant' } } = Astro.props;
+const WA = 'https://wa.me/31621311043';
+const heeftRechts = foto || Astro.slots.has('rechts');
+---
+<section class="pk-hero">
+  <div class={`wrap pk-grid${heeftRechts ? '' : ' smal'}`}>
+    <div>
+      {kruimel && <nav class="kruimel" aria-label="Kruimelpad"><a href="/">Home</a> › {kruimel}</nav>}
+      <span class="tag">{tag}</span>
+      <h1>{titel}</h1>
+      <p class="sub">{sub}</p>
+      {prijs && <p class="prijsregel"><b>{prijs.bedrag}</b>{prijs.oud && <s>{prijs.oud}</s>}{prijs.per && <span>{prijs.per}</span>}{prijs.uitleg && <span class="pr-uit">{prijs.uitleg}</span>}</p>}
+      <div class="knoppen">
+        <a class="knop vol" href={knop[1]}>{knop[0]}</a>
+        {wa && <a class="knop leeg" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a>}
+      </div>
+      <div class="bewijs">
+        <a href={google.profiel} target="_blank" rel="noopener"><span set:html={G} /><b>{google.score}</b><span class="ster">★★★★★</span><span>({google.aantal})</span><span class="visually-hidden">Google-reviews</span></a>
+        <a href={moneybird.profiel} target="_blank" rel="noopener"><img src="/img/moneybird.svg" alt="" width="16" height="16"><b>{moneybird.score}</b><span class="ster">★★★★★</span><span>({moneybird.aantal})</span><span class="visually-hidden">Moneybird-reviews</span></a>
+        <span class="becon"><b>Becon</b> boekhouder</span>
+      </div>
+    </div>
+    {Astro.slots.has('rechts') ? <div class="pk-rechts"><slot name="rechts" /></div> : foto && (
+      <figure class="pk-foto">
+        <img src={foto.src} alt={foto.alt} width="933" height="1400" fetchpriority="high" style={foto.pos ? `object-position:${foto.pos}` : undefined}>
+        <figcaption><img src="/img/kyle-profiel.jpg" alt="" width="40" height="40"><span><b>Kyle Bouwmeester</b>jouw vaste boekhouder</span></figcaption>
+      </figure>
+    )}
+  </div>
+</section>
+
+<style>
+.pk-hero{padding:20px 0 36px;background:linear-gradient(180deg,var(--blauw-t),#fff 75%)}
+.pk-grid{display:grid;gap:28px}
+.pk-grid.smal>div{max-width:760px}
+.sub{margin:14px 0 0}
+.prijsregel{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:18px 0 18px;color:var(--grijs);font-size:.95rem}
+.prijsregel b{font-size:1.7rem;color:var(--inkt);letter-spacing:-.02em}
+.prijsregel s{color:#94a3b8}
+.pr-uit{flex-basis:100%;font-size:.85rem}
+.knoppen{margin-top:18px}
+.prijsregel + .knoppen{margin-top:0}
+.knoppen .knop{flex:1 1 220px}
+.pk-grid.smal .knoppen .knop{flex:0 1 240px}
+.bewijs{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.bewijs>*{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--lijn);border-radius:999px;padding:5px 10px;font-size:.8rem;color:var(--grijs);text-decoration:none}
+.bewijs b{color:var(--inkt)}
+.bewijs .ster{color:#f5a524;letter-spacing:1px;font-size:.72rem}
+.pk-foto{position:relative;border-radius:var(--r-groot);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--schaduw)}
+.pk-foto>img{width:100%;height:100%;object-fit:cover;object-position:50% 28%}
+.pk-foto figcaption{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.95);border-radius:14px;padding:8px 14px 8px 8px;font-size:.8rem;color:var(--grijs)}
+.pk-foto figcaption img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.pk-foto figcaption b{display:block;color:var(--inkt);font-size:.9rem}
+@media (min-width:760px){
+  .pk-hero{padding:40px 0 56px}
+  .pk-grid:not(.smal){grid-template-columns:1.1fr .9fr;align-items:center;gap:56px}
+  .pk-foto{aspect-ratio:4/5;max-height:500px}
+}
+</style>

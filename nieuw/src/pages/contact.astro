@@ -1,0 +1,37 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Contactblok from '../components/Contactblok.astro';
+---
+<Basis
+  titel="Contact | Slim Geregeld Administratie"
+  omschrijving="Neem contact op met Kyle Bouwmeester van Slim Geregeld Administratie: via WhatsApp, mail of het formulier. Je krijgt binnen een werkdag antwoord."
+>
+  <section class="c-kop">
+    <div class="wrap">
+      <nav class="kruimel" aria-label="Kruimelpad"><a href="/">Home</a> › Contact</nav>
+      <h1>Contact</h1>
+      <p class="sub">Een vraag, een prijs of meteen overstappen? Je krijgt binnen een werkdag antwoord van mij.</p>
+      <div class="kanalen">
+        <a class="blok" href="https://wa.me/31621311043" target="_blank" rel="noopener"><h3>WhatsApp</h3><p>06 21311043</p></a>
+        <a class="blok" href="mailto:kyle@slim-geregeld.nl"><h3>Mail</h3><p>kyle@slim-geregeld.nl</p></a>
+        <a class="blok" href="tel:+31621311043"><h3>Bellen</h3><p>06 21311043</p></a>
+      </div>
+    </div>
+  </section>
+  <Contactblok titel="Of laat je gegevens achter" />
+  <section class="gegevens">
+    <div class="wrap">
+      <p><b>Slim Geregeld Administratie</b> · KvK 92596991 · btw NL004963420B24 · Becon-geregistreerd boekhouder</p>
+    </div>
+  </section>
+</Basis>
+
+<style>
+.c-kop{padding:20px 0 36px;background:linear-gradient(180deg,var(--blauw-t),#fff 75%)}
+.c-kop .sub{margin-top:12px}
+.kanalen{display:grid;gap:12px;margin-top:24px}
+.kanalen .blok{text-decoration:none}
+.kanalen .blok:hover{border-color:var(--blauw-rand)}
+.gegevens{padding:0 0 44px;color:var(--grijs);font-size:.9rem}
+@media (min-width:760px){.c-kop{padding:40px 0 48px}.kanalen{grid-template-columns:repeat(3,1fr)}}
+</style>

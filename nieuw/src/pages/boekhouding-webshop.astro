@@ -1,0 +1,26 @@
+---
+import Branche from '../components/Branche.astro';
+const faq: [string, string][] = [
+  ['Wat kost een boekhouder voor een webshop?', 'Voor een eenmanszaak of vof €95 per maand excl. btw, met je btw-aangiftes en jaarcijfers erbij. Heb je veel orders per maand of een bv, dan krijg je vooraf een prijs op maat.'],
+  ['Hoe boek je bol.com-uitbetalingen?', 'Bol.com betaalt je uit na aftrek van commissie en kosten. Ik boek je volledige omzet en zet de commissie apart als kosten, zodat je omzet en je btw kloppen.'],
+  ['Ik verkoop ook aan consumenten in andere EU-landen. Wat moet ik doen?', 'Verkoop je samen voor meer dan €10.000 per jaar op afstand aan consumenten in andere EU-landen, dan reken je de btw van het land van je klant. Dat geef je aan via de OSS-regeling. Ik houd die grens voor je in de gaten.'],
+  ['Wat doe je met mijn voorraad?', 'Aan het eind van het jaar komt je voorraad op de balans. Ik vraag je dan om een telling, en verwerk die in je jaarcijfers.'],
+  ['Werk je ook met Shopify of Mollie?', 'Ja. Uitbetalingen van Shopify, Mollie, Stripe of PayPal boek ik net als bol.com: omzet, kosten en btw apart.'],
+];
+---
+<Branche
+  kruimel="Boekhouding webshop"
+  tag="Webshops en bol.com"
+  titel="Boekhouder voor webshops en bol.com | Slim Geregeld"
+  omschrijving="Boekhouding voor webshops en bol.com-verkopers: uitbetalingen met commissie, OSS-btw bij verkoop in de EU, voorraad. €95 per maand voor eenmanszaak of vof."
+  h1="Boekhouding voor webshops en bol.com"
+  sub="Voor webshops en bol.com-verkopers. Ik boek je uitbetalingen netjes uit elkaar, houd de EU-btw in de gaten en zorg dat je voorraad in je jaarcijfers klopt."
+  krijg={['Boekhouding en btw-aangifte per kwartaal', 'Uitbetalingen van bol.com, Shopify en Mollie uitgesplitst', 'Controle op de OSS-grens voor verkoop in de EU', 'Jaarcijfers met je voorraad, klaar voor je aangifte IB', 'Vragen tussendoor, zonder dat de meter loopt']}
+  eerst={['Zusjes Groen', 'Jeremy Gomes']}
+  faq={faq}
+  contacttekst="Vertel kort waar je verkoopt en hoeveel orders je ongeveer per maand hebt. Ik reageer binnen een werkdag."
+>
+  <div class="blok"><h3>Uitbetalingen</h3><p>Bol.com en betaalproviders betalen netto uit. Ik splits omzet, commissie en btw, zodat je cijfers kloppen.</p></div>
+  <div class="blok"><h3>Btw in de EU</h3><p>Boven €10.000 per jaar aan consumenten in andere EU-landen reken je hun btw, via de OSS-regeling. Ik houd het bij.</p></div>
+  <div class="blok"><h3>Voorraad</h3><p>Aan het eind van het jaar komt je voorraad op de balans. Ik zorg dat het klopt met je inkoop.</p></div>
+</Branche>

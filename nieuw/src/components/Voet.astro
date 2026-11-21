@@ -4,6 +4,7 @@ const { taal } = Astro.props;
 const T = {
   nl: { kolommen: [
         ['Diensten', [['Boekhouding eenmanszaak', '/boekhouding-eenmanszaak'], ['Boekhouding bv', '/boekhouding-bv'], ['Aangifte inkomstenbelasting', '/aangifte-inkomstenbelasting'], ['Slim op WhatsApp', '/slim'], ['Tarieven', '/tarieven']]],
+        ['Voor wie', [['Boekhouder Amsterdam', '/boekhouder-amsterdam'], ['Boekhouder Zaanstreek', '/boekhouder-zaanstreek'], ['Bouw en installatie', '/boekhouding-bouw'], ['Webshops en bol.com', '/boekhouding-webshop']]],
         ['In English', [['DAFT opening balance', '/daft/'], ['Japanese treaty (DJTT)', '/djtt/'], ['Renewal', '/daft/renewal/'], ['English home', '/en/']]],
         ['Slim Geregeld', [['Over Kyle', '/over'], ['Blog', '/blog/'], ['Contact', '/contact'], ['NettoCheck', '/nettocheck']]],
       ],
@@ -23,7 +24,7 @@ const jaar = new Date().getFullYear();
 ---
 <footer class="voet">
   <div class="wrap">
-    <div class="kolommen">
+    <div class="kolommen" style={`--n:${T.kolommen.length}`}>
       <div class="merkblok">
         <b>Slim Geregeld Administratie</b>
         <p>{taal === 'nl' ? 'Boekhouding voor zzp\'ers en kleine bv\'s, door Becon-geregistreerd boekhouder Kyle Bouwmeester.' : 'Dutch bookkeeping by Becon-registered bookkeeper Kyle Bouwmeester.'}</p>
@@ -54,7 +55,7 @@ ul{list-style:none;display:grid;gap:6px}
 .regel{border-top:1px solid #1f2a3d;margin-top:36px;padding-top:20px;display:grid;gap:10px;font-size:.82rem}
 .links{display:flex;flex-wrap:wrap;gap:6px 18px}
 @media (min-width:760px){
-  .kolommen{grid-template-columns:1.4fr repeat(3,1fr)}
+  .kolommen{grid-template-columns:1.4fr repeat(var(--n),1fr)}
   .regel{grid-template-columns:1fr auto;align-items:center}
 }
 </style>
