@@ -9,7 +9,7 @@ const T = taal === 'en' ? {
     ['mij', 'bon', 'Receipt Coolblue, monitor', '09:12'],
     ['slim', '', 'Booked: €249.00 office costs, including €43.21 VAT you get back.', '09:12'],
     ['mij', '', 'Invoice Studio Noord, 8 hours at €65', '09:14'],
-    ['slim', 'fac', 'Invoice ready|2026-041 · Studio Noord|€520.00 + €109.20 VAT = €629.20|Shall I send it?', '09:14'],
+    ['slim', 'fac', 'Your invoice is ready. Shall I send it?|Invoice|8 hours × €65.00|€520.00|VAT 21%|€109.20|Total|€629.20|Invoice 2026-041.pdf|1 page', '09:14'],
     ['mij', '', 'Yes please 👍', '09:15'],
     ['slim', '', 'Sent. I\'ll let you know when it\'s paid.', '09:15'],
   ],
@@ -19,7 +19,7 @@ const T = taal === 'en' ? {
     ['mij', 'bon', 'Bonnetje Coolblue, monitor', '09:12'],
     ['slim', '', 'Geboekt: €249,00 kantoorkosten, waarvan €43,21 btw die je terugkrijgt.', '09:12'],
     ['mij', '', 'Factuur Studio Noord, 8 uur à €65', '09:14'],
-    ['slim', 'fac', 'Factuur staat klaar|2026-041 · Studio Noord|€520,00 + €109,20 btw = €629,20|Zal ik hem versturen?', '09:14'],
+    ['slim', 'fac', 'Je factuur staat klaar. Zal ik hem versturen?|Factuur|8 uur × €65,00|€520,00|Btw 21%|€109,20|Totaal|€629,20|Factuur 2026-041.pdf|1 pagina', '09:14'],
     ['mij', '', 'Ja graag 👍', '09:15'],
     ['slim', '', 'Verstuurd. Ik laat het weten als er betaald is.', '09:15'],
   ],
@@ -31,8 +31,19 @@ const T = taal === 'en' ? {
     <div class="gesprek">
       {T.b.map(([wie, soort, tekst, tijd], i) => {
         if (soort === 'fac') {
-          const [a, k, bedrag, vraag] = tekst.split('|');
-          return <div class={`b ${wie}`} style={`--i:${i}`}>{a}:<span class="fac"><b>{k}</b>{bedrag}</span>{vraag}<span class="t">{tijd}</span></div>;
+          const [vraag, kop, r1, b1, r2, b2, r3, b3, bestand, pag] = tekst.split('|');
+          return <div class={`b ${wie} doc`} style={`--i:${i}`}>
+            <span class="pdf" aria-hidden="true">
+              <span class="pagina">
+                <span class="p-kop"><b>{kop}</b><span>2026-041</span></span>
+                <span class="p-aan">Studio Noord<br>Amsterdam</span>
+                <span class="p-r"><span>{r1}</span><span>{b1}</span></span>
+                <span class="p-r"><span>{r2}</span><span>{b2}</span></span>
+                <span class="p-r tot"><span>{r3}</span><span>{b3}</span></span>
+              </span>
+              <span class="bestand"><i>PDF</i><span><b>{bestand}</b><small>{pag} · 48 kB</small></span></span>
+            </span>
+            <span class="vraag">{vraag}</span><span class="t">{tijd}</span></div>;
         }
         return <div class={`b ${wie}`} style={`--i:${i}`}>{soort === 'bon' ? <span class="bon"><i></i>{tekst}</span> : tekst}<span class="t">{tijd}{wie === 'mij' ? ' ✓✓' : ''}</span></div>;
       })}
@@ -55,15 +66,26 @@ const T = taal === 'en' ? {
 .wakop{background:#075e54;color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px}
 .wakop img{width:34px;height:34px;border-radius:50%;background:#fff;padding:3px}
 .wakop small{display:block;font-size:.72rem;opacity:.8}
-.gesprek{padding:14px 12px 18px;display:flex;flex-direction:column;gap:8px;min-height:420px;font-size:.88rem;line-height:1.4}
+.gesprek{padding:14px 12px 18px;display:flex;flex-direction:column;gap:8px;min-height:520px;font-size:.88rem;line-height:1.4}
 .b{max-width:84%;padding:8px 10px 6px;border-radius:10px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.08);opacity:0;transform:translateY(8px)}
 .b.mij{align-self:flex-end;background:#d9fdd3}
 .speel .b{animation:in .45s ease forwards;animation-delay:calc(var(--i) * 1.15s + .2s)}
 .t{display:block;text-align:right;font-size:.66rem;color:#667;margin-top:2px}
 .bon{display:flex;gap:8px;align-items:center}
 .bon i{width:34px;height:42px;border-radius:4px;background:repeating-linear-gradient(#fff 0 5px,#e6e6e6 5px 6px);border:1px solid #ddd;flex:none}
-.fac{display:block;border-left:3px solid var(--blauw);padding-left:8px;margin:4px 0}
-.fac b{display:block}
+.doc{padding:4px 4px 6px;width:84%}
+.pdf{display:block;border-radius:8px;overflow:hidden;background:#f6f6f6}
+.pagina{display:grid;gap:5px;background:#fff;margin:8px 8px 0;padding:10px 12px 12px;border-radius:3px 3px 0 0;box-shadow:0 1px 3px rgba(0,0,0,.12);font-size:.68rem;line-height:1.3;color:#334155}
+.p-kop{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--blauw);padding-bottom:4px}
+.p-kop b{font-size:.85rem;color:#0b1220}
+.p-aan{color:#64748b;margin-bottom:2px}
+.p-r{display:flex;justify-content:space-between;gap:8px}
+.p-r.tot{border-top:1px solid #cbd5e1;padding-top:4px;font-weight:700;color:#0b1220;font-size:.76rem}
+.bestand{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f0f0f0}
+.bestand i{font-style:normal;font-size:.6rem;font-weight:800;color:#fff;background:#e5483b;border-radius:3px;padding:3px 4px}
+.bestand b{display:block;font-size:.78rem;font-weight:600}
+.bestand small{font-size:.66rem;color:#667}
+.vraag{display:block;padding:6px 6px 0}
 @keyframes in{to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.b{opacity:1;transform:none}.speel .b{animation:none}}
 </style>

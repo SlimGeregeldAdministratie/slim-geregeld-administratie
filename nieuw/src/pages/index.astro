@@ -8,10 +8,10 @@ const WA = 'https://wa.me/31621311043';
 
 const faq = [
   ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
-  ['Wat kost Moneybird?', 'Het Moneybird-abonnement staat op jouw naam en begint bij een paar euro per maand. In de intake zie je welk pakket past.'],
-  ['Zit de aangifte inkomstenbelasting erbij?', 'Die is los: €245 excl. btw, of €395 excl. btw samen met je fiscale partner.'],
+  ['Wat kost Moneybird?', 'Moneybird staat op jouw naam en kost meestal €15 tot €35 per maand, afhankelijk van hoeveel banktransacties je hebt. Via mij heb je de eerste 120 dagen gratis, in plaats van 60.'],
+  ['Zit de aangifte inkomstenbelasting erbij?', 'Je jaarcijfers zitten erbij, de aangifte zelf is los: €245 excl. btw, of €395 samen met je fiscale partner. Als klant krijg je 15% korting.'],
   ['Ik heb een bv. Kan dat ook?', 'Zeker. Voor een bv maak ik een prijs op maat, afhankelijk van wat er speelt.'],
-  ['Moet ik bij je langskomen?', 'Nee. Bijna alles gaat via WhatsApp en mail. Ik woon in Amsterdam en kom ook graag langs in Amsterdam en de Zaanstreek als dat fijner is.'],
+  ['Moet ik bij je langskomen?', 'Nee. Alles gaat via WhatsApp, mail of telefoon. Dat is sneller voor jou en houdt de prijs laag. Ik werk vanuit Amsterdam en help ondernemers in heel Nederland.'],
   ['Is Slim echt gratis?', 'Ja. Slim werkt via WhatsApp, ook zonder Moneybird. Wil je dat ik je boekhouding doe, dan stap je over op de volledige service.'],
 ];
 const faqLd = {
@@ -55,22 +55,22 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
       <h2>Wat past bij jou?</h2>
       <div class="tegels">
         <a class="tegel" href="/boekhouding-eenmanszaak">
-          <span class="t-kop"><h3>Eenmanszaak of vof</h3><span class="t-prijs">€95 p/m</span></span>
-          <p>Boekhouding, btw-aangifte per kwartaal en je financieel jaaroverzicht.</p>
+          <span class="t-prijs">€95 per maand</span><h3>Eenmanszaak of vof</h3>
+          <p>Boekhouding, btw-aangifte per kwartaal en je jaarcijfers, klaar voor je aangifte IB.</p>
           <span class="meer">Volledige service →</span>
         </a>
         <a class="tegel" href="/boekhouding-bv">
-          <span class="t-kop"><h3>BV of holding</h3><span class="t-prijs">op maat</span></span>
+          <span class="t-prijs">Op maat</span><h3>BV of holding</h3>
           <p>Jaarrekening, Vpb, DGA-loon en dividend. Je krijgt vooraf een vaste prijs.</p>
           <span class="meer">Boekhouding bv →</span>
         </a>
         <a class="tegel" href="/aangifte-inkomstenbelasting">
-          <span class="t-kop"><h3>Alleen je aangifte IB</h3><span class="t-prijs">€245</span></span>
+          <span class="t-prijs">€245 per aangifte</span><h3>Alleen je aangifte IB</h3>
           <p>Je aangifte inkomstenbelasting, ook met fiscale partner (€395).</p>
           <span class="meer">Aangifte laten doen →</span>
         </a>
         <a class="tegel en" href="/en/" lang="en">
-          <span class="t-kop"><h3>English, DAFT or DJTT</h3><span class="t-prijs">EN</span></span>
+          <span class="t-prijs">Expats</span><h3>English, DAFT or DJTT</h3>
           <p>Bookkeeping in English and opening balance sheets for the US and Japanese treaty.</p>
           <span class="meer">English site →</span>
         </a>
@@ -91,7 +91,7 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
       <h2>Zo werkt het</h2>
       <div class="grid3">
         <div class="blok"><div class="nr">1</div><h3>Je meldt je aan</h3><p>Laat je gegevens achter. Ik reageer binnen een werkdag. Overstappen midden in het jaar kan.</p></div>
-        <div class="blok"><div class="nr">2</div><h3>Ik richt alles in</h3><p>Moneybird, je bankkoppeling en Slim op WhatsApp. Binnen een week geregeld.</p></div>
+        <div class="blok"><div class="nr">2</div><h3>Ik richt alles in</h3><p>Ik zet Moneybird en Slim voor je klaar. Je bank koppel je zelf met een paar klikken, ik vertel je precies waar. Binnen een week geregeld.</p></div>
         <div class="blok"><div class="nr">3</div><h3>Jij appt, ik boek</h3><p>Ik doe de aangiftes en laat je vooraf weten wat je moet betalen.</p></div>
       </div>
     </div>
@@ -119,14 +119,14 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
   <section id="tarieven">
     <div class="wrap">
       <h2>Tarieven</h2>
-      <p class="sub">Vaste prijzen, exclusief btw. Het Moneybird-abonnement staat op je eigen naam.</p>
+      <p class="sub">Vaste prijzen, exclusief btw. Moneybird staat op je eigen naam (meestal €15 tot €35 per maand) en is via mij de eerste 120 dagen gratis.</p>
       <div class="prijzen">
         <div class="pk hl"><span class="badge">Meest gekozen</span><h3>Volledige service</h3><div class="bedrag">€95<s>€125</s></div><small>per maand, eenmanszaak of vof</small>
-          <ul><li>Btw-aangifte elk kwartaal</li><li>Financieel jaaroverzicht</li><li>Vragen tussendoor</li><li>Slim op WhatsApp</li></ul><a class="knop vol" href="#contact">Plan je overstap</a></div>
+          <ul><li>Boekhouding in Moneybird</li><li>Btw-aangifte elk kwartaal</li><li>Jaarcijfers, klaar voor je aangifte IB</li><li>Vragen tussendoor, via WhatsApp of mail</li><li>Slim op WhatsApp</li></ul><a class="knop vol" href="#contact">Plan je overstap</a></div>
         <div class="pk"><h3>Aangifte IB</h3><div class="bedrag">€245</div><small>€395 met fiscale partner</small>
-          <ul><li>Volledige aangifte</li><li>Concept eerst ter controle</li><li>Ingediend door mij</li></ul><a class="knop leeg" href="/aangifte-inkomstenbelasting">Aangifte laten doen</a></div>
+          <ul><li>Volledige aangifte inkomstenbelasting</li><li>Aftrekposten nagelopen</li><li>Concept eerst ter controle</li><li>Ingediend door mij</li><li>Klant? 15% korting</li></ul><a class="knop leeg" href="/aangifte-inkomstenbelasting">Aangifte laten doen</a></div>
         <div class="pk"><h3>BV en holding</h3><div class="bedrag klein">Op maat</div><small>vaste prijs vooraf</small>
-          <ul><li>Jaarrekening en Vpb</li><li>DGA-loon en dividend</li><li>Meerdere entiteiten</li></ul><a class="knop leeg" href="#contact">Prijs aanvragen</a></div>
+          <ul><li>Boekhouding en btw-aangifte</li><li>Jaarrekening en deponering</li><li>Aangifte Vpb</li><li>DGA-loon en dividend</li><li>Ook voor holding en werkmaatschappij</li><li>Slim op WhatsApp</li></ul><a class="knop leeg" href="#contact">Prijs aanvragen</a></div>
       </div>
       <p class="slimregel">Alleen Slim, de WhatsApp-assistent voor facturen en bonnetjes, is gratis. <a href="/slim">Meer over Slim →</a></p>
     </div>
@@ -138,7 +138,7 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
       <figure class="kylefoto"><img src="/img/kyle-1.jpg" alt="Kyle Bouwmeester op de bank met zijn laptop" width="933" height="1400" loading="lazy"></figure>
       <div>
         <h2>Je spreekt altijd mij</h2>
-        <p class="sub">Ik ben Kyle Bouwmeester, Becon-geregistreerd boekhouder en Moneybird Expert. Ik woon en werk in Amsterdam, ben vaak in de Zaanstreek en help zzp'ers en bv's door heel Nederland, plus ondernemers uit de VS en Japan die hier starten.</p>
+        <p class="sub">Ik ben Kyle Bouwmeester, Becon-geregistreerd boekhouder en Moneybird Expert. Ik werk vanuit Amsterdam en de Zaanstreek en help zzp'ers en bv's door heel Nederland, plus ondernemers uit de VS en Japan die hier starten.</p>
         <p class="sub" style="margin-top:12px">Het herhaalwerk heb ik geautomatiseerd. Zo heb ik tijd voor wat telt: meedenken over jouw cijfers.</p>
         <div class="feiten"><div><b>Becon</b><span>geregistreerd boekhouder</span></div><div><b>Moneybird</b><span>Expert-kantoor</span></div><div><b>Amsterdam</b><span>en de Zaanstreek</span></div><div><b>NL en EN</b><span>beide talen</span></div></div>
       </div>
@@ -190,9 +190,10 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
               <option>Moneybird</option>
               <option>LinkedIn</option>
               <option>Via iemand die ik ken</option>
-              <option>Anders</option>
+              <option value="anders">Anders</option>
             </select>
           </label>
+          <label class="breed anders-veld">Waar dan? <span class="opt">optioneel</span><input name="sourceOther" autocomplete="off"></label>
           <button class="knop vol breed" type="submit">Verstuur</button>
           <p class="breed klein">Ik gebruik je gegevens alleen om contact met je op te nemen. <a href="/privacybeleid">Privacybeleid</a></p>
         </form>
@@ -223,10 +224,9 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
 .tegels{display:grid;gap:12px;margin-top:20px}
 .tegel{display:flex;flex-direction:column;gap:6px;border:1px solid var(--lijn);border-radius:var(--r);padding:18px 20px;background:#fff;text-decoration:none;transition:border-color .15s,box-shadow .15s}
 .tegel:hover{border-color:var(--blauw-rand);box-shadow:0 10px 30px rgba(37,99,235,.08)}
-.t-kop{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.t-prijs{font-weight:750;color:var(--blauw);white-space:nowrap;font-size:.95rem}
+.t-prijs{font-weight:700;color:var(--blauw);font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}
 .tegel p{color:var(--grijs);font-size:.95rem}
-.tegel .meer{color:var(--blauw);font-weight:650;font-size:.92rem}
+.tegel .meer{color:var(--blauw);font-weight:650;font-size:.92rem;margin-top:auto;padding-top:4px}
 .tegel.en{background:var(--zacht)}
 .slim-grid{display:grid;gap:32px;align-items:center}
 .vinkjes{list-style:none;display:grid;gap:8px;margin:18px 0 22px}
@@ -275,17 +275,21 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
 .formulier .klein{font-size:.8rem;color:var(--grijs)}
 .formulier .klein a{color:var(--blauw)}
 .formulier .knop{width:100%}
+.anders-veld{display:none !important}
+.formulier:has(select[name=source] option[value=anders]:checked) .anders-veld{display:flex !important}
 @media (min-width:760px){
   .hero{padding:48px 0 60px}
   .hero-grid{grid-template-columns:1.1fr .9fr;align-items:center;gap:56px}
   .herofoto{aspect-ratio:4/5;max-height:540px}
-  .tegels{grid-template-columns:repeat(4,1fr)}
+  .tegels{grid-template-columns:repeat(2,1fr)}
   .slim-grid{grid-template-columns:1.1fr .9fr;gap:56px}
   .prijzen{grid-template-columns:repeat(3,1fr)}
   .kyle{grid-template-columns:.8fr 1.2fr;gap:56px}
   .kylefoto{aspect-ratio:4/5;max-height:520px}
-  .contact{grid-template-columns:.9fr 1.1fr;padding:48px;gap:48px;align-items:center}
+  .contact{grid-template-columns:.85fr 1.15fr;padding:44px;gap:44px;align-items:start}
+  .c-tekst{padding-top:8px}
   .formulier{grid-template-columns:1fr 1fr;padding:26px}
   .formulier .breed{grid-column:1/-1}
 }
+@media (min-width:1100px){.tegels{grid-template-columns:repeat(4,1fr)}}
 </style>
