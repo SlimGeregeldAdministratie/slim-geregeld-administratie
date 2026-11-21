@@ -7,11 +7,15 @@ import { google, moneybird } from '../data/reviews';
 const WA = 'https://wa.me/31621311043';
 
 const faq = [
+  ['Wat kost een boekhouder voor een zzp\'er?', 'Bij mij €95 per maand excl. btw voor een eenmanszaak of vof, met de btw-aangiftes en je jaarcijfers erbij. Je aangifte inkomstenbelasting is €245, met 15% korting als je klant bent. Voor een bv krijg je vooraf een vaste prijs.'],
+  ['Ik start net. Kan ik al bij je terecht?', 'Ja. Ik richt je administratie meteen goed in, zodat je vanaf je eerste factuur op orde bent.'],
   ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
   ['Wat kost Moneybird?', 'Moneybird staat op jouw naam en kost meestal €15 tot €35 per maand, afhankelijk van hoeveel banktransacties je hebt. Via mij heb je de eerste 120 dagen gratis, in plaats van 60.'],
   ['Zit de aangifte inkomstenbelasting erbij?', 'Je jaarcijfers zitten erbij, de aangifte zelf is los: €245 excl. btw, of €395 samen met je fiscale partner. Als klant krijg je 15% korting.'],
   ['Ik heb een bv. Kan dat ook?', 'Zeker. Voor een bv maak ik een prijs op maat, afhankelijk van wat er speelt.'],
   ['Moet ik bij je langskomen?', 'Nee, bijna alles gaat via WhatsApp, mail of telefoon. Dat is sneller voor jou en houdt de prijs laag. Wil je elkaar toch een keer zien? Ik werk vanuit Amsterdam en de Zaanstreek, dus dat kunnen we altijd even afspreken.'],
+  ['Werk je ook voor mijn branche?', 'Ik werk voor zzp\'ers en kleine bv\'s in allerlei branches, van bouw en webshops tot marketing, events en coaching. Wat telt is dat je je administratie goed geregeld wilt hebben.'],
+  ['Moet ik Moneybird gebruiken?', 'Ja, ik werk alleen in Moneybird. Gebruik je nu iets anders, dan zet ik je gegevens over. Je houdt zelf altijd toegang tot je eigen administratie.'],
   ['Is Slim echt gratis?', 'Ja. Slim werkt via WhatsApp, ook zonder Moneybird. Wil je dat ik je boekhouding doe, dan stap je over op de volledige service.'],
 ];
 const faqLd = {
@@ -35,7 +39,7 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
         <h1>Je administratie op orde. Elk kwartaal, zonder gedoe.</h1>
         <p class="sub">Btw-aangiftes, jaarcijfers en je inkomstenbelasting, gedaan door een vaste boekhouder in Moneybird. Bonnetjes stuur je gewoon via WhatsApp.</p>
         <p class="prijsregel"><b>€95</b><s>€125</s><span>per maand, excl. btw</span><span class="pr-uit">eenmanszaak, volledige service</span></p>
-        <div class="knoppen"><a class="knop vol" href="#contact">Plan je overstap</a><a class="knop leeg" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a></div>
+        <div class="knoppen"><a class="knop vol" href="#contact">Kennismaken</a><a class="knop leeg" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a></div>
         <div class="bewijs">
           <a href={google.profiel} target="_blank" rel="noopener"><span set:html={G} /><b>{google.score}</b><span class="ster">★★★★★</span><span>({google.aantal})</span><span class="visually-hidden">Google-reviews</span></a>
           <a href={moneybird.profiel} target="_blank" rel="noopener"><img src="/img/moneybird.svg" alt="" width="16" height="16"><b>{moneybird.score}</b><span class="ster">★★★★★</span><span>({moneybird.aantal})</span><span class="visually-hidden">Moneybird-reviews</span></a>
@@ -109,6 +113,10 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
           <li>Herinneringen voor openstaande facturen</li>
           <li>Ook los te gebruiken, gratis</li>
         </ul>
+        <figure class="citaat">
+          <blockquote>“Onderweg kan ik vrij rap wat facturen versturen door een simpel appje. Top systeem.”</blockquote>
+          <figcaption><img src="/img/reviews/jeremy.png" alt="" width="32" height="32"><span><b>Jeremy Gomes</b>Gomes Media, op Google</span></figcaption>
+        </figure>
         <a class="knop leeg" href="/slim">Meer over Slim</a>
       </div>
       <SlimGesprek />
@@ -162,6 +170,12 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
         <div class="c-tekst">
           <h2>Binnen een week geregeld</h2>
           <p>Laat je gegevens achter. Ik reageer binnen een werkdag met wat ik van je nodig heb. Liever appen? Dat kan ook.</p>
+          <div class="ikzelf"><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56"><span><b>Je krijgt antwoord van mij</b>Kyle Bouwmeester, Becon-geregistreerd boekhouder</span></div>
+          <ul class="c-vink">
+            <li>Vrijblijvend, je zit nergens aan vast</li>
+            <li>Overstappen midden in het jaar kan</li>
+            <li>Starters zijn ook welkom</li>
+          </ul>
           <a class="knop wa" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a>
           <p class="klein">Of mail naar <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a></p>
         </div>
@@ -229,6 +243,11 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
 .tegel .meer{color:var(--blauw);font-weight:650;font-size:.92rem;margin-top:auto;padding-top:4px}
 .tegel.en{background:var(--zacht)}
 .slim-grid{display:grid;gap:32px;align-items:center}
+.citaat{border-left:3px solid var(--blauw);padding:2px 0 2px 16px;margin:0 0 22px}
+.citaat blockquote{font-size:1.02rem;color:var(--inkt);font-style:italic}
+.citaat figcaption{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.82rem;color:var(--grijs)}
+.citaat figcaption img{width:32px;height:32px;border-radius:50%}
+.citaat figcaption b{display:block;color:var(--inkt);font-size:.88rem}
 .vinkjes{list-style:none;display:grid;gap:8px;margin:18px 0 22px}
 .vinkjes li{padding-left:26px;position:relative}
 .vinkjes li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
@@ -265,6 +284,12 @@ const G = `<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><p
 .c-tekst p{color:#b6c0d4;margin:10px 0 18px}
 .c-tekst .klein{margin:14px 0 0}
 .c-tekst a:not(.knop){color:#fff}
+.ikzelf{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:.85rem;color:#b6c0d4}
+.ikzelf img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2)}
+.ikzelf b{display:block;color:#fff;font-size:.98rem}
+.c-vink{list-style:none;display:grid;gap:8px;margin:0 0 22px;color:#e2e8f0}
+.c-vink li{padding-left:26px;position:relative}
+.c-vink li::before{content:"✓";position:absolute;left:0;color:#4ade80;font-weight:800}
 .knop.wa{background:#25d366;border-color:#25d366;color:#05351a}
 .formulier{background:#fff;color:var(--inkt);border-radius:18px;padding:20px;display:grid;gap:14px}
 .formulier label{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 6px;font-weight:600;font-size:.92rem}

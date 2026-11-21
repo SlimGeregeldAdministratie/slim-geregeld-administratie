@@ -4,7 +4,7 @@
    met de waarden uit reviews.ts als terugval. */
 import { google, moneybird, reviews } from '../data/reviews';
 interface Props { taal?: 'nl' | 'en'; titel?: string; max?: number }
-const { taal = 'nl', titel, max = 6 } = Astro.props;
+const { taal = 'nl', titel, max = 9 } = Astro.props;
 const T = taal === 'en'
   ? { titel: 'What clients say', op: { google: 'View on Google', moneybird: 'View on Moneybird' }, reviews: 'reviews', meer: 'Read more' }
   : { titel: 'Wat klanten zeggen', op: { google: 'Bekijk op Google', moneybird: 'Bekijk op Moneybird' }, reviews: 'reviews', meer: 'Lees verder' };
@@ -26,7 +26,7 @@ const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" heig
       </a>
     </div>
   </div>
-  <div class="gr-lijst">
+  <div class="gr-lijst" tabindex="0" aria-label={T.titel}>
     {lijst.map((r) => (
       <figure class="kaart">
         <div class="wie">
@@ -40,7 +40,20 @@ const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" heig
       </figure>
     ))}
   </div>
+  <div class="pijlen">
+    <button type="button" class="pijl" data-r="-1" aria-label={taal === 'en' ? 'Previous reviews' : 'Vorige reviews'}>‹</button>
+    <button type="button" class="pijl" data-r="1" aria-label={taal === 'en' ? 'More reviews' : 'Meer reviews'}>›</button>
+  </div>
 </div>
+
+<script is:inline>
+document.querySelectorAll('.gr').forEach(function(gr){
+  var l=gr.querySelector('.gr-lijst'), k=gr.querySelectorAll('.pijl');
+  function stand(){k[0].disabled=l.scrollLeft<8;k[1].disabled=l.scrollLeft+l.clientWidth>=l.scrollWidth-8;}
+  k.forEach(function(b){b.addEventListener('click',function(){l.scrollBy({left:l.clientWidth*b.dataset.r,behavior:'smooth'});});});
+  l.addEventListener('scroll',stand,{passive:true}); stand();
+});
+</script>
 
 <style>
 .gr-kop{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
@@ -63,8 +76,12 @@ const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" heig
 .st{color:#f5a524;letter-spacing:2px;font-size:.9rem}
 blockquote{color:var(--tekst);font-size:.97rem;flex:1;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden}
 .op{color:var(--blauw);text-decoration:none;font-size:.85rem;font-weight:600}
+.gr-lijst{scrollbar-width:none}.gr-lijst::-webkit-scrollbar{display:none}
+.pijlen{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.pijl{width:44px;height:44px;border-radius:50%;border:1px solid var(--lijn);background:#fff;color:var(--inkt);font-size:1.5rem;line-height:1;cursor:pointer}
+.pijl:hover:not(:disabled){border-color:var(--blauw);color:var(--blauw)}
+.pijl:disabled{opacity:.35;cursor:default}
 @media (min-width:760px){
-  .gr-lijst{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}
-  .kaart{flex:auto}
+  .kaart{flex:0 0 calc((100% - 28px) / 3)}
 }
 </style>
