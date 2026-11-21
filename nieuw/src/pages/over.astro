@@ -39,8 +39,9 @@ const persoon = {
       <div class="twee boven verhaal">
         <div class="lees">
           <h2>Waarom ik dit ben gestart</h2>
-          <p>Mijn oude huisgenoot werkte zes jaar als zzp'er in de bouw. Elk kwartaal zat hij vlak voor de deadline van de btw-aangifte twee nachten aan de keukentafel, met overal papier, en kwam hij er niet uit. Ik dacht: dat moet veel slimmer kunnen.</p>
-          <p>Met mijn achtergrond in finance en in automatisering en AI ben ik eind 2024 Slim Geregeld begonnen. Het herhaalwerk heb ik zo veel mogelijk geautomatiseerd. Daardoor heb ik tijd voor wat telt: je cijfers controleren en meedenken.</p>
+          <p>Mijn oude huisgenoot werkte als zzp'er in de bouw. Elk kwartaal zat hij vlak voor de deadline van de btw-aangifte twee nachten aan de keukentafel, met overal papier, en kwam hij er niet uit. Ik dacht: dat moet veel slimmer kunnen.</p>
+          <p>Met mijn achtergrond in finance en automatisering &amp; AI ben ik eind 2024 Slim Geregeld begonnen. Het herhaalwerk heb ik zo veel mogelijk geautomatiseerd. Daardoor heb ik tijd voor wat telt: je cijfers controleren en meedenken.</p>
+          <a class="li" href="https://www.linkedin.com/in/kylebouwmeester" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Volg me op LinkedIn</a>
         </div>
         <div class="lees">
           <h2>Hoe ik werk</h2>
@@ -52,7 +53,6 @@ const persoon = {
             <li>Bijna alles via WhatsApp, mail of telefoon. Elkaar zien kan ook, in Amsterdam of de Zaanstreek.</li>
             <li>In het Nederlands en het Engels, ook voor ondernemers uit de VS en Japan.</li>
           </ul>
-          <p><a href="https://www.linkedin.com/in/kylebouwmeester" target="_blank" rel="noopener">Volg me op LinkedIn ↗</a></p>
         </div>
       </div>
     </div>
@@ -70,6 +70,8 @@ const persoon = {
 <style>
 .boven{align-items:start}
 .feiten{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:8px}
+.li{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:8px 14px;border:1px solid var(--lijn);border-radius:10px;color:#0a66c2;font-weight:650;text-decoration:none;transition:border-color .15s}
+.li:hover{border-color:#0a66c2}
 .verhaal .lees :global(h2){margin-top:28px}
 @media (min-width:760px){.feiten{grid-template-columns:repeat(4,1fr)}}
 .feiten div{background:var(--zacht);border-radius:12px;padding:14px}

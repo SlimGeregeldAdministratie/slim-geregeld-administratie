@@ -51,7 +51,7 @@ const faq: [string, string][] = [
         </div>
         <div class="blok">
           <h3>BV en holding</h3><p class="pr">Op maat, vaste prijs vooraf</p>
-          <p class="plus">Alles van de eenmanszaak, plus:</p>
+          <p class="plus"><span aria-hidden="true">+</span>Alles van de eenmanszaak, en daarnaast</p>
           <ul class="vinkjes">
             <li>Je jaarrekening, klaar voor de KvK</li>
             <li>De aangifte vennootschapsbelasting</li>
@@ -71,7 +71,7 @@ const faq: [string, string][] = [
       <div class="los">
         <div class="blok"><h3>Aangifte inkomstenbelasting</h3><p class="pr">€245, of €395 met fiscale partner</p><p>Klant? Dan 15% korting.</p><a class="meer" href="/aangifte-inkomstenbelasting">Meer over de aangifte →</a></div>
         <div class="blok"><h3>Financieel jaaroverzicht</h3><p class="pr">€395 tot 50 facturen en bonnetjes</p><p>Je balans en winst-en-verliesrekening, bijvoorbeeld voor je aangifte IB. €695 tot 150 stuks; daarboven hoor je de prijs vooraf.</p></div>
-        <div class="blok"><h3>Jaarrekening en Vpb voor je bv</h3><p class="pr">Vanaf €850 per jaar</p><p>Houd je de boekhouding zelf bij? Dan maak ik je jaarrekening en de aangifte vennootschapsbelasting. Je hoort de prijs vooraf.</p></div>
+        <div class="blok"><h3>Jaarrekening en Vpb voor je bv</h3><p class="pr">Vanaf €595 per jaar</p><p>Houd je de boekhouding zelf bij? Dan maak ik je jaarrekening en de aangifte vennootschapsbelasting, ook voor een holding. Je hoort de prijs vooraf.</p></div>
         <div class="blok"><h3>Achterstand wegwerken</h3><p class="pr">Op maat</p><p>Een of meer jaren achter? Ik kijk eerst wat er ligt en geef je dan een vaste prijs.</p></div>
       </div>
       <p class="noot">Niet inbegrepen: het Moneybird-abonnement, dat op je eigen naam staat.</p>
@@ -93,8 +93,9 @@ const faq: [string, string][] = [
 .inhoud,.los{display:grid;gap:14px;margin-top:22px}
 .pr{color:var(--blauw);font-weight:700;margin-top:2px}
 .inhoud .vinkjes{margin-bottom:0}
-.plus{margin-top:14px;font-weight:650}
-.plus + .vinkjes{margin-top:8px}
+.plus{display:flex;align-items:center;gap:8px;margin-top:14px;padding:8px 12px;border-radius:10px;background:var(--blauw-t);color:var(--blauw-d);font-weight:650;font-size:.92rem}
+.plus span{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--blauw);color:#fff;font-weight:800;font-size:.85rem;flex:none}
+.plus + .vinkjes{margin-top:12px}
 .los .blok p:not(.pr){margin-top:6px}
 @media (min-width:760px){.inhoud{grid-template-columns:1fr 1fr}.los{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:1100px){.los{grid-template-columns:repeat(4,1fr)}}
