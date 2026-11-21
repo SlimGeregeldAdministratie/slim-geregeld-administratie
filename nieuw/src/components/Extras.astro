@@ -21,6 +21,19 @@ const wa = taal === 'nl' ? 'Vraag het Kyle via WhatsApp' : 'Message Kyle on What
 )}
 
 <script is:inline>
+/* WhatsApp: direct naar Kyle, met een klaargezet bericht dat zegt op welke pagina
+   de bezoeker zat. Geldt voor alle wa.me-links naar 31621311043 op de pagina. */
+document.addEventListener('DOMContentLoaded',function(){
+  var nl=document.documentElement.lang!=='en'&&document.documentElement.lang!=='ja';
+  var pad=location.pathname.replace(/\/$/,'')||'/';
+  var naam=(document.title.split(' | ')[0]||'').trim();
+  var waar=pad==='/'?(nl?'de homepage':'the homepage'):(nl?'de pagina "'+naam+'"':'the page "'+naam+'"');
+  var tekst=nl?'Hoi Kyle, ik kom via '+waar+' op slim-geregeld.nl. Mijn vraag: ':'Hi Kyle, I found you via '+waar+' on slim-geregeld.nl. My question: ';
+  document.querySelectorAll('a[href^="https://wa.me/31621311043"]').forEach(function(a){
+    a.href='https://wa.me/31621311043?text='+encodeURIComponent(tekst);
+    a.addEventListener('click',function(){window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'whatsapp_klik',pagina:pad});});
+  });
+});
 (function(){
   var b=document.querySelector('.en-balk'); if(!b) return;
   var l=(navigator.languages&&navigator.languages[0])||navigator.language||'nl';
