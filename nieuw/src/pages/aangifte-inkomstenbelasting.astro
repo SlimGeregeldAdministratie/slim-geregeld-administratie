@@ -49,8 +49,8 @@ const service = {
         <div><dt>Hypotheekrente</dt><dd>− €6.120</dd></div>
       </dl>
       <div class="c-uit"><span>Je krijgt terug</span><b>€1.240</b></div>
-      <div class="c-knoppen"><span class="ja">Akkoord, dien in</span><span>Vraag stellen</span></div>
-      <p class="c-noot">Voorbeeld. Pas na jouw akkoord gaat hij naar de Belastingdienst.</p>
+      <p class="c-stap"><span aria-hidden="true">✓</span>Klopt het? Dan geef je akkoord per mail, en pas dan dien ik hem in.</p>
+      <p class="c-noot">Voorbeeld met verzonnen bedragen.</p>
     </div>
   </Paginakop>
 
@@ -114,9 +114,8 @@ const service = {
 .concept dd{font-variant-numeric:tabular-nums}
 .c-uit{display:flex;justify-content:space-between;align-items:baseline;background:#ecfdf3;border-radius:12px;padding:12px 14px}
 .c-uit b{font-size:1.5rem;color:var(--groen)}
-.c-knoppen{display:flex;gap:8px;margin-top:14px}
-.c-knoppen span{flex:1;text-align:center;border:1.5px solid var(--blauw);border-radius:10px;padding:9px 6px;font-weight:650;font-size:.9rem;color:var(--blauw)}
-.c-knoppen .ja{background:var(--blauw);color:#fff}
+.c-stap{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:.9rem;color:var(--tekst)}
+.c-stap span{color:var(--blauw);font-weight:800}
 .c-noot{font-size:.78rem;color:var(--grijs);margin-top:10px}
 @media (min-width:1000px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
 .boven{align-items:start}
