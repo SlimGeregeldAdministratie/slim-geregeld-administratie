@@ -5,15 +5,21 @@
 import { google, moneybird, reviews } from '../data/reviews';
 interface Props { taal?: 'nl' | 'en'; titel?: string; max?: number; eerst?: string[] }
 /* eerst: namen van reviews die bij deze pagina passen; die komen vooraan. */
-const { taal = 'nl', titel, max = 9, eerst = [] } = Astro.props;
+const { taal = 'nl', titel, max = 12, eerst = [] } = Astro.props;
 const T = taal === 'en'
-  ? { titel: 'What clients say', op: { google: 'View on Google', moneybird: 'View on Moneybird' }, reviews: 'reviews', meer: 'Read more' }
-  : { titel: 'Wat klanten zeggen', op: { google: 'Bekijk op Google', moneybird: 'Bekijk op Moneybird' }, reviews: 'reviews', meer: 'Lees verder' };
+  ? { titel: 'What clients say', op: { google: 'View on Google', moneybird: 'View on Moneybird' }, reviews: 'reviews', meer: 'Read more', vertaald: 'Translated by Google' }
+  : { titel: 'Wat klanten zeggen', op: { google: 'Bekijk op Google', moneybird: 'Bekijk op Moneybird' }, reviews: 'reviews', meer: 'Lees verder', vertaald: '' };
 const rang = (n: string) => { const i = eerst.indexOf(n); return i < 0 ? 99 : i; };
-const lijst = reviews.filter((r) => (taal === 'nl' ? r.taal === 'nl' : true)).map((r, i) => ({ r, i })).sort((a, b) => rang(a.r.naam) - rang(b.r.naam) || a.i - b.i).map((x) => x.r).slice(0, max);
-const EN: Record<string, string> = { 'consultant, bv': 'consultant, BV', 'online marketeer': 'online marketer', 'evenementen': 'events', 'bouwbedrijf': 'construction', 'timmerman': 'carpenter' };
+/* NL: alleen Nederlandse reviews. EN: eerst de Engelse originelen, daarna de
+   Nederlandse met een vertaling van Google (met label). */
+const lijst = reviews
+  .filter((r) => (taal === 'nl' ? r.taal === 'nl' : r.taal === 'en' || !!r.vertaling))
+  .map((r, i) => ({ r: { ...r, vertaald: taal === 'en' && r.taal === 'nl', tekst: taal === 'en' && r.taal === 'nl' ? r.vertaling! : r.tekst }, i }))
+  .sort((a, b) => rang(a.r.naam) - rang(b.r.naam) || Number(a.r.vertaald) - Number(b.r.vertaald) || a.i - b.i)
+  .map((x) => x.r).slice(0, max);
+const EN: Record<string, string> = { 'consultant, bv': 'consultant, BV', 'online marketeer': 'online marketer', 'evenementen': 'events', 'bouwbedrijf': 'construction', 'timmerman': 'carpenter', 'aangifte inkomstenbelasting': 'income tax return' };
 const branche = (b?: string) => (b && taal === 'en' ? EN[b] ?? b : b);
-const regel = (r: (typeof reviews)[number]) => [branche(r.branche), r.bedrijf !== r.naam ? r.bedrijf : ''].filter(Boolean).join(' · ');
+const regel = (r: { branche?: string; bedrijf?: string; naam: string }) => [branche(r.branche), r.bedrijf !== r.naam ? r.bedrijf : ''].filter(Boolean).join(' · ');
 const sterren = (n: number) => '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
 const G = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`;
 const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" height="18">`;
@@ -33,14 +39,15 @@ const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" heig
   <div class="gr-baan">
   <div class="gr-lijst" tabindex="0" aria-label={T.titel}>
     {lijst.map((r) => (
-      <figure class="kaart">
-        <div class="wie">
+      <figure class="kaart gr-kaart">
+        <div class="gr-wie">
           {r.foto ? <img src={r.foto} alt="" width="44" height="44" loading="lazy"> : <span class="init">{r.naam[0]}</span>}
           <div><b>{r.naam}</b>{regel(r) && <small>{regel(r)}</small>}</div>
           {r.bron === 'google' ? <span class="g klein" title="Google" set:html={G} /> : <span title="Moneybird" set:html={MB} />}
         </div>
         <div class="st" aria-label={`${r.sterren} van 5 sterren`}>{sterren(r.sterren)}</div>
         <blockquote>{r.tekst}</blockquote>
+        {r.vertaald && <span class="vertaald">{T.vertaald}</span>}
         <a class="op" href={r.link ?? (r.bron === 'google' ? google.profiel : moneybird.profiel)} target="_blank" rel="noopener">{T.op[r.bron]} ↗</a>
       </figure>
     ))}
@@ -71,15 +78,16 @@ document.querySelectorAll('.gr').forEach(function(gr){
 :global(.mb-logo){width:20px;height:20px;flex:none;display:inline-block}
 .gr-lijst{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 4px;margin-top:22px;-webkit-overflow-scrolling:touch}
 .kaart{flex:0 0 84%;scroll-snap-align:start;background:#fff;border:1px solid var(--lijn);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px}
-.wie{display:flex;align-items:center;gap:10px}
-.wie img,.init{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
+.gr-wie{display:flex;align-items:center;gap:10px}
+.gr-wie img,.init{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
 .init{display:grid;place-items:center;background:var(--blauw-t);color:var(--blauw);font-weight:700}
-.wie div{flex:1;min-width:0}
-.wie b{display:block;font-size:.95rem}
-.wie small{display:block;color:var(--grijs);font-size:.8rem;line-height:1.35}
+.gr-wie div{flex:1;min-width:0}
+.gr-wie b{display:block;font-size:.95rem}
+.gr-wie small{display:block;color:var(--grijs);font-size:.8rem;line-height:1.35}
 .st{color:#f5a524;letter-spacing:2px;font-size:.9rem}
 blockquote{color:var(--tekst);font-size:.97rem;flex:1;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden}
 .op{color:var(--blauw);text-decoration:none;font-size:.85rem;font-weight:600}
+.vertaald{font-size:.75rem;color:var(--grijs);margin-top:-4px}
 .gr-lijst{scrollbar-width:none}.gr-lijst::-webkit-scrollbar{display:none}
 .gr-baan{position:relative}
 .pijl{display:none;position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid var(--lijn);background:#fff;color:var(--inkt);font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(15,23,42,.12)}
