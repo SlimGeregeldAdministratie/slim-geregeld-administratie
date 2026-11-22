@@ -1,0 +1,152 @@
+---
+// NettoCheck: overgenomen van de React-site (src/components/NettoCheck.tsx).
+// Het is een Netlify-formulier met de naam "nettocheck" en dezelfde veldnamen,
+// zodat de bestaande verwerking (uitgaande Netlify-webhook, mail met de
+// berekening) ongewijzigd blijft werken. De berekening zelf gebeurt daar, niet
+// in de browser.
+import Basis from '../layouts/Basis.astro';
+---
+<Basis
+  titel="NettoCheck: wat houd je over als zzp'er? | Slim Geregeld"
+  omschrijving="Gratis NettoCheck: beantwoord vijf korte vragen en ontvang per mail een schatting van je inkomstenbelasting en wat je netto overhoudt als zelfstandige."
+  cta="/#contact"
+>
+  <section class="nc-kop">
+    <div class="wrap">
+      <span class="tag">Gratis tool</span>
+      <h1>NettoCheck</h1>
+      <p class="sub">Ontdek wat je echt overhoudt als zelfstandig ondernemer. Beantwoord vijf korte vragen en ontvang per mail een schatting van je inkomstenbelasting en je netto inkomen.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap nc-wrap">
+      <form class="nc" name="nettocheck" method="POST" action="/bedankt?formulier=nettocheck" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="nettocheck">
+        <p style="display:none"><label>Laat dit leeg: <input name="bot-field"></label></p>
+
+        <div class="nc-twee">
+          <div class="veld"><label for="boekjaar">Voor welk boekjaar?</label>
+            <select id="boekjaar" name="boekjaar" required></select></div>
+          <div class="veld"><label for="maandenActief">Hoeveel maanden ben je actief in dat jaar?</label>
+            <select id="maandenActief" name="maandenActief" required>
+              {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => <option value={String(m)} selected={m === 12}>{m} {m === 1 ? 'maand' : 'maanden'}</option>)}
+            </select></div>
+        </div>
+
+        <div class="veld"><label for="omzet">1. Wat is je geschatte omzet dit jaar, zonder btw?
+          <span class="bij">Weet je alleen je gemiddelde maandomzet? Vermenigvuldig die met het aantal maanden dat je actief bent.</span></label>
+          <div class="euro"><span>€</span><input id="omzet" name="omzet" type="text" inputmode="numeric" placeholder="45000" required></div></div>
+
+        <div class="veld"><label for="kosten-schuif">2. Wat zijn je gemiddelde zakelijke kosten per maand?</label>
+          <input id="kosten-schuif" name="kosten_slider" type="range" min="0" max="100" step="5" value="10" aria-describedby="kosten-tekst">
+          <input type="hidden" name="kosten" id="kosten" value="100">
+          <p class="nc-bedrag" id="kosten-tekst"><b>€100</b> per maand</p>
+          <div class="nc-schaal"><span>€0</span><span>€500</span><span>€2.000+</span></div></div>
+
+        <div class="veld"><label>3. Werk je minstens 1.225 uur per jaar aan je bedrijf?
+          <span class="bij">Dat is ongeveer 24 uur per week. Daarmee voldoe je aan het urencriterium.</span></label>
+          <label class="keuze"><input type="radio" name="urencriterium" value="ja" required> Ja</label>
+          <label class="keuze"><input type="radio" name="urencriterium" value="nee"> Nee</label></div>
+
+        <div class="veld"><label>4. Ben je een startende ondernemer, in je eerste drie jaar?</label>
+          <label class="keuze"><input type="radio" name="startende" value="ja" required> Ja</label>
+          <label class="keuze"><input type="radio" name="startende" value="nee"> Nee</label></div>
+
+        <div class="veld"><label>5. Wat is op jou van toepassing?
+          <span class="bij">Vink alles aan wat klopt.</span></label>
+          <input type="hidden" name="partner" value="nee">
+          <label class="keuze"><input type="checkbox" name="partner" value="ja" data-situatie> Ik heb een fiscale partner (getrouwd of samen aangifte)</label>
+          <input type="hidden" name="hypotheek" value="nee">
+          <label class="keuze"><input type="checkbox" name="hypotheek" value="ja" data-situatie> Ik heb een eigen woning met hypotheek</label>
+          <input type="hidden" name="extraInkomen" value="nee">
+          <label class="keuze"><input type="checkbox" name="extraInkomen" value="ja" data-situatie> Ik heb ander inkomen of bijzondere aftrekposten (loon, pensioen, uitkering, giften)</label>
+          <input type="hidden" name="geenVanDrie" value="nee">
+          <label class="keuze"><input type="checkbox" name="geenVanDrie" value="ja" id="geen"> Geen van bovenstaande</label></div>
+
+        <div class="nc-mail">
+          <b>Je berekening per mail</b>
+          <p>Je krijgt de uitgebreide berekening en een paar tips om belasting te besparen direct in je inbox.</p>
+        </div>
+        <div class="nc-twee">
+          <div class="veld"><label for="naam">Voornaam <span class="opt">optioneel</span></label><input id="naam" name="naam" type="text" autocomplete="given-name"></div>
+          <div class="veld"><label for="bedrijfsnaam">Bedrijfsnaam <span class="opt">optioneel</span></label><input id="bedrijfsnaam" name="bedrijfsnaam" type="text" autocomplete="organization"></div>
+        </div>
+        <div class="veld"><label for="email">E-mailadres</label><input id="email" name="email" type="email" required autocomplete="email" placeholder="je@email.nl"></div>
+        <button class="knop vol" type="submit">Bereken en stuur naar mijn mail</button>
+      </form>
+
+      <aside class="nc-noot">
+        <b>Let op</b>
+        <p>Dit is een indicatie op basis van je ondernemingswinst. Andere inkomsten, een fiscale partner, hypotheekrenteaftrek en toeslagen zitten er niet in, dus je echte aanslag kan afwijken. Twijfel je? <a href="https://wa.me/31621311043" target="_blank" rel="noopener">Stuur me een WhatsApp</a>.</p>
+      </aside>
+    </div>
+  </section>
+</Basis>
+
+<script is:inline>
+(function () {
+  // Boekjaar: van oktober tot en met december dit en volgend jaar, anders vorig en dit jaar.
+  var nu = new Date(), j = nu.getFullYear(), m = nu.getMonth() + 1;
+  var jaren = m >= 10 ? [j, j + 1] : [j - 1, j];
+  var sel = document.getElementById('boekjaar');
+  jaren.forEach(function (y) { var o = document.createElement('option'); o.value = String(y); o.textContent = String(y); if (y === j) o.selected = true; sel.appendChild(o); });
+
+  // Omzet: 45.000, 45,000 en 45k worden 45000.
+  var omzet = document.getElementById('omzet');
+  omzet.addEventListener('input', function () {
+    var v = omzet.value.replace(/[.,\s]/g, '').toLowerCase().replace('k', '000').replace(/[^0-9]/g, '');
+    if (v !== omzet.value) omzet.value = v;
+  });
+
+  // Kostenschuif: 0 tot 500 in stappen van 50, tot 1.000 per 100, tot 2.000 per 250.
+  var schuif = document.getElementById('kosten-schuif'), kosten = document.getElementById('kosten'), tekst = document.querySelector('#kosten-tekst b');
+  function waarde(p) {
+    var f = p / 100;
+    if (f <= 0.5) return Math.round(f * 2 * 500 / 50) * 50;
+    if (f <= 0.75) return 500 + Math.round((f - 0.5) / 0.25 * 500 / 100) * 100;
+    return 1000 + Math.round((f - 0.75) / 0.25 * 1000 / 250) * 250;
+  }
+  function zet() { var w = waarde(Number(schuif.value)); kosten.value = String(w); tekst.textContent = w >= 2000 ? '€2.000+' : '€' + w.toLocaleString('nl-NL'); }
+  schuif.addEventListener('input', zet); zet();
+
+  // "Geen van bovenstaande" zet de andere drie uit, en andersom.
+  var geen = document.getElementById('geen'), sit = document.querySelectorAll('[data-situatie]');
+  geen.addEventListener('change', function () { if (geen.checked) sit.forEach(function (c) { c.checked = false; }); });
+  sit.forEach(function (c) { c.addEventListener('change', function () { if (c.checked) geen.checked = false; }); });
+})();
+</script>
+
+<style>
+.nc-kop{padding:28px 0 24px;background:linear-gradient(180deg,var(--blauw-t),#fff 85%)}
+.nc-kop .sub{margin-top:12px;max-width:42rem}
+.nc-wrap{display:grid;gap:24px;max-width:1000px;align-items:start}
+.nc{border:1px solid var(--lijn);border-radius:var(--r-groot);padding:24px;background:#fff;display:grid;gap:22px}
+.nc .veld>label:first-child{display:block;font-weight:650;color:var(--inkt);margin-bottom:8px}
+.nc .bij{display:block;font-weight:400;font-size:.88rem;color:var(--grijs);margin-top:2px}
+.nc .opt{font-weight:400;color:var(--grijs);font-size:.82rem;margin-left:4px}
+.nc input[type=text],.nc input[type=email],.nc select{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:11px 12px;min-height:46px;font:inherit;background:#fff;color:var(--inkt)}
+.nc input:focus,.nc select:focus{outline:3px solid var(--blauw-rand);border-color:var(--blauw)}
+.nc .euro{position:relative}
+.nc .euro span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--grijs)}
+.nc .euro input{padding-left:28px}
+.nc .keuze{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--lijn);border-radius:12px;padding:10px 12px;margin-top:8px;cursor:pointer;color:var(--tekst);transition:border-color .15s,background .15s}
+.nc .keuze:hover{border-color:var(--blauw-rand);background:var(--blauw-t)}
+.nc .keuze:has(input:checked){border-color:var(--blauw);background:var(--blauw-t)}
+.nc .keuze input{margin-top:5px;flex:none}
+.nc input[type=range]{width:100%;accent-color:var(--blauw)}
+.nc-bedrag{text-align:center;color:var(--grijs);margin-top:6px}
+.nc-bedrag b{font-size:1.5rem;color:var(--blauw)}
+.nc-schaal{display:flex;justify-content:space-between;font-size:.78rem;color:var(--grijs)}
+.nc-twee{display:grid;gap:16px}
+.nc-mail{border:1px solid var(--blauw-rand);background:var(--blauw-t);border-radius:14px;padding:14px 16px}
+.nc-mail b{color:var(--inkt)}
+.nc-mail p{color:var(--tekst);font-size:.92rem;margin-top:4px}
+.nc .knop{width:100%}
+.nc-noot{border:1px solid var(--lijn);border-radius:var(--r);padding:18px 20px;background:var(--zacht);font-size:.9rem;color:var(--tekst)}
+.nc-noot b{color:var(--inkt)}
+.nc-noot p{margin-top:6px}
+.nc-noot a{color:var(--blauw)}
+@media (min-width:640px){.nc-twee{grid-template-columns:1fr 1fr}}
+@media (min-width:900px){.nc-wrap{grid-template-columns:1fr 300px}.nc-noot{position:sticky;top:96px}}
+</style>

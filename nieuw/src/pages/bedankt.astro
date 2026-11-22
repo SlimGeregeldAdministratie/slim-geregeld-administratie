@@ -22,7 +22,8 @@ import Basis from '../layouts/Basis.astro';
 
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'formulier_verstuurd', formulier: 'contact' });
+  // Het formulier geeft zijn naam mee in ?formulier= (NettoCheck); anders is het het contactformulier.
+  window.dataLayer.push({ event: 'formulier_verstuurd', formulier: new URLSearchParams(location.search).get('formulier') || 'contact' });
 </script>
 
 <style>

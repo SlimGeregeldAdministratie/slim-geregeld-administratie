@@ -602,6 +602,7 @@
     try {
       var r = await fetch('/en/intake/', { method:'POST', body:data });
       if (!r.ok) throw new Error('http ' + r.status);
+      (window.dataLayer = window.dataLayer || []).push({ event: 'formulier_verstuurd', formulier: 'intake-en', klanttype: gekozen('wat'), taal: 'en' });
       form.innerHTML = '<fieldset><legend>Thank you</legend><p class="hint" style="margin:0">' +
         'This is with me. You get a personal reply within one working day with the price for your ' +
         'situation and the first steps. If anything is urgent, WhatsApp me or email kyle@slim-geregeld.nl.</p></fieldset>';
