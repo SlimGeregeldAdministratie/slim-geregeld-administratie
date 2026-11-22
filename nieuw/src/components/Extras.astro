@@ -41,6 +41,37 @@ document.addEventListener('DOMContentLoaded',function(){
   if(!/^nl/i.test(l) && !weg){ b.hidden=false; }
   b.querySelector('button').addEventListener('click',function(){b.hidden=true;try{sessionStorage.setItem('sg_en_balk','weg')}catch(e){}});
 })();
+
+/* Rustig en zichtbaar scrollen naar een anker op dezelfde pagina (#contact,
+   #request, /#contact vanaf de homepage). Duur 0,7 tot 1,1 s, afhankelijk van
+   de afstand. Bij "verminder beweging" springt het direct, zoals de browser. */
+(function(){
+  var rustig=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function doel(a){
+    var u=new URL(a.getAttribute('href'),location.href);
+    if(u.pathname.replace(/\/$/,'')!==location.pathname.replace(/\/$/,'')||!u.hash||u.hash.length<2)return null;
+    try{return document.querySelector(decodeURIComponent(u.hash));}catch(e){return null;}
+  }
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+  document.addEventListener('click',function(e){
+    if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    var a=e.target.closest&&e.target.closest('a[href*="#"]');
+    if(!a)return;
+    var el=doel(a); if(!el)return;
+    e.preventDefault();
+    var start=window.scrollY, eind=el.getBoundingClientRect().top+start-84, afstand=eind-start;
+    history.pushState(null,'',a.hash||new URL(a.href).hash);
+    if(rustig||Math.abs(afstand)<4){window.scrollTo({top:eind,behavior:'instant'});return;}
+    var duur=Math.min(1100,Math.max(700,Math.abs(afstand)*.25)), t0=null;
+    function stap(t){
+      if(t0===null)t0=t;
+      var p=Math.min(1,(t-t0)/duur);
+      window.scrollTo({top:start+afstand*ease(p),behavior:'instant'});
+      if(p<1)requestAnimationFrame(stap);
+    }
+    requestAnimationFrame(stap);
+  });
+})();
 </script>
 
 <style>
