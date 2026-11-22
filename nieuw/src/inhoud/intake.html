@@ -106,6 +106,9 @@
         <div class="veld"><label for="permitStart">When did your permit start, or when do you expect it?
           <span class="bij">Roughly is fine.</span> <span class="opt">optional</span></label>
           <input id="permitStart" name="permitStart" type="date"></div>
+        <div class="veld"><label for="permitTot">When does your current permit expire? <span class="opt">optional</span>
+          <span class="bij">It's on your residence card. I use it to plan your renewal in time.</span></label>
+          <input id="permitTot" name="permitTot" type="date"></div>
         <p class="hint verborgen" id="verdrag-let-op" style="margin:.6rem 0 0">
           On a treaty permit the IND checks again, about three months before it ends, that your business
           still holds at least EUR 4,500 of your own money. I prepare and sign that statement, and I work
@@ -158,6 +161,9 @@
           <input id="bank" name="bank" type="text" placeholder="Rabobank, ING, bunq…"></div>
         <div class="veld"><label for="iban">IBAN of your business account <span class="opt">optional</span></label>
           <input id="iban" name="iban" type="text" placeholder="NL.."></div>
+        <div class="veld"><label for="rekeningNaam">Account name <span class="opt">optional</span>
+          <span class="bij">The name the business account is in, as your bank shows it.</span></label>
+          <input id="rekeningNaam" name="rekeningNaam" type="text" autocomplete="off"></div>
       </div>
       <div class="veld"><label>How do customer payments reach your account?</label>
         <label class="keuze"><input type="radio" name="betalingen" value="Los per klant" required>
@@ -454,5 +460,49 @@
       melding.textContent = 'That did not go through. Please email kyle@slim-geregeld.nl and I will pick it up from there.';
     }
   });
+})();
+</script>
+
+<script>
+/* Stap voor stap, zoals de Nederlandse intake: elke fieldset is een stap, met
+   Next en Back. Next controleert alleen de verplichte vragen van die stap.
+   De slimme logica (vragen tonen of verbergen) blijft in het script hierboven. */
+(function(){
+  var form=document.getElementById('f'); if(!form) return;
+  var stappen=[].slice.call(form.querySelectorAll(':scope > fieldset'));
+  if(stappen.length<2) return;
+  var knop=document.getElementById('verstuur');
+  var kop=document.createElement('div'); kop.className='stap-kop';
+  form.insertBefore(kop,stappen[0]);
+  var nav=document.createElement('div'); nav.className='stap-nav';
+  nav.innerHTML='<button type="button" class="terug">Back</button><button type="button" class="volgende">Next</button>';
+  form.insertBefore(nav,knop);
+  var terug=nav.querySelector('.terug'), volgende=nav.querySelector('.volgende');
+  var melding=document.getElementById('melding');
+  var nu=0;
+  function titel(f){var l=f.querySelector('legend');return l?l.textContent.replace(/^\d+\.\s*/,''):'';}
+  function toon(n,scroll){
+    nu=n;
+    stappen.forEach(function(f,i){f.classList.toggle('stap-uit',i!==n);});
+    kop.innerHTML='<span class="stap-nr">Step '+(n+1)+' of '+stappen.length+'</span><b>'+titel(stappen[n])+'</b><span class="balk"><i style="width:'+Math.round((n+1)/stappen.length*100)+'%"></i></span>';
+    terug.style.visibility=n===0?'hidden':'visible';
+    var laatste=n===stappen.length-1;
+    volgende.style.display=laatste?'none':'';
+    knop.style.display=laatste?'':'none';
+    if(melding){melding.className='melding';melding.textContent='';}
+    if(scroll) kop.scrollIntoView({block:'start'});
+  }
+  function geldig(f){
+    var velden=[].slice.call(f.querySelectorAll('input,select,textarea')).filter(function(el){return !el.closest('.verborgen')&&el.type!=='hidden';});
+    for(var i=0;i<velden.length;i++){ if(!velden[i].checkValidity()){ return velden[i]; } }
+    return null;
+  }
+  volgende.addEventListener('click',function(){
+    var fout=geldig(stappen[nu]);
+    if(fout){ if(melding){melding.className='melding fout';melding.textContent='Please answer the required questions in this step first.';} fout.focus({preventScroll:true}); fout.scrollIntoView({block:'center'}); return; }
+    toon(nu+1,true);
+  });
+  terug.addEventListener('click',function(){ toon(Math.max(0,nu-1),true); });
+  toon(0,false);
 })();
 </script>

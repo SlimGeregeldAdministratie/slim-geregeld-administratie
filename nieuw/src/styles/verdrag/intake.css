@@ -74,3 +74,18 @@
 .v-intake .zij-blok .knop{width:100%}
 @media (min-width:960px){.v-intake .intake-grid{grid-template-columns:1fr 320px;gap:32px}}
 @media (max-width:959px){.v-intake .intake-zij{position:static;order:-1}}
+
+/* Stappen zoals de Nederlandse intake */
+.v-intake fieldset.stap-uit{display:none}
+.v-intake .stap-kop{display:grid;gap:4px;margin-top:16px;scroll-margin-top:96px}
+.v-intake .stap-kop .stap-nr{font-size:.82rem;color:var(--blauw);font-weight:650}
+.v-intake .stap-kop b{font-size:1.15rem;color:var(--inkt)}
+.v-intake .stap-kop .balk{height:6px;background:var(--lijn);border-radius:99px;overflow:hidden;margin-top:6px}
+.v-intake .stap-kop .balk i{display:block;height:100%;background:var(--blauw);border-radius:99px;transition:width .25s}
+.v-intake .stap-kop + fieldset legend{display:none}
+.v-intake .stap-kop ~ fieldset legend{display:none}
+.v-intake .stap-nav{display:flex;justify-content:space-between;gap:12px;margin-top:16px}
+.v-intake .stap-nav button{margin-top:0;min-height:48px;padding:0 22px;border-radius:12px;font-weight:650}
+.v-intake .stap-nav .terug{background:#fff;color:var(--blauw);border:1.5px solid var(--blauw)}
+.v-intake .stap-nav .terug:hover{background:var(--blauw-t)}
+.v-intake .stap-nav .volgende{margin-left:auto}
