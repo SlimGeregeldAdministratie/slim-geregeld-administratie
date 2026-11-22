@@ -47,6 +47,7 @@ const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" heig
         </div>
         <div class="st" aria-label={`${r.sterren} van 5 sterren`}>{sterren(r.sterren)}</div>
         <blockquote>{r.tekst}</blockquote>
+        <button type="button" class="meer-lezen" hidden>{T.meer}</button>
         {r.vertaald && <span class="vertaald">{T.vertaald}</span>}
         <a class="op" href={r.link ?? (r.bron === 'google' ? google.profiel : moneybird.profiel)} target="_blank" rel="noopener">{T.op[r.bron]} ↗</a>
       </figure>
@@ -63,6 +64,11 @@ document.querySelectorAll('.gr').forEach(function(gr){
   function stand(){k[0].disabled=l.scrollLeft<8;k[1].disabled=l.scrollLeft+l.clientWidth>=l.scrollWidth-8;}
   k.forEach(function(b){b.addEventListener('click',function(){l.scrollBy({left:l.clientWidth*b.dataset.r,behavior:'smooth'});});});
   l.addEventListener('scroll',stand,{passive:true}); stand();
+  /* Lange reviews: 'Lees verder' tonen als de tekst is afgekapt. */
+  gr.querySelectorAll('.gr-kaart').forEach(function(c){
+    var q=c.querySelector('blockquote'), b=c.querySelector('.meer-lezen');
+    if(q.scrollHeight>q.clientHeight+2){b.hidden=false;b.addEventListener('click',function(){q.classList.add('open');b.hidden=true;});}
+  });
 });
 </script>
 
@@ -85,8 +91,11 @@ document.querySelectorAll('.gr').forEach(function(gr){
 .gr-wie b{display:block;font-size:.95rem}
 .gr-wie small{display:block;color:var(--grijs);font-size:.8rem;line-height:1.35}
 .st{color:#f5a524;letter-spacing:2px;font-size:.9rem}
-blockquote{color:var(--tekst);font-size:.97rem;flex:1;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden}
-.op{color:var(--blauw);text-decoration:none;font-size:.85rem;font-weight:600}
+blockquote{color:var(--tekst);font-size:.97rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+blockquote.open{display:block;-webkit-line-clamp:unset;overflow:visible}
+.meer-lezen{align-self:flex-start;background:none;border:0;padding:0;margin-top:-4px;font:inherit;font-size:.85rem;font-weight:600;color:var(--blauw);cursor:pointer}
+.meer-lezen:hover{text-decoration:underline}
+.op{color:var(--blauw);text-decoration:none;font-size:.85rem;font-weight:600;margin-top:auto}
 .vertaald{font-size:.75rem;color:var(--grijs);margin-top:-4px}
 .gr-lijst{scrollbar-width:none}.gr-lijst::-webkit-scrollbar{display:none}
 .gr-baan{position:relative}
