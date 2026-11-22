@@ -58,10 +58,10 @@
 }
 
 /* Grotere foto in het blok "Who signs your balance sheet" */
-@media (min-width:701px){.verdrag .wie{grid-template-columns:auto 1fr}}
-.verdrag .wie .foto{display:block;width:180px;height:240px;border-radius:var(--r)}
-.verdrag .wie .foto img{object-position:50% 30%}
-@media (max-width:700px){.verdrag .wie .foto{width:100%;height:260px}}
+@media (min-width:701px){.verdrag:not(.v-contact) .wie{grid-template-columns:auto 1fr}}
+.verdrag:not(.v-contact) .wie .foto{display:block;width:180px;height:240px;border-radius:var(--r)}
+.verdrag:not(.v-contact) .wie .foto img{object-position:50% 30%}
+@media (max-width:700px){.verdrag:not(.v-contact) .wie .foto{width:100%;height:260px}}
 /* Scores in de hero */
 .verdrag .hero .bewijs{margin-top:14px}
 
