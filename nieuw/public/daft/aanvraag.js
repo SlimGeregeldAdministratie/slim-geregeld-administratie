@@ -262,6 +262,19 @@
       }
       window.dataLayer=window.dataLayer||[];
       window.dataLayer.push({event:'daft_form_stap2',pagina:pagina});
+      // Stap 1 alvast bewaren (n8n: DAFT onvolledige aanvraag, tabblad Onvolledig),
+      // zodat afhakers opgevolgd kunnen worden. Eén keer per e-mail per sessie.
+      try{
+        var sleutel='sg_start_'+email.toLowerCase();
+        if(!sessionStorage.getItem(sleutel)){
+          sessionStorage.setItem(sleutel,'1');
+          fetch('https://n8n.slim-geregeld.nl/webhook/daft-aanvraag-start',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({
+            naam:naam,email:email,telefoon:(document.getElementById('d-tel')||{}).value||'',
+            nationaliteit:(document.getElementById('d-nationaliteit')||{}).value||'',
+            website2:(document.getElementById('d-website2')||{}).value||'',
+            pagina:location.pathname,via:via})}).catch(function(){});
+        }
+      }catch(e){}
     }
     toonStap(stap+1,true);
   });
