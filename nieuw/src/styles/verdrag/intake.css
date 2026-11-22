@@ -89,3 +89,17 @@
 .v-intake .stap-nav .terug{background:#fff;color:var(--blauw);border:1.5px solid var(--blauw)}
 .v-intake .stap-nav .terug:hover{background:var(--blauw-t)}
 .v-intake .stap-nav .volgende{margin-left:auto}
+
+/* 23-11-2026: losse toelichting als rustig kader, met lucht boven en onder,
+   in plaats van een hint die tegen het vorige veld aan plakt. */
+.v-intake .kader-tekst{margin:.4rem 0 1.2rem;padding:12px 14px;border-radius:12px;background:var(--zacht);font-size:.86rem;color:var(--tekst);line-height:1.55;max-width:none}
+.v-intake .kader-tekst b{color:var(--inkt)}
+.v-intake .veld .bij a{color:var(--blauw)}
+/* Uploadvelden: als een gewoon invoerveld, de snelkoppeling licht blauw */
+.v-intake .upload-blok{border:1px dashed var(--blauw-rand);background:var(--blauw-t);border-radius:14px;padding:14px 16px 2px;margin-bottom:1rem}
+.v-intake input[type=file]{display:block;width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:9px 10px;background:#fff;font-size:.92rem;color:var(--tekst)}
+.v-intake input[type=file]::file-selector-button{font:inherit;font-weight:650;font-size:.88rem;border:1.5px solid var(--blauw);background:#fff;color:var(--blauw);border-radius:8px;padding:6px 12px;margin-right:12px;cursor:pointer}
+.v-intake input[type=file]::file-selector-button:hover{background:var(--blauw-t)}
+/* WhatsApp-knop in de zijkolom op één regel */
+.v-intake .zij-blok .knop.wa{white-space:nowrap;padding:0 14px;font-size:.95rem}
+.v-intake .upload-blok > .veld{margin-top:0;margin-bottom:12px}
