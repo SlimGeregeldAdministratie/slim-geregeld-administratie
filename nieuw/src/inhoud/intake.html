@@ -21,9 +21,9 @@
         <label class="keuze"><input type="radio" name="wat" value="Plan">
           <span class="titel">The Compliance Plan, because I am on a DAFT or DJTT permit
             <span class="uitleg">The same bookkeeping, plus your income tax return, a quarterly equity check and the statement for your renewal. EUR 79 or EUR 149 a month.</span></span></label>
-        <label class="keuze"><input type="radio" name="wat" value="Alleen aangifte">
-          <span class="titel">Only my annual income tax return</span></label>
       </div>
+      <p class="kader-tekst">Only need your annual income tax return? That has its own short form:
+        <a href="/ib/#l=en">Dutch income tax return</a>.</p>
       <div class="twee">
         <div class="veld"><label for="naam">Your full name, as registered</label>
           <input id="naam" name="naam" type="text" required autocomplete="name"></div>
@@ -60,8 +60,9 @@
         <div class="veld"><label for="nationaliteit">Your nationality <span class="opt">optional</span></label>
           <input id="nationaliteit" name="nationaliteit" type="text" placeholder="Italian, American, Japanese..."></div>
       </div>
-      <div class="veld" data-voor="Boekhouding Plan"><label>Where is your bookkeeping now?</label>
-        <label class="keuze"><input type="radio" name="bestaand" value="Niets">
+      <div class="veld"><label>Where is your bookkeeping now?
+        <span class="bij">If you already work in Moneybird, most questions below fall away: I read them from your administration.</span></label>
+        <label class="keuze"><input type="radio" name="bestaand" value="Niets" required>
           <span class="titel">Nowhere yet, we start from scratch</span></label>
         <label class="keuze"><input type="radio" name="bestaand" value="Zelf bijgehouden">
           <span class="titel">In a spreadsheet or on paper</span></label>
@@ -99,9 +100,9 @@
             <span class="titel">DAFT, the Dutch American Friendship Treaty</span></label>
           <label class="keuze"><input type="radio" name="permit" value="Japans verdrag">
             <span class="titel">DJTT, the Dutch-Japanese trade treaty</span></label>
-          <label class="keuze" data-voor="Boekhouding Alleen-aangifte"><input type="radio" name="permit" value="Zelfstandige">
+          <label class="keuze" data-voor="Boekhouding"><input type="radio" name="permit" value="Zelfstandige">
             <span class="titel">Self-employed person (the points-based route)</span></label>
-          <label class="keuze" data-voor="Boekhouding Alleen-aangifte"><input type="radio" name="permit" value="Anders">
+          <label class="keuze" data-voor="Boekhouding"><input type="radio" name="permit" value="Anders">
             <span class="titel">Something else, or I do not know the name</span></label>
         </div>
         <div class="twee">
@@ -134,39 +135,9 @@
         <input id="anderLand" name="anderLand" type="text"></div>
     </fieldset>
 
-    <fieldset data-voor="Boekhouding Plan">
+    <fieldset id="st-facturen">
       <legend>3. Your invoices</legend>
       <p class="hint">Everything I need to set up your invoices in Moneybird, so they go out in your name and style.</p>
-      <div class="upload-blok">
-        <div class="veld"><label for="factuur">Shortcut: upload an invoice or quote you sent before <span class="opt">optional</span>
-          <span class="bij">I take your layout, wording, KVK number, VAT number, IBAN and payment term from it, so you can skip those below.</span></label>
-          <input id="factuur" name="factuur" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx"></div>
-      </div>
-      <div class="veld"><label for="logo">Your logo <span class="opt">optional</span>
-        <span class="bij">Your invoices carry it. No logo is fine too, they will just show your business name.</span></label>
-        <input id="logo" name="logo" type="file" accept=".png,.jpg,.jpeg,.svg,.webp,.pdf"></div>
-      <div class="twee">
-        <div class="veld"><label for="kvk">KVK number <span class="opt">optional</span></label>
-          <input id="kvk" name="kvk" type="text" inputmode="numeric" data-verplicht="nummers"></div>
-        <div class="veld"><label for="btw">VAT identification number (btw-id) <span class="opt">optional</span>
-          <span class="bij">The one on your invoices. Your customers see it.</span></label>
-          <input id="btw" name="btw" type="text" placeholder="NL123456789B01" data-verplicht="nummers"></div>
-      </div>
-      <div class="veld"><label for="omzetbelasting">Turnover tax number (omzetbelastingnummer) <span class="opt">optional</span>
-        <span class="bij">The one I file your VAT returns under. It is never on an invoice, because it holds your BSN.</span></label>
-        <input id="omzetbelasting" name="omzetbelasting" type="text" placeholder="NL123456789B01" data-verplicht="geregistreerd"></div>
-      <p class="kader-tekst">Both numbers are on the letters the tax authority sent when you registered, and they
-        are not the same number. You can also find the second one in Mijn Belastingdienst Zakelijk, under
-        Omzetbelasting.</p>
-      <div class="twee">
-        <div class="veld"><label for="iban">IBAN of your business account <span class="opt">optional</span></label>
-          <input id="iban" name="iban" type="text" placeholder="NL.." autocomplete="off" data-verplicht="nummers"></div>
-        <div class="veld"><label for="rekeningNaam">Account name <span class="opt">optional</span>
-          <span class="bij">The name the account is in, as your bank shows it.</span></label>
-          <input id="rekeningNaam" name="rekeningNaam" type="text" autocomplete="off" data-verplicht="nummers"></div>
-      </div>
-      <div class="veld"><label for="bank">Your business bank <span class="opt">optional</span></label>
-        <input id="bank" name="bank" type="text" placeholder="Rabobank, ING, bunq..."></div>
       <div class="veld"><label>Who do you sell to, and are your prices with or without VAT?
         <span class="bij">Consumers usually see prices including VAT, businesses excluding. It changes how your invoices are set up.</span></label>
         <label class="keuze"><input type="radio" name="facturatie" value="Particulieren incl" required>
@@ -179,9 +150,53 @@
           <span class="titel">I do not send invoices at all
             <span class="uitleg">You are paid on the spot, or a platform like Etsy handles it.</span></span></label>
       </div>
-      <div id="factuur-blok">
-        <div class="veld"><label>Your standard payment term <span class="opt">optional</span></label>
-          <label class="keuze"><input type="radio" name="betaaltermijn" value="14 dagen" data-verplicht="nummers"><span class="titel">14 days</span></label>
+      <div class="veld" id="eerder-blok"><label>Have you sent an invoice or quote to a customer before?
+        <span class="bij">Yourself or from another program. If so, that one example saves you most of the questions in this step.</span></label>
+        <label class="keuze"><input type="radio" name="eerderGefactureerd" value="Ja" required>
+          <span class="titel">Yes, I can upload one</span></label>
+        <label class="keuze"><input type="radio" name="eerderGefactureerd" value="Nee">
+          <span class="titel">No, this will be my first</span></label>
+      </div>
+      <div class="upload-blok verborgen" id="voorbeeld-blok">
+        <div class="veld"><label for="factuur">Upload that invoice or quote
+          <span class="bij">I take your layout, logo, wording, KVK number, VAT number, IBAN and payment term from it. A quote and an invoice together? Put them in one PDF.</span></label>
+          <input id="factuur" name="factuur" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx" required></div>
+        <div class="veld"><label for="aanpassingen">Anything you want different from this example? <span class="opt">optional</span></label>
+          <input id="aanpassingen" name="aanpassingen" type="text" placeholder="A new address, a different payment term..."></div>
+      </div>
+      <div id="nummers-blok">
+        <div class="twee">
+          <div class="veld"><label for="kvk">KVK number</label>
+            <input id="kvk" name="kvk" type="text" inputmode="numeric" required></div>
+          <div class="veld"><label for="btw">VAT identification number (btw-id)
+            <span class="bij">The one on your invoices. Your customers see it.</span></label>
+            <input id="btw" name="btw" type="text" placeholder="NL123456789B01" required></div>
+        </div>
+      </div>
+      <div id="omzet-blok">
+        <div class="veld"><label for="omzetbelasting">Turnover tax number (omzetbelastingnummer)
+          <span class="bij">The one I file your VAT returns under. It is never on an invoice, because it holds your BSN.</span></label>
+          <input id="omzetbelasting" name="omzetbelasting" type="text" placeholder="NL123456789B01" required></div>
+        <p class="kader-tekst">This is a different number from your btw-id. Both are on the letters the tax authority
+          sent when you registered, and you can also find this one in Mijn Belastingdienst Zakelijk, under Omzetbelasting.</p>
+      </div>
+      <div id="bank-blok">
+        <div class="twee">
+          <div class="veld"><label for="iban">IBAN of your business account <span class="opt">optional</span></label>
+            <input id="iban" name="iban" type="text" placeholder="NL.." autocomplete="off"></div>
+          <div class="veld"><label for="rekeningNaam">Account name <span class="opt">optional</span>
+            <span class="bij">The name the account is in, as your bank shows it.</span></label>
+            <input id="rekeningNaam" name="rekeningNaam" type="text" autocomplete="off"></div>
+        </div>
+      </div>
+      <div class="veld"><label for="bank">Your business bank <span class="opt">optional</span></label>
+        <input id="bank" name="bank" type="text" placeholder="Rabobank, ING, bunq..."></div>
+      <div id="eerste-factuur-blok" class="verborgen">
+        <div class="veld"><label for="logo">Your logo <span class="opt">optional</span>
+          <span class="bij">Your invoices carry it. No logo is fine too, they will just show your business name.</span></label>
+          <input id="logo" name="logo" type="file" accept=".png,.jpg,.jpeg,.svg,.webp,.pdf"></div>
+        <div class="veld"><label>Your standard payment term</label>
+          <label class="keuze"><input type="radio" name="betaaltermijn" value="14 dagen" required><span class="titel">14 days</span></label>
           <label class="keuze"><input type="radio" name="betaaltermijn" value="30 dagen"><span class="titel">30 days</span></label>
           <label class="keuze"><input type="radio" name="betaaltermijn" value="Direct"><span class="titel">Paid straight away</span></label>
         </div>
@@ -193,7 +208,7 @@
       </div>
     </fieldset>
 
-    <fieldset data-voor="Boekhouding Plan">
+    <fieldset id="st-btw">
       <legend>4. VAT and your bank</legend>
       <p class="hint">This decides which Moneybird package you need, so it is worth a moment.</p>
       <div class="veld"><label>Are you on the KOR, the small business scheme?
@@ -229,7 +244,7 @@
         <input id="omzet" name="omzet" type="text" placeholder="EUR 40,000 to 50,000"></div>
     </fieldset>
 
-    <fieldset data-voor="Boekhouding Plan">
+    <fieldset>
       <legend>5. Moneybird and Slim</legend>
       <div id="mb-bestaand" class="verborgen">
         <p class="hint">You already work in Moneybird, so we keep your administration and I join it.</p>
@@ -268,11 +283,10 @@
             bank account, and is therefore not fully complete.</span></label>
         </div>
       </div>
-      <div class="veld"><label>Shall I arrange your KVK verification inside Moneybird?
-        <span class="bij">Moneybird requires it before VAT returns can be filed from it. A code arrives by post at your KVK address within five working days. On the KOR there are no VAT returns, so you can skip it.</span></label>
+      <div class="veld" id="kvkverificatie-blok"><label>Shall I arrange your KVK verification inside Moneybird?
+        <span class="bij">Moneybird requires it before VAT returns can be filed from it. A code arrives by post at your KVK address within five working days.</span></label>
         <label class="keuze"><input type="radio" name="kvkverificatie" value="Ja, regel het" required><span class="titel">Yes, please arrange it</span></label>
         <label class="keuze"><input type="radio" name="kvkverificatie" value="Al gedaan"><span class="titel">Already done</span></label>
-        <label class="keuze"><input type="radio" name="kvkverificatie" value="Niet nodig"><span class="titel">Not needed, I am on the KOR</span></label>
       </div>
       <div class="veld"><label>Have you installed the Moneybird app on your phone?
         <span class="bij">It is how you photograph a receipt in five seconds instead of keeping a shoebox. Worth doing now:
@@ -290,23 +304,32 @@
 
     <fieldset>
       <legend>6. Where we start</legend>
-      <div class="veld" data-voor="Boekhouding Plan"><label for="vanaf">From which date should the bookkeeping be built up?
+      <div class="veld" id="vanaf-blok"><label for="vanaf">From which date should the bookkeeping be built up?
         <span class="bij">Usually the day your business started, or the first day of this year if it ran before.</span></label>
         <input id="vanaf" name="vanaf" type="date" required></div>
       <div id="overdracht-blok" class="verborgen">
-        <div class="veld"><label for="programma">Which program or file, and can you still get into it? <span class="opt">optional</span></label>
+        <div class="veld"><label for="programma">Which program or file? <span class="opt">optional</span></label>
           <input id="programma" name="programma" type="text" placeholder="e-Boekhouden, Exact, Wave, a spreadsheet..."></div>
-        <div class="veld"><label>Which of these can you supply for the start date?
-          <span class="bij">Tick what you have. Missing items are not a problem, it just tells me where to begin.</span></label>
-          <label class="keuze"><input type="checkbox" name="over_facturen" value="ja"><span class="titel">Sales and purchase invoices that were still unpaid</span></label>
-          <label class="keuze"><input type="checkbox" name="over_saldo" value="ja"><span class="titel">Your bank balance on that date</span></label>
-          <label class="keuze"><input type="checkbox" name="over_btw" value="ja"><span class="titel">Your VAT position on that date</span></label>
-          <label class="keuze"><input type="checkbox" name="over_balans" value="ja"><span class="titel">An opening or closing balance sheet</span></label>
-          <label class="keuze"><input type="checkbox" name="over_lijst" value="ja"><span class="titel">A list of regular customers or suppliers</span></label>
+        <div class="veld" id="wijze-blok"><label>How would you like to hand it over?</label>
+          <label class="keuze"><input type="radio" name="overdrachtwijze" value="Toegang" required>
+            <span class="titel">I give you access and you take it over
+              <span class="uitleg">Add kyle@slim-geregeld.nl as a user in that program. I export what I need myself.</span></span></label>
+          <label class="keuze"><input type="radio" name="overdrachtwijze" value="Zelf aanleveren">
+            <span class="titel">I collect it and upload it myself</span></label>
         </div>
-        <div class="veld"><label for="overdracht">Upload it here <span class="opt">optional</span>
-          <span class="bij">One file: an export, a spreadsheet, or a zip with several files. You can also send it later.</span></label>
-          <input id="overdracht" name="overdracht" type="file" accept=".pdf,.csv,.xls,.xlsx,.zip,.png,.jpg,.jpeg"></div>
+        <div id="aanlever-blok">
+          <div class="veld"><label>Which of these can you supply for the start date?
+            <span class="bij">Tick what you have. Missing items are not a problem, it just tells me where to begin.</span></label>
+            <label class="keuze"><input type="checkbox" name="over_facturen" value="ja"><span class="titel">Sales and purchase invoices that were still unpaid</span></label>
+            <label class="keuze"><input type="checkbox" name="over_saldo" value="ja"><span class="titel">Your bank balance on that date</span></label>
+            <label class="keuze"><input type="checkbox" name="over_btw" value="ja"><span class="titel">Your VAT position on that date</span></label>
+            <label class="keuze"><input type="checkbox" name="over_balans" value="ja"><span class="titel">An opening or closing balance sheet</span></label>
+            <label class="keuze"><input type="checkbox" name="over_lijst" value="ja"><span class="titel">A list of regular customers or suppliers</span></label>
+          </div>
+          <div class="veld"><label for="overdracht">Upload it here <span class="opt">optional</span>
+            <span class="bij">One file: an export, a spreadsheet, or a zip with several files. You can also send it later.</span></label>
+            <input id="overdracht" name="overdracht" type="file" accept=".pdf,.csv,.xls,.xlsx,.zip,.png,.jpg,.jpeg"></div>
+        </div>
       </div>
       <div class="veld"><label>Do you keep a record of your hours?
         <span class="bij">1,225 hours in a calendar year gives you the self-employed deduction, and in your first years the starter's deduction on top. Setting up and admin hours count.</span></label>
@@ -339,13 +362,7 @@
         </ul>
         <p class="hint" style="margin:.5rem 0 0">EUR 79 a month when it is quiet, EUR 149 when you are busier or charge VAT. The plan runs for twelve months.</p>
       </div>
-      <div class="veld" data-voor="Alleen-aangifte"><label>Your income tax return</label>
-        <ul class="kader">
-          <li>EUR 245, or EUR 395 together with your tax partner</li>
-          <li>You get the draft to check before anything is filed</li>
-        </ul>
-      </div>
-      <div class="veld" data-voor="Boekhouding Plan"><label>What is quoted separately, always before I start and never on the invoice</label>
+      <div class="veld"><label>What is quoted separately, always before I start and never on the invoice</label>
         <ul class="kader">
           <li>Bringing an existing or neglected administration up to date, and sorting or entering a backlog
               of loose receipts</li>
@@ -393,7 +410,6 @@
     return el ? el.value : '';
   }
   function zet(id, aan){ var el = document.getElementById(id); if (el) el.classList.toggle('verborgen', !aan); }
-  function heeftBestand(id){ var el = document.getElementById(id); return !!(el && el.files && el.files.length); }
 
   // Een veld verplicht maken of niet, en het woordje 'optional' in het label
   // daarop laten meebewegen. Bij een radiogroep volstaat required op de eerste.
@@ -407,13 +423,12 @@
   }
 
   function bijwerken(){
-    // Klanttype bepaalt welke stappen en blokken er zijn. Wie alleen een
-    // aangifte wil, ziet geen factuur-, btw- of Moneybirdvragen.
+    // Klanttype: boekhouding of het Compliance Plan. Wie alleen een aangifte wil,
+    // gaat naar het IB-formulier (/ib/#l=en), daar is dit formulier niet voor.
     var wat = gekozen('wat');
-    var type = wat === 'Alleen aangifte' ? 'Alleen-aangifte' : wat;
     form.querySelectorAll('[data-voor]').forEach(function(el){
       var lijst = el.getAttribute('data-voor').split(' ');
-      el.classList.toggle('verborgen', !!type && lijst.indexOf(type) < 0);
+      el.classList.toggle('verborgen', !!wat && lijst.indexOf(wat) < 0);
     });
     var plan = wat === 'Plan';
 
@@ -429,25 +444,46 @@
     verplicht('permitTot', plan && nodig === 'Ja, heb ik');
     zet('welk-land', gekozen('buitenlandsFiscaal') === 'Ander land');
 
-    // Gegevens voor de facturen. Zonder inschrijving zijn er nog geen nummers.
-    // Met een voorbeeldfactuur haal ik KvK, btw-id, IBAN en termijn daaruit,
-    // net als bij de Nederlandse intake; het omzetbelastingnummer staat nooit
-    // op een factuur en blijft dus verplicht.
-    var geregistreerd = gekozen('rechtsvorm') !== 'Nog niet ingeschreven';
-    var voorbeeld = heeftBestand('factuur');
-    var factureert = gekozen('facturatie') !== 'Geen facturen';
-    ['kvk','btw','iban','rekeningNaam'].forEach(function(n){ verplicht(n, geregistreerd && !voorbeeld); });
-    verplicht('omzetbelasting', geregistreerd);
-    verplicht('bedrijf', geregistreerd);
-    zet('factuur-blok', factureert);
-    verplicht('betaaltermijn', factureert && !voorbeeld);
-
-    // Moneybird: wie er al in werkt nodigt mij uit; anders kies je een pakket.
-    var mb = gekozen('bestaand') === 'Moneybird';
+    // Al in Moneybird: zoals de Nederlandse intake (sectie 9) vallen factuur-,
+    // btw-, pakket- en startvragen weg. Die lees ik uit de administratie zelf
+    // zodra de klant mij als boekhouder heeft uitgenodigd.
+    var bestaand = gekozen('bestaand');
+    var mb = bestaand === 'Moneybird';
+    zet('st-facturen', !mb);
+    zet('st-btw', !mb);
     zet('mb-bestaand', mb);
     zet('mb-nieuw', !mb);
-    zet('overdracht-blok', gekozen('bestaand') === 'Zelf bijgehouden' || gekozen('bestaand') === 'Ander programma');
-    verplicht('bestaand', wat !== 'Alleen aangifte');
+    zet('vanaf-blok', !mb);
+
+    // Facturen, zoals de Nederlandse intake (sectie 1 tot 4). Met een eerder
+    // verstuurde factuur haal ik logo, opmaak, teksten, KvK, btw-id, IBAN en
+    // termijn daaruit; alleen het omzetbelastingnummer staat er nooit op.
+    // Zonder inschrijving zijn er nog geen nummers.
+    var geregistreerd = gekozen('rechtsvorm') !== 'Nog niet ingeschreven';
+    var factureert = gekozen('facturatie') !== 'Geen facturen';
+    var eerder = factureert && gekozen('eerderGefactureerd') === 'Ja';
+    var eerste = factureert && gekozen('eerderGefactureerd') === 'Nee';
+    zet('eerder-blok', factureert);
+    zet('voorbeeld-blok', eerder);
+    zet('eerste-factuur-blok', eerste);
+    zet('nummers-blok', geregistreerd && !eerder);
+    zet('omzet-blok', geregistreerd);
+    zet('bank-blok', !eerder);
+    verplicht('iban', geregistreerd);
+    verplicht('rekeningNaam', geregistreerd);
+    verplicht('bedrijf', geregistreerd);
+
+    // KvK-verificatie is alleen nodig voor btw-aangifte vanuit Moneybird: niet in
+    // de KOR, niet zonder inschrijving, en niet als de klant al in Moneybird zit.
+    var kor = gekozen('kor');
+    zet('kvkverificatie-blok', !mb && geregistreerd && kor !== 'Ja');
+
+    // Overdracht, zoals de Nederlandse intake (sectie 6 tot 8): toegang geven of
+    // zelf aanleveren. Een spreadsheet of papier kun je alleen zelf aanleveren.
+    var ander = bestaand === 'Ander programma';
+    zet('overdracht-blok', bestaand === 'Zelf bijgehouden' || ander);
+    zet('wijze-blok', ander);
+    zet('aanlever-blok', !ander || gekozen('overdrachtwijze') === 'Zelf aanleveren');
 
     var bv = gekozen('rechtsvorm') === 'BV';
     zet('keuze-start', !bv);
@@ -455,7 +491,6 @@
     if (bv && gekozen('pakket') === 'Start 18') form.querySelector('input[name="pakket"][value="Groei 35"]').checked = true;
     // Compact kan geen btw-aangifte doen en heeft geen bankkoppeling. Het past
     // alleen bij een rustige eenmanszaak in de KOR, of die de KOR laat aanvragen.
-    var kor = gekozen('kor');
     var compactKan = !bv && (kor === 'Ja' || kor === 'Aanvragen');
     zet('keuze-compact', compactKan);
     if (!compactKan && gekozen('pakket') === 'Compact 3') form.querySelector('input[name="pakket"][value="Groei 35"]').checked = true;
@@ -494,8 +529,8 @@
   form.addEventListener('change', bijwerken);
   bijwerken();
 
-  // Stap voor stap, zoals de Nederlandse intake. Een stap die niet bij het
-  // klanttype hoort (data-voor) wordt overgeslagen, ook in de teller.
+  // Stap voor stap, zoals de Nederlandse intake. Een stap die niet van toepassing
+  // is (klanttype of al in Moneybird) wordt overgeslagen, ook in de teller.
   var alle = [].slice.call(form.querySelectorAll(':scope > fieldset'));
   var kop = document.createElement('div'); kop.className = 'stap-kop';
   form.insertBefore(kop, alle[0]);
@@ -539,7 +574,7 @@
   terug.addEventListener('click', function(){ var s = stappen(); toon(s[Math.max(0, s.indexOf(huidig) - 1)], true); });
   toon(alle[0], false);
   // Wie in stap 1 het klanttype kiest, ziet meteen het juiste aantal stappen.
-  form.addEventListener('change', function(e){ if (e.target.name === 'wat') toon(huidig, false); });
+  form.addEventListener('change', function(e){ if (e.target.name === 'wat' || e.target.name === 'bestaand') toon(huidig, false); });
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
