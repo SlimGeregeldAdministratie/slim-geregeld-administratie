@@ -1,0 +1,18 @@
+---
+import { A, artikelPad, clusterLabel, clusterPad, clusterHeeftPagina, datumMooi } from '../lib/inhoud.mjs';
+interface Props { s: any; kop?: 'h2' | 'h3' }
+const { s, kop = 'h2' } = Astro.props;
+const Kop = kop;
+const label = clusterLabel(s.cluster, s.taal);
+---
+<li class="blog-kaart" data-datum={s.date}>
+  <div class="blog-meta">
+    {clusterHeeftPagina(s.taal, s.cluster)
+      ? <a class="blog-label" href={clusterPad(s.taal, s.cluster)}>{label}</a>
+      : <span class="blog-label">{label}</span>}
+    <span class="nieuw-plek"></span>
+  </div>
+  <Kop><a href={artikelPad(s)}>{s.title}</a></Kop>
+  <p class="blog-meta"><span>{A[s.author].naam}</span><span aria-hidden="true">·</span><time datetime={s.date}>{datumMooi(s.date, s.taal)}</time></p>
+  <p>{s.description}</p>
+</li>

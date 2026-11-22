@@ -1,0 +1,84 @@
+---
+// Downloadpagina met formulier (zoals de oude build, bouwDownloads in blog.mjs).
+// Het formulier post naar de n8n-webhook uit src/data/downloads.json; die
+// antwoordt met de downloadlink en mailt de pdf. ?droog=true test zonder mail.
+import Basis from '../layouts/Basis.astro';
+import '../styles/blog.css';
+import { B, DOWNLOADS, metKyle, kruimelGraaf, ld } from '../lib/inhoud.mjs';
+import { SITE } from '../lib/entiteiten.mjs';
+interface Props { d: any; taal: 'nl' | 'en' }
+const { d, taal } = Astro.props;
+const x = d[taal];
+const T = {
+  nl: { home: ['Home', '/'], inhoud: 'Wat staat erin', voorWie: 'Voor wie', formKop: 'Ontvang de pdf', formIntro: 'Vul je naam en e-mailadres in, dan krijg je de pdf direct. Wil je ook af en toe een mail met nieuwe stukken? Zet dan het vinkje aan.', naam: 'Naam', email: 'E-mailadres',
+    nieuwsbrief: 'Ik wil de maandelijkse nieuwsbrief ontvangen', knop: 'Download de pdf', bezig: 'Even geduld...',
+    privacy: ['Je gegevens gebruik ik om je de download te sturen en, als je dat aanvinkt, voor de nieuwsbrief. Lees het ', '/privacybeleid', 'privacybeleid', '.'],
+    klaar: 'Je download staat klaar.', downloadKnop: 'Open de pdf', fout: 'Dat lukte niet. Probeer het opnieuw of mail kyle@slim-geregeld.nl.', door: 'Gemaakt door Kyle Bouwmeester, Becon-geregistreerd boekhouder.' },
+  en: { home: ['Treaty services', '/en/'], inhoud: 'What is inside', voorWie: 'Who it is for', formKop: 'Get the PDF', formIntro: 'Enter your name and email and the PDF is yours right away. Tick the box if you would also like an occasional email with new articles.', naam: 'Name', email: 'Email address',
+    nieuwsbrief: 'Send me the monthly newsletter', knop: 'Download the PDF', bezig: 'One moment...',
+    privacy: ['I use your details to send you the download and, if you tick the box, for the newsletter. Read the ', '/en/privacy/', 'privacy policy', '.'],
+    klaar: 'Your download is ready.', downloadKnop: 'Open the PDF', fout: 'That did not work. Please try again or email kyle@slim-geregeld.nl.', door: 'Made by Kyle Bouwmeester, Becon-registered bookkeeper.' },
+}[taal];
+const u = B + x.pad;
+const graaf = [...metKyle(taal),
+  { '@type': 'WebPage', '@id': u + '#webpage', url: u, name: x.titel, description: x.omschrijving, inLanguage: taal, isPartOf: { '@id': SITE['@id'] },
+    breadcrumb: { '@id': u + '#breadcrumb' }, dateModified: DOWNLOADS.gewijzigd,
+    mainEntity: { '@type': 'DigitalDocument', name: x.h1, description: x.omschrijving, encodingFormat: 'application/pdf', inLanguage: taal,
+      author: { '@id': B + '/#kyle' }, publisher: { '@id': B + '/#org' }, isAccessibleForFree: true } },
+  kruimelGraaf(u, [T.home, [x.h1, x.pad]])];
+---
+<Basis titel={x.titel} omschrijving={x.omschrijving} taal={taal} alternatief={{ nl: d.nl.pad, en: d.en.pad }} cta={taal === 'nl' ? '/#contact' : undefined}>
+  <script slot="head" type="application/ld+json" set:html={ld(graaf)} />
+  <section class="blog-kop">
+    <div class="wrap">
+      <div class="dl-grid">
+        <div>
+          <span class="tag">PDF</span>
+          <h1 style="font-size:clamp(2rem,5.6vw,2.8rem)">{x.h1}</h1>
+          <p class="sub" style="margin-top:14px">{x.intro}</p>
+          <h2 style="font-size:1.35rem;margin-top:30px">{T.inhoud}</h2>
+          <ul class="vinkjes">{x.inhoud.map((i: string) => <li>{i}</li>)}</ul>
+          <h2 style="font-size:1.35rem">{T.voorWie}</h2>
+          <p style="color:var(--tekst);margin-top:6px">{x.voorWie}</p>
+          <p style="color:var(--grijs);font-size:.9rem;margin-top:14px">{T.door}</p>
+        </div>
+        <div class="dl-form">
+          <h2>{T.formKop}</h2>
+          <p>{T.formIntro}</p>
+          <form method="post" action={DOWNLOADS.webhook} data-download={d.sleutel} data-taal={taal} data-veld={DOWNLOADS.antwoordVeld}>
+            <label for="naam">{T.naam}</label><input id="naam" name="naam" type="text" autocomplete="name" maxlength="120" required>
+            <label for="email">{T.email}</label><input id="email" name="email" type="email" autocomplete="email" required>
+            <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+            <label class="vink"><input name="nieuwsbrief" type="checkbox"> <span>{T.nieuwsbrief}</span></label>
+            <p class="klein">{T.privacy[0]}<a href={T.privacy[1]}>{T.privacy[2]}</a>{T.privacy[3]}</p>
+            <button class="knop vol" type="submit" data-bezig={T.bezig}>{T.knop}</button>
+            <p class="fout" data-melding hidden role="alert">{T.fout}</p>
+          </form>
+          <div data-klaar hidden role="status"><p style="color:var(--inkt);font-weight:700">{T.klaar}</p><a class="knop vol" style="width:100%;margin-top:10px" href="#" target="_blank" rel="noopener">{T.downloadKnop}</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script is:inline>
+  document.querySelectorAll('form[data-download]').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      var knop = f.querySelector('button[type=submit]'), melding = f.querySelector('[data-melding]'), klaar = f.parentNode.querySelector('[data-klaar]');
+      var tekst = knop.textContent; knop.disabled = true; knop.textContent = knop.getAttribute('data-bezig'); melding.hidden = true;
+      var data = { naam: f.naam.value.trim(), email: f.email.value.trim(), nieuwsbrief: f.nieuwsbrief.checked, website: f.website.value,
+        download: f.getAttribute('data-download'), taal: f.getAttribute('data-taal'), bron: location.origin + location.pathname };
+      if (/[?&]droog=true\b/.test(location.search)) data.droog = true;
+      fetch(f.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, j: j }; }); })
+        .then(function (a) {
+          var url = a.j && a.j.ok && a.j[f.getAttribute('data-veld')];
+          if (!url) { var e = new Error('mislukt'); e.fout = a.status === 429 && a.j.fout; throw e; }
+          klaar.querySelector('a').href = url; f.hidden = true; klaar.hidden = false; klaar.querySelector('a').focus();
+          (window.dataLayer = window.dataLayer || []).push({ event: 'formulier_verstuurd', formulier: 'download', download: data.download, taal: data.taal });
+        })
+        .catch(function (e) { if (e && e.fout) melding.textContent = e.fout; melding.hidden = false; knop.disabled = false; knop.textContent = tekst; });
+    });
+  });
+  </script>
+</Basis>

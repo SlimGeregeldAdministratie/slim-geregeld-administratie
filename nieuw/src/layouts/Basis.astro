@@ -13,9 +13,14 @@ interface Props {
   robots?: string;
   /** Doel van de Kennismaken-knop; standaard het formulier op de pagina zelf. */
   cta?: string;
+  /** Eigen canonical-pad, of false voor geen canonical (404, ingetrokken). */
+  canonical?: string | false;
+  ogType?: 'website' | 'article' | 'profile';
+  /** Pad naar een afbeelding voor og:image, bijvoorbeeld de blogafbeelding. */
+  afbeelding?: string;
 }
-const { titel, omschrijving, taal = 'nl', alternatief = {}, robots = 'index, follow', cta = taal === 'nl' ? '#contact' : undefined } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const { titel, omschrijving, taal = 'nl', alternatief = {}, robots = 'index, follow', cta = taal === 'nl' ? '#contact' : undefined, ogType = 'website', afbeelding } = Astro.props;
+const canonical = Astro.props.canonical === false ? null : new URL(Astro.props.canonical || Astro.url.pathname, Astro.site).href;
 const ogLocale = { nl: 'nl_NL', en: 'en_US', ja: 'ja_JP' }[taal];
 ---
 <!doctype html>
@@ -34,13 +39,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>{titel}</title>
 <meta name="description" content={omschrijving}>
 <meta name="robots" content={robots}>
-<link rel="canonical" href={canonical}>
+{canonical && <link rel="canonical" href={canonical}>}
 <link rel="icon" type="image/png" href="/favicon.png">
 {alternatief.nl && <link rel="alternate" hreflang="nl" href={new URL(alternatief.nl, Astro.site).href}>}
 {alternatief.en && <link rel="alternate" hreflang="en" href={new URL(alternatief.en, Astro.site).href}>}
 {alternatief.ja && <link rel="alternate" hreflang="ja" href={new URL(alternatief.ja, Astro.site).href}>}
-<meta property="og:type" content="website">
-<meta property="og:url" content={canonical}>
+<meta property="og:type" content={ogType}>
+{canonical && <meta property="og:url" content={canonical}>}
+{afbeelding && <meta property="og:image" content={new URL(afbeelding, Astro.site).href}>}
 <meta property="og:title" content={titel}>
 <meta property="og:description" content={omschrijving}>
 <meta property="og:locale" content={ogLocale}>

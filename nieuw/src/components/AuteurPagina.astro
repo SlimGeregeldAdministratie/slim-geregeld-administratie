@@ -1,0 +1,53 @@
+---
+// Auteurspagina (NL /over/<naam>/ en EN /en/about/<naam>/): wie de auteur is,
+// Becon-registratie, KVK, profielen en de artikelen. Een auteur zonder
+// live-artikelen (Miguel tot zijn eerste stuk) staat op noindex.
+import Basis from '../layouts/Basis.astro';
+import BlogKaart from './BlogKaart.astro';
+import '../styles/blog.css';
+import { A, B, AUTEURPADEN, zichtbaar, nieuwsteEerst, metKyle, kruimelGraaf, ld, artikelPad } from '../lib/inhoud.mjs';
+import { SITE } from '../lib/entiteiten.mjs';
+interface Props { sleutel: string; taal: 'nl' | 'en' }
+const { sleutel, taal } = Astro.props;
+const a = A[sleutel];
+const TEKST = {
+  nl: { artikelen: 'Artikelen', geen: 'Nog geen artikelen.', feiten: 'Gegevens', titel: (n: string) => `${n}, auteur | Slim Geregeld`, kruimels: [['Home', '/'], ['Over', '/over']] },
+  en: { artikelen: 'Articles', geen: 'No articles yet.', feiten: 'Details', titel: (n: string) => `${n}, author | Slim Geregeld`, kruimels: [['Treaty services', '/en/']] },
+}[taal];
+const stukken = zichtbaar.filter((s: any) => s.author === sleutel && s.status === 'live').sort(nieuwsteEerst);
+const index = stukken.length > 0 || sleutel === 'kyle';
+const nieuwste = stukken.reduce((m: string, s: any) => ((s.updated || s.date) > m ? (s.updated || s.date) : m), '2026-11-05');
+const pad = AUTEURPADEN[sleutel][taal];
+const u = B + pad;
+const omschrijving = `${a.naam}, ${a.functie[taal]} bij Slim Geregeld Administratie.`.slice(0, 155);
+const persoon = a.schema(taal);
+const graaf = [...metKyle(taal, persoon),
+  { '@type': 'ProfilePage', '@id': u + '#webpage', url: u, name: TEKST.titel(a.naam), description: omschrijving, inLanguage: taal, isPartOf: { '@id': SITE['@id'] },
+    breadcrumb: { '@id': u + '#breadcrumb' }, mainEntity: { '@id': persoon['@id'] }, dateModified: nieuwste,
+    ...(stukken.length ? { hasPart: stukken.map((s: any) => ({ '@id': B + artikelPad(s) + '#article' })) } : {}) },
+  kruimelGraaf(u, [...TEKST.kruimels, [a.naam, pad]])];
+const alternatief = index ? { nl: AUTEURPADEN[sleutel].nl, en: AUTEURPADEN[sleutel].en } : {};
+---
+<Basis titel={TEKST.titel(a.naam)} omschrijving={omschrijving} taal={taal} robots={index ? 'index, follow' : 'noindex, follow'} alternatief={alternatief} ogType="profile" cta={taal === 'nl' ? '/#contact' : undefined}>
+  <script slot="head" type="application/ld+json" set:html={ld(graaf)} />
+  <section class="blog-kop">
+    <div class="blog-smal">
+      <div class="auteur-kop">
+        {a.foto ? <img class="avatar groot" src={a.foto} alt="" width="72" height="72"> : <span class="avatar groot" aria-hidden="true">{a.initialen}</span>}
+        <div><h1>{a.naam}</h1><p class="sub" style="margin-top:4px">{a.functie[taal]}</p></div>
+      </div>
+      <p class="sub" style="margin-top:18px;max-width:none">{a.bio[taal]}</p>
+    </div>
+  </section>
+  <section style="padding-top:8px">
+    <div class="blog-smal">
+      <div class="feiten">
+        <h2 style="font-size:1.3rem">{TEKST.feiten}</h2>
+        <dl>{(a.feiten[taal] || []).map(([k, v]: [string, string]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+        {a.links.length > 0 && <p class="links">{a.links.map(([h, l]: [string, string]) => <a href={h} rel={/^https?:/.test(h) ? 'me noopener' : undefined}>{l}</a>)}</p>}
+      </div>
+      <h2 style="font-size:1.6rem;margin-top:36px">{TEKST.artikelen}</h2>
+      {stukken.length ? <ul class="blog-lijst">{stukken.map((s: any) => <BlogKaart s={s} />)}</ul> : <p class="blog-leeg">{TEKST.geen}</p>}
+    </div>
+  </section>
+</Basis>

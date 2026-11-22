@@ -1,0 +1,7 @@
+---
+// Blogroute (ja). Alle logica staat in BlogPagina en src/lib/inhoud.mjs.
+import BlogPagina from '../../../components/BlogPagina.astro';
+import { blogPaden } from '../../../lib/inhoud.mjs';
+export function getStaticPaths() { return blogPaden('ja'); }
+---
+<BlogPagina {...Astro.props} />

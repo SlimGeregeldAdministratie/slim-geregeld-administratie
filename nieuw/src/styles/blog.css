@@ -1,0 +1,118 @@
+/* Blog, nieuws, auteurs en downloads (herbouw deel 4). Dezelfde rustige kaarten
+   als de rest van de site: rand en schaduw bij hover, niets springt. */
+.blog-kop{padding:28px 0 8px;background:linear-gradient(180deg,var(--blauw-t),#fff 85%)}
+.blog-kop .sub{margin-top:12px;max-width:44rem}
+.blog-smal{max-width:780px;margin:0 auto;padding:0 20px}
+.blog-label{display:inline-flex;align-items:center;font-size:.76rem;font-weight:650;color:var(--blauw);background:var(--blauw-t);border-radius:999px;padding:4px 11px;text-decoration:none}
+a.blog-label:hover{background:#dfe8ff}
+.blog-label.nieuw{background:var(--blauw);color:#fff}
+.blog-filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 8px}
+.blog-filters a,.blog-volgorde button{font:inherit;font-size:.86rem;font-weight:650;border:1px solid var(--lijn);background:#fff;color:var(--tekst);border-radius:999px;padding:6px 13px;text-decoration:none;cursor:pointer}
+.blog-filters a:hover,.blog-volgorde button:hover{border-color:var(--blauw-rand)}
+.blog-filters a[aria-current],.blog-volgorde button[aria-pressed="true"]{background:var(--blauw);border-color:var(--blauw);color:#fff}
+.blog-volgorde{display:flex;align-items:center;gap:8px;margin:14px 0 4px;font-size:.86rem;color:var(--grijs)}
+.blog-lijst{list-style:none;display:grid;gap:14px;margin-top:20px}
+.blog-kaart{display:block;border:1px solid var(--lijn);border-radius:var(--r);padding:22px;background:#fff;transition:border-color .15s,box-shadow .15s}
+.blog-kaart:hover{border-color:var(--blauw-rand);box-shadow:0 8px 24px rgba(37,99,235,.08)}
+.blog-kaart h2,.blog-kaart h3{font-size:1.22rem;line-height:1.3;letter-spacing:-.015em;margin:10px 0 6px}
+.blog-kaart h2 a,.blog-kaart h3 a{text-decoration:none}
+.blog-kaart h2 a:hover,.blog-kaart h3 a:hover{color:var(--blauw)}
+.blog-kaart p{color:var(--grijs)}
+.blog-meta{font-size:.85rem;color:var(--grijs);display:flex;flex-wrap:wrap;gap:6px}
+.blog-pag{display:flex;justify-content:space-between;align-items:center;margin-top:26px;font-weight:650;font-size:.92rem}
+.blog-pag a{color:var(--blauw);text-decoration:none}
+.blog-pag span{color:var(--grijs)}
+.blog-leeg{border:1px solid var(--lijn);border-radius:var(--r);padding:22px;background:#fff;margin-top:20px}
+.blog-leeg a{color:var(--blauw)}
+
+/* Artikel */
+.artikel h1{font-size:clamp(2rem,5.6vw,2.9rem);margin-top:14px}
+.artikel .intro{font-size:1.12rem;color:var(--grijs);margin-top:14px}
+.door{display:flex;align-items:center;gap:12px;margin:22px 0 8px;font-size:.9rem;color:var(--grijs)}
+.door b,.door a{color:var(--inkt)}
+.door a{text-decoration:none}
+.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none;background:var(--blauw-t);color:var(--blauw);font-weight:750;display:grid;place-items:center}
+.avatar.groot{width:72px;height:72px;font-size:1.3rem}
+.artikel-beeld{width:100%;border-radius:var(--r-groot);margin:26px 0 6px;border:1px solid var(--lijn)}
+.archief{margin:20px 0 0;border:1px solid #fcd34d;background:#fffbeb;color:#78350f;border-radius:12px;padding:12px 16px;font-size:.92rem}
+.archief a{color:inherit}
+.toc{border:1px solid var(--lijn);border-radius:var(--r);padding:18px 22px;margin:28px 0 8px;background:var(--zacht)}
+.toc p{font-weight:700;margin-bottom:6px}
+.toc ol{padding-left:20px;display:grid;gap:4px;color:var(--tekst)}
+.toc a{color:var(--tekst);text-decoration:none}
+.toc a:hover{color:var(--blauw)}
+.blog-tekst{color:var(--tekst);font-size:1.04rem;line-height:1.75}
+.blog-tekst>*+*{margin-top:16px}
+.blog-tekst h2{font-size:1.6rem;margin-top:40px;color:var(--inkt);scroll-margin-top:90px}
+.blog-tekst h3{font-size:1.2rem;margin-top:28px;color:var(--inkt);scroll-margin-top:90px}
+.blog-tekst h4{font-size:1.02rem;margin-top:22px;color:var(--inkt)}
+.blog-tekst a{color:var(--blauw)}
+.blog-tekst ul,.blog-tekst ol{padding-left:22px;display:grid;gap:6px}
+.blog-tekst strong{color:var(--inkt)}
+.blog-tekst blockquote{border-left:3px solid var(--blauw-rand);padding:4px 0 4px 16px;color:var(--grijs)}
+.blog-tekst img{border-radius:12px;border:1px solid var(--lijn)}
+.blog-tekst code{background:var(--zacht);border-radius:6px;padding:1px 6px;font-size:.92em}
+.blog-tabel{overflow-x:auto;border:1px solid var(--lijn);border-radius:12px}
+.blog-tabel table{border-collapse:collapse;width:100%;font-size:.95rem}
+.blog-tabel th,.blog-tabel td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--lijn);vertical-align:top}
+.blog-tabel th{background:var(--zacht);color:var(--inkt);font-weight:650}
+.blog-tabel tr:last-child td{border-bottom:0}
+.artikel-faq{margin-top:44px}
+.artikel-faq h2{font-size:1.6rem}
+.artikel-faq details{border:1px solid var(--lijn);border-radius:14px;padding:16px 18px;background:#fff;margin-top:10px}
+.artikel-faq summary{font-weight:650;cursor:pointer;color:var(--inkt)}
+.artikel-faq details p{color:var(--grijs);margin-top:8px}
+.auteur-blok{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--lijn);border-radius:var(--r);padding:22px;margin-top:44px;background:#fff}
+.auteur-blok .klein{font-size:.82rem;color:var(--grijs)}
+.auteur-blok a{color:var(--inkt);text-decoration:none;font-weight:700}
+.auteur-blok a:hover{color:var(--blauw)}
+.auteur-blok p{color:var(--tekst);margin-top:6px}
+.kader-dl{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;border:1px solid var(--blauw-rand);background:var(--blauw-t);border-radius:var(--r);padding:20px 22px;margin-top:18px}
+.kader-dl b{display:block;color:var(--inkt);font-size:1.05rem}
+.kader-dl span{color:var(--tekst)}
+.kader-dienst{background:var(--inkt);color:#e2e8f0;border-radius:24px;padding:28px 30px;margin-top:18px}
+.kader-dienst b{display:block;color:#fff;font-size:1.25rem;letter-spacing:-.01em}
+.kader-dienst p{margin:8px 0 18px;color:#b6c0d4}
+.li-regel{margin-top:18px;font-size:.9rem;color:var(--grijs)}
+.li-regel a{color:var(--blauw)}
+.verwant{margin-top:44px}
+.verwant h2{font-size:1.6rem}
+
+/* Auteurspagina */
+.auteur-kop{display:flex;align-items:center;gap:16px;margin-top:6px}
+.auteur-kop h1{font-size:clamp(2rem,5.6vw,2.8rem)}
+.feiten{border:1px solid var(--lijn);border-radius:var(--r);padding:20px 22px;margin-top:24px;background:#fff}
+.feiten dl{display:grid;gap:8px;margin-top:10px}
+.feiten dl div{display:grid;gap:2px}
+.feiten dt{font-weight:650;color:var(--inkt)}
+.feiten dd{color:var(--tekst)}
+.feiten .links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px}
+.feiten .links a{color:var(--blauw)}
+@media (min-width:640px){.feiten dl div{grid-template-columns:220px 1fr;gap:12px}}
+
+/* Nieuws */
+.nieuws-post{border:1px solid var(--lijn);border-radius:var(--r);padding:22px;background:#fff}
+.nieuws-post h2{font-size:1.25rem;line-height:1.3;letter-spacing:-.015em;margin:10px 0 8px}
+.nieuws-post p{color:var(--tekst);margin-top:10px}
+.nieuws-post img,.nieuws-post video,.nieuws-post iframe{border-radius:12px;margin-top:14px;max-width:100%}
+.nieuws-post figure{margin:14px 0}
+.nieuws-post figcaption{font-size:.85rem;color:var(--grijs);margin-top:6px}
+.nieuws-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:.92rem}
+.nieuws-links a{color:var(--blauw);font-weight:650;text-decoration:none}
+.nieuws-links a:hover{text-decoration:underline}
+
+/* Downloadpagina */
+.dl-grid{display:grid;gap:28px;align-items:start;margin-top:8px}
+.dl-form{border:1px solid var(--lijn);border-radius:var(--r-groot);padding:24px;background:#fff}
+.dl-form h2{font-size:1.4rem}
+.dl-form p{color:var(--grijs);font-size:.92rem;margin-top:6px}
+.dl-form label{display:block;font-size:.9rem;font-weight:600;margin-top:14px}
+.dl-form input[type=text],.dl-form input[type=email]{display:block;width:100%;margin-top:6px;border:1px solid #cbd5e1;border-radius:10px;padding:11px 12px;font:inherit}
+.dl-form input:focus{outline:3px solid var(--blauw-rand);border-color:var(--blauw)}
+.dl-form .vink{display:flex;gap:10px;align-items:flex-start;font-weight:400;color:var(--tekst)}
+.dl-form .vink input{margin-top:5px}
+.dl-form .klein{font-size:.8rem}
+.dl-form .klein a{color:inherit}
+.dl-form .knop{width:100%;margin-top:16px}
+.dl-form .fout{color:#b91c1c}
+@media (min-width:860px){.dl-grid{grid-template-columns:1.25fr 1fr;gap:48px}}

@@ -1,0 +1,15 @@
+---
+// Netlify serveert dist/404.html met status 404 voor elke URL zonder bestand of regel.
+import Basis from '../layouts/Basis.astro';
+---
+<Basis titel="Pagina niet gevonden | Slim Geregeld" omschrijving="Deze pagina bestaat niet (meer)." robots="noindex, follow" canonical={false} cta="/#contact">
+  <section class="zacht" style="padding:72px 0">
+    <div class="wrap" style="max-width:760px">
+      <span class="tag">404</span>
+      <h1>Deze pagina bestaat niet</h1>
+      <p class="sub" style="margin-top:14px">Het adres klopt niet of de pagina is verplaatst.</p>
+      <div class="knoppen" style="margin-top:22px"><a class="knop vol" href="/">Naar de homepage</a><a class="knop leeg" href="/blog/">Naar de blog</a><a class="knop leeg" href="/contact">Contact</a></div>
+      <p lang="en" style="margin-top:28px;color:var(--grijs)">This page does not exist. <a href="/en/" style="color:var(--blauw)">Treaty services and bookkeeping in English (DAFT, DJTT)</a></p>
+    </div>
+  </section>
+</Basis>

@@ -1,0 +1,15 @@
+{
+ "_uitleg": "Onderwerpen voor /nieuws (veld cluster in content/nieuws/nieuws.json). Zelfde sleutels als de blogclusters in scripts/blog.mjs, plus nieuws voor praktijknieuws. Gebruikt door scripts/seo-paginas.mjs en src/components/Nieuws.tsx.",
+ "perPagina": 10,
+ "minIndex": 3,
+ "clusters": {
+  "zzp-btw": "Zzp en btw",
+  "bv-dga": "BV en DGA",
+  "ib-aangifte": "Aangifte inkomstenbelasting",
+  "jaarwerk": "Jaarwerk",
+  "moneybird": "Moneybird",
+  "daft-verlenging": "DAFT-verlenging",
+  "djtt": "DJTT",
+  "nieuws": "Praktijknieuws"
+ }
+}

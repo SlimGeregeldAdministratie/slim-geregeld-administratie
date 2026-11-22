@@ -1,0 +1,14 @@
+---
+// Doel van de 410-regels voor ingetrokken blogartikelen (astro.config.mjs).
+import Basis from '../layouts/Basis.astro';
+---
+<Basis titel="Artikel ingetrokken | Slim Geregeld" omschrijving="Dit artikel is ingetrokken." robots="noindex, follow" canonical={false} cta="/#contact">
+  <section class="zacht" style="padding:72px 0">
+    <div class="wrap" style="max-width:760px">
+      <h1>Dit artikel is ingetrokken</h1>
+      <p class="sub" style="margin-top:14px">De inhoud klopte niet meer en is daarom van de site gehaald.</p>
+      <div class="knoppen" style="margin-top:22px"><a class="knop vol" href="/blog/">Naar het blogoverzicht</a></div>
+      <p lang="en" style="margin-top:28px;color:var(--grijs)">This article has been withdrawn. <a href="/en/blog/" style="color:var(--blauw)">Go to the blog</a></p>
+    </div>
+  </section>
+</Basis>
