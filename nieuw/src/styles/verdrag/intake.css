@@ -49,3 +49,28 @@
 /* Nieuwe huisstijl: zachte kop zoals de andere pagina's */
 .v-intake{background:linear-gradient(180deg,var(--blauw-t),#fff 320px)}
 .v-intake h1{font-size:clamp(2rem,6vw,2.8rem);letter-spacing:-.03em;font-weight:800}
+
+/* Opmaak zoals het Nederlandse formulier: witte kaarten, rustige velden,
+   'optional' in plaats van sterretjes en een vaste zijkolom met Kyle. */
+.v-intake .intake-main{max-width:1160px;padding:24px 20px 56px}
+.v-intake .intake-main>h1,.v-intake .intake-main>.lead{max-width:760px}
+.v-intake .intake-grid{display:grid;gap:24px;margin-top:8px;align-items:start}
+.v-intake fieldset{border:1px solid var(--lijn);border-radius:18px;box-shadow:none;padding:22px 24px;margin-top:16px;background:#fff}
+.v-intake legend{font-size:1.1rem;font-weight:750;letter-spacing:-.01em}
+.v-intake .veld > label{font-size:.92rem;font-weight:600;color:var(--inkt)}
+.v-intake .opt{font-weight:400;color:var(--grijs);font-size:.8rem;margin-left:4px}
+.v-intake input[type=text],.v-intake input[type=email],.v-intake input[type=tel],.v-intake input[type=date],.v-intake input[type=number],.v-intake select,.v-intake textarea{border:1px solid #cbd5e1;border-radius:10px;padding:11px 12px;min-height:46px;height:auto;font-size:1rem;color:var(--inkt)}
+.v-intake input:focus,.v-intake select:focus,.v-intake textarea:focus{outline:3px solid var(--blauw-rand);outline-offset:0;border-color:var(--blauw)}
+.v-intake .keuze,.v-intake .veld > label.keuze{border-color:var(--lijn);padding:10px 12px}
+.v-intake form > button,.v-intake button[type=submit]{width:100%;min-height:52px;border-radius:12px;font-weight:650;font-size:1.02rem}
+.v-intake .intake-zij{position:sticky;top:96px}
+.v-intake .zij-blok{background:var(--inkt);color:#e2e8f0;border-radius:24px;padding:26px}
+.v-intake .ikzelf{display:flex;align-items:center;gap:12px;margin-bottom:18px;font-size:.85rem;color:#b6c0d4}
+.v-intake .ikzelf img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2)}
+.v-intake .ikzelf b{display:block;color:#fff;font-size:.98rem}
+.v-intake .c-vink{list-style:none;display:grid;gap:8px;margin:0 0 20px;padding:0}
+.v-intake .c-vink li{padding-left:26px;position:relative}
+.v-intake .c-vink li::before{content:"✓";position:absolute;left:0;color:#4ade80;font-weight:800}
+.v-intake .zij-blok .knop{width:100%}
+@media (min-width:960px){.v-intake .intake-grid{grid-template-columns:1fr 320px;gap:32px}}
+@media (max-width:959px){.v-intake .intake-zij{position:static;order:-1}}

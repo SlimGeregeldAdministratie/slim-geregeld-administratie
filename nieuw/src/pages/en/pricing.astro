@@ -2,7 +2,7 @@
 import Basis from '../../layouts/Basis.astro';
 import Paginakop from '../../components/Paginakop.astro';
 import Faq from '../../components/Faq.astro';
-import CtaEn from '../../components/CtaEn.astro';
+import Contactblok from '../../components/Contactblok.astro';
 
 const faq: [string, string][] = [
   ['Do the prices include VAT?', 'No, all prices exclude 21% Dutch VAT. Once your Dutch business is registered, you reclaim that VAT in your VAT return, so the real cost is the price shown.'],
@@ -44,7 +44,7 @@ const faq: [string, string][] = [
         <h2>Not on a treaty?</h2>
         <p class="sub">I also do regular bookkeeping in English for expats with a Dutch eenmanszaak or VOF: your books in Moneybird, quarterly VAT returns and your annual figures, for €95 a month excl. VAT, the same as Dutch clients.</p>
         <p class="sub let-op">This is bookkeeping only. Your income tax return is separate, and there are no equity checks or permit documents. On a treaty permit, the Compliance Plan covers all of that.</p>
-        <a class="knop vol" href="/en/intake/" style="margin-top:18px">Get started</a>
+        <a class="knop vol" href="#contact" style="margin-top:18px">Get in touch</a>
       </div>
       <ul class="vinkjes">
         <li>Bookkeeping in Moneybird, checked by me</li>
@@ -57,7 +57,7 @@ const faq: [string, string][] = [
   </section>
 
   <Faq titel="Questions about pricing" vragen={faq} />
-  <CtaEn />
+  <Contactblok taal="en" titel="Bookkeeping in English?" tekst="Not on a treaty, or not sure which option fits? Leave your details and I get back to you within one to three working days, usually the same day." />
 </Basis>
 
 <style>

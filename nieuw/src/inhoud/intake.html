@@ -5,7 +5,8 @@
   differs. A few questions so I can open your administration and know where to start. Ten minutes, and
   you only fill in what you know.</p>
 
-  <form id="f" name="intake-en" method="POST" data-netlify="true"
+  <div class="intake-grid">
+<form id="f" name="intake-en" method="POST" data-netlify="true"
           data-netlify-honeypot="bot-field" novalidate>
     <input type="hidden" name="form-name" value="intake-en">
 
@@ -16,22 +17,22 @@
         <label for="bot-field">Leave this empty</label>
         <input id="bot-field" name="bot-field" type="text" tabindex="-1" autocomplete="off"></div>
       <div class="twee">
-        <div class="veld"><label for="naam">Your full name, as registered *</label>
+        <div class="veld"><label for="naam">Your full name, as registered</label>
           <input id="naam" name="naam" type="text" required autocomplete="name"></div>
-        <div class="veld"><label for="email">Email *</label>
+        <div class="veld"><label for="email">Email</label>
           <input id="email" name="email" type="email" required autocomplete="email"></div>
       </div>
       <div class="twee">
-        <div class="veld"><label for="telefoon">Phone or WhatsApp</label>
+        <div class="veld"><label for="telefoon">Phone or WhatsApp <span class="opt">optional</span></label>
           <input id="telefoon" name="telefoon" type="tel" autocomplete="tel"></div>
-        <div class="veld"><label for="geboortedatum">Date of birth *
+        <div class="veld"><label for="geboortedatum">Date of birth
           <span class="bij">Needed for your income tax return, and I am required to verify your identity.</span></label>
           <input id="geboortedatum" name="geboortedatum" type="date" required></div>
       </div>
       <div class="twee">
-        <div class="veld"><label for="bedrijf">Business name</label>
+        <div class="veld"><label for="bedrijf">Business name <span class="opt">optional</span></label>
           <input id="bedrijf" name="bedrijf" type="text"></div>
-        <div class="veld"><label for="website">Website</label>
+        <div class="veld"><label for="website">Website <span class="opt">optional</span></label>
           <input id="website" name="website" type="text" placeholder="optional"></div>
       </div>
       <div class="veld"><label>Do you have a logo?
@@ -41,21 +42,21 @@
         <label class="keuze"><input type="radio" name="logo" value="Nee">
           <span class="titel">No, I do not have one</span></label>
       </div>
-      <div class="veld"><label for="kvk">KVK number</label>
+      <div class="veld"><label for="kvk">KVK number <span class="opt">optional</span></label>
         <input id="kvk" name="kvk" type="text" inputmode="numeric"></div>
       <div class="twee">
         <div class="veld"><label for="btw">VAT identification number (btw-id)
-          <span class="bij">The one that goes on your invoices. Your customers see it.</span></label>
+          <span class="bij">The one that goes on your invoices. Your customers see it.</span> <span class="opt">optional</span></label>
           <input id="btw" name="btw" type="text" placeholder="NL123456789B01"></div>
         <div class="veld"><label for="omzetbelasting">Turnover tax number (omzetbelastingnummer)
-          <span class="bij">The one returns are filed under. Never on an invoice, because it holds your BSN.</span></label>
+          <span class="bij">The one returns are filed under. Never on an invoice, because it holds your BSN.</span> <span class="opt">optional</span></label>
           <input id="omzetbelasting" name="omzetbelasting" type="text" placeholder="NL123456789B01"></div>
       </div>
       <p class="hint" style="margin-top:-.4rem">Both numbers are on the letters the tax authority sent when you
         registered, and they are not the same number. Without the second one I cannot file for you.</p>
-      <div class="veld"><label for="start">Date your business started</label>
+      <div class="veld"><label for="start">Date your business started <span class="opt">optional</span></label>
         <input id="start" name="start" type="date"></div>
-      <div class="veld"><label>Legal form *</label>
+      <div class="veld"><label>Legal form</label>
         <label class="keuze"><input type="radio" name="rechtsvorm" value="Eenmanszaak" required>
           <span class="titel">Eenmanszaak (sole proprietorship)</span></label>
         <label class="keuze"><input type="radio" name="rechtsvorm" value="VOF">
@@ -65,7 +66,7 @@
         <label class="keuze"><input type="radio" name="rechtsvorm" value="Nog niet ingeschreven">
           <span class="titel">Not registered yet</span></label>
       </div>
-      <div class="veld"><label for="nationaliteit">Your nationality</label>
+      <div class="veld"><label for="nationaliteit">Your nationality <span class="opt">optional</span></label>
         <input id="nationaliteit" name="nationaliteit" type="text" placeholder="Italian, American, Japanese..."></div>
     </fieldset>
 
@@ -73,7 +74,7 @@
       <legend>2. Your situation in the Netherlands</legend>
       <p class="hint">This decides which rules apply to you. Most of it is one click, and the permit
       questions only appear if they are relevant.</p>
-      <div class="veld"><label>Are you registered as living in the Netherlands? *
+      <div class="veld"><label>Are you registered as living in the Netherlands?
         <span class="bij">Registration in the BRP at your municipality. It decides whether you file here as a resident.</span></label>
         <label class="keuze"><input type="radio" name="ingeschreven" value="Ja" required>
           <span class="titel">Yes</span></label>
@@ -82,7 +83,7 @@
         <label class="keuze"><input type="radio" name="ingeschreven" value="Nee, woon buitenland">
           <span class="titel">No, I live abroad and only have a business here</span></label>
       </div>
-      <div class="veld"><label>Do you need a residence permit to work here? *</label>
+      <div class="veld"><label>Do you need a residence permit to work here?</label>
         <label class="keuze"><input type="radio" name="vergunningNodig" value="Nee, EU" required>
           <span class="titel">No, I am an EU, EEA or Swiss citizen
             <span class="uitleg">Then you can work here freely and there is nothing to renew.</span></span></label>
@@ -103,7 +104,7 @@
             <span class="titel">Something else, or I do not know the name</span></label>
         </div>
         <div class="veld"><label for="permitStart">When did your permit start, or when do you expect it?
-          <span class="bij">Roughly is fine.</span></label>
+          <span class="bij">Roughly is fine.</span> <span class="opt">optional</span></label>
           <input id="permitStart" name="permitStart" type="date"></div>
         <p class="hint verborgen" id="verdrag-let-op" style="margin:.6rem 0 0">
           On a treaty permit the IND checks again, about three months before it ends, that your business
@@ -111,7 +112,7 @@
           backwards from your start date so it is never a rush.
         </p>
       </div>
-      <div class="veld"><label>Do you have tax obligations in another country? *
+      <div class="veld"><label>Do you have tax obligations in another country?
         <span class="bij">I do the Dutch side. If another country also wants a return, I will say so rather than take it on.</span></label>
         <label class="keuze"><input type="radio" name="buitenlandsFiscaal" value="Nee" required>
           <span class="titel">No, only the Netherlands</span></label>
@@ -123,13 +124,13 @@
         <label class="keuze"><input type="radio" name="buitenlandsFiscaal" value="Weet niet">
           <span class="titel">I do not know</span></label>
       </div>
-      <div class="veld verborgen" id="welk-land"><label for="anderLand">Which country, and do you still file there?</label>
+      <div class="veld verborgen" id="welk-land"><label for="anderLand">Which country, and do you still file there? <span class="opt">optional</span></label>
         <input id="anderLand" name="anderLand" type="text"></div>
     </fieldset>
 
     <fieldset>
       <legend>3. What you need from me</legend>
-      <div class="veld"><label>Which of these fits? *</label>
+      <div class="veld"><label>Which of these fits?</label>
         <label class="keuze"><input type="radio" name="wat" value="Plan" required>
           <span class="titel">Bookkeeping, VAT returns and my income tax return
             <span class="uitleg">The monthly arrangement, called the Compliance Plan on the DAFT page. I check your figures and file everything.</span></span></label>
@@ -138,7 +139,7 @@
         <label class="keuze"><input type="radio" name="wat" value="Weet niet">
           <span class="titel">I am not sure yet, tell me what makes sense</span></label>
       </div>
-      <div class="veld"><label>Are you on the KOR, the small business scheme? *
+      <div class="veld"><label>Are you on the KOR, the small business scheme?
         <span class="bij">On the KOR you charge no VAT and file no quarterly returns. It only covers Dutch VAT.</span></label>
         <label class="keuze"><input type="radio" name="kor" value="Ja" required><span class="titel">Yes</span></label>
         <label class="keuze"><input type="radio" name="kor" value="Nee"><span class="titel">No</span></label>
@@ -153,12 +154,12 @@
       <legend>4. How money comes in and goes out</legend>
       <p class="hint">This decides which Moneybird package you need, so it is worth a moment.</p>
       <div class="twee">
-        <div class="veld"><label for="bank">Your business bank</label>
+        <div class="veld"><label for="bank">Your business bank <span class="opt">optional</span></label>
           <input id="bank" name="bank" type="text" placeholder="Rabobank, ING, bunq…"></div>
-        <div class="veld"><label for="iban">IBAN of your business account</label>
+        <div class="veld"><label for="iban">IBAN of your business account <span class="opt">optional</span></label>
           <input id="iban" name="iban" type="text" placeholder="NL.."></div>
       </div>
-      <div class="veld"><label>How do customer payments reach your account? *</label>
+      <div class="veld"><label>How do customer payments reach your account?</label>
         <label class="keuze"><input type="radio" name="betalingen" value="Los per klant" required>
           <span class="titel">Each payment arrives separately
             <span class="uitleg">Typical for a card reader or payment link per customer.</span></span></label>
@@ -169,7 +170,7 @@
           <span class="titel">I invoice and customers transfer the money</span></label>
       </div>
       <div class="veld"><label for="transacties">Roughly how many bank transactions a month?
-        <span class="bij">Everything in and out, so payments, rent, supplies and subscriptions. A guess is fine.</span></label>
+        <span class="bij">Everything in and out, so payments, rent, supplies and subscriptions. A guess is fine.</span> <span class="opt">optional</span></label>
         <input id="transacties" name="transacties" type="number" min="0" placeholder="30"></div>
       <div class="veld"><label>Do you sell outside the Netherlands?
         <span class="bij">Selling to consumers in other EU countries has its own VAT rules above a threshold, and the KOR does not cover that.</span></label>
@@ -178,7 +179,7 @@
         <label class="keuze"><input type="radio" name="buitenland" value="Buiten EU"><span class="titel">Yes, mostly outside the EU</span></label>
         <label class="keuze"><input type="radio" name="buitenland" value="Beide"><span class="titel">Both</span></label>
       </div>
-      <div class="veld"><label for="omzet">What turnover do you expect in your first twelve months?</label>
+      <div class="veld"><label for="omzet">What turnover do you expect in your first twelve months? <span class="opt">optional</span></label>
         <input id="omzet" name="omzet" type="text" placeholder="EUR 40,000 to 50,000"></div>
       <div class="veld"><label>Who do you sell to, and are your prices with or without VAT?
         <span class="bij">Consumers usually see prices including VAT, businesses excluding. It changes how your invoices are set up.</span></label>
@@ -192,7 +193,7 @@
           <span class="titel">I do not send invoices at all
             <span class="uitleg">You are paid on the spot, or a platform like Etsy handles it.</span></span></label>
       </div>
-      <div class="veld"><label for="betaaltermijn">Your standard payment term, if you invoice</label>
+      <div class="veld"><label for="betaaltermijn">Your standard payment term, if you invoice <span class="opt">optional</span></label>
         <input id="betaaltermijn" name="betaaltermijn" type="text" placeholder="14 days, 30 days..."></div>
     </fieldset>
 
@@ -200,7 +201,7 @@
       <legend>5. Your Moneybird package</legend>
       <p class="hint">Moneybird is where your administration lives. The subscription is in your own name and
       you pay Moneybird directly. Paying yearly saves about 20%.</p>
-      <div class="veld"><label>Which package? *</label>
+      <div class="veld"><label>Which package?</label>
         <label class="keuze"><input type="radio" name="pakket" value="Groei 35" required checked>
           <span class="titel">Groei, EUR 35 a month <strong>(recommended)</strong>
             <span class="uitleg">Automatic bank connection, so I reconcile your bookkeeping against your bank account. Up to 50 processed transactions a month.</span></span></label>
@@ -245,7 +246,7 @@
     <fieldset>
       <legend>6. Where we start</legend>
       <div class="veld"><label for="vanaf">From which date should the bookkeeping be built up?
-        <span class="bij">Usually the day your business started, even if there was no income yet.</span></label>
+        <span class="bij">Usually the day your business started, even if there was no income yet.</span> <span class="opt">optional</span></label>
         <input id="vanaf" name="vanaf" type="date"></div>
       <div class="veld"><label>Has anything been recorded so far?</label>
         <label class="keuze"><input type="radio" name="bestaand" value="Niets"><span class="titel">Nothing yet, we start from scratch</span></label>
@@ -253,7 +254,7 @@
         <label class="keuze"><input type="radio" name="bestaand" value="Ander programma"><span class="titel">It is in another bookkeeping program</span></label>
       </div>
       <div id="overdracht-blok" class="verborgen">
-        <div class="veld"><label for="programma">Which program, and can you still get into it?</label>
+        <div class="veld"><label for="programma">Which program, and can you still get into it? <span class="opt">optional</span></label>
           <input id="programma" name="programma" type="text" placeholder="e-Boekhouden, Exact, Wave, a spreadsheet..."></div>
         <div class="veld"><label>Which of these can you supply for the start date?
           <span class="bij">Tick what you have. Missing items are not a problem, it just tells me where to begin.</span></label>
@@ -276,7 +277,7 @@
         <label class="keuze"><input type="radio" name="teksten" value="Standaard"><span class="titel">No, standard wording is fine</span></label>
         <label class="keuze"><input type="radio" name="teksten" value="Niet nodig"><span class="titel">I do not send invoices, so not needed</span></label>
       </div>
-      <div class="veld"><label for="opmerking">Anything else I should know?</label>
+      <div class="veld"><label for="opmerking">Anything else I should know? <span class="opt">optional</span></label>
         <textarea id="opmerking" name="opmerking" placeholder="Deadlines, an accountant you are leaving, a letter from the tax authority, anything."></textarea></div>
     </fieldset>
 
@@ -312,6 +313,19 @@
     <p class="voet">No payment and no commitment. You get a personal reply within one working day with the
     price for your situation and the first steps.</p>
   </form>
+<aside class="intake-zij">
+  <div class="zij-blok">
+    <div class="ikzelf"><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56"><span><b>You get an answer from me</b>Kyle Bouwmeester, Becon-registered bookkeeper</span></div>
+    <ul class="c-vink">
+      <li>Only fill in what you know</li>
+      <li>No payment before we agree</li>
+      <li>Everything in English</li>
+    </ul>
+    <a class="knop wa" href="https://wa.me/31621311043" target="_blank" rel="noopener">Questions? Send a WhatsApp</a>
+  </div>
+</aside>
+</div>
+
 </div>
 <script>
 (function(){

@@ -1,12 +1,24 @@
 ---
-/* Kort contactformulier met WhatsApp ernaast. Netlify-formulier "contact";
-   veld page laat zien vanaf welke pagina iemand het formulier stuurde. */
-interface Props { titel?: string; tekst?: string; vinkjes?: string[] }
-const {
-  titel = 'Binnen een week geregeld',
-  tekst = 'Laat je gegevens achter. Je hoort binnen een tot drie werkdagen wat ik van je nodig heb, meestal al dezelfde dag. Liever appen? Dat kan ook.',
-  vinkjes = ['Vrijblijvend, je zit nergens aan vast', 'Overstappen midden in het jaar kan', 'Starters zijn ook welkom'],
-} = Astro.props;
+/* Kort contactformulier met WhatsApp ernaast. Netlify-formulier "contact" (NL en EN
+   delen dezelfde velden); veld page laat zien vanaf welke pagina iemand het stuurde. */
+interface Props { titel?: string; tekst?: string; vinkjes?: string[]; taal?: 'nl' | 'en' }
+const { taal = 'nl' } = Astro.props;
+const L = taal === 'en' ? {
+  titel: 'Get your bookkeeping sorted', tekst: 'Leave your details. You hear within one to three working days what I need from you, usually the same day. Prefer to message? That works too.',
+  vinkjes: ['No obligation', 'Switching mid-year is fine', 'Starting out? Also welcome'],
+  ik: 'You get an answer from me', rol: 'Kyle Bouwmeester, Becon-registered bookkeeper', wa: 'Send a WhatsApp', mail: 'Or email', naam: 'Name', email: 'Email address', tel: 'Phone', opt: 'optional',
+  type: 'Type of business', kies: 'Choose', ez: 'Eenmanszaak (sole proprietorship)', vof: 'VOF (partnership)', bv: 'BV or holding', nog: 'None yet, starting soon', anders: 'Other',
+  vraag: 'What can I help you with?', bron: 'How did you find me?', ai: 'ChatGPT or other AI', kennis: 'Through someone I know', waar: 'Where?', verstuur: 'Send',
+  privacy: 'I only use your details to get back to you.', privlink: 'Privacy policy', privhref: '/en/privacy/', bedankt: '/en/thank-you/', bot: 'Leave empty',
+} : {
+  titel: 'Binnen een week geregeld', tekst: 'Laat je gegevens achter. Je hoort binnen een tot drie werkdagen wat ik van je nodig heb, meestal al dezelfde dag. Liever appen? Dat kan ook.',
+  vinkjes: ['Vrijblijvend, je zit nergens aan vast', 'Overstappen midden in het jaar kan', 'Starters zijn ook welkom'],
+  ik: 'Je krijgt antwoord van mij', rol: 'Kyle Bouwmeester, Becon-geregistreerd boekhouder', wa: 'Stuur een WhatsApp', mail: 'Of mail naar', naam: 'Naam', email: 'E-mailadres', tel: 'Telefoon', opt: 'optioneel',
+  type: 'Type onderneming', kies: 'Kies', ez: 'Eenmanszaak', vof: 'Vof', bv: 'BV of holding', nog: 'Nog geen, ik start binnenkort', anders: 'Anders',
+  vraag: 'Waar kan ik je mee helpen?', bron: 'Hoe heb je me gevonden?', ai: 'ChatGPT of andere AI', kennis: 'Via iemand die ik ken', waar: 'Waar dan?', verstuur: 'Verstuur',
+  privacy: 'Ik gebruik je gegevens alleen om contact met je op te nemen.', privlink: 'Privacybeleid', privhref: '/privacybeleid', bedankt: '/bedankt', bot: 'Niet invullen',
+};
+const { titel = L.titel, tekst = L.tekst, vinkjes = L.vinkjes } = Astro.props;
 const WA = 'https://wa.me/31621311043';
 const pagina = Astro.url.pathname;
 ---
@@ -16,43 +28,43 @@ const pagina = Astro.url.pathname;
         <div class="c-tekst">
           <h2>{titel}</h2>
           <p>{tekst}</p>
-          <div class="ikzelf"><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56"><span><b>Je krijgt antwoord van mij</b>Kyle Bouwmeester, Becon-geregistreerd boekhouder</span></div>
+          <div class="ikzelf"><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56"><span><b>{L.ik}</b>{L.rol}</span></div>
           <ul class="c-vink">{vinkjes.map((v) => <li>{v}</li>)}</ul>
-          <a class="knop wa" href={WA} target="_blank" rel="noopener">Stuur een WhatsApp</a>
-          <p class="klein">Of mail naar <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a></p>
+          <a class="knop wa" href={WA} target="_blank" rel="noopener">{L.wa}</a>
+          <p class="klein">{L.mail} <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a></p>
         </div>
-        <form id="contact" class="formulier" name="contact" method="POST" action="/bedankt" data-netlify="true" netlify-honeypot="bot-field">
+        <form id="contact" class="formulier" name="contact" method="POST" action={L.bedankt} data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact">
           <input type="hidden" name="page" value={pagina}>
-          <p class="visually-hidden"><label>Niet invullen <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-          <label>Naam<input name="name" required autocomplete="name"></label>
-          <label>E-mailadres<input type="email" name="email" required autocomplete="email"></label>
-          <label>Telefoon <span class="opt">optioneel</span><input type="tel" name="phone" autocomplete="tel"></label>
-          <label>Type onderneming
+          <p class="visually-hidden"><label>{L.bot} <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <label>{L.naam}<input name="name" required autocomplete="name"></label>
+          <label>{L.email}<input type="email" name="email" required autocomplete="email"></label>
+          <label>{L.tel} <span class="opt">{L.opt}</span><input type="tel" name="phone" autocomplete="tel"></label>
+          <label>{L.type}
             <select name="businessType" required>
-              <option value="" disabled selected>Kies</option>
-              <option value="eenmanszaak">Eenmanszaak</option>
-              <option value="vof">Vof</option>
-              <option value="bv">BV of holding</option>
-              <option value="nog-geen">Nog geen, ik start binnenkort</option>
-              <option value="anders">Anders</option>
+              <option value="" disabled selected>{L.kies}</option>
+              <option value="eenmanszaak">{L.ez}</option>
+              <option value="vof">{L.vof}</option>
+              <option value="bv">{L.bv}</option>
+              <option value="nog-geen">{L.nog}</option>
+              <option value="anders">{L.anders}</option>
             </select>
           </label>
-          <label class="breed">Waar kan ik je mee helpen? <span class="opt">optioneel</span><textarea name="situation" rows="3"></textarea></label>
-          <label class="breed">Hoe heb je me gevonden? <span class="opt">optioneel</span>
+          <label class="breed">{L.vraag} <span class="opt">{L.opt}</span><textarea name="situation" rows="3"></textarea></label>
+          <label class="breed">{L.bron} <span class="opt">{L.opt}</span>
             <select name="source">
-              <option value="" selected>Kies</option>
+              <option value="" selected>{L.kies}</option>
               <option>Google</option>
-              <option>ChatGPT of andere AI</option>
+              <option value="ChatGPT of andere AI">{L.ai}</option>
               <option>Moneybird</option>
               <option>LinkedIn</option>
-              <option>Via iemand die ik ken</option>
-              <option value="anders">Anders</option>
+              <option value="Via iemand die ik ken">{L.kennis}</option>
+              <option value="anders">{L.anders}</option>
             </select>
           </label>
-          <label class="breed anders-veld">Waar dan? <span class="opt">optioneel</span><input name="sourceOther" autocomplete="off"></label>
-          <button class="knop vol breed" type="submit">Verstuur</button>
-          <p class="breed klein">Ik gebruik je gegevens alleen om contact met je op te nemen. <a href="/privacybeleid">Privacybeleid</a></p>
+          <label class="breed anders-veld">{L.waar} <span class="opt">{L.opt}</span><input name="sourceOther" autocomplete="off"></label>
+          <button class="knop vol breed" type="submit">{L.verstuur}</button>
+          <p class="breed klein">{L.privacy} <a href={L.privhref}>{L.privlink}</a></p>
         </form>
         <script is:inline>
           /* Een link met data-vraag (bijv. op tarieven) vult de vraag alvast in. */
