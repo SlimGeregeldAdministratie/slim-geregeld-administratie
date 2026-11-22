@@ -1,0 +1,204 @@
+{
+ "_uitleg": "Reviews en scores voor de site. De n8n-flow \"Site: reviews bijwerken\" werkt op de laatste dag van de maand de scores bij en voegt nieuwe reviews toe (minimaal 4 sterren, niet op de uitsluitlijst). Handmatig mag je branche, bedrijf, foto, link, vertaling en de volgorde aanpassen; die laat de flow staan. De lijst gezien bevat elke review die al beoordeeld is (getoond of bewust niet); alleen reviews die daar niet in staan voegt de flow toe, en daarna zet hij ze in gezien.",
+ "bijgewerkt": "2026-11-22",
+ "google": {
+  "score": "4,9",
+  "aantal": 17,
+  "profiel": "https://g.page/r/CUGYPwNhlYG-EAE"
+ },
+ "moneybird": {
+  "adviser": "kyle-slim-geregeld-administratie",
+  "score": "5,0",
+  "aantal": 10,
+  "profiel": "https://www.moneybird.nl/experts/slim-geregeld-administratie/"
+ },
+ "uitgesloten": [
+  "Serena Arendzen",
+  "Iona Susanto",
+  "Santino Heij",
+  "Sri Kurniati",
+  "moneybird:2026-10-26"
+ ],
+ "gezien": [
+  "google:andries min",
+  "google:barry sims",
+  "google:burak sahin",
+  "google:christel pronk",
+  "google:daan van der mark",
+  "google:jeremy gomes",
+  "google:jozsa-fetzer huba",
+  "google:mirte groen",
+  "google:nosh van campenhout",
+  "google:orlando guerra",
+  "google:rafaël bossto",
+  "google:umesh ten kate",
+  "moneybird:anoniem:2026-11-17",
+  "moneybird:benthe lokhorst:2026-10-15",
+  "moneybird:dany cramer:2026-07-29",
+  "moneybird:edwin postma:2026-10-30",
+  "moneybird:jeremy gomes:2026-06-24",
+  "moneybird:make bouw:2026-10-30",
+  "moneybird:serena arendzen:2026-07-08",
+  "moneybird:umesh ten kate:2026-09-17",
+  "moneybird:zusjes groen:2026-09-21"
+ ],
+ "reviews": [
+  {
+   "bron": "google",
+   "naam": "Barry Sims",
+   "branche": "DAFT opening balance sheet",
+   "sterren": 5,
+   "taal": "en",
+   "tekst": "Kyle was extremely fast, efficient, accurate and personable. I am extremely happy with his service and would recommend him for others needing an opening balance sheet for their DAFT businesses."
+  },
+  {
+   "bron": "google",
+   "naam": "Orlando Guerra",
+   "branche": "DAFT opening balance sheet",
+   "sterren": 5,
+   "taal": "en",
+   "foto": "/img/reviews/orlando.png",
+   "tekst": "Very happy with the quick and precise services provided by Slim Geregeld in regards to establishing opening balances for my DAFT visa. Highly recommend Kyle's bookkeeping services in any regards!"
+  },
+  {
+   "bron": "google",
+   "naam": "Jozsa-Fetzer Huba",
+   "branche": "tax recovery project",
+   "sterren": 5,
+   "taal": "en",
+   "tekst": "I contacted Kyle with a tax recovery project. He was constructive, responsive, he worked extensively and delivered beyond expectations. I warmly recommend him!"
+  },
+  {
+   "bron": "moneybird",
+   "naam": "Anoniem",
+   "branche": "DJTT renewal",
+   "datum": "2026-11-17",
+   "sterren": 5,
+   "taal": "en",
+   "tekst": "From the very beginning, he took the time to clearly explain the services he offered, the process involved, and the fee structure, which made me feel confident and comfortable throughout the entire process. His work was consistently thorough and handled with great care and attention to detail. What particularly stood out to me was his transparency regarding any additional services and associated costs. He also respected my decision to handle certain tasks myself, rather than making me feel pressured to use additional paid services. It was clear that his priority was not simply to provide a service, but to understand my needs and find the most suitable way to support me. His professionalism, attention to detail, transparency, and flexibility made the entire experience very positive. I would highly recommend him to anyone looking for a reliable and considerate bookkeeper."
+  },
+  {
+   "bron": "moneybird",
+   "naam": "Benthe Lokhorst",
+   "bedrijf": "ProProject",
+   "branche": "consultant, bv",
+   "datum": "2026-10-15",
+   "sterren": 5,
+   "taal": "nl",
+   "tekst": "Begin dit jaar ben ik de samenwerking gestart met Kyle van SlimGeregeld Administratie voor de boekhouding van mijn BV. Kyle is betrokken, communiceert proactief en komt zijn afspraken na. Hij ondersteunt waar nodig, denkt mee en geeft waardevol advies wanneer hij mogelijkheden zie. Een prettige en betrouwbare samenwerking. Zeker een aanrader!",
+   "vertaling": "Earlier this year, I started working with Kyle from SlimGeregeld Administratie for the bookkeeping of my BV. Kyle is committed, communicates proactively, and honors his agreements. He provides support where needed, thinks along with you, and offers valuable advice when he sees opportunities. A pleasant and reliable collaboration. Highly recommended!"
+  },
+  {
+   "bron": "google",
+   "naam": "Christel Pronk",
+   "branche": "visual en motion designer",
+   "sterren": 5,
+   "taal": "nl",
+   "tekst": "Kyle heeft mij het afgelopen jaar geholpen met mijn inkomstenbelasting. Fijne communicatie en alles lekker snel en duidelijk. Volgend jaar bel ik je zeker weer op, Kyle!",
+   "vertaling": "Kyle helped me with my income tax over the past year. Great communication, and everything nice and quick and clear. I will definitely call you again next year, Kyle!"
+  },
+  {
+   "bron": "google",
+   "naam": "Jeremy Gomes",
+   "bedrijf": "Gomes Media",
+   "branche": "online marketeer",
+   "sterren": 5,
+   "taal": "nl",
+   "foto": "/img/reviews/jeremy.png",
+   "link": "https://maps.app.goo.gl/4hzddgC4sesnrEkZ8",
+   "tekst": "Maakt het boekhouden veel gemakkelijker en ook sneller! Onderweg kan ik vrij rap wat facturen versturen door een simpel appje. Top systeem.",
+   "vertaling": "Makes bookkeeping much easier and faster too! On the go, I can send some invoices quite quickly using a simple app. Great system."
+  },
+  {
+   "bron": "google",
+   "naam": "Daan van der Mark",
+   "bedrijf": "DVM Consultancy",
+   "branche": "consultant",
+   "sterren": 5,
+   "taal": "nl",
+   "foto": "/img/reviews/daan.jpg",
+   "tekst": "Blij met de keuze om te kiezen voor Slim Geregeld, omdat mijn administratie veel minder tijd kost en geen gedoe meer oplevert. Vooral handig dat je je administratie gemakkelijk kunt bijhouden via WhatsApp, en dat Kyle altijd voor je klaar staat wanneer dit nodig is.",
+   "vertaling": "Happy with my choice to opt for Slim Geregeld, because my administration takes much less time and no longer causes any hassle. It is especially convenient that you can easily keep track of your administration via WhatsApp, and that Kyle is always there for you when needed."
+  },
+  {
+   "bron": "google",
+   "naam": "Mirte Groen",
+   "bedrijf": "Zusjes Groen",
+   "branche": "e-commerce",
+   "sterren": 5,
+   "taal": "nl",
+   "tekst": "Heel blij met de service! Kyle helpt ons super goed en reageert altijd snel op vragen. Sinds we met Slim Geregeld Administratie werken, is alles veel overzichtelijker en makkelijker geworden. Belasting blijft misschien nooit écht leuk, maar dankzij hen is het een stuk aangenamer en minder stressvol. Echt een aanrader!",
+   "vertaling": "Very happy with the service! Kyle helps us out really well and always responds quickly to questions. Since we started working with Slim Geregeld Administratie, everything has become much clearer and easier. Taxes might never be truly fun, but thanks to them, it is a lot more pleasant and less stressful. Highly recommended!"
+  },
+  {
+   "bron": "google",
+   "naam": "Umesh ten Kate",
+   "bedrijf": "Umi Sports",
+   "branche": "personal trainer",
+   "sterren": 5,
+   "taal": "nl",
+   "link": "https://maps.app.goo.gl/gQpY9LhWrDCwau2v7",
+   "tekst": "Slim Geregeld is efficiënt en overzichtelijk. Verder begeleidt Kyle je op een ondersteunende en begripvolle manier.",
+   "vertaling": "Slim Geregeld is efficient and well-organized. Furthermore, Kyle guides you in a supportive and understanding manner."
+  },
+  {
+   "bron": "moneybird",
+   "naam": "Dany Cramer",
+   "bedrijf": "Cramer D Events",
+   "branche": "evenementen",
+   "datum": "2026-07-29",
+   "sterren": 5,
+   "taal": "nl",
+   "tekst": "Ik ben al een aantal jaar zzp’er, hierdoor heb ik altijd moeite gehad met het bijhouden van mijn financiën en alles wat hierbij komt kijken. Sinds ik met Kyle werk is alles overzichtelijk en duidelijk. Hij communiceert goed en staat altijd paraat wanneer ik dat nodig heb. Ik kan Kyle en “Slim geregeld admin” aan iedereen aanraden!"
+  },
+  {
+   "bron": "moneybird",
+   "naam": "Edwin Postma",
+   "bedrijf": "Make Bouw",
+   "branche": "bouwbedrijf",
+   "datum": "2026-10-30",
+   "sterren": 5,
+   "taal": "nl",
+   "tekst": "Super fijne samenwerking, altijd duidelijk en snel!"
+  },
+  {
+   "bron": "google",
+   "naam": "Burak Sahin",
+   "sterren": 5,
+   "taal": "nl",
+   "tekst": "Het is erg gemakkelijk en bespaart me super veel tijd zodat ik kan focussen op leukere dingen in het ondernemen, perfecte oplossing!",
+   "vertaling": "It is very easy and saves me so much time so I can focus on more enjoyable aspects of running my business, perfect solution!"
+  },
+  {
+   "bron": "google",
+   "naam": "Rafaël Bossto",
+   "bedrijf": "A R Bossto",
+   "branche": "evenementen en logistiek",
+   "sterren": 5,
+   "taal": "nl",
+   "tekst": "Eenvoud en gemak. Nu al twee kwartalen klant bij Slim Geregeld, aanrader!",
+   "vertaling": "Simplicity and convenience. Already a customer of Slim Geregeld for two quarters, highly recommended!"
+  },
+  {
+   "bron": "google",
+   "naam": "Nosh van Campenhout",
+   "branche": "zzp'er, aangifte IB",
+   "sterren": 5,
+   "taal": "nl",
+   "foto": "/img/reviews/nosh.jpg",
+   "tekst": "Fijn om mee samen te werken! Altijd bereikbaar en fijn in de omgang, plus een goede service",
+   "vertaling": "A pleasure to work with! Always available and pleasant to deal with, plus good service."
+  },
+  {
+   "bron": "google",
+   "naam": "Andries Min",
+   "bedrijf": "Marimin",
+   "branche": "timmerman",
+   "sterren": 5,
+   "taal": "nl",
+   "link": "https://maps.app.goo.gl/cz2LpkpYzyJQTiyg6",
+   "tekst": "Prima, lekker makkelijk zo.",
+   "vertaling": "Great, nice and easy this way."
+  }
+ ]
+}
