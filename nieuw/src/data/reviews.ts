@@ -4,7 +4,8 @@
 // Scores later live via n8n (zie GoogleReviews.astro).
 // Niet tonen: Serena Arendzen (partner) en de anonieme Moneybird-review van
 // 26-10-2026 (familie), allebei een belangenconflict. Ook niet: Iona Susanto
-// (4 sterren, kanttekening) en Santino Heij (gaat over NettoCheck, niet de dienst).
+// (4 sterren, kanttekening), Santino Heij (gaat over NettoCheck, niet de dienst) en
+// Sri Kurniati (moeder van Edwin Postma van Make Bouw, die zelf al een review gaf).
 
 export const google = {
   score: '4,9',
@@ -67,13 +68,10 @@ export const reviews: Review[] = [
     tekst: 'Ik ben al een aantal jaar zzp’er, hierdoor heb ik altijd moeite gehad met het bijhouden van mijn financiën en alles wat hierbij komt kijken. Sinds ik met Kyle werk is alles overzichtelijk en duidelijk. Hij communiceert goed en staat altijd paraat wanneer ik dat nodig heb. Ik kan Kyle en “Slim geregeld admin” aan iedereen aanraden!' },
   { bron: 'moneybird', naam: 'Edwin Postma', bedrijf: 'Make Bouw', branche: 'bouwbedrijf', datum: '2026-10-30', sterren: 5, taal: 'nl',
     tekst: 'Super fijne samenwerking, altijd duidelijk en snel!' },
-  { bron: 'google', naam: 'Sri Kurniati', sterren: 5, taal: 'nl',
-    tekst: 'Super, altijd goeie communicatie, snel antwoord en goede prijs/kwaliteit verhouding!',
-    vertaling: 'Great, always good communication, quick response, and good value for money!' },
   { bron: 'google', naam: 'Burak Sahin', sterren: 5, taal: 'nl',
     tekst: 'Het is erg gemakkelijk en bespaart me super veel tijd zodat ik kan focussen op leukere dingen in het ondernemen, perfecte oplossing!',
     vertaling: 'It is very easy and saves me so much time so I can focus on more enjoyable aspects of running my business, perfect solution!' },
-  { bron: 'google', naam: 'Rafaël Bossto', bedrijf: 'A R Bossto', sterren: 5, taal: 'nl',
+  { bron: 'google', naam: 'Rafaël Bossto', bedrijf: 'A R Bossto', branche: 'evenementen en logistiek', sterren: 5, taal: 'nl',
     tekst: 'Eenvoud en gemak. Nu al twee kwartalen klant bij Slim Geregeld, aanrader!',
     vertaling: 'Simplicity and convenience. Already a customer of Slim Geregeld for two quarters, highly recommended!' },
   { bron: 'google', naam: 'Nosh van Campenhout', branche: 'zzp\'er, aangifte IB', sterren: 5, taal: 'nl', foto: '/img/reviews/nosh.jpg',

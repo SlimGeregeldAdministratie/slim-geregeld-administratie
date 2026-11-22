@@ -17,7 +17,7 @@ const lijst = reviews
   .map((r, i) => ({ r: { ...r, vertaald: taal === 'en' && r.taal === 'nl', tekst: taal === 'en' && r.taal === 'nl' ? r.vertaling! : r.tekst }, i }))
   .sort((a, b) => rang(a.r.naam) - rang(b.r.naam) || Number(a.r.vertaald) - Number(b.r.vertaald) || a.i - b.i)
   .map((x) => x.r).slice(0, max);
-const EN: Record<string, string> = { 'consultant, bv': 'consultant, BV', 'online marketeer': 'online marketer', 'evenementen': 'events', 'bouwbedrijf': 'construction', 'timmerman': 'carpenter', 'aangifte inkomstenbelasting': 'income tax return', 'visual en motion designer': 'visual and motion designer', "zzp'er, aangifte IB": 'freelancer, income tax return' };
+const EN: Record<string, string> = { 'consultant, bv': 'consultant, BV', 'online marketeer': 'online marketer', 'evenementen': 'events', 'bouwbedrijf': 'construction', 'timmerman': 'carpenter', 'aangifte inkomstenbelasting': 'income tax return', 'visual en motion designer': 'visual and motion designer', "zzp'er, aangifte IB": 'freelancer, income tax return', 'evenementen en logistiek': 'events and logistics' };
 const branche = (b?: string) => (b && taal === 'en' ? EN[b] ?? b : b);
 const regel = (r: { branche?: string; bedrijf?: string; naam: string }) => [branche(r.branche), r.bedrijf !== r.naam ? r.bedrijf : ''].filter(Boolean).join(' · ');
 const sterren = (n: number) => '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
