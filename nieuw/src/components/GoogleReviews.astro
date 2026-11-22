@@ -7,8 +7,8 @@ interface Props { taal?: 'nl' | 'en'; titel?: string; max?: number; eerst?: stri
 /* eerst: namen van reviews die bij deze pagina passen; die komen vooraan. */
 const { taal = 'nl', titel, max = 9, eerst = [] } = Astro.props;
 const T = taal === 'en'
-  ? { titel: 'What clients say', op: { google: 'Google', moneybird: 'Moneybird' }, reviews: 'reviews', meer: 'Read more', vertaald: 'Translated by Google' }
-  : { titel: 'Wat klanten zeggen', op: { google: 'Google', moneybird: 'Moneybird' }, reviews: 'reviews', meer: 'Lees verder', vertaald: '' };
+  ? { titel: 'What clients say', op: { google: 'Google', moneybird: 'Moneybird' }, reviews: 'reviews', meer: 'Read more', vertaald: 'Translated by Google', vertaaldMb: 'Translated from Dutch' }
+  : { titel: 'Wat klanten zeggen', op: { google: 'Google', moneybird: 'Moneybird' }, reviews: 'reviews', meer: 'Lees verder', vertaald: '', vertaaldMb: '' };
 const rang = (n: string) => { const i = eerst.indexOf(n); return i < 0 ? 99 : i; };
 /* NL: alleen Nederlandse reviews. EN: eerst de Engelse originelen, daarna de
    Nederlandse met een vertaling van Google (met label). */
@@ -18,6 +18,7 @@ const lijst = reviews
   .sort((a, b) => rang(a.r.naam) - rang(b.r.naam) || Number(a.r.vertaald) - Number(b.r.vertaald) || a.i - b.i)
   .map((x) => x.r).slice(0, max);
 const EN: Record<string, string> = { 'consultant, bv': 'consultant, BV', 'online marketeer': 'online marketer', 'evenementen': 'events', 'bouwbedrijf': 'construction', 'timmerman': 'carpenter', 'aangifte inkomstenbelasting': 'income tax return', 'visual en motion designer': 'visual and motion designer', "zzp'er, aangifte IB": 'freelancer, income tax return', 'evenementen en logistiek': 'events and logistics' };
+/* Initiaal van een anonieme review: A, in beide talen. */
 const branche = (b?: string) => (b && taal === 'en' ? EN[b] ?? b : b);
 const regel = (r: { branche?: string; bedrijf?: string; naam: string }) => [branche(r.branche), r.bedrijf !== r.naam ? r.bedrijf : ''].filter(Boolean).join(' · ');
 const sterren = (n: number) => '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
@@ -42,12 +43,12 @@ const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" heig
       <figure class="kaart gr-kaart">
         <div class="gr-wie">
           {r.foto ? <img src={r.foto} alt="" width="44" height="44" loading="lazy"> : <span class="init">{r.naam[0]}</span>}
-          <div><b>{r.naam}</b>{regel(r) && <small>{regel(r)}</small>}</div>
+          <div><b>{r.naam === 'Anoniem' && taal === 'en' ? 'Anonymous' : r.naam}</b>{regel(r) && <small>{regel(r)}</small>}</div>
           {r.bron === 'google' ? <span class="g klein" title="Google" set:html={G} /> : <span title="Moneybird" set:html={MB} />}
         </div>
         <div class="st" aria-label={`${r.sterren} van 5 sterren`}>{sterren(r.sterren)}</div>
         <blockquote>{r.tekst}</blockquote>
-        {r.vertaald && <span class="vertaald">{T.vertaald}</span>}
+        {r.vertaald && <span class="vertaald">{r.bron === 'google' ? T.vertaald : T.vertaaldMb}</span>}
         <div class="kaart-voet"><button type="button" class="meer-lezen" hidden>{T.meer}</button><a class="op" href={r.link ?? (r.bron === 'google' ? google.profiel : moneybird.profiel)} target="_blank" rel="noopener" aria-label={`${taal === 'en' ? 'View on' : 'Bekijk op'} ${T.op[r.bron]}`}>{T.op[r.bron]} ↗</a></div>
       </figure>
     ))}

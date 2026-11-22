@@ -4,7 +4,7 @@ const { taal, alternatief, cta } = Astro.props;
 
 const MENU = {
   nl: { items: [['Diensten', '/#diensten'], ['Tarieven', '/tarieven'], ['Slim', '/slim'], ['Over', '/over'], ['Blog', '/blog/'], ['Contact', '/contact']], cta: ['Kennismaken', '/#contact'], home: '/' },
-  en: { items: [['DAFT', '/daft/'], ['Japan (DJTT)', '/djtt/'], ['Renewal', '/daft/renewal/'], ['Pricing', '/en/pricing/'], ['About', '/en/about/'], ['Blog', '/en/blog/']], cta: ['Get started', '/en/intake/'], home: '/en/' },
+  en: { items: [['DAFT', '/daft/'], ['Japan (DJTT)', '/djtt/'], ['Renewal', '/daft/renewal/'], ['Pricing', '/en/pricing/'], ['About', '/en/about/'], ['Blog', '/en/blog/']], cta: ['Get started', '/en/#choose'], home: '/en/' },
   ja: { items: [['DJTT', '/djtt/ja/'], ['料金', '/djtt/ja/#pricing'], ['よくある質問', '/djtt/ja/#faq']], cta: ['お申し込み', '/djtt/ja/#request'], home: '/djtt/ja/' },
 }[taal];
 const talen = [

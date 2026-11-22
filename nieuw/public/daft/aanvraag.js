@@ -220,6 +220,8 @@
   document.querySelectorAll('[data-optie]').forEach(function(a){
     a.addEventListener('click',function(){ zetOptie(a.getAttribute('data-optie')); });
   });
+  // Vanaf een andere pagina (bijv. /en/compliance-plan/) met ?optie=plan|standard|rush
+  try{var o=new URLSearchParams(location.search).get('optie'); if(o&&/^(plan|standard|rush)$/.test(o)) zetOptie(o);}catch(e){}
 
   var melding=document.getElementById('d-melding');
   var stap=1;

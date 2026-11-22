@@ -42,8 +42,8 @@ export const reviews: Review[] = [
     tekst: "Very happy with the quick and precise services provided by Slim Geregeld in regards to establishing opening balances for my DAFT visa. Highly recommend Kyle's bookkeeping services in any regards!" },
   { bron: 'google', naam: 'Jozsa-Fetzer Huba', branche: 'tax recovery project', sterren: 5, taal: 'en',
     tekst: 'I contacted Kyle with a tax recovery project. He was constructive, responsive, he worked extensively and delivered beyond expectations. I warmly recommend him!' },
-  { bron: 'moneybird', naam: 'Anoniem', datum: '2026-11-17', sterren: 5, taal: 'en',
-    tekst: 'From the very beginning, he took the time to clearly explain the services he offered, the process involved, and the fee structure, which made me feel confident and comfortable throughout the entire process. … What particularly stood out to me was his transparency regarding any additional services and associated costs. …' },
+  { bron: 'moneybird', naam: 'Anoniem', branche: 'DJTT renewal', datum: '2026-11-17', sterren: 5, taal: 'en',
+    tekst: 'From the very beginning, he took the time to clearly explain the services he offered, the process involved, and the fee structure, which made me feel confident and comfortable throughout the entire process. His work was consistently thorough and handled with great care and attention to detail. What particularly stood out to me was his transparency regarding any additional services and associated costs. He also respected my decision to handle certain tasks myself, rather than making me feel pressured to use additional paid services. It was clear that his priority was not simply to provide a service, but to understand my needs and find the most suitable way to support me. His professionalism, attention to detail, transparency, and flexibility made the entire experience very positive. I would highly recommend him to anyone looking for a reliable and considerate bookkeeper.' },
 
   // Nederlandstalig
   { bron: 'moneybird', naam: 'Benthe Lokhorst', bedrijf: 'ProProject', branche: 'consultant, bv', datum: '2026-10-15', sterren: 5, taal: 'nl',

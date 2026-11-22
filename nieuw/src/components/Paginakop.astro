@@ -33,7 +33,7 @@ const kruimelLd = kruimel && {
     <div>
       <span class="tag">{tag}</span>
       <h1 data-groet={groet ? '' : undefined}>{titel}</h1>
-      {groet && <script is:inline>(function(){var h=document.currentScript.previousElementSibling,u=new Date().getHours(),g=u<12?'Goedemorgen':u<18?'Goedemiddag':'Goedenavond';h.textContent=h.textContent.replace(/^Hoi/,g);})();</script>}
+      {groet && <script is:inline>(function(){var h=document.currentScript.previousElementSibling,u=new Date().getHours(),en=/^Hi\b/.test(h.textContent),g=en?(u<12?'Good morning':u<18?'Good afternoon':'Good evening'):(u<12?'Goedemorgen':u<18?'Goedemiddag':'Goedenavond');h.textContent=h.textContent.replace(/^(Hoi|Hi)\b/,g);})();</script>}
       <p class="sub">{sub}</p>
       {prijs && <p class="prijsregel"><b>{prijs.bedrag}</b>{prijs.oud && <s>{prijs.oud}</s>}{prijs.per && <span>{prijs.per}</span>}{prijs.uitleg && <span class="pr-uit">{prijs.uitleg}</span>}</p>}
       <div class="knoppen">

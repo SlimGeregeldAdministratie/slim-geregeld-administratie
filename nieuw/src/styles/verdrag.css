@@ -96,3 +96,13 @@
 /* Donkere tussenbalk als afgerond blok, zoals het contactblok */
 .verdrag .tussen-cta{background:transparent;padding:0 0 8px}
 .verdrag .tussen-cta-binnen{background:var(--inkt);border-radius:24px;padding:28px 32px}
+
+/* Duwtje voor een eerste aanvraag, onder "Do you need one" */
+.verdrag .eerste-aanvraag{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-top:18px;padding:18px 22px;border-radius:var(--r);background:var(--blauw-t);border:1px solid var(--blauw-rand)}
+.verdrag .eerste-aanvraag p{margin:0;max-width:44rem;color:var(--tekst)}
+/* Knoppen in de hero: niet uitrekken, ook niet op tussenbreedtes */
+.verdrag .hero-cta .knop{flex:0 1 auto}
+/* "Which of these is you?" op de verlengpagina: nummers blauw, het zijn geen fouten */
+.verdrag.v-renewal #situations .fout-item .nr{background:var(--blauw-t);color:var(--blauw)}
+/* Contactpagina: het profielregeltje is geen kaart */
+.verdrag.v-contact .wie{border:0;border-radius:0;box-shadow:none;padding:0;background:transparent}
