@@ -173,3 +173,19 @@ a.blog-label:hover{background:#dfe8ff}
 .blog-tabs a{padding:10px 14px;font-weight:650;font-size:.95rem;color:var(--grijs);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px}
 .blog-tabs a:hover{color:var(--inkt)}
 .blog-tabs a[aria-current]{color:var(--blauw);border-bottom-color:var(--blauw)}
+
+/* 23-11-2026 (Kyle): minder kaartjes bovenaan, inhoud altijd open, FAQ zonder
+   uitklappen. Redactioneel: tekst met een lijn, geen gekleurde vlakken. */
+.in-kort{border:0;border-left:3px solid var(--blauw);background:none;border-radius:0;padding:2px 0 2px 18px;margin:8px 0 28px}
+.in-kort b{font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--blauw)}
+.in-kort ul{padding-left:18px;margin-top:8px;gap:6px;font-size:1.02rem}
+.toc-mobiel{border-top:1px solid var(--lijn);border-bottom:1px solid var(--lijn);padding:16px 0;margin:0 0 28px}
+.toc-mobiel p{font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--grijs);margin-bottom:8px}
+.toc-mobiel ol{padding-left:20px;display:grid;gap:5px;color:var(--tekst)}
+.toc-mobiel a{color:var(--tekst);text-decoration:none}
+.toc-mobiel a:hover{color:var(--blauw)}
+.toc-zij p{font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--grijs)}
+.artikel-faq dl{margin-top:8px}
+.artikel-faq dt{font-weight:700;color:var(--inkt);font-size:1.05rem;padding-top:18px;margin-top:18px;border-top:1px solid var(--lijn)}
+.artikel-faq dt:first-child{border-top:0;margin-top:6px;padding-top:0}
+.artikel-faq dd{color:var(--tekst);margin-top:6px;line-height:1.7}

@@ -195,14 +195,14 @@ const L = {
               </aside>
             )}
             {artikel.toc.length >= 2 && (
-              <details class="toc toc-mobiel"><summary>{t.inhoud}</summary>
-                <ol>{artikel.toc.map((k: any) => <li><a href={'#' + k.id}>{k.tekst}</a></li>)}</ol></details>
+              <nav class="toc-mobiel" aria-label={t.inhoud}><p>{t.inhoud}</p>
+                <ol>{artikel.toc.map((k: any) => <li><a href={'#' + k.id}>{k.tekst}</a></li>)}</ol></nav>
             )}
             <div class="blog-tekst" set:html={artikel.html} />
             {artikel.s.faq.length > 0 && (
               <section class="artikel-faq" aria-labelledby="faq" style="padding:0">
                 <h2 id="faq">{t.faq}</h2>
-                {artikel.s.faq.map((f: any) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+                <dl>{artikel.s.faq.map((f: any) => <><dt>{f.q}</dt><dd>{f.a}</dd></>)}</dl>
               </section>
             )}
             {(artikel.dienst || artikel.dl) && (
