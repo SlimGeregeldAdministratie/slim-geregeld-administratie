@@ -11,7 +11,9 @@
     "taal": "en",
     "blogSlug": "daft-after-approval-six-months-to-invest",
     "cluster": "daft-verlenging",
-    "toon": false
+    "toon": false,
+    "impressies": 11,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:ugcPost:7529121364872552448",
@@ -63,7 +65,9 @@
     "taal": "nl",
     "blogSlug": "holding-company-above-dutch-bv",
     "cluster": "bv-dga",
-    "toon": false
+    "toon": false,
+    "impressies": 13,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7526584640921403392",
@@ -77,7 +81,9 @@
     "taal": "en",
     "blogSlug": null,
     "cluster": "daft-verlenging",
-    "toon": true
+    "toon": true,
+    "impressies": 139,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7525859886786699265",
@@ -91,7 +97,9 @@
     "taal": "nl",
     "blogSlug": null,
     "cluster": "bv-dga",
-    "toon": true
+    "toon": true,
+    "impressies": 956,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7523435029557923840",
@@ -106,8 +114,8 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 73,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 124,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7520552621313560576",
@@ -122,8 +130,8 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 217,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 243,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7515857764628320257",
@@ -138,8 +146,8 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 137,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 147,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7512973023717781506",
@@ -154,8 +162,8 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 284,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 288,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7479994088646324225",
@@ -170,8 +178,8 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 447,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 451,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7472328071858262017",
@@ -186,8 +194,8 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 341,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 345,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7469774316088524802",
@@ -202,8 +210,8 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 439,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 443,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7464753799866281984",
@@ -218,8 +226,8 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 431,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 436,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7462851775038119937",
@@ -234,8 +242,8 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 234,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 240,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7460293830991519744",
@@ -250,8 +258,8 @@
     "taal": "nl",
     "cluster": "bv-dga",
     "blogSlug": null,
-    "impressies": 192,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 196,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7454824618936238080",
@@ -410,8 +418,8 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 390,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 391,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:activity:7426901559139016704",
@@ -474,8 +482,8 @@
     "taal": "nl",
     "cluster": "zzp-btw",
     "blogSlug": null,
-    "impressies": 749,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 750,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:share:7420044904619319296",
@@ -490,8 +498,8 @@
     "taal": "nl",
     "cluster": "jaarwerk",
     "blogSlug": null,
-    "impressies": 358,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 359,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:activity:7419366881410740224",
@@ -538,8 +546,8 @@
     "taal": "nl",
     "cluster": "ib-aangifte",
     "blogSlug": null,
-    "impressies": 350,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressies": 351,
+    "impressiesBijgewerkt": "2026-11-23"
   },
   {
     "id": "urn:li:activity:7411904135127781376",
