@@ -47,6 +47,7 @@ Elk bestand begint met YAML tussen twee regels `---`. Daaronder volgt de tekst i
 | `translationKey` | nee, wel aanbevolen | tekst | Zelfde waarde voor de NL-, EN- en JA-versie van één stuk. Zonder dit veld is de slug de sleutel. Per taal mag een sleutel maar één keer voorkomen. |
 | `cluster` | ja | slug | Onderwerpgroep, zie de tabel hieronder. Bepaalt het label, de gerelateerde stukken en de dienstlink. |
 | `tags` | nee | lijst met teksten | Komt als `keywords` in het schema. |
+| `kort` | nee, wel aanbevolen | lijst van 2 tot 4 zinnen | Het kader "In het kort" (EN "In short") bovenaan het artikel in de nieuwe site. Alleen zinnen die in het artikel zelf staan of er direct uit volgen; geen nieuwe bedragen. De oude build negeert het veld. |
 | `faq` | nee | lijst van `{q, a}` | Drie tot vijf vragen. Wordt een FAQ-blok onder het artikel plus FAQPage-schema. Platte tekst, geen markdown. |
 | `status` | ja | `live`, `archief` of `ingetrokken` | Zie "Statussen". Ontbreekt het veld, dan geldt `live` met een waarschuwing. |
 | `image` | nee | pad onder `public/blog/img/` | Bijvoorbeeld `/blog/img/daft-renewal-equity.png`, 1200x628. Komt bovenaan het artikel en als `og:image`. Bestaat het bestand niet, dan bouwt het artikel zonder afbeelding (waarschuwing). |

@@ -15,4 +15,5 @@ const label = clusterLabel(s.cluster, s.taal);
   <Kop><a href={artikelPad(s)}>{s.title}</a></Kop>
   <p class="blog-meta"><span>{A[s.author].naam}</span><span aria-hidden="true">·</span><time datetime={s.date}>{datumMooi(s.date, s.taal)}</time></p>
   <p>{s.description}</p>
+  <span class="verder" aria-hidden="true">{s.taal === 'en' ? 'Read more' : s.taal === 'ja' ? '続きを読む' : 'Lees verder'} <span>→</span></span>
 </li>

@@ -68,9 +68,17 @@ if (p.soort === 'overzicht') {
       ...(s.tags.length ? { keywords: s.tags.join(', ') } : {}), image: beeldUrl || ORG.image },
     kruimelGraaf(u, kruimels),
     ...(s.faq.length ? [{ '@type': 'FAQPage', '@id': u + '#faq', inLanguage: taal, isPartOf: { '@id': u + '#webpage' }, mainEntity: s.faq.map((f: any) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : [])];
-  artikel = { s, a, html, toc, bijgewerkt, verwant: verwantVan(s), dl: downloadVan(s), dienst: dienstVan(s) };
+  // Leestijd: 200 woorden per minuut, afgerond, minimaal 1.
+  const woorden = s.tekst.replace(/[#*_>`\[\]()|-]/g, ' ').split(/\s+/).filter(Boolean).length;
+  const minuten = Math.max(1, Math.round(woorden / 200));
+  artikel = { s, a, html, toc, bijgewerkt, minuten, verwant: verwantVan(s), dl: downloadVan(s), dienst: dienstVan(s) };
 }
 const cta = taal === 'nl' ? '/#contact' : undefined;
+const L = {
+  nl: { kort: 'In het kort', lezen: 'min lezen', meer: 'Lees verder', gratis: 'Gratis', door: 'Door' },
+  en: { kort: 'In short', lezen: 'min read', meer: 'Read more', gratis: 'Free', door: 'By' },
+  ja: { kort: '要点', lezen: '分で読めます', meer: '続きを読む', gratis: '無料', door: '著者' },
+}[taal];
 ---
 <Basis titel={titel} omschrijving={omschrijving} taal={taal === 'ja' ? 'ja' : taal} robots={robots} alternatief={alternatief} afbeelding={afbeelding} ogType={ogType} cta={cta}>
   <script slot="head" type="application/ld+json" set:html={ld(graaf)} />
@@ -84,10 +92,13 @@ const cta = taal === 'nl' ? '/#contact' : undefined;
           <span class="tag">{t.blog}</span>
           <h1>{overzicht.naam ? `${t.blog}: ${overzicht.naam}` : t.overzichtH1}</h1>
           <p class="sub">{t.overzichtIntro}</p>
+          {taal === 'nl' && !overzicht.filter && (
+            <nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/" aria-current="page">Artikelen</a><a href="/nieuws/">Nieuws en tips</a></nav>
+          )}
         </div>
       </section>
       <section style="padding-top:8px">
-        <div class="wrap" style="max-width:900px">
+        <div class="wrap"><div style="max-width:860px">
           {overzicht.clusters.length > 1 && (
             <nav class="blog-filters" aria-label={t.onderwerp}>
               <a href={blogBasis(taal)} aria-current={!overzicht.filter ? 'page' : undefined}>{t.alleOnderwerpen}</a>
@@ -114,6 +125,7 @@ const cta = taal === 'nl' ? '/#contact' : undefined;
               {overzicht.volgende ? <a href={overzicht.volgende} rel="next">{t.volgende} →</a> : <span></span>}
             </nav>
           )}
+</div>
         </div>
       </section>
       {overzicht.gelezen && (
@@ -153,8 +165,9 @@ const cta = taal === 'nl' ? '/#contact' : undefined;
 
   {artikel && (
     <>
+      <div class="lees-balk" aria-hidden="true"><i></i></div>
       <section class="blog-kop">
-        <div class="blog-smal artikel">
+        <div class="art-wrap"><div class="art-kop">
           {clusterHeeftPagina(taal, artikel.s.cluster)
             ? <a class="blog-label" href={clusterPad(taal, artikel.s.cluster)}>{clusterLabel(artikel.s.cluster, taal)}</a>
             : <span class="blog-label">{clusterLabel(artikel.s.cluster, taal)}</span>}
@@ -163,56 +176,95 @@ const cta = taal === 'nl' ? '/#contact' : undefined;
           <div class="door">
             {artikel.a.foto ? <img class="avatar" src={artikel.a.foto} alt="" width="48" height="48"> : <span class="avatar" aria-hidden="true">{artikel.a.initialen}</span>}
             <div>
-              <div>{t.door} <a href="#auteur"><b>{artikel.a.naam}</b></a>, {artikel.a.functie[taal]}</div>
-              <div>{t.gepubliceerd} <time datetime={artikel.s.date}>{datumMooi(artikel.s.date, taal)}</time>
-                {artikel.bijgewerkt && <><span aria-hidden="true"> · </span>{t.bijgewerkt} <time datetime={artikel.bijgewerkt}>{datumMooi(artikel.bijgewerkt, taal)}</time></>}</div>
+              <div><a href={artikel.a.url[taal]}><b>{artikel.a.naam}</b></a>, {artikel.a.functie[taal]}</div>
+              <div><time datetime={artikel.s.date}>{datumMooi(artikel.s.date, taal)}</time>
+                {artikel.bijgewerkt && <> · {t.bijgewerkt} <time datetime={artikel.bijgewerkt}>{datumMooi(artikel.bijgewerkt, taal)}</time></>}
+                {' · '}{artikel.minuten} {L.lezen}</div>
             </div>
           </div>
-        </div>
+        </div></div>
       </section>
       <section style="padding-top:0">
-        <article class="blog-smal artikel">
-          {artikel.s.status === 'archief' && <p class="archief">{t.archief} <a href={blogBasis(taal)}>{t.blog}</a></p>}
-          {artikel.s.image && <img class="artikel-beeld" src={artikel.s.image} alt={artikel.s.title} width="1200" height="628">}
+        <div class="art-wrap art-raster">
+          <article class="artikel art-hoofd">
+            {artikel.s.status === 'archief' && <p class="archief">{t.archief} <a href={blogBasis(taal)}>{t.blog}</a></p>}
+            {artikel.s.kort.length > 0 && (
+              <aside class="in-kort" aria-label={L.kort}>
+                <b>{L.kort}</b>
+                <ul>{artikel.s.kort.map((k: string) => <li>{k}</li>)}</ul>
+              </aside>
+            )}
+            {artikel.toc.length >= 2 && (
+              <details class="toc toc-mobiel"><summary>{t.inhoud}</summary>
+                <ol>{artikel.toc.map((k: any) => <li><a href={'#' + k.id}>{k.tekst}</a></li>)}</ol></details>
+            )}
+            <div class="blog-tekst" set:html={artikel.html} />
+            {artikel.s.faq.length > 0 && (
+              <section class="artikel-faq" aria-labelledby="faq" style="padding:0">
+                <h2 id="faq">{t.faq}</h2>
+                {artikel.s.faq.map((f: any) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+              </section>
+            )}
+            {(artikel.dienst || artikel.dl) && (
+              <div class="art-slot">
+                {artikel.dienst && <><b>{artikel.dienst[1]}</b><p>{artikel.dienst[2]}</p>
+                  <a class="knop vol" href={artikel.dienst[0]}>{artikel.dienst[3]}</a></>}
+                {artikel.dl && (
+                  <a class="slot-dl" href={artikel.dl.pad}>
+                    <span><small>{L.gratis}</small>{artikel.dl.kader[1]}</span><span class="pijl" aria-hidden="true">→</span>
+                  </a>
+                )}
+              </div>
+            )}
+            <aside id="auteur" class="auteur-blok" aria-label={t.overAuteur}>
+              {artikel.a.foto ? <img class="avatar groot" src={artikel.a.foto} alt="" width="72" height="72"> : <span class="avatar groot" aria-hidden="true">{artikel.a.initialen}</span>}
+              <div>
+                <div class="klein">{t.overAuteur}</div>
+                <a href={artikel.a.url[taal]}>{artikel.a.naam}</a>
+                <div class="klein">{artikel.a.functie[taal]}</div>
+                <p>{artikel.a.bio[taal]}</p>
+              </div>
+            </aside>
+            {artikel.s.linkedin.length > 0 && (
+              <p class="li-regel">{t.linkedin}: {artikel.s.linkedin.map((l: string, i: number) => <>{i > 0 && ', '}<a href={l} rel="noopener">{t.bekijkLinkedin}{artikel.s.linkedin.length > 1 ? ' ' + (i + 1) : ''}</a></>)}</p>
+            )}
+            {artikel.verwant.length > 0 && (
+              <section class="verwant" style="padding:0">
+                <h2>{t.gerelateerd}</h2>
+                <ul class="blog-lijst">{artikel.verwant.map((s: any) => <BlogKaart s={s} kop="h3" />)}</ul>
+              </section>
+            )}
+          </article>
           {artikel.toc.length >= 2 && (
-            <nav class="toc" aria-labelledby="inhoud-kop"><p id="inhoud-kop">{t.inhoud}</p>
-              <ol>{artikel.toc.map((k: any) => <li><a href={'#' + k.id}>{k.tekst}</a></li>)}</ol></nav>
+            <aside class="art-zij" aria-label={t.inhoud}>
+              <nav class="toc-zij">
+                <p>{t.inhoud}</p>
+                <ol>{artikel.toc.map((k: any) => <li><a href={'#' + k.id} data-toc={k.id}>{k.tekst}</a></li>)}</ol>
+                <span class="toc-voortgang" aria-hidden="true"><i></i></span>
+              </nav>
+            </aside>
           )}
-          <div class="blog-tekst" set:html={artikel.html} />
-          {artikel.s.faq.length > 0 && (
-            <section class="artikel-faq" aria-labelledby="faq" style="padding:0">
-              <h2 id="faq">{t.faq}</h2>
-              {artikel.s.faq.map((f: any) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
-            </section>
-          )}
-          <aside id="auteur" class="auteur-blok" aria-label={t.overAuteur}>
-            {artikel.a.foto ? <img class="avatar groot" src={artikel.a.foto} alt="" width="72" height="72"> : <span class="avatar groot" aria-hidden="true">{artikel.a.initialen}</span>}
-            <div>
-              <div class="klein">{t.overAuteur}</div>
-              <a href={artikel.a.url[taal]}>{artikel.a.naam}</a>
-              <div class="klein">{artikel.a.functie[taal]}</div>
-              <p>{artikel.a.bio[taal]}</p>
-            </div>
-          </aside>
-          {artikel.dl && (
-            <div class="kader-dl"><div><b>{artikel.dl.kader[0]}</b><span>{artikel.dl.kader[1]}</span></div>
-              <a class="knop vol" href={artikel.dl.pad}>{artikel.dl.kader[0]}</a></div>
-          )}
-          {artikel.dienst && (
-            <div class="kader-dienst"><b>{artikel.dienst[1]}</b><p>{artikel.dienst[2]}</p>
-              <a class="knop vol" href={artikel.dienst[0]}>{artikel.dienst[3]}</a></div>
-          )}
-          {artikel.s.linkedin.length > 0 && (
-            <p class="li-regel">{t.linkedin}: {artikel.s.linkedin.map((l: string, i: number) => <>{i > 0 && ', '}<a href={l} rel="noopener">{t.bekijkLinkedin}{artikel.s.linkedin.length > 1 ? ' ' + (i + 1) : ''}</a></>)}</p>
-          )}
-          {artikel.verwant.length > 0 && (
-            <section class="verwant" style="padding:0">
-              <h2>{t.gerelateerd}</h2>
-              <ul class="blog-lijst">{artikel.verwant.map((s: any) => <BlogKaart s={s} kop="h3" />)}</ul>
-            </section>
-          )}
-        </article>
+        </div>
       </section>
+      <script is:inline>
+      (function () {
+        // Leesvoortgang: dunne balk bovenaan en de lijn naast de inhoudsopgave.
+        // De actieve kop in de inhoudsopgave volgt waar je bent.
+        var tekst = document.querySelector('.art-hoofd'), balk = document.querySelector('.lees-balk i'), lijn = document.querySelector('.toc-voortgang i');
+        var links = [].slice.call(document.querySelectorAll('[data-toc]'));
+        var koppen = links.map(function (a) { return document.getElementById(a.getAttribute('data-toc')); }).filter(Boolean);
+        function bij() {
+          var r = tekst.getBoundingClientRect(), h = window.innerHeight;
+          var p = Math.min(1, Math.max(0, (h * 0.3 - r.top) / Math.max(1, r.height - h * 0.5)));
+          if (balk) balk.style.width = (p * 100) + '%';
+          if (lijn) lijn.style.height = (p * 100) + '%';
+          var actief = null;
+          koppen.forEach(function (k) { if (k.getBoundingClientRect().top < h * 0.35) actief = k.id; });
+          links.forEach(function (a) { a.classList.toggle('actief', a.getAttribute('data-toc') === actief); });
+        }
+        window.addEventListener('scroll', bij, { passive: true }); window.addEventListener('resize', bij); bij();
+      })();
+      </script>
     </>
   )}
 </Basis>

@@ -22,8 +22,6 @@
           <span class="titel">The Compliance Plan, because I am on a DAFT or DJTT permit
             <span class="uitleg">The same bookkeeping, plus your income tax return, a quarterly equity check and the statement for your renewal. EUR 79 or EUR 149 a month.</span></span></label>
       </div>
-      <p class="kader-tekst">Only need your annual income tax return? That has its own short form:
-        <a href="/ib/#l=en">Dutch income tax return</a>.</p>
       <div class="twee">
         <div class="veld"><label for="naam">Your full name, as registered</label>
           <input id="naam" name="naam" type="text" required autocomplete="name"></div>
@@ -31,9 +29,13 @@
           <input id="email" name="email" type="email" required autocomplete="email"></div>
       </div>
       <div class="twee">
-        <div class="veld"><label for="telefoon">Mobile number with WhatsApp
+        <div class="veld"><label for="telefoonNummer">Mobile number with WhatsApp
           <span class="bij">Slim, my WhatsApp assistant, runs on this number. You send it receipts and it makes your invoices.</span></label>
-          <input id="telefoon" name="telefoon" type="tel" required autocomplete="tel" placeholder="+31 6 ..."></div>
+          <div class="tel-rij">
+            <select id="landcode" aria-label="Country code" autocomplete="tel-country-code"><option value="+31" selected>Netherlands (+31)</option><option value="+1">United States / Canada (+1)</option><option value="+81">Japan (+81)</option><option value="+44">United Kingdom (+44)</option><option value="+49">Germany (+49)</option><option value="+32">Belgium (+32)</option><option value="+33">France (+33)</option><option value="+39">Italy (+39)</option><option value="+34">Spain (+34)</option><option value="+351">Portugal (+351)</option><option value="+353">Ireland (+353)</option><option value="+41">Switzerland (+41)</option><option value="+43">Austria (+43)</option><option value="+45">Denmark (+45)</option><option value="+46">Sweden (+46)</option><option value="+47">Norway (+47)</option><option value="+48">Poland (+48)</option><option value="+30">Greece (+30)</option><option value="+90">Turkey (+90)</option><option value="+7">Russia / Kazakhstan (+7)</option><option value="+380">Ukraine (+380)</option><option value="+91">India (+91)</option><option value="+86">China (+86)</option><option value="+82">South Korea (+82)</option><option value="+63">Philippines (+63)</option><option value="+65">Singapore (+65)</option><option value="+62">Indonesia (+62)</option><option value="+61">Australia (+61)</option><option value="+64">New Zealand (+64)</option><option value="+55">Brazil (+55)</option><option value="+52">Mexico (+52)</option><option value="+54">Argentina (+54)</option><option value="+57">Colombia (+57)</option><option value="+27">South Africa (+27)</option><option value="+971">United Arab Emirates (+971)</option><option value="+972">Israel (+972)</option><option value="+20">Egypt (+20)</option></select>
+            <input id="telefoonNummer" type="tel" required autocomplete="tel-national" inputmode="tel" placeholder="6 12345678" aria-label="Mobile number">
+          </div>
+          <input type="hidden" name="telefoon" id="telefoon"></div>
         <div class="veld"><label for="geboortedatum">Date of birth
           <span class="bij">Needed for your income tax return, and I am required to verify your identity.</span></label>
           <input id="geboortedatum" name="geboortedatum" type="date" required></div>
@@ -422,9 +424,17 @@
     if (opt) opt.style.display = aan ? 'none' : '';
   }
 
+  // Telefoon: landcode en nummer apart, samen als +31612345678 in het veld
+  // telefoon dat naar n8n gaat. Een 0 vooraan het nummer valt weg.
+  function telefoonSamen(){
+    var nr = document.getElementById('telefoonNummer').value.replace(/[^0-9]/g, '').replace(/^0+/, '');
+    document.getElementById('telefoon').value = nr ? document.getElementById('landcode').value + nr : '';
+  }
+
   function bijwerken(){
+    telefoonSamen();
     // Klanttype: boekhouding of het Compliance Plan. Wie alleen een aangifte wil,
-    // gaat naar het IB-formulier (/ib/#l=en), daar is dit formulier niet voor.
+    // gebruikt het IB-formulier, daar is dit formulier niet voor.
     var wat = gekozen('wat');
     form.querySelectorAll('[data-voor]').forEach(function(el){
       var lijst = el.getAttribute('data-voor').split(' ');
@@ -518,6 +528,13 @@
         var waarde = String(v[k]);
         form.querySelectorAll('[name="' + k.replace(/"/g,'') + '"]').forEach(function(el){
           if (el.type === 'file') return;
+          if (el.id === 'telefoon') {
+            var t = waarde.replace(/[^0-9+]/g, ''), code = '';
+            [].slice.call(document.getElementById('landcode').options).forEach(function(o){ if (t.indexOf(o.value) === 0 && o.value.length > code.length) code = o.value; });
+            if (code) { document.getElementById('landcode').value = code; t = t.slice(code.length); }
+            document.getElementById('telefoonNummer').value = t.replace(/^\+/, '');
+            return;
+          }
           if (el.type === 'radio' || el.type === 'checkbox') { if (el.value === waarde) el.checked = true; }
           else if (!el.value) el.value = waarde;
         });

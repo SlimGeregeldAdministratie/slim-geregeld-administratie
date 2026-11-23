@@ -106,3 +106,6 @@
 .verdrag.v-renewal #situations .fout-item .nr{background:var(--blauw-t);color:var(--blauw)}
 /* Contactpagina: het profielregeltje is geen kaart */
 .verdrag.v-contact .wie{border:0;border-radius:0;box-shadow:none;padding:0;background:transparent}
+/* Intro onder een sectiekop: niet op 42rem afbreken als het op één regel past
+   (Kyle 23-11-2026, "IND form 7524 lists..." stond op twee regels). */
+.verdrag .sectie-kop{max-width:66rem}

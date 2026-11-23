@@ -205,7 +205,11 @@ export function leesBlogs(map = CONTENT) {
         cluster: fm.cluster, tags: fm.tags ?? [], faq: fm.faq ?? [], status: fm.status ?? 'live', image: fm.image ?? null,
         linkedin: fm.linkedin == null ? [] : (Array.isArray(fm.linkedin) ? fm.linkedin : [fm.linkedin]),
         klikken: fm.klikken ?? null, klikkenBijgewerkt: datumTekst(fm.klikkenBijgewerkt) || null,
+        // 'kort' (nieuw, 23-11-2026): twee tot vier zinnen voor het kader In het kort bovenaan.
+        kort: fm.kort == null ? [] : (Array.isArray(fm.kort) ? fm.kort : [fm.kort]),
       };
+      if (s.kort.some((k) => typeof k !== 'string' || !k.trim())) fout('kort moet een lijst met korte zinnen zijn');
+      else if (s.kort.length > 5) let_op('kort heeft meer dan vijf punten; houd het bij twee tot vier');
       if (s.klikken != null && !(Number.isInteger(s.klikken) && s.klikken >= 0)) fout('klikken moet een heel getal zijn');
       if (s.klikkenBijgewerkt && !geldigeDatum(s.klikkenBijgewerkt)) fout('klikkenBijgewerkt moet JJJJ-MM-DD zijn');
       if (!s.title || typeof s.title !== 'string') fout('title ontbreekt');

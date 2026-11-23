@@ -40,13 +40,14 @@ const graaf = [...metKyle('nl'),
   {volgende && <link slot="head" rel="next" href={B + volgende} />}
   <section class="blog-kop">
     <div class="wrap">
-      <span class="tag">Nieuws</span>
+      <span class="tag">Blog</span>
       <h1>{h1}</h1>
       <p class="sub">De posts van Kyle Bouwmeester op LinkedIn, als gewone tekst: praktische tips over administratie, btw, de BV en belastingen voor ondernemers.</p>
+      {!cluster && n === 1 && <nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/">Artikelen</a><a href="/nieuws/" aria-current="page">Nieuws en tips</a></nav>}
     </div>
   </section>
   <section style="padding-top:8px">
-    <div class="wrap" style="max-width:820px">
+    <div class="wrap"><div style="max-width:820px">
       <nav class="blog-filters" aria-label="Onderwerp">
         <a href="/nieuws/" aria-current={!cluster ? 'page' : undefined}>Alle onderwerpen</a>
         {aanwezig.map((c: string) => <a href={`/nieuws/onderwerp/${c}/`} aria-current={cluster === c ? 'page' : undefined}>{clusters[c]}</a>)}
@@ -89,6 +90,7 @@ const graaf = [...metKyle('nl'),
         </nav>
       )}
       <p style="margin-top:28px"><a class="knop leeg" href="/blog/">Lees ook de blog</a></p>
+</div>
     </div>
   </section>
 </Basis>

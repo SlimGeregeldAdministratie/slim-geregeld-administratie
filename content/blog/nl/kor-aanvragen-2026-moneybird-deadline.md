@@ -21,6 +21,10 @@ klikken: 0
 klikkenBijgewerkt: 2026-11-16
 status: live
 image: /blog/img/kor-aanvragen-2026-moneybird-deadline.png
+kort:
+  - "Je meldt je aan via Mijn Belastingdienst Zakelijk; de Belastingdienst noemt 3 december als deadline voor deelname vanaf 1 januari."
+  - "Bereken eerst hoeveel btw op je kosten je niet meer terugvraagt, en kies de KOR niet alleen omdat je omzet laag lijkt."
+  - "Pas Moneybird pas aan als de keuze vaststaat: de KOR is geen softwaretaak."
 ---
 
 Je meldt je aan voor de kleineondernemersregeling (KOR) via Mijn Belastingdienst Zakelijk. De [aanmeldpagina van de Belastingdienst noemt 3 december](https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/aanmelden-kor) als deadline voor deelname vanaf 1 januari. Wil je per januari 2027 starten, gebruik die gepubliceerde datum dan bij je planning in 2026. Bereken eerst hoeveel btw op zakelijke inkopen onder de KOR een kostenpost wordt, voordat je je boekhouding in Moneybird aanpast.

@@ -103,3 +103,6 @@
 /* WhatsApp-knop in de zijkolom op één regel */
 .v-intake .zij-blok .knop.wa{white-space:nowrap;padding:0 14px;font-size:.95rem}
 .v-intake .upload-blok > .veld{margin-top:0;margin-bottom:12px}
+/* Landcode en nummer naast elkaar (Kyle 23-11-2026) */
+.v-intake .tel-rij{display:grid;grid-template-columns:minmax(0,150px) 1fr;gap:8px}
+.v-intake .tel-rij select{min-width:0}

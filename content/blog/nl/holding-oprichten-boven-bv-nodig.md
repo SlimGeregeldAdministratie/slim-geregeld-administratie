@@ -21,6 +21,10 @@ klikken: 0
 klikkenBijgewerkt: 2026-11-09
 status: live
 image: /blog/img/holding-oprichten-boven-bv-nodig.png
+kort:
+  - "Je hebt niet automatisch een holding nodig omdat je een bv hebt."
+  - "Vennootschapsbelasting blijft verschuldigd, ook in een fiscale eenheid met een holding."
+  - "Een holding is zinvol bij een concreet doel, zoals activiteiten scheiden, vermogen opbouwen of een verkoop voorbereiden, en dat doel moet de extra kosten waard zijn."
 ---
 
 Je hebt niet automatisch een holding nodig omdat je je onderneming via een besloten vennootschap (bv) drijft. Ik adviseer een holding wanneer die een concreet doel heeft, zoals activiteiten scheiden, vermogen in de onderneming opbouwen of een verkoop voorbereiden. Dat doel moet de extra kosten en administratie rechtvaardigen. Bepaal daarom eerst wat de structuur moet bereiken.

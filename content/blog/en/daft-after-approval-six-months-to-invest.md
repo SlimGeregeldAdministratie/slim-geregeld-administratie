@@ -23,6 +23,10 @@ klikken: 0
 klikkenBijgewerkt: 2026-11-16
 status: live
 image: /blog/img/daft-after-approval-six-months-to-invest.png
+kort:
+  - "Since April 2024 the IND approves first DAFT applications without an opening balance upfront."
+  - "You then have six months to register with the KVK, open a business account and deposit the investment."
+  - "The EUR 4,500 is business equity, and the opening balance remains the evidence and the starting point of your records."
 ---
 
 Since April 2024, the Immigration and Naturalisation Service (IND) has approved [first DAFT applications without an opening balance upfront](/daft/), giving new permit holders six months to register their business, open a business bank account and deposit the investment. That means approval can come before you finish arranging the business side of your move. The EUR 4,500 investment still matters, and the opening balance sheet (openingsbalans) remains evidence of that investment. The change concerns when you arrange and document the setup.

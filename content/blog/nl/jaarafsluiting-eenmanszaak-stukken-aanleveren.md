@@ -19,6 +19,10 @@ faq:
     a: "Lever de factuur en het betaalbewijs aan en vermeld dat je privé hebt betaald. Zo kan ik de zakelijke kosten en de bijbehorende privéstorting samen controleren."
 status: live
 image: /blog/img/jaarafsluiting-eenmanszaak-stukken-aanleveren.png
+kort:
+  - "Lever bonnen, inkoop- en verkoopfacturen, bankafschriften en een overzicht van openstaande facturen aan."
+  - "Een spreadsheet met losse pdf's is prima, zolang privéopnames, privéstortingen en zakelijke kosten uit elkaar te houden zijn."
+  - "Heb je voorraad, lever dan een onderbouwd bedrag voor de eindvoorraad aan."
 ---
 
 Voor de jaarafsluiting van je eenmanszaak lever je bonnen, inkoopfacturen, verkoopfacturen, bankafschriften en een overzicht van openstaande facturen aan. Heb je voorraad, voeg dan een onderbouwd bedrag voor de eindvoorraad toe. Vermeld ook privéopnames, privéstortingen en zakelijke aankopen die je vanaf je privérekening hebt betaald. Met die stukken kan ik je winst en de veranderingen in je eigen vermogen controleren.

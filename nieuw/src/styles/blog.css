@@ -116,3 +116,60 @@ a.blog-label:hover{background:#dfe8ff}
 .dl-form .knop{width:100%;margin-top:16px}
 .dl-form .fout{color:#b91c1c}
 @media (min-width:860px){.dl-grid{grid-template-columns:1.25fr 1fr;gap:48px}}
+
+/* Artikel v2 (23-11-2026): tekstkolom met inhoudsopgave rechts, leestijd en
+   auteur bovenaan, kader In het kort, één slotblok. */
+.art-wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.art-kop{max-width:760px}
+.art-kop h1{font-size:clamp(2rem,5.6vw,2.9rem);margin-top:14px}
+.art-kop .door a{text-decoration:none}
+.art-kop .door a:hover b{color:var(--blauw)}
+.art-raster{display:grid;gap:40px}
+.art-hoofd{min-width:0;max-width:760px}
+.art-zij{display:none}
+.in-kort{border:1px solid var(--blauw-rand);background:var(--blauw-t);border-radius:var(--r);padding:18px 22px;margin:6px 0 22px}
+.in-kort b{display:block;color:var(--inkt);font-size:.95rem;letter-spacing:.01em}
+.in-kort ul{padding-left:20px;margin-top:8px;display:grid;gap:6px;color:var(--tekst)}
+.toc-mobiel{margin:0 0 26px}
+.toc-mobiel summary{font-weight:700;cursor:pointer}
+.toc-mobiel ol{margin-top:10px}
+.toc-zij{position:sticky;top:110px;padding-left:16px;font-size:.9rem}
+.toc-zij p{font-weight:700;color:var(--inkt);margin-bottom:10px}
+.toc-zij ol{list-style:none;display:grid;gap:9px}
+.toc-zij a{color:var(--grijs);text-decoration:none;line-height:1.4;display:block;transition:color .15s}
+.toc-zij a:hover,.toc-zij a.actief{color:var(--blauw)}
+.toc-zij a.actief{font-weight:650}
+.toc-voortgang{position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--lijn);border-radius:2px;overflow:hidden}
+.toc-voortgang i{display:block;width:100%;height:0;background:var(--blauw)}
+.lees-balk{position:fixed;left:0;right:0;top:0;height:3px;z-index:60;pointer-events:none}
+.lees-balk i{display:block;height:100%;width:0;background:var(--blauw)}
+.art-slot{background:var(--inkt);color:#e2e8f0;border-radius:24px;padding:28px 30px;margin-top:44px}
+.art-slot b{display:block;color:#fff;font-size:1.25rem;letter-spacing:-.01em}
+.art-slot p{margin:8px 0 18px;color:#b6c0d4}
+.slot-dl{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);color:#e2e8f0;text-decoration:none}
+.slot-dl small{display:block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#93c5fd;margin-bottom:2px}
+.slot-dl .pijl{font-size:1.3rem;color:#93c5fd;transition:transform .15s}
+.slot-dl:hover .pijl{transform:translateX(3px)}
+.slot-dl:hover{color:#fff}
+.art-slot + .auteur-blok{margin-top:18px}
+@media (min-width:1100px){
+  .art-raster{grid-template-columns:minmax(0,760px) 260px;justify-content:space-between}
+  .art-zij{display:block;position:relative}
+  .toc-mobiel{display:none}
+}
+
+/* Kaarten: de hele kaart is klikbaar (de titellink rekt uit over de kaart),
+   het onderwerplabel blijft apart klikbaar. Onderaan een Lees verder met pijl. */
+.blog-kaart{position:relative;cursor:pointer}
+.blog-kaart h2 a::after,.blog-kaart h3 a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.blog-kaart a.blog-label{position:relative;z-index:1}
+.blog-kaart .verder{display:inline-flex;align-items:center;gap:6px;margin-top:12px;color:var(--blauw);font-weight:650;font-size:.92rem}
+.blog-kaart .verder span{transition:transform .15s}
+.blog-kaart:hover .verder span{transform:translateX(3px)}
+.blog-kaart:hover h2 a,.blog-kaart:hover h3 a{color:var(--blauw)}
+
+/* Blog en nieuws als twee tabbladen */
+.blog-tabs{display:flex;gap:6px;margin-top:22px;border-bottom:1px solid var(--lijn)}
+.blog-tabs a{padding:10px 14px;font-weight:650;font-size:.95rem;color:var(--grijs);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.blog-tabs a:hover{color:var(--inkt)}
+.blog-tabs a[aria-current]{color:var(--blauw);border-bottom-color:var(--blauw)}

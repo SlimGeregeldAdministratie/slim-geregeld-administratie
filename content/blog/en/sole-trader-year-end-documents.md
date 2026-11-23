@@ -19,6 +19,10 @@ faq:
     a: "Include those purchases with their supporting documents and identify that you paid personally. These payments need to be considered when checking expenses and your contributions to the business."
 status: live
 image: /blog/img/sole-trader-year-end-documents.png
+kort:
+  - "Send your receipts, purchase and sales invoices, bank statements and an overview of unpaid invoices."
+  - "A spreadsheet with separate PDFs is fine, as long as personal withdrawals, personal contributions and business expenses can be told apart."
+  - "If you hold stock, include a supported closing stock figure."
 ---
 
 For the year-end close (jaarafsluiting) of your Dutch sole trader business (eenmanszaak), send your receipts, purchase and sales invoices, bank statements and an overview of unpaid invoices. If you hold stock, include a supported closing stock figure, and identify personal withdrawals, personal contributions and business purchases paid from your personal account. These records let me check both your profit and the movement in your business equity. Any additional documents depend on what your business does.
