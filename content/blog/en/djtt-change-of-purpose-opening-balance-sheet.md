@@ -17,6 +17,8 @@ faq:
     a: "In the example, equity falls from EUR 4,500 to EUR 3,500. An additional capital contribution of EUR 1,000 restores it to EUR 4,500."
   - q: "How much does an opening balance sheet with a signed statement cost?"
     a: "The fee is EUR 495 excluding VAT within five working days, or EUR 595 excluding VAT within 48 hours. The quotation should separately identify any additional work and dependence on complete documents."
+klikken: 0
+klikkenBijgewerkt: 2026-11-23
 status: live
 image: /blog/img/djtt-change-of-purpose-opening-balance-sheet.png
 ---

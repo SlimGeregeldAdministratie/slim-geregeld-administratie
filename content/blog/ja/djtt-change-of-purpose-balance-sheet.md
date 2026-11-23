@@ -15,6 +15,8 @@ faq:
     a: "事業用の現金が設備に置き換わるため、例では現金EUR 3,000と設備EUR 1,500の合計が自己資本EUR 4,500です。負債がない前提です。"
   - q: "個人用にEUR 1,000を引き出すとどうなりますか？"
     a: "例では自己資本がEUR 4,500からEUR 3,500に下がります。追加でEUR 1,000を事業に入れるとEUR 4,500に戻ります。"
+klikken: 0
+klikkenBijgewerkt: 2026-11-23
 status: live
 image: /blog/img/djtt-change-of-purpose-balance-sheet.png
 ---

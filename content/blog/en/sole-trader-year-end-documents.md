@@ -17,6 +17,8 @@ faq:
     a: "Yes. Keep the spreadsheet and supporting documents connected so each entry can be checked against its invoice, receipt or payment."
   - q: "What if I paid business expenses before opening a business bank account?"
     a: "Include those purchases with their supporting documents and identify that you paid personally. These payments need to be considered when checking expenses and your contributions to the business."
+klikken: 0
+klikkenBijgewerkt: 2026-11-23
 status: live
 image: /blog/img/sole-trader-year-end-documents.png
 ---
