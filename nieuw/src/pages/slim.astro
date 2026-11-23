@@ -5,8 +5,11 @@ import SlimGesprek from '../components/SlimGesprek.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
 import Faq from '../components/Faq.astro';
 import Contactblok from '../components/Contactblok.astro';
+import '../styles/formulier.css';
 
-const AANMELDEN = '/slim-chatbot';
+// Aanmelden voor alleen Slim: stap 1 hieronder (#aanmelden), stap 2 op
+// /slim-chatbot-instellingen. Zelfde Netlify-formulieren als de oude site.
+const AANMELDEN = '#aanmelden';
 const faq: [string, string][] = [
   ['Wat kost Slim?', 'Bij de volledige service zit Slim erbij. Gebruik je alleen Slim, dan is het eerste halfjaar gratis en daarna €9,95 per maand. Je zit nergens aan vast.'],
   ['Heb ik Moneybird nodig?', 'Nee, Slim werkt ook zonder Moneybird. Je facturen en offertes komen dan in een eigen overzicht. Met Moneybird zet Slim alles direct in je administratie.'],
@@ -110,6 +113,46 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9];
       </div>
     </div>
   </section>
+
+  <section id="aanmelden">
+    <div class="wrap twee aanmeld">
+      <div>
+        <span class="tag">Stap 1 van 2</span>
+        <h2>Probeer Slim</h2>
+        <p class="sub">Vul je basisgegevens in. In stap 2 kies je hoe je facturen eruitzien. Binnen 24 uur krijg je een WhatsApp-bericht om te starten.</p>
+        <ul class="vinkjes"><li>Eerste halfjaar gratis, daarna €9,95 per maand</li><li>Ook zonder Moneybird</li><li>Je zit nergens aan vast</li></ul>
+      </div>
+      <form class="aanmeld-form" id="slim-stap1" name="slim-chatbot-basisgegevens" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="slim-chatbot-basisgegevens">
+        <p style="display:none"><label>Laat dit leeg: <input name="bot-field"></label></p>
+        <div class="rij"><label>Voornaam<input name="voornaam" type="text" required autocomplete="given-name"></label>
+          <label>Achternaam<input name="achternaam" type="text" required autocomplete="family-name"></label></div>
+        <label>Bedrijfsnaam<input name="bedrijfsnaam" type="text" required autocomplete="organization"></label>
+        <label>E-mailadres<input name="email" type="email" required autocomplete="email" placeholder="je@email.nl"></label>
+        <label>Mobiel nummer met WhatsApp<input name="telefoon" type="tel" required autocomplete="tel" placeholder="06 12345678"><small>Hierop koppelen we Slim.</small></label>
+        <button class="knop vol" type="submit">Naar stap 2</button>
+        <p class="fout" id="slim-fout" hidden>Dat lukte niet. Probeer het opnieuw of stuur een WhatsApp naar 06 21311043.</p>
+      </form>
+    </div>
+  </section>
+  <script is:inline>
+  (function(){
+    var f = document.getElementById('slim-stap1'); if (!f) return;
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      var knop = f.querySelector('button'); knop.disabled = true; knop.textContent = 'Even geduld...';
+      // Stap 2 stuurt e-mail en telefoon mee, zodat n8n (slim-instellingen) de
+      // factuurinstellingen aan deze aanmelding koppelt (zelfde fix als PR #44).
+      try { sessionStorage.setItem('slim-aanmelding', JSON.stringify({ email: f.email.value.trim(), telefoon: f.telefoon.value.trim() })); } catch (x) {}
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(f)).toString() })
+        .then(function(r){ if (!r.ok) throw new Error('http ' + r.status);
+          (window.dataLayer = window.dataLayer || []).push({ event: 'formulier_verstuurd', formulier: 'slim-stap1' });
+          location.href = '/slim-chatbot-instellingen/'; })
+        .catch(function(){ knop.disabled = false; knop.textContent = 'Naar stap 2'; document.getElementById('slim-fout').hidden = false; });
+    });
+  })();
+  </script>
 
   <section>
     <div class="wrap">
