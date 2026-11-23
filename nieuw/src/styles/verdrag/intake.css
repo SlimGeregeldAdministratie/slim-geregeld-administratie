@@ -106,3 +106,11 @@
 /* Landcode en nummer naast elkaar (Kyle 23-11-2026) */
 .v-intake .tel-rij{display:grid;grid-template-columns:minmax(0,150px) 1fr;gap:8px}
 .v-intake .tel-rij select{min-width:0}
+/* Zijblok: naam en functie op eigen regels (Kyle 23-11-2026) */
+.v-intake .ikzelf img{flex:none;width:52px;height:52px}
+.v-intake .ikzelf b{font-size:.95rem;line-height:1.3;margin-bottom:3px}
+.v-intake .ikzelf span span{display:block;line-height:1.35}
+.v-intake .ikzelf2,.in-zij .ikzelf2{display:grid;grid-template-columns:48px 1fr;column-gap:12px;row-gap:12px;align-items:center}
+.v-intake .ikzelf2 b,.in-zij .ikzelf2 b{grid-column:1/-1;font-size:1rem;margin:0}
+.v-intake .ikzelf2 img,.in-zij .ikzelf2 img{width:48px;height:48px}
+.in-zij .ikzelf2 span span:last-child,.v-intake .ikzelf2 span span:last-child{font-size:.78rem;white-space:nowrap}

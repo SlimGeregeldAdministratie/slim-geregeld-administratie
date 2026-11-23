@@ -189,3 +189,8 @@ a.blog-label:hover{background:#dfe8ff}
 .artikel-faq dt{font-weight:700;color:var(--inkt);font-size:1.05rem;padding-top:18px;margin-top:18px;border-top:1px solid var(--lijn)}
 .artikel-faq dt:first-child{border-top:0;margin-top:6px;padding-top:0}
 .artikel-faq dd{color:var(--tekst);margin-top:6px;line-height:1.7}
+/* 23-11-2026 (Kyle): geen hoofdletterlabels en geen accentbalk; gewone kop en lijst. */
+.in-kort{border-left:0;padding:0;margin:6px 0 26px}
+.in-kort b{font-size:1.05rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--inkt)}
+.in-kort ul{padding-left:20px;margin-top:6px}
+.toc-mobiel p,.toc-zij p{font-size:1rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--inkt)}
