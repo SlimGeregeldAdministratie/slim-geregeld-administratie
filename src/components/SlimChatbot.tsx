@@ -37,6 +37,13 @@ const SlimChatbot = () => {
     formDataToSubmit.append('email', formData.email);
     formDataToSubmit.append('telefoon', formData.telefoon);
 
+    // Stap 2 heeft e-mail en telefoon nodig om de factuurinstellingen aan deze aanmelding te koppelen.
+    try {
+      sessionStorage.setItem('slim-aanmelding', JSON.stringify({ email: formData.email, telefoon: formData.telefoon }));
+    } catch {
+      // geen sessionStorage (privévenster): stap 2 valt dan terug op de koppeling in n8n
+    }
+
     fetch('/', {
       method: 'POST',
       body: formDataToSubmit

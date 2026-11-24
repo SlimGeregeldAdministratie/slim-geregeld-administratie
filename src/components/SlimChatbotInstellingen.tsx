@@ -39,6 +39,15 @@ const SlimChatbotInstellingen = () => {
     // Submit to Netlify
     const formDataToSubmit = new FormData();
     formDataToSubmit.append('form-name', 'slim-chatbot-instellingen');
+    // E-mail en telefoon uit stap 1, zodat n8n deze instellingen aan de juiste aanmelding koppelt.
+    let aanmelding = { email: '', telefoon: '' };
+    try {
+      aanmelding = { ...aanmelding, ...JSON.parse(sessionStorage.getItem('slim-aanmelding') || '{}') };
+    } catch {
+      // geen sessionStorage: n8n koppelt dan aan de enige aanmelding van het afgelopen uur
+    }
+    formDataToSubmit.append('email', aanmelding.email);
+    formDataToSubmit.append('telefoon', aanmelding.telefoon);
     formDataToSubmit.append('website', formData.website);
     formDataToSubmit.append('kvkNummer', formData.kvkNummer);
     formDataToSubmit.append('btwNummer', formData.btwNummer);

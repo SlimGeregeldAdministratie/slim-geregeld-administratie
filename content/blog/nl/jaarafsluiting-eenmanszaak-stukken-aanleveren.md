@@ -17,6 +17,8 @@ faq:
     a: "Ja. Zorg dat ik per boekingsregel kan zien bij welke factuur, bon of betaling het document hoort."
   - q: "Hoe verwerk ik zakelijke kosten die ik privé betaalde?"
     a: "Lever de factuur en het betaalbewijs aan en vermeld dat je privé hebt betaald. Zo kan ik de zakelijke kosten en de bijbehorende privéstorting samen controleren."
+klikken: 0
+klikkenBijgewerkt: 2026-11-23
 status: live
 image: /blog/img/jaarafsluiting-eenmanszaak-stukken-aanleveren.png
 kort:
