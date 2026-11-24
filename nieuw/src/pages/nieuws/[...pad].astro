@@ -43,7 +43,7 @@ const graaf = [...metKyle('nl'),
       <span class="tag">Blog</span>
       <h1>{h1}</h1>
       <p class="sub">De posts van Kyle Bouwmeester op LinkedIn, als gewone tekst: praktische tips over administratie, btw, de BV en belastingen voor ondernemers.</p>
-      {!cluster && n === 1 && <nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/">Artikelen</a><a href="/nieuws/" aria-current="page">Nieuws en tips</a></nav>}
+      {<nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/">Artikelen</a><a href="/nieuws/" aria-current="page">Nieuws en tips</a></nav>}
     </div>
   </section>
   <section style="padding-top:8px">
@@ -61,7 +61,6 @@ const graaf = [...metKyle('nl'),
             <article class="nieuws-post" lang={x.taal && x.taal !== 'nl' ? x.taal : undefined}>
               <div class="blog-meta"><a class="blog-label" href={`/nieuws/onderwerp/${x.cluster}/`}>{clusters[x.cluster]}</a><time datetime={x.datum}>{datumMooi(x.datum, 'nl')}</time></div>
               <h2>{kopVan(x)}</h2>
-              {x.afbeelding && !m && <img src={x.afbeelding} alt={kopVan(x)} loading="lazy" decoding="async">}
               {m?.type === 'carrousel' && (
                 <section aria-label="Carrousel" style="padding:0">
                   {m.paginas.map((q: string, i: number) => <figure><img src={q} alt={m.tekstPerPagina[i]} loading="lazy" decoding="async"><figcaption>Dia {i + 1} van {m.paginas.length}: {m.tekstPerPagina[i]}</figcaption></figure>)}
@@ -72,6 +71,7 @@ const graaf = [...metKyle('nl'),
                 ? <iframe src={`https://www.youtube-nocookie.com/embed/${yt}`} title={kopVan(x)} width="560" height="315" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen style="border:0"></iframe>
                 : <video controls preload="none" poster={m.poster || undefined}><source src={m.src} type="video/mp4"></video>)}
               {alineas(x.tekst).map((a: string) => <p set:html={a.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')} />)}
+              {x.afbeelding && !m && <img class="nieuws-foto" src={x.afbeelding} alt={kopVan(x)} loading="lazy" decoding="async" onerror="this.remove()">}
               {m?.type === 'video' && <><h3 style="margin-top:14px">Transcript</h3>{alineas(m.transcript).map((a: string) => <p>{a}</p>)}</>}
               <p class="nieuws-links">
                 <a href={x.urlProfiel || x.urlPagina} rel="noopener">Bekijk op LinkedIn</a>

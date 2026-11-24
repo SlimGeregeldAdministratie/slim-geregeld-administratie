@@ -44,7 +44,11 @@ if (p.soort === 'overzicht') {
   const vandaag = new Date().toISOString().slice(0, 10);
   const perDag = (s: any) => s.klikken / Math.max(1, dag(s.klikkenBijgewerkt || vandaag) - dag(s.date));
   const rang = new Map(lijst.filter((s: any) => s.klikken != null).sort((a: any, b: any) => perDag(b) - perDag(a)).map((s: any, i: number) => [s.slug, i + 1]));
-  overzicht = { n, paginas, lijst, deel, filter, naam, vorige, volgende, gelezen, rang, clusters: [...new Set(liveIn(taal).map((s: any) => s.cluster))].sort() };
+  // Alleen artikelen in de eigen taal, met één regel naar de andere taal (Kyle 24-11-2026).
+  const anderTaal = taal === 'nl' ? 'en' : 'nl';
+  const aantalAnder = liveIn(anderTaal).length;
+  const ander = n === 1 && !filter && aantalAnder ? { taal: anderTaal, pad: blogBasis(anderTaal), tekst: taal === 'nl' ? `Ook ${aantalAnder} artikelen in het Engels, over DAFT, DJTT en ondernemen in Nederland` : `Also ${aantalAnder} articles in Dutch` } : null;
+  overzicht = { n, paginas, lijst, deel, filter, naam, vorige, volgende, gelezen, rang, ander, clusters: [...new Set(liveIn(taal).map((s: any) => s.cluster))].sort() };
 } else {
   const s = stukVan(taal, p.slug);
   const a = A[s.author];
@@ -92,7 +96,8 @@ const L = {
           <span class="tag">{t.blog}</span>
           <h1>{overzicht.naam ? `${t.blog}: ${overzicht.naam}` : t.overzichtH1}</h1>
           <p class="sub">{t.overzichtIntro}</p>
-          {taal === 'nl' && !overzicht.filter && (
+          {overzicht.ander && <p class="blog-andere-taal"><a href={overzicht.ander.pad} hreflang={overzicht.ander.taal}>{overzicht.ander.tekst} →</a></p>}
+          {taal === 'nl' && (
             <nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/" aria-current="page">Artikelen</a><a href="/nieuws/">Nieuws en tips</a></nav>
           )}
         </div>

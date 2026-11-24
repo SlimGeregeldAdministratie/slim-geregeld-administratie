@@ -31,6 +31,16 @@ const inhoud = {
       for (const [van, naar] of KOPIEEN) {
         if (existsSync(van)) cpSync(van, naar, { recursive: true, force: true });
       }
+      // Nieuwsfoto's met een eigen pad (bijv. /SGA Foto 4 (1).jpg) staan nog in de
+      // public-map van de oude site; die gaan ook mee.
+      try {
+        for (const n of JSON.parse(readFileSync('../content/nieuws/nieuws.json', 'utf8'))) {
+          const a = String(n.afbeelding || '');
+          if (!a.startsWith('/') || a.startsWith('/nieuws/media/')) continue;
+          const rel = decodeURIComponent(a.slice(1));
+          if (existsSync('../public/' + rel) && !existsSync('public/' + rel)) cpSync('../public/' + rel, 'public/' + rel);
+        }
+      } catch (e) { console.warn('inhoud: nieuwsfoto\'s niet gekopieerd: ' + e.message); }
     },
     'astro:build:done': async ({ dir }) => {
       const dist = fileURLToPath(dir);
