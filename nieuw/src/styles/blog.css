@@ -194,10 +194,19 @@ a.blog-label:hover{background:#dfe8ff}
 /* Nieuws (24-11-2026): tekst eerst, foto kleiner eronder, minder witregels. */
 .nieuws-post p{margin-top:6px}
 .nieuws-post h2 + p{margin-top:8px}
-.nieuws-post .nieuws-foto{display:block;width:100%;max-width:380px;max-height:300px;object-fit:cover;border-radius:12px;border:1px solid var(--lijn);margin-top:14px}
+.nieuws-post .nieuws-foto{display:block;width:100%;height:auto;max-width:520px;border-radius:12px;border:1px solid var(--lijn);margin-top:14px}
+.nieuws-bereik{color:var(--grijs);font-size:.85rem}
+@media (min-width:900px){
+  .nieuws-post.met-foto{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);column-gap:32px;align-items:start}
+  .nieuws-post.met-foto>.blog-meta,.nieuws-post.met-foto>.nieuws-links,.nieuws-post.met-foto>h3,.nieuws-post.met-foto>p{grid-column:1}
+  .nieuws-post.met-foto .nieuws-foto{grid-column:2;grid-row:1 / span 4;margin-top:0;max-width:none}
+}
 .blog-andere-taal{margin-top:10px;font-size:.92rem}
-.blog-andere-taal a{color:var(--blauw);font-weight:650;text-decoration:none}
-.blog-andere-taal a:hover{text-decoration:underline}
+.blog-andere-taal a,.blog-andere-taal button{color:var(--blauw);font-weight:650;text-decoration:none;font:inherit;font-weight:650;background:none;border:0;padding:0;cursor:pointer}
+.blog-andere-taal button::after{content:" +"}
+.blog-andere-taal button[aria-pressed="true"]::after{content:" −"}
+.blog-label.taal-label{background:#fff7ed;color:#9a3412;margin-left:6px}
+.blog-andere-taal a:hover,.blog-andere-taal button:hover{text-decoration:underline}
 /* Downloadpagina (24-11-2026): meer lucht, en pagina 1 van de pdf als voorbeeld. */
 .dl-h2{font-size:1.35rem;margin-top:34px}
 .dl-voor{color:var(--tekst);margin-top:8px}

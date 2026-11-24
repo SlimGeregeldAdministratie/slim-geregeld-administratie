@@ -70,3 +70,9 @@ h2 + .sub{max-width:46rem}
 .veld.sg-fout,fieldset.sg-fout,.sjablonen.sg-fout{border-color:#dc2626}
 .sg-melding{color:#b91c1c;font-size:.85rem;font-weight:500;margin-top:6px;display:flex;gap:6px;align-items:center}
 .sg-melding::before{content:"!";display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#dc2626;color:#fff;font-size:.7rem;font-weight:800;flex:none}
+/* Keuzevelden: eigen pijltje met ruimte tot de rand (Kyle 24-11-2026). Geldt
+   voor elk select op de site, ook in de intakes en formulieren. */
+select{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:42px!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2355607a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 16px center!important;background-size:12px 8px!important}
+select::-ms-expand{display:none}

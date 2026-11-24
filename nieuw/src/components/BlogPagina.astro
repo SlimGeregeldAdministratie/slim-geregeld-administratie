@@ -44,10 +44,14 @@ if (p.soort === 'overzicht') {
   const vandaag = new Date().toISOString().slice(0, 10);
   const perDag = (s: any) => s.klikken / Math.max(1, dag(s.klikkenBijgewerkt || vandaag) - dag(s.date));
   const rang = new Map(lijst.filter((s: any) => s.klikken != null).sort((a: any, b: any) => perDag(b) - perDag(a)).map((s: any, i: number) => [s.slug, i + 1]));
-  // Alleen artikelen in de eigen taal, met één regel naar de andere taal (Kyle 24-11-2026).
+  // Alleen artikelen in de eigen taal. Artikelen die alleen in de andere taal
+  // bestaan (geen vertaling) zet een knop erbij, bovenaan de lijst (Kyle 24-11-2026).
   const anderTaal = taal === 'nl' ? 'en' : 'nl';
-  const aantalAnder = liveIn(anderTaal).length;
-  const ander = n === 1 && !filter && aantalAnder ? { taal: anderTaal, pad: blogBasis(anderTaal), tekst: taal === 'nl' ? `Ook ${aantalAnder} artikelen in het Engels, over DAFT, DJTT en ondernemen in Nederland` : `Also ${aantalAnder} articles in Dutch` } : null;
+  const alleenAnder = liveIn(anderTaal).filter((x: any) => !alternatiefVan(x)[taal]);
+  const nA = alleenAnder.length;
+  const ander = n === 1 && !filter && nA && taal !== 'ja' ? { taal: anderTaal, lijst: alleenAnder, label: anderTaal === 'en' ? 'In het Engels' : 'In Dutch',
+    toon: taal === 'nl' ? `Toon ook ${nA === 1 ? 'het artikel' : 'de ' + nA + ' artikelen'} in het Engels` : `Also show ${nA === 1 ? 'the article' : 'the ' + nA + ' articles'} in Dutch`,
+    verberg: taal === 'nl' ? 'Verberg de Engelse artikelen' : 'Hide the Dutch articles' } : null;
   overzicht = { n, paginas, lijst, deel, filter, naam, vorige, volgende, gelezen, rang, ander, clusters: [...new Set(liveIn(taal).map((s: any) => s.cluster))].sort() };
 } else {
   const s = stukVan(taal, p.slug);
@@ -96,7 +100,7 @@ const L = {
           <span class="tag">{t.blog}</span>
           <h1>{overzicht.naam ? `${t.blog}: ${overzicht.naam}` : t.overzichtH1}</h1>
           <p class="sub">{t.overzichtIntro}</p>
-          {overzicht.ander && <p class="blog-andere-taal"><a href={overzicht.ander.pad} hreflang={overzicht.ander.taal}>{overzicht.ander.tekst} →</a></p>}
+          {overzicht.ander && <p class="blog-andere-taal"><button type="button" data-ander aria-pressed="false" data-toon={overzicht.ander.toon} data-verberg={overzicht.ander.verberg}>{overzicht.ander.toon}</button></p>}
           {taal === 'nl' && (
             <nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/" aria-current="page">Artikelen</a><a href="/nieuws/">Nieuws en tips</a></nav>
           )}
@@ -120,6 +124,9 @@ const L = {
           {overzicht.lijst.length === 0
             ? <p class="blog-leeg">{t.leeg} <a href={t.leegLink[0]}>{t.leegLink[1]}</a></p>
             : <ul class="blog-lijst" data-lijst>{overzicht.deel.map((s: any) => <BlogKaart s={s} />)}</ul>}
+          {overzicht.ander && (
+            <template data-ander-lijst>{overzicht.ander.lijst.map((x: any) => <div lang={overzicht.ander.taal} data-label={overzicht.ander.label}><BlogKaart s={x} /></div>)}</template>
+          )}
           {overzicht.gelezen && (
             <template data-alle>{overzicht.lijst.map((s: any) => <div data-rang={overzicht.rang.get(s.slug) || ''}><BlogKaart s={s} /></div>)}</template>
           )}
@@ -133,6 +140,27 @@ const L = {
 </div>
         </div>
       </section>
+      {overzicht.ander && (
+        <script is:inline>
+          (function () {
+            var knop = document.querySelector('[data-ander]'), lijst = document.querySelector('[data-lijst]'), bron = document.querySelector('template[data-ander-lijst]');
+            if (!knop || !lijst || !bron) return;
+            knop.addEventListener('click', function () {
+              var er = lijst.querySelectorAll('[data-ander-item]');
+              if (er.length) { er.forEach(function (x) { x.remove(); }); knop.textContent = knop.dataset.toon; knop.setAttribute('aria-pressed', 'false'); return; }
+              [].slice.call(bron.content.children).reverse().forEach(function (w) {
+                var li = w.firstElementChild.cloneNode(true);
+                li.setAttribute('data-ander-item', ''); li.setAttribute('lang', w.getAttribute('lang'));
+                var plek = li.querySelector('.nieuw-plek') || li.querySelector('.blog-label');
+                var lab = document.createElement('span'); lab.className = 'blog-label taal-label'; lab.textContent = w.getAttribute('data-label');
+                if (plek && plek.parentNode) plek.parentNode.insertBefore(lab, plek.nextSibling); else li.prepend(lab);
+                lijst.insertBefore(li, lijst.firstChild);
+              });
+              knop.textContent = knop.dataset.verberg; knop.setAttribute('aria-pressed', 'true');
+            });
+          })();
+        </script>
+      )}
       {overzicht.gelezen && (
         <script is:inline define:vars={{ nieuwTekst: t.nieuw }}>
           (function () {
@@ -187,6 +215,7 @@ const L = {
                 {' · '}{artikel.minuten} {L.lezen}</div>
             </div>
           </div>
+          {alternatief[taal === 'nl' ? 'en' : 'nl'] && <p class="blog-andere-taal"><a href={alternatief[taal === 'nl' ? 'en' : 'nl']} hreflang={taal === 'nl' ? 'en' : 'nl'}>{taal === 'nl' ? 'Lees dit artikel in het Engels' : 'Read this article in Dutch'} →</a></p>}
         </div></div>
       </section>
       <section style="padding-top:0">
