@@ -9,6 +9,7 @@
 // (31 december, 1 januari) rekenen mee met het jaar.
 // Vooraf invullen werkt nog steeds met #v=<base64url van JSON> (intake_link.py).
 import Basis from '../layouts/Basis.astro';
+import '../styles/intake-in.css';
 const nu = new Date();
 const vorigJaar = nu.getFullYear() - 1;
 const ditJaar = nu.getFullYear();
@@ -367,59 +368,4 @@ const radio = (naam: string, opties: string[], verplicht = true) => ({ naam, opt
 })();
 </script>
 
-<style is:global>
-.in-zij .ikzelf2 span span:last-child{font-size:.78rem;white-space:nowrap}
-.in-zij .ikzelf.ikzelf2{display:grid;grid-template-columns:48px 1fr;column-gap:12px;row-gap:12px;align-items:center}
-.in-zij .ikzelf.ikzelf2 b{grid-column:1/-1;font-size:1rem;margin:0}
-.in-zij .ikzelf.ikzelf2 img{width:48px;height:48px}
-/* Globaal: de stapkop wordt in JavaScript gemaakt en krijgt geen Astro-scope. */
-.in [hidden],.in-nav [hidden]{display:none!important}
-.in-kop{padding:28px 0 18px;background:linear-gradient(180deg,var(--blauw-t),#fff 85%)}
-.in-kop .sub{margin-top:12px;max-width:44rem}
-.in-grid{display:grid;gap:24px;align-items:start}
-.in fieldset{border:1px solid var(--lijn);border-radius:18px;padding:22px 24px;background:#fff;margin-top:14px;display:grid;gap:18px}
-.in legend{display:none}
-.in .veld>label:first-child{display:block;font-weight:650;color:var(--inkt);margin-bottom:8px;font-size:.95rem}
-.in .bij{display:block;font-weight:400;font-size:.85rem;color:var(--grijs);margin-top:3px}
-.in .bij a{color:var(--blauw)}
-.in .opt{font-weight:400;color:var(--grijs);font-size:.8rem;margin-left:4px}
-.in .hint{font-size:.9rem;color:var(--grijs)}
-.in input[type=text],.in input[type=email],.in input[type=tel],.in input[type=date],.in select,.in textarea{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:11px 12px;min-height:46px;font:inherit;color:var(--inkt);background:#fff}
-.in input:focus,.in select:focus,.in textarea:focus{outline:3px solid var(--blauw-rand);border-color:var(--blauw)}
-.in .keuze{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--lijn);border-radius:12px;padding:10px 12px;margin-top:8px;cursor:pointer;color:var(--tekst);font-size:.93rem;transition:border-color .15s,background .15s}
-.in .keuze:hover{border-color:var(--blauw-rand);background:var(--blauw-t)}
-.in .keuze:has(input:checked){border-color:var(--blauw);background:var(--blauw-t)}
-.in .keuze input{margin-top:4px;flex:none}
-.in .keuze small{display:block;color:var(--grijs);font-size:.84rem;margin-top:2px}
-.in .keuze b{color:var(--inkt)}
-.in .in-let-op{border-color:#fcd34d;background:#fffbeb}
-.in .in-anders{margin-top:8px}
-.in .twee-in{display:grid;gap:16px;align-items:end}
-.in-info{border:1px solid var(--blauw-rand);background:var(--blauw-t);border-radius:14px;padding:14px 16px;font-size:.92rem;color:var(--tekst)}
-.in-info b{color:var(--inkt)}
-.in-info ul{padding-left:20px;margin-top:6px;display:grid;gap:3px}
-.in-info p{margin-top:4px}
-.in-std{border:1px solid var(--lijn);border-radius:10px;background:var(--zacht);padding:10px 12px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
-.in-std pre{white-space:pre-wrap;font:inherit;font-size:.85rem;color:var(--grijs);margin:0}
-.in-std button{flex:none;font:inherit;font-size:.82rem;font-weight:650;color:var(--blauw);background:#fff;border:1.5px solid var(--blauw);border-radius:8px;padding:5px 10px;cursor:pointer}
-.in-stapkop{display:grid;gap:4px;margin-top:8px;scroll-margin-top:96px}
-.in-stapkop span{font-size:.82rem;color:var(--blauw);font-weight:650}
-.in-stapkop b{font-size:1.15rem;color:var(--inkt)}
-.in-stapkop i{display:block;height:6px;background:var(--lijn);border-radius:99px;overflow:hidden;margin-top:6px}
-.in-stapkop em{display:block;height:100%;background:var(--blauw);border-radius:99px;transition:width .25s}
-.in-vooraf{border:1px solid var(--blauw-rand);background:var(--blauw-t);border-radius:12px;padding:10px 14px;font-size:.92rem;margin-top:12px}
-.in-nav{display:flex;justify-content:space-between;gap:12px;margin-top:16px}
-.in-nav #verder,.in-nav #verstuur{margin-left:auto}
-.in-melding{margin-top:10px;font-size:.9rem}
-.in-melding.fout{color:#b91c1c}
-.in-zij{background:var(--inkt);color:#e2e8f0;border-radius:24px;padding:24px}
-.in-zij .ikzelf{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:.85rem;color:#b6c0d4}
-.in-zij .ikzelf img{width:56px;height:56px;border-radius:50%;object-fit:cover}
-.in-zij .ikzelf b{display:block;color:#fff;font-size:.95rem;line-height:1.3;margin-bottom:3px}
-.in-zij .ikzelf span span{display:block;line-height:1.35}
-.in-zij .ikzelf img{flex:none;width:52px;height:52px}
-.in-zij .knop{width:100%;white-space:nowrap}
-@media (min-width:640px){.in .twee-in{grid-template-columns:1fr 1fr}}
-@media (min-width:960px){.in-grid{grid-template-columns:1fr 300px;gap:32px}.in-zij{position:sticky;top:96px;margin-top:62px}}
-@media (max-width:959px){.in-zij{order:-1}}
-</style>
+

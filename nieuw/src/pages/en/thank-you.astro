@@ -23,7 +23,7 @@ import Basis from '../../layouts/Basis.astro';
 
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'formulier_verstuurd', formulier: 'contact-en' });
+  window.dataLayer.push({ event: 'formulier_verstuurd', formulier: new URLSearchParams(location.search).get('formulier') || 'contact-en' });
 </script>
 
 <style>
