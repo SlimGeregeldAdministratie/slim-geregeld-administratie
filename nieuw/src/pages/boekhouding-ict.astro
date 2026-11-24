@@ -1,0 +1,28 @@
+---
+import Branche from '../components/Branche.astro';
+const faq: [string, string][] = [
+  ['Wat kost een boekhouder voor een developer of IT-consultant?', 'Voor een eenmanszaak of vof €95 per maand excl. btw, met je btw-aangiftes en jaarcijfers erbij. Voor een bv krijg je vooraf een vaste prijs.'],
+  ['Ik werk voor een klant in het buitenland. Reken ik btw?', 'Voor een zakelijke klant in een ander EU-land verleg je de btw meestal naar die klant en geef je de dienst op in de opgaaf intracommunautaire prestaties. Voor een zakelijke klant buiten de EU reken je meestal geen Nederlandse btw. Ik check of je facturen kloppen.'],
+  ['Hoe zit het met software en abonnementen uit het buitenland?', 'Koop je diensten in bij een buitenlandse leverancier, zoals hosting of software, dan moet je de btw daarover vaak zelf aangeven en tegelijk weer aftrekken. Ik neem dat mee in je btw-aangifte.'],
+  ['Ik werk via een bemiddelaar. Maakt dat uit?', 'Nee. Of je factureert aan een bemiddelaar of rechtstreeks aan de klant, de boekhouding is hetzelfde. Stuurt de bemiddelaar je facturen (self-billing), dan controleer ik of ze kloppen.'],
+  ['Wanneer is een bv interessant?', 'Dat hangt af van je winst en wat je wilt opbouwen. Bij een hogere winst kan een bv voordelig zijn, maar hij kost ook meer. Ik reken het voor je door voordat je iets besluit.'],
+];
+---
+<Branche
+  variant="standaard"
+  kruimel="Boekhouding ICT"
+  tag="Developers en IT-consultants"
+  titel="Boekhouder voor developers en IT'ers | Slim Geregeld"
+  omschrijving="Boekhouding voor developers, IT-consultants en tech-zzp'ers: btw bij buitenlandse klanten, software-abonnementen, bemiddelaars en de vraag of een bv loont. €95 per maand voor eenmanszaak of vof."
+  h1="Boekhouding voor developers en IT-consultants"
+  sub="Voor developers, IT-consultants, data-specialisten en andere tech-zzp'ers. Jij werkt aan projecten, ik regel je boekhouding, btw en jaarcijfers."
+  krijg={['Boekhouding en btw-aangifte per kwartaal', 'Btw bij buitenlandse klanten en leveranciers goed verwerkt', 'Elk kwartaal een tussenstand van je inkomstenbelasting', 'Jaarcijfers, klaar voor je aangifte IB', 'Facturen en bonnetjes via WhatsApp met Slim']}
+  eerst={['Daan van der Mark', 'Burak Sahin', 'Rafaël Bossto']}
+  faq={faq}
+  contacttekst="Vertel kort hoe je werkt: rechtstreeks voor klanten, via een bemiddelaar, in Nederland of over de grens. Je hoort binnen een tot drie werkdagen van me."
+>
+  <div class="blok"><h3>Buitenlandse klanten</h3><p>Een klant in Duitsland of de VS vraagt een andere factuur dan een klant in Nederland. Ik zorg dat de btw en de opgaaf aan de Belastingdienst kloppen.</p></div>
+  <div class="blok"><h3>Software en hosting</h3><p>Abonnementen uit het buitenland hebben hun eigen btw-regels. Die neem ik mee in je aangifte, zodat je niets laat liggen.</p></div>
+  <div class="blok"><h3>Eenmanszaak of bv</h3><p>Loopt je winst op, dan komt de vraag of een bv loont. Ik reken het met je door, met je eigen cijfers.</p></div>
+  <div class="blok"><h3>Weten waar je staat</h3><p>Elk kwartaal een tussenstand van je inkomstenbelasting. Zo weet je wat je opzij moet zetten en wat je echt overhoudt.</p></div>
+</Branche>

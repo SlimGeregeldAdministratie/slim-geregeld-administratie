@@ -1,5 +1,5 @@
 ---
-/* Gedeelde opbouw van de branchepagina's (bouw, webshop). */
+/* Gedeelde opbouw van de branchepagina's (bouw, webshop, creatief, persoonlijke diensten, ict). */
 import Basis from '../layouts/Basis.astro';
 import Paginakop from './Paginakop.astro';
 import SlimGesprek from './SlimGesprek.astro';
@@ -9,7 +9,7 @@ import Contactblok from './Contactblok.astro';
 interface Props {
   kruimel: string; tag: string; titel: string; omschrijving: string; h1: string; sub: string;
   krijg: string[]; eerst: string[]; faq: [string, string][]; contacttekst: string;
-  variant: 'bouw' | 'webshop';
+  variant: 'standaard' | 'bouw' | 'webshop';
 }
 const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contacttekst, variant } = Astro.props;
 ---

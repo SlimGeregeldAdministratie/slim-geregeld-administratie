@@ -37,25 +37,24 @@ http://slim-geregeld.nl/*       https://slim-geregeld.nl/:splat   301!
 /bouw/*                    /boekhouding-bouw          301
 /ecommerce                 /boekhouding-webshop       301
 /ecommerce/*               /boekhouding-webshop       301
-/creatief                  /boekhouding-eenmanszaak   301
-/creatief/*                /boekhouding-eenmanszaak   301
-/persoonlijk               /boekhouding-eenmanszaak   301
-/persoonlijk/*             /boekhouding-eenmanszaak   301
-/tech                      /boekhouding-eenmanszaak   301
-/tech/*                    /boekhouding-eenmanszaak   301
+/creatief                  /boekhouding-creatief      301
+/creatief/*                /boekhouding-creatief      301
+/persoonlijk               /boekhouding-persoonlijke-diensten   301
+/persoonlijk/*             /boekhouding-persoonlijke-diensten   301
+/tech                      /boekhouding-ict           301
+/tech/*                    /boekhouding-ict           301
 /uniek                     /boekhouding-eenmanszaak   301
 /uniek/*                   /boekhouding-eenmanszaak   301
-/branches                  /#diensten                 301
 /over-kyle                 /over                      301
 /over-ons                  /over                      301
 /reviews                   /over                      301
 /veelgestelde-vragen       /tarieven                  301
-/gratis-tools              /nettocheck                301
+/downloads                 /gratis-tools              301
+/downloads/                /gratis-tools              301
 /belastingformulier-2024   /ib/                       301
 # Aanmelden voor Slim: naar het formulier, niet naar de bovenkant van /slim.
 /slim-chatbot              /slim#aanmelden            301
 /slim-chatbot/             /slim#aanmelden            301
-/intake/*                  /intake/                   301
 # Nieuws: de Nederlandse lijst heeft nu drie pagina's; Engelse posts staan op /en/news/.
 /nieuws/4                  /nieuws/                   301
 /nieuws/4/                 /nieuws/                   301

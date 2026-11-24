@@ -1,0 +1,60 @@
+---
+// Gratis tools en downloads: /gratis-tools (nl) en /en/downloads/ (en).
+// De downloads komen uit content (DOWNLOADS), dus een nieuwe download staat er vanzelf bij.
+import Basis from '../layouts/Basis.astro';
+import Contactblok from './Contactblok.astro';
+import { DOWNLOADS } from '../lib/inhoud.mjs';
+import '../styles/blog.css';
+interface Props { taal?: 'nl' | 'en' }
+const { taal = 'nl' } = Astro.props;
+const en = taal === 'en';
+const dl = DOWNLOADS.downloads.filter((d: any) => d[taal]).map((d: any) => ({ ...d[taal], beeld: '/img/downloads/' + d[taal].pdf.split('/').pop().replace(/\.pdf$/, '') + '-1.png' }));
+const tools: [string, string, string, string][] = en
+  ? [['Slim on WhatsApp', 'Your bookkeeping assistant on WhatsApp: invoices and quotes, receipts with a photo, questions about your own numbers. First six months free.', '/en/slim/', 'Try Slim']]
+  : [['NettoCheck', 'Vijf korte vragen en je krijgt per mail een schatting van je inkomstenbelasting en wat je netto overhoudt als zelfstandige.', '/nettocheck', 'Doe de NettoCheck'],
+     ['Slim op WhatsApp', 'Je boekhoudassistent op WhatsApp: facturen en offertes maken, bonnetjes boeken met een foto en vragen over je eigen cijfers. Eerste halfjaar gratis.', '/slim', 'Probeer Slim']];
+const T = en
+  ? { titel: 'Free downloads and tools for entrepreneurs | Slim Geregeld', oms: 'Free checklists and calculations for entrepreneurs in the Netherlands, including the DAFT renewal checklist, plus Slim, the bookkeeping assistant on WhatsApp.', tag: 'Free', h1: 'Free downloads and tools', sub: 'Checklists and calculations I use with clients myself, free as a PDF. Plus Slim, the bookkeeping assistant on WhatsApp.', hTools: 'Tools', hDl: 'Downloads', pdf: 'Free PDF', naar: 'Download', ct: 'Questions about your situation?', ctt: 'A checklist only goes so far. Leave your details or send a WhatsApp and I get back to you within one to three working days.' }
+  : { titel: 'Gratis tools en downloads voor ondernemers | Slim Geregeld', oms: 'Gratis tools en downloads voor zzp\'ers: NettoCheck voor je netto-inkomen, Slim op WhatsApp en rekensommen en checklists als pdf.', tag: 'Gratis', h1: 'Gratis tools en downloads', sub: 'Tools en rekensommen die ik zelf met klanten gebruik, gratis. Reken uit wat je overhoudt, probeer Slim of download een checklist.', hTools: 'Tools', hDl: 'Downloads', pdf: 'Gratis pdf', naar: 'Downloaden', ct: 'Vragen over jouw situatie?', ctt: 'Een rekensom zegt veel, maar niet alles. Laat je gegevens achter of stuur een WhatsApp, dan hoor je binnen een tot drie werkdagen van me.' };
+---
+<Basis titel={T.titel} omschrijving={T.oms} taal={taal} alternatief={{ nl: '/gratis-tools', en: '/en/downloads/' }} cta={en ? undefined : '#contact'}>
+  <section class="blog-kop">
+    <div class="wrap">
+      <span class="tag">{T.tag}</span>
+      <h1>{T.h1}</h1>
+      <p class="sub">{T.sub}</p>
+    </div>
+  </section>
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <h2>{T.hTools}</h2>
+      <div class="grid3 tools">
+        {tools.map(([h, p, href, knop]) => <a class="blok kaartlink" href={href}><h3>{h}</h3><p>{p}</p><span class="meer">{knop} →</span></a>)}
+      </div>
+    </div>
+  </section>
+  {dl.length > 0 && (
+    <section class="zacht">
+      <div class="wrap">
+        <h2>{T.hDl}</h2>
+        <div class="grid3 tools">
+          {dl.map((d: any) => (
+            <a class="blok kaartlink dl-kaart" href={d.pad}>
+              <img src={d.beeld} alt="" width="300" height="424" loading="lazy" onerror="this.remove()">
+              <div><span class="dl-label">{T.pdf}</span><h3>{d.h1}</h3><p>{d.kader?.[1] || d.omschrijving}</p><span class="meer">{T.naar} →</span></div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+  <Contactblok taal={taal} titel={T.ct} tekst={T.ctt} />
+</Basis>
+<style>
+.kaartlink{display:block;text-decoration:none;color:inherit}
+.kaartlink h3{color:var(--inkt)}
+.dl-kaart{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start}
+.dl-kaart img{width:96px;height:auto;border:1px solid var(--lijn);border-radius:6px;box-shadow:0 4px 12px rgba(15,23,42,.08)}
+.dl-label{display:inline-block;font-size:.75rem;font-weight:700;color:var(--blauw);background:var(--blauw-t);border-radius:999px;padding:2px 9px;margin-bottom:6px}
+@media (min-width:760px){.tools{grid-template-columns:repeat(2,1fr)}}
+</style>
