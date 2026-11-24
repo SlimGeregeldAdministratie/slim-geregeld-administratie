@@ -20,6 +20,12 @@ const T = {
     klaar: 'Your download is ready.', downloadKnop: 'Open the PDF', fout: 'That did not work. Please try again or email kyle@slim-geregeld.nl.', door: 'Made by Kyle Bouwmeester, Becon-registered bookkeeper.' },
 }[taal];
 const u = B + x.pad;
+// Voorbeeld: pagina 1 van de pdf als afbeelding (public/img/downloads/<naam>-1.png,
+// gemaakt met sips). De rest van de pdf krijg je pas via het formulier.
+const voorbeeld = '/img/downloads/' + x.pdf.split('/').pop().replace(/\.pdf$/, '') + '-1.png';
+const K = taal === 'nl'
+  ? { kop: 'Een kijkje in de pdf', pagina: 'Pagina 1 van 2. De volledige pdf krijg je direct na het formulier.', knop: 'Ontvang de hele pdf' }
+  : { kop: 'A look inside', pagina: 'Page 1 of 2. You get the full PDF right after the form.', knop: 'Get the full PDF' };
 const graaf = [...metKyle(taal),
   { '@type': 'WebPage', '@id': u + '#webpage', url: u, name: x.titel, description: x.omschrijving, inLanguage: taal, isPartOf: { '@id': SITE['@id'] },
     breadcrumb: { '@id': u + '#breadcrumb' }, dateModified: DOWNLOADS.gewijzigd,
@@ -36,13 +42,13 @@ const graaf = [...metKyle(taal),
           <span class="tag">PDF</span>
           <h1 style="font-size:clamp(2rem,5.6vw,2.8rem)">{x.h1}</h1>
           <p class="sub" style="margin-top:14px">{x.intro}</p>
-          <h2 style="font-size:1.35rem;margin-top:30px">{T.inhoud}</h2>
+          <h2 class="dl-h2">{T.inhoud}</h2>
           <ul class="vinkjes">{x.inhoud.map((i: string) => <li>{i}</li>)}</ul>
-          <h2 style="font-size:1.35rem">{T.voorWie}</h2>
-          <p style="color:var(--tekst);margin-top:6px">{x.voorWie}</p>
-          <p style="color:var(--grijs);font-size:.9rem;margin-top:14px">{T.door}</p>
+          <h2 class="dl-h2">{T.voorWie}</h2>
+          <p class="dl-voor">{x.voorWie}</p>
+          <p class="dl-door"><img src="/img/kyle-profiel.jpg" alt="" width="36" height="36">{T.door}</p>
         </div>
-        <div class="dl-form">
+        <div class="dl-form" id="formulier">
           <h2>{T.formKop}</h2>
           <p>{T.formIntro}</p>
           <form method="post" action={DOWNLOADS.webhook} data-download={d.sleutel} data-taal={taal} data-veld={DOWNLOADS.antwoordVeld}>
@@ -57,6 +63,16 @@ const graaf = [...metKyle(taal),
           <div data-klaar hidden role="status"><p style="color:var(--inkt);font-weight:700">{T.klaar}</p><a class="knop vol" style="width:100%;margin-top:10px" href="#" target="_blank" rel="noopener">{T.downloadKnop}</a></div>
         </div>
       </div>
+    </div>
+  </section>
+  <section class="dl-kijkje">
+    <div class="wrap dl-kijkje-raster">
+      <div>
+        <h2>{K.kop}</h2>
+        <p class="sub">{K.pagina}</p>
+        <a class="knop vol" href="#formulier">{K.knop}</a>
+      </div>
+      <div class="dl-blad" aria-hidden="true"><img src={voorbeeld} alt="" width="640" height="905" loading="lazy"></div>
     </div>
   </section>
   <script is:inline>
