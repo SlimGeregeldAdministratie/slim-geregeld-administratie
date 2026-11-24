@@ -45,13 +45,17 @@ if (p.soort === 'overzicht') {
   const perDag = (s: any) => s.klikken / Math.max(1, dag(s.klikkenBijgewerkt || vandaag) - dag(s.date));
   const rang = new Map(lijst.filter((s: any) => s.klikken != null).sort((a: any, b: any) => perDag(b) - perDag(a)).map((s: any, i: number) => [s.slug, i + 1]));
   // Alleen artikelen in de eigen taal. Artikelen die alleen in de andere taal
-  // bestaan (geen vertaling) zet een knop erbij, bovenaan de lijst (Kyle 24-11-2026).
+  // bestaan (geen vertaling) zet een knop erbij: op datum tussen de rest, ook
+  // per onderwerp, en met een eigen volgorde "andere taal eerst" (Kyle 24-11-2026).
   const anderTaal = taal === 'nl' ? 'en' : 'nl';
-  const alleenAnder = liveIn(anderTaal).filter((x: any) => !alternatiefVan(x)[taal]);
-  const nA = alleenAnder.length;
-  const ander = n === 1 && !filter && nA && taal !== 'ja' ? { taal: anderTaal, lijst: alleenAnder, label: anderTaal === 'en' ? 'In het Engels' : 'In Dutch',
-    toon: taal === 'nl' ? `Toon ook ${nA === 1 ? 'het artikel' : 'de ' + nA + ' artikelen'} in het Engels` : `Also show ${nA === 1 ? 'the article' : 'the ' + nA + ' articles'} in Dutch`,
-    verberg: taal === 'nl' ? 'Verberg de Engelse artikelen' : 'Hide the Dutch articles' } : null;
+  const alleenAnder = taal === 'ja' ? [] : liveIn(anderTaal).filter((x: any) => !alternatiefVan(x)[taal]);
+  const inScope = alleenAnder.filter((x: any) => !filter || x.cluster === filter);
+  const nA = inScope.length;
+  const eigenClusters = new Set(liveIn(taal).map((x: any) => x.cluster));
+  const ander = n === 1 && nA ? { taal: anderTaal, lijst: inScope, label: anderTaal === 'en' ? 'In het Engels' : 'In Dutch',
+    extraClusters: filter ? [] : [...new Set(inScope.map((x: any) => x.cluster))].filter((c) => !eigenClusters.has(c)).sort(),
+    toon: taal === 'nl' ? `Toon ook ${nA === 1 ? 'het Engelse artikel' : 'de ' + nA + ' Engelse artikelen'}` : `Also show ${nA === 1 ? 'the Dutch article' : 'the ' + nA + ' Dutch articles'}`,
+    eerst: taal === 'nl' ? 'Engelse eerst' : 'Dutch first' } : null;
   overzicht = { n, paginas, lijst, deel, filter, naam, vorige, volgende, gelezen, rang, ander, clusters: [...new Set(liveIn(taal).map((s: any) => s.cluster))].sort() };
 } else {
   const s = stukVan(taal, p.slug);
@@ -100,9 +104,11 @@ const L = {
           <span class="tag">{t.blog}</span>
           <h1>{overzicht.naam ? `${t.blog}: ${overzicht.naam}` : t.overzichtH1}</h1>
           <p class="sub">{t.overzichtIntro}</p>
-          {overzicht.ander && <p class="blog-andere-taal"><button type="button" data-ander aria-pressed="false" data-toon={overzicht.ander.toon} data-verberg={overzicht.ander.verberg}>{overzicht.ander.toon}</button></p>}
-          {taal === 'nl' && (
+                    {taal === 'nl' && (
             <nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/" aria-current="page">Artikelen</a><a href="/nieuws/">Nieuws en tips</a></nav>
+          )}
+          {taal === 'en' && (
+            <nav class="blog-tabs" aria-label="Blog and news"><a href="/en/blog/" aria-current="page">Articles</a><a href="/en/news/">News</a></nav>
           )}
         </div>
       </section>
@@ -112,23 +118,26 @@ const L = {
             <nav class="blog-filters" aria-label={t.onderwerp}>
               <a href={blogBasis(taal)} aria-current={!overzicht.filter ? 'page' : undefined}>{t.alleOnderwerpen}</a>
               {overzicht.clusters.map((c: string) => <a href={clusterPad(taal, c)} aria-current={overzicht.filter === c ? 'page' : undefined}>{clusterLabel(c, taal)}</a>)}
+              {overzicht.ander?.extraClusters.map((c: string) => <a href={'#' + c} data-extra-cluster={c} hidden>{clusterLabel(c, overzicht.ander.taal)}</a>)}
             </nav>
           )}
-          {overzicht.gelezen && (
+          {(overzicht.gelezen || overzicht.ander) && (
             <div class="blog-volgorde" data-volgorde hidden role="group" aria-label={t.volgorde}>
               <span>{t.volgorde}:</span>
               <button type="button" data-kies="nieuwste" aria-pressed="true">{t.nieuwste}</button>
-              <button type="button" data-kies="gelezen" aria-pressed="false">{t.meestGelezen}</button>
+              {overzicht.gelezen && <button type="button" data-kies="gelezen" aria-pressed="false">{t.meestGelezen}</button>}
+              {overzicht.ander && <button type="button" data-kies="ander" aria-pressed="false" hidden>{overzicht.ander.eerst}</button>}
+              {overzicht.ander && <label class="blog-taalknop"><input type="checkbox" data-ander> {overzicht.ander.toon}</label>}
             </div>
           )}
           {overzicht.lijst.length === 0
             ? <p class="blog-leeg">{t.leeg} <a href={t.leegLink[0]}>{t.leegLink[1]}</a></p>
             : <ul class="blog-lijst" data-lijst>{overzicht.deel.map((s: any) => <BlogKaart s={s} />)}</ul>}
           {overzicht.ander && (
-            <template data-ander-lijst>{overzicht.ander.lijst.map((x: any) => <div lang={overzicht.ander.taal} data-label={overzicht.ander.label}><BlogKaart s={x} /></div>)}</template>
+            <template data-ander-lijst>{overzicht.ander.lijst.map((x: any) => <div lang={overzicht.ander.taal} data-label={overzicht.ander.label} data-cluster={x.cluster}><BlogKaart s={x} /></div>)}</template>
           )}
-          {overzicht.gelezen && (
-            <template data-alle>{overzicht.lijst.map((s: any) => <div data-rang={overzicht.rang.get(s.slug) || ''}><BlogKaart s={s} /></div>)}</template>
+          {(overzicht.gelezen || overzicht.ander) && (
+            <template data-alle>{overzicht.lijst.map((s: any) => <div data-rang={overzicht.rang.get(s.slug) || ''} data-cluster={s.cluster}><BlogKaart s={s} /></div>)}</template>
           )}
           {overzicht.paginas > 1 && (
             <nav class="blog-pag" data-paginering aria-label={t.pagina}>
@@ -140,56 +149,62 @@ const L = {
 </div>
         </div>
       </section>
-      {overzicht.ander && (
-        <script is:inline>
-          (function () {
-            var knop = document.querySelector('[data-ander]'), lijst = document.querySelector('[data-lijst]'), bron = document.querySelector('template[data-ander-lijst]');
-            if (!knop || !lijst || !bron) return;
-            knop.addEventListener('click', function () {
-              var er = lijst.querySelectorAll('[data-ander-item]');
-              if (er.length) { er.forEach(function (x) { x.remove(); }); knop.textContent = knop.dataset.toon; knop.setAttribute('aria-pressed', 'false'); return; }
-              [].slice.call(bron.content.children).reverse().forEach(function (w) {
-                var li = w.firstElementChild.cloneNode(true);
-                li.setAttribute('data-ander-item', ''); li.setAttribute('lang', w.getAttribute('lang'));
-                var plek = li.querySelector('.nieuw-plek') || li.querySelector('.blog-label');
-                var lab = document.createElement('span'); lab.className = 'blog-label taal-label'; lab.textContent = w.getAttribute('data-label');
-                if (plek && plek.parentNode) plek.parentNode.insertBefore(lab, plek.nextSibling); else li.prepend(lab);
-                lijst.insertBefore(li, lijst.firstChild);
-              });
-              knop.textContent = knop.dataset.verberg; knop.setAttribute('aria-pressed', 'true');
-            });
-          })();
-        </script>
-      )}
-      {overzicht.gelezen && (
+      {(overzicht.gelezen || overzicht.ander) && (
         <script is:inline define:vars={{ nieuwTekst: t.nieuw }}>
           (function () {
             var box = document.querySelector('[data-volgorde]'), lijst = document.querySelector('[data-lijst]');
-            var sjabloon = document.querySelector('template[data-alle]'), pag = document.querySelector('[data-paginering]');
-            if (!box || !lijst || !sjabloon) return;
-            var origineel = lijst.innerHTML;
+            var eigen = document.querySelector('template[data-alle]'), bron = document.querySelector('template[data-ander-lijst]');
+            var pag = document.querySelector('[data-paginering]'), vink = document.querySelector('[data-ander]');
+            var extra = [].slice.call(document.querySelectorAll('[data-extra-cluster]'));
+            if (!box || !lijst || !eigen) return;
+            var origineel = lijst.innerHTML, st = { volgorde: 'nieuwste', ander: false, cluster: null };
+            try { st.ander = !!vink && localStorage.getItem('blog-ander-' + document.documentElement.lang) === '1'; } catch (e) {}
             var nieuw = function (d) { return Date.now() - Date.parse(d + 'T00:00:00Z') < 14 * 86400000; };
-            box.hidden = false;
-            box.querySelectorAll('button').forEach(function (b) {
-              b.addEventListener('click', function () {
-                var g = b.getAttribute('data-kies') === 'gelezen';
-                box.querySelectorAll('button').forEach(function (k) { k.setAttribute('aria-pressed', String(k === b)); });
-                if (!g) { lijst.innerHTML = origineel; if (pag) pag.hidden = false; return; }
-                // Nieuw (jonger dan 14 dagen) bovenaan met een label, daarna op rang.
-                var items = [].slice.call(sjabloon.content.children).map(function (w) {
-                  var li = w.firstElementChild; return { li: li, d: li.getAttribute('data-datum'), r: Number(w.getAttribute('data-rang')) || 1e9 };
-                });
-                var jong = items.filter(function (x) { return nieuw(x.d); }).sort(function (a, b) { return a.d < b.d ? 1 : -1; });
-                var oud = items.filter(function (x) { return !nieuw(x.d); }).sort(function (a, b) { return a.r - b.r || (a.d < b.d ? 1 : -1); });
-                lijst.innerHTML = '';
-                jong.concat(oud).forEach(function (x) {
-                  var kopie = x.li.cloneNode(true);
-                  if (nieuw(x.d)) { var plek = kopie.querySelector('.nieuw-plek'); if (plek) plek.outerHTML = '<span class="blog-label nieuw">' + nieuwTekst + '</span>'; }
-                  lijst.appendChild(kopie);
-                });
-                if (pag) pag.hidden = true;
+            var items = function (tpl, isAnder) {
+              return tpl ? [].slice.call(tpl.content.children).map(function (w) {
+                return { w: w, li: w.firstElementChild, d: w.firstElementChild.getAttribute('data-datum'), r: Number(w.getAttribute('data-rang')) || 1e9, c: w.getAttribute('data-cluster'), a: isAnder };
+              }) : [];
+            };
+            function teken() {
+              box.querySelectorAll('[data-kies]').forEach(function (k) { k.setAttribute('aria-pressed', String(k.getAttribute('data-kies') === st.volgorde)); });
+              var eerst = box.querySelector('[data-kies=ander]'); if (eerst) eerst.hidden = !st.ander;
+              extra.forEach(function (x) { x.hidden = !st.ander; if (st.cluster === x.getAttribute('data-extra-cluster')) x.setAttribute('aria-current', 'page'); else x.removeAttribute('aria-current'); });
+              if (vink) vink.checked = st.ander;
+              var alleLink = document.querySelector('.blog-filters a:not([data-extra-cluster])');
+              if (alleLink && alleLink.getAttribute('href') === location.pathname) { if (st.cluster) alleLink.removeAttribute('aria-current'); else alleLink.setAttribute('aria-current', 'page'); }
+              if (!st.ander && st.volgorde === 'nieuwste') { lijst.innerHTML = origineel; if (pag) pag.hidden = false; return; }
+              var alle = items(eigen, false).concat(st.ander ? items(bron, true) : []);
+              if (st.cluster) alle = alle.filter(function (x) { return x.c === st.cluster; });
+              var opDatum = function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; };
+              if (st.volgorde === 'gelezen') {
+                var jong = alle.filter(function (x) { return nieuw(x.d); }).sort(opDatum);
+                var oud = alle.filter(function (x) { return !nieuw(x.d); }).sort(function (a, b) { return a.r - b.r || opDatum(a, b); });
+                alle = jong.concat(oud);
+              } else if (st.volgorde === 'ander') {
+                alle.sort(function (a, b) { return (b.a - a.a) || opDatum(a, b); });
+              } else alle.sort(opDatum);
+              lijst.innerHTML = '';
+              alle.forEach(function (x) {
+                var kopie = x.li.cloneNode(true), plek = kopie.querySelector('.nieuw-plek');
+                if (st.volgorde === 'gelezen' && nieuw(x.d) && plek) { plek.outerHTML = '<span class="blog-label nieuw">' + nieuwTekst + '</span>'; plek = null; }
+                if (x.a) {
+                  kopie.setAttribute('lang', x.w.getAttribute('lang'));
+                  var lab = document.createElement('span'); lab.className = 'blog-label taal-label'; lab.textContent = x.w.getAttribute('data-label');
+                  var m = kopie.querySelector('.blog-meta'); if (m) m.appendChild(lab);
+                }
+                lijst.appendChild(kopie);
               });
+              if (pag) pag.hidden = true;
+            }
+            box.hidden = false;
+            box.querySelectorAll('[data-kies]').forEach(function (b) { b.addEventListener('click', function () { st.volgorde = b.getAttribute('data-kies'); teken(); }); });
+            if (vink) vink.addEventListener('change', function () {
+              st.ander = vink.checked; if (!st.ander) { st.cluster = null; if (st.volgorde === 'ander') st.volgorde = 'nieuwste'; }
+              try { localStorage.setItem('blog-ander-' + document.documentElement.lang, st.ander ? '1' : '0'); } catch (e) {}
+              teken();
             });
+            extra.forEach(function (x) { x.addEventListener('click', function (e) { e.preventDefault(); var c = x.getAttribute('data-extra-cluster'); st.cluster = st.cluster === c ? null : c; teken(); }); });
+            teken();
           })();
         </script>
       )}

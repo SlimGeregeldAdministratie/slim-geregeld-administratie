@@ -10,7 +10,7 @@ a.blog-label:hover{background:#dfe8ff}
 .blog-filters a,.blog-volgorde button{font:inherit;font-size:.86rem;font-weight:650;border:1px solid var(--lijn);background:#fff;color:var(--tekst);border-radius:999px;padding:6px 13px;text-decoration:none;cursor:pointer}
 .blog-filters a:hover,.blog-volgorde button:hover{border-color:var(--blauw-rand)}
 .blog-filters a[aria-current],.blog-volgorde button[aria-pressed="true"]{background:var(--blauw);border-color:var(--blauw);color:#fff}
-.blog-volgorde{display:flex;align-items:center;gap:8px;margin:14px 0 4px;font-size:.86rem;color:var(--grijs)}
+.blog-volgorde{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 4px;font-size:.86rem;color:var(--grijs)}
 .blog-lijst{list-style:none;display:grid;gap:14px;margin-top:20px}
 .blog-kaart{display:block;border:1px solid var(--lijn);border-radius:var(--r);padding:22px;background:#fff;transition:border-color .15s,box-shadow .15s}
 .blog-kaart:hover{border-color:var(--blauw-rand);box-shadow:0 8px 24px rgba(37,99,235,.08)}
@@ -122,6 +122,7 @@ a.blog-label:hover{background:#dfe8ff}
 .art-wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 .art-kop{max-width:760px}
 .art-kop h1{font-size:clamp(2rem,5.6vw,2.9rem);margin-top:14px}
+.art-kop .intro{font-size:1.12rem;line-height:1.55;color:var(--tekst);margin-top:16px}
 .art-kop .door a{text-decoration:none}
 .art-kop .door a:hover b{color:var(--blauw)}
 .art-raster{display:grid;gap:40px}
@@ -222,3 +223,8 @@ a.blog-label:hover{background:#dfe8ff}
 .dl-blad img{display:block;width:100%;height:auto}
 .dl-blad::after{content:"";position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(180deg,rgba(245,247,251,0),var(--zacht) 92%)}
 @media (min-width:860px){.dl-kijkje-raster{grid-template-columns:1fr 1fr;gap:48px}}
+
+.blog-taalknop{display:inline-flex;align-items:center;gap:6px;margin-left:auto;font-weight:650;color:var(--tekst);cursor:pointer}
+.blog-taalknop input{width:16px;height:16px;accent-color:var(--blauw)}
+.blog-volgorde [hidden],.blog-filters [hidden]{display:none!important}
+.nieuws-post[hidden]{display:none!important}

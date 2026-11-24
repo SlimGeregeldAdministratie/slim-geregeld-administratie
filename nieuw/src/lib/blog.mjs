@@ -267,6 +267,7 @@ export function leesNieuws(map = CONTENT) {
     if (!n.urlProfiel && !n.urlPagina) fouten.push(`${waar}: urlProfiel of urlPagina is verplicht`);
     if (n.impressies != null && !(Number.isInteger(n.impressies) && n.impressies >= 0)) fouten.push(`${waar}: impressies moet een heel getal zijn`);
     if (n.impressiesBijgewerkt != null && !geldigeDatum(String(n.impressiesBijgewerkt))) fouten.push(`${waar}: impressiesBijgewerkt moet JJJJ-MM-DD zijn`);
+    if (n.reacties != null && !(Number.isInteger(n.reacties) && n.reacties >= 0)) fouten.push(`${waar}: reacties moet een heel getal zijn`);
     if (n.toon != null && typeof n.toon !== 'boolean') fouten.push(`${waar}: toon moet true of false zijn`);
     if (n.toon == null) waarschuwingen.push(`${waar}: toon ontbreekt, behandeld als true`);
     // toon: false = niet op de site (geen pagina, geen sitemap). Wel controleren, wel ontdubbelen.

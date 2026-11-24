@@ -219,6 +219,7 @@ Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net al
 | `cluster` | ja | sleutel uit de tabel hierboven | Onderwerp van de post. De planner kiest het op de inhoud, zoals bij een blog. Ontbreekt het of is het onbekend, dan komt de post onder `nieuws` (waarschuwing in de build). |
 | `impressies` | nee | heel getal of weglaten | Totaal aantal impressies op LinkedIn op de datum `impressiesBijgewerkt`. De planner werkt dit wekelijks bij via de API (zelfde `id`, item vervangen). Alleen voor "Meest gelezen"; posts zonder getal komen daar achteraan. Wordt niet getoond. |
 | `impressiesBijgewerkt` | bij `impressies` | `JJJJ-MM-DD` | Datum waarop `impressies` is gemeten. Nodig voor impressies per dag; ontbreekt het, dan rekent de build met de builddatum. |
+| `reacties` | nee | heel getal of weglaten | Aantal reacties op LinkedIn. Planner 7 werkt dit wekelijks bij (sinds 24-11-2026). De site toont het bij de post als het groter is dan 0. |
 | `media` | nee | object of weglaten | Carrousel of video bij de post, zie "Media" hieronder. Zonder `media` toont de site `afbeelding`. |
 | `blogSlug` | nee | slug of `null` | Slug van het bijbehorende artikel in dezelfde taal. Gevuld: link "Lees het hele stuk" naar `/blog/<slug>/` (of `/en/blog/<slug>/`). De statische versie toont de link alleen als het artikel bestaat. |
 

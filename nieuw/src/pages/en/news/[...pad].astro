@@ -1,0 +1,6 @@
+---
+import NieuwsOverzicht from '../../../components/NieuwsOverzicht.astro';
+import { nieuwsPaden } from '../../../lib/inhoud.mjs';
+export function getStaticPaths() { return nieuwsPaden('en'); }
+---
+<NieuwsOverzicht {...Astro.props} />

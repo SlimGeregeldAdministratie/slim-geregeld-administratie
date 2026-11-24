@@ -35,7 +35,7 @@ const T = {
     kvk: 'Chamber of Commerce', btwNr: 'VAT ID', iban: 'IBAN', tnv: 'in the name of',
     kor: 'No VAT charged: exempt under the Dutch small business scheme (KOR).',
     stdVoorwaarden: 'Please transfer the amount within {betalingstermijn} days to {iban} in the name of {tnv}, quoting the invoice number.',
-    stdBoven: 'Dear {naam},\n\nPlease find below our quote for the work described.',
+    stdBoven: 'Dear {name},\n\nPlease find below our quote for the work described.',
     stdOnder: 'We trust this is clear and look forward to your approval.',
     datumLoc: 'en-GB', geldLoc: 'en-GB', klantStd: 'Sir or Madam', teBetalen: 'Amount due', van: 'From', betalen: 'Payment',
   },
@@ -238,7 +238,7 @@ export function factuurHtml(data, sjabloon) {
   const dag = (s) => { const x = /^\d{4}-\d{2}-\d{2}$/.test(String(s || '')) ? new Date(s + 'T12:00:00') : null; return x ? x.toLocaleDateString(t.datumLoc, { day: 'numeric', month: 'long', year: 'numeric' }) : esc(s || ''); };
   const offerte = d.soort === 'offerte';
   const korRegel = !String(van.btw || '').trim() && tot.btw === 0 && tot.regels.length > 0;
-  const vul = (s) => String(s || '').replace(/\{betalingstermijn\}/g, d.termijn || '14').replace(/\{iban\}/g, van.iban || '').replace(/\{tnv\}/g, van.tnv || van.bedrijf || '').replace(/\{naam\}|\{recipient\.name\}/g, aan.naam || aan.bedrijf || t.klantStd);
+  const vul = (s) => String(s || '').replace(/\{betalingstermijn\}/g, d.termijn || '14').replace(/\{iban\}/g, van.iban || '').replace(/\{tnv\}/g, van.tnv || van.bedrijf || '').replace(/\{naam\}|\{name\}|\{recipient\.name\}/g, aan.naam || aan.bedrijf || t.klantStd);
   const teksten = offerte
     ? [vul(d.tekstBoven || t.stdBoven), vul(d.tekstOnder || t.stdOnder)]
     : [vul(d.voorwaarden || t.stdVoorwaarden)];

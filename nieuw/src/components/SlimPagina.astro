@@ -201,6 +201,15 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9];
       </form>
     </div>
   </section>
+
+  <section>
+    <div class="wrap">
+      <GoogleReviews taal={taal} eerst={['Daan van der Mark', 'Jeremy Gomes', 'Burak Sahin', 'Umesh ten Kate']} />
+    </div>
+  </section>
+
+  <Faq vragen={T.faq} titel={T.faqTitel} />
+  <Contactblok taal={taal} titel={T.ctTitel} tekst={T.ctTekst} />
   <script is:inline>
   (function(){
     var f = document.getElementById('slim-stap1'); if (!f) return;
@@ -224,14 +233,6 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9];
     });
   })();
   </script>
-
-  <section>
-    <div class="wrap">
-      <GoogleReviews taal={taal} eerst={['Daan van der Mark', 'Jeremy Gomes', 'Burak Sahin', 'Umesh ten Kate']} />
-    </div>
-  </section>
-
-  <Faq vragen={T.faq} titel={T.faqTitel} />
   <script is:inline>
   /* Dichtgeklapte functiekaarten even hoog per rij. */
   (function(){
@@ -245,7 +246,6 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9];
     gelijk(); addEventListener('resize',gelijk);
   })();
   </script>
-  <Contactblok taal={taal} titel={T.ctTitel} tekst={T.ctTekst} />
 </Basis>
 
 <style>

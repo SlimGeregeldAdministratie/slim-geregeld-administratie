@@ -88,7 +88,8 @@ import Basis from '../layouts/Basis.astro';
 (function () {
   // Boekjaar: van oktober tot en met december dit en volgend jaar, anders vorig en dit jaar.
   var nu = new Date(), j = nu.getFullYear(), m = nu.getMonth() + 1;
-  var jaren = m >= 10 ? [j, j + 1] : [j - 1, j];
+  // Vorig jaar blijft kiesbaar (aangifte), vanaf oktober ook volgend jaar.
+  var jaren = m >= 10 ? [j - 1, j, j + 1] : [j - 1, j];
   var sel = document.getElementById('boekjaar');
   jaren.forEach(function (y) { var o = document.createElement('option'); o.value = String(y); o.textContent = String(y); if (y === j) o.selected = true; sel.appendChild(o); });
 
@@ -120,7 +121,7 @@ import Basis from '../layouts/Basis.astro';
 <style>
 .nc-kop{padding:28px 0 24px;background:linear-gradient(180deg,var(--blauw-t),#fff 85%)}
 .nc-kop .sub{margin-top:12px;max-width:42rem}
-.nc-wrap{display:grid;gap:24px;max-width:1000px;align-items:start}
+.nc-wrap{display:grid;gap:24px;align-items:start}
 .nc{border:1px solid var(--lijn);border-radius:var(--r-groot);padding:24px;background:#fff;display:grid;gap:22px}
 .nc .veld>label:first-child{display:block;font-weight:650;color:var(--inkt);margin-bottom:8px}
 .nc .bij{display:block;font-weight:400;font-size:.88rem;color:var(--grijs);margin-top:2px}
@@ -153,5 +154,5 @@ import Basis from '../layouts/Basis.astro';
 .nc-noot p{margin-top:6px}
 .nc-noot a{color:var(--blauw)}
 @media (min-width:640px){.nc-twee{grid-template-columns:1fr 1fr}}
-@media (min-width:900px){.nc-wrap{grid-template-columns:1fr 300px}.nc-noot{position:sticky;top:96px}}
+@media (min-width:900px){.nc-wrap{grid-template-columns:minmax(0,1fr) 320px}.nc-noot{position:sticky;top:96px}}
 </style>

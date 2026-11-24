@@ -91,20 +91,32 @@ export function downloadVan(s) {
 }
 
 // Nieuws: /nieuws/, /nieuws/2/, /nieuws/onderwerp/<c>/ en /nieuws/onderwerp/<c>/2/.
-export function nieuwsPaden() {
+// Nieuwsoverzichten per taal: /nieuws/ (nl, met onderwerppagina's) en /en/news/
+// (en, zonder onderwerppagina's). Posts in de andere taal gaan per pagina mee als
+// "ander": op datum op de plek waar ze horen, verborgen tot de bezoeker ze aanzet.
+export function nieuwsPaden(taal = 'nl') {
   const { perPagina, minIndex, clusters } = ONDERWERPEN;
-  const lijsten = [{ seg: [], items: NIEUWS, cluster: null },
-    ...Object.keys(clusters).map((c) => ({ seg: ['onderwerp', c], items: NIEUWS.filter((x) => x.cluster === c), cluster: c })).filter((l) => l.items.length)];
+  const vanTaal = (x) => (x.taal || 'nl') === taal;
+  const eigen = NIEUWS.filter(vanTaal), ander = NIEUWS.filter((x) => !vanTaal(x));
+  const lijsten = [{ seg: [], items: eigen, anders: ander, cluster: null },
+    ...(taal === 'nl' ? Object.keys(clusters).map((c) => ({ seg: ['onderwerp', c], items: eigen.filter((x) => x.cluster === c), anders: ander.filter((x) => x.cluster === c), cluster: c })).filter((l) => l.items.length) : [])];
   const aanwezig = lijsten.filter((l) => l.cluster).map((l) => l.cluster);
   const uit = [];
   for (const l of lijsten) {
     const paginas = Math.max(1, Math.ceil(l.items.length / perPagina));
-    const basis = '/nieuws/' + (l.seg.length ? l.seg.join('/') + '/' : '');
+    const basis = (taal === 'nl' ? '/nieuws/' : '/en/news/') + (l.seg.length ? l.seg.join('/') + '/' : '');
     for (let n = 1; n <= paginas; n++) {
       const seg = [...l.seg, ...(n > 1 ? [String(n)] : [])];
+      const items = l.items.slice((n - 1) * perPagina, n * perPagina);
+      // Datumvenster van deze pagina: nieuwer dan het laatste item van deze pagina
+      // (laatste pagina: alles ouder ook) en niet nieuwer dan dat van de vorige.
+      const boven = n === 1 ? '9999' : l.items[(n - 1) * perPagina - 1].datum;
+      const onder = n === paginas ? '0000' : items[items.length - 1].datum;
+      const erbij = l.anders.filter((x) => x.datum <= boven && x.datum > onder && !(n > 1 && x.datum === boven));
+      const rijen = [...items.map((x) => ({ x, ander: false })), ...erbij.map((x) => ({ x, ander: true }))].sort((p, q) => (p.x.datum < q.x.datum ? 1 : p.x.datum > q.x.datum ? -1 : 0));
       uit.push({ params: { pad: seg.length ? seg.join('/') : undefined }, props: {
         n, paginas, basis, cluster: l.cluster, aanwezig, index: !l.cluster || l.items.length >= minIndex,
-        items: l.items.slice((n - 1) * perPagina, n * perPagina),
+        items, rijen, aantalAnder: l.anders.length, taal,
       } });
     }
   }

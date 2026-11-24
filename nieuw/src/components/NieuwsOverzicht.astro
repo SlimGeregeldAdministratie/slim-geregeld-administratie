@@ -1,0 +1,113 @@
+---
+// Nieuwsoverzicht in het Nederlands (/nieuws/) en Engels (/en/news/).
+// /nieuws: Kyles LinkedIn-posts als gewone tekst, uit content/nieuws/nieuws.json
+// (de n8n-content-engine vult dat bestand). 10 per pagina, plus een pagina per
+// onderwerp; een onderwerp met minder dan 3 posts staat op noindex.
+import Basis from '../layouts/Basis.astro';
+import '../styles/blog.css';
+import { B, ONDERWERPEN, alineas, datumMooi, youtubeId, blogVanNieuws, metKyle, kruimelGraaf, ld } from '../lib/inhoud.mjs';
+import { videoObject } from '../lib/blog.mjs';
+const { n, paginas, basis, cluster, aanwezig, index, items, rijen, aantalAnder, taal = 'nl' } = Astro.props as any;
+const en = taal === 'en';
+const L = en ? { home: '/en/', nieuws: 'News', blog: '/en/blog/', tag: 'Blog', bekijk: 'View on LinkedIn', pagina: 'View on the company page', heel: 'Read the full article', dia: (i: number, t: number) => `Slide ${i} of ${t}`, pdf: 'Download the carousel (pdf)', vorige: 'Previous', volgende: 'Next', pag: (n: number, t: number) => `Page ${n} of ${t}`, ookBlog: 'Read the blog too', reacties: (r: number) => r === 1 ? '1 reaction' : `${r} reactions`, ander: 'In Dutch', toon: (k: number) => `Also show the ${k} Dutch posts`, artikelen: 'Articles', tabNieuws: 'News', transcript: 'Transcript' }
+  : { home: '/', nieuws: 'Nieuws', blog: '/blog/', tag: 'Blog', bekijk: 'Bekijk op LinkedIn', pagina: 'Bekijk op de bedrijfspagina', heel: 'Lees het hele stuk', dia: (i: number, t: number) => `Dia ${i} van ${t}`, pdf: 'Download de carrousel (pdf)', vorige: 'Vorige', volgende: 'Volgende', pag: (n: number, t: number) => `Pagina ${n} van ${t}`, ookBlog: 'Lees ook de blog', reacties: (r: number) => r === 1 ? '1 reactie op LinkedIn' : `${r} reacties op LinkedIn`, ander: 'In het Engels', toon: (k: number) => k === 1 ? 'Toon ook de Engelse post' : `Toon ook de ${k} Engelse posts`, artikelen: 'Artikelen', tabNieuws: 'Nieuws en tips', transcript: 'Transcript' };
+const { perPagina, clusters } = ONDERWERPEN;
+const label = cluster ? clusters[cluster] : null;
+const pad = n === 1 ? basis : `${basis}${n}/`;
+const u = B + pad;
+const achter = n > 1 ? `, pagina ${n}` : '';
+const titel = en ? (n === 1 ? 'News and tips for entrepreneurs in the Netherlands | Slim Geregeld' : `News and tips, page ${n} | Slim Geregeld`) : label ? `${label}: nieuws en tips${achter} | Slim Geregeld` : (n === 1 ? 'Nieuws en belastingtips voor ondernemers | Slim Geregeld' : `Nieuws en belastingtips${achter} | Slim Geregeld`);
+const basisOmschrijving = 'Praktische tips over administratie, ondernemerschap en belastingen van boekhouder Kyle Bouwmeester.';
+const omschrijving = en ? 'Kyle Bouwmeester\'s LinkedIn posts as plain text: practical notes on DAFT, DJTT and running a business in the Netherlands.' : label
+  ? `Posts van boekhouder Kyle Bouwmeester over ${label.toLowerCase()}${n > 1 ? ` (pagina ${n} van ${paginas})` : ''}: praktische tips voor ondernemers.`
+  : (n === 1 ? basisOmschrijving : `${basisOmschrijving} Pagina ${n} van ${paginas}.`);
+const h1 = en ? 'News and updates' : label ? `Nieuws over ${label.toLowerCase()}` : 'Nieuws en updates';
+const vorige = n > 1 ? (n === 2 ? basis : `${basis}${n - 1}/`) : null;
+const volgende = n < paginas ? `${basis}${n + 1}/` : null;
+const nieuwste = items.reduce((m: string, x: any) => (x.datum > m ? x.datum : m), items[0]?.datum || '2026-11-01');
+const kopVan = (x: any) => x.titel || alineas(x.tekst)[0].split('\n')[0];
+const kruimels = [['Home', L.home], [L.nieuws, en ? '/en/news/' : '/nieuws/'], ...(label ? [[label, basis]] : []), ...(n > 1 ? [[`Pagina ${n}`, pad]] : [])];
+const graaf = [...metKyle(taal),
+  { '@type': 'CollectionPage', '@id': u + '#webpage', url: u, name: titel, description: omschrijving, inLanguage: taal, isPartOf: { '@id': B + '/#website' },
+    publisher: { '@id': B + '/#org' }, breadcrumb: { '@id': u + '#breadcrumb' }, dateModified: nieuwste,
+    mainEntity: { '@type': 'ItemList', itemListElement: items.map((x: any, i: number) => ({ '@type': 'ListItem', position: (n - 1) * perPagina + i + 1, item: {
+      '@type': 'SocialMediaPosting', headline: kopVan(x).slice(0, 110), datePublished: x.datum, url: x.urlProfiel || x.urlPagina,
+      author: { '@id': B + '/#kyle' }, publisher: { '@id': B + '/#org' }, inLanguage: x.taal || 'nl', about: clusters[x.cluster],
+      ...(x.media?.type === 'carrousel' ? { image: x.media.paginas.map((q: string) => B + q) } : x.afbeelding ? { image: x.afbeelding } : {}),
+      ...(x.media?.type === 'video' ? { video: videoObject(x, B) } : {}) } })) } },
+  kruimelGraaf(u, kruimels)];
+---
+<Basis titel={titel} omschrijving={omschrijving} taal={taal} alternatief={n === 1 && !cluster ? { nl: '/nieuws/', en: '/en/news/' } : {}} robots={index ? 'index, follow' : 'noindex, follow'} cta={en ? undefined : '/#contact'}>
+  <script slot="head" type="application/ld+json" set:html={ld(graaf)} />
+  {vorige && <link slot="head" rel="prev" href={B + vorige} />}
+  {volgende && <link slot="head" rel="next" href={B + volgende} />}
+  <section class="blog-kop">
+    <div class="wrap">
+      <span class="tag">{L.tag}</span>
+      <h1>{h1}</h1>
+      <p class="sub">{en ? "Kyle Bouwmeester's LinkedIn posts as plain text: practical notes on DAFT, DJTT, bookkeeping and running a business in the Netherlands." : "De posts van Kyle Bouwmeester op LinkedIn, als gewone tekst: praktische tips over administratie, btw, de BV en belastingen voor ondernemers."}</p>
+      <nav class="blog-tabs" aria-label={en ? "Blog and news" : "Blog en nieuws"}><a href={L.blog}>{L.artikelen}</a><a href={en ? "/en/news/" : "/nieuws/"} aria-current="page">{L.tabNieuws}</a></nav>
+    </div>
+  </section>
+  <section style="padding-top:8px">
+    <div class="wrap"><div>
+      {!en && (
+        <nav class="blog-filters" aria-label="Onderwerp">
+          <a href="/nieuws/" aria-current={!cluster ? 'page' : undefined}>Alle onderwerpen</a>
+          {aanwezig.map((c: string) => <a href={`/nieuws/onderwerp/${c}/`} aria-current={cluster === c ? 'page' : undefined}>{clusters[c]}</a>)}
+        </nav>
+      )}
+      {aantalAnder > 0 && <div class="blog-volgorde"><label class="blog-taalknop" style="margin-left:0"><input type="checkbox" data-nieuws-ander={taal}> {L.toon(aantalAnder)}</label></div>}
+      <div class="blog-lijst">
+        {rijen.map(({ x, ander }: any) => {
+          const m = x.media;
+          const yt = m?.type === 'video' ? youtubeId(m.src) : null;
+          const blog = blogVanNieuws(x);
+          return (
+            <article class={`nieuws-post${x.afbeelding && !m ? ' met-foto' : ''}`} lang={(x.taal || 'nl') !== taal ? (x.taal || 'nl') : undefined} data-ander={ander ? '' : undefined} hidden={ander}>
+              <div class="blog-meta">{en ? <span class="blog-label">{clusters[x.cluster]}</span> : <a class="blog-label" href={`/nieuws/onderwerp/${x.cluster}/`}>{clusters[x.cluster]}</a>}{ander && <span class="blog-label taal-label">{L.ander}</span>}<time datetime={x.datum}>{datumMooi(x.datum, taal)}</time>{Number(x.reacties) > 0 && <span class="nieuws-bereik">{L.reacties(Number(x.reacties))}</span>}</div>
+              <div class="nieuws-tekst"><h2>{kopVan(x)}</h2>
+              {m?.type === 'carrousel' && (
+                <section aria-label="Carrousel" style="padding:0">
+                  {m.paginas.map((q: string, i: number) => <figure><img src={q} alt={m.tekstPerPagina[i]} loading="lazy" decoding="async"><figcaption>{L.dia(i + 1, m.paginas.length)}: {m.tekstPerPagina[i]}</figcaption></figure>)}
+                  <p><a href={m.pdf} download>{L.pdf}</a></p>
+                </section>
+              )}
+              {m?.type === 'video' && (yt
+                ? <iframe src={`https://www.youtube-nocookie.com/embed/${yt}`} title={kopVan(x)} width="560" height="315" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen style="border:0"></iframe>
+                : <video controls preload="none" poster={m.poster || undefined}><source src={m.src} type="video/mp4"></video>)}
+              {alineas(x.tekst).map((a: string) => <p set:html={a.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')} />)}
+              </div>
+              {x.afbeelding && !m && <img class="nieuws-foto" src={x.afbeelding} alt={kopVan(x)} loading="lazy" decoding="async" onerror="this.remove()">}
+              {m?.type === 'video' && <><h3 style="margin-top:14px">{L.transcript}</h3>{alineas(m.transcript).map((a: string) => <p>{a}</p>)}</>}
+              <p class="nieuws-links">
+                <a href={x.urlProfiel || x.urlPagina} rel="noopener">{L.bekijk}</a>
+                {x.urlPagina && x.urlProfiel && <a href={x.urlPagina} rel="noopener">{L.pagina}</a>}
+                {blog && <a href={blog}>{L.heel}</a>}
+              </p>
+            </article>
+          );
+        })}
+      </div>
+      {paginas > 1 && (
+        <nav class="blog-pag" aria-label={en ? "Pagination" : "Paginering"}>
+          {vorige ? <a href={vorige} rel="prev">← {L.vorige}</a> : <span></span>}
+          <span>{L.pag(n, paginas)}</span>
+          {volgende ? <a href={volgende} rel="next">{L.volgende} →</a> : <span></span>}
+        </nav>
+      )}
+      <p style="margin-top:28px"><a class="knop leeg" href={L.blog}>{L.ookBlog}</a></p>
+</div>
+    </div>
+  </section>
+  {aantalAnder > 0 && (
+    <script is:inline>
+      (function () {
+        var v = document.querySelector('[data-nieuws-ander]'); if (!v) return;
+        function zet(aan) { v.checked = aan; document.querySelectorAll('[data-ander]').forEach(function (a) { a.hidden = !aan; }); }
+        try { zet(localStorage.getItem('nieuws-ander-' + v.getAttribute('data-nieuws-ander')) === '1'); } catch (e) {}
+        v.addEventListener('change', function () { zet(v.checked); try { localStorage.setItem('nieuws-ander-' + v.getAttribute('data-nieuws-ander'), v.checked ? '1' : '0'); } catch (e) {} });
+      })();
+    </script>
+  )}
+</Basis>
