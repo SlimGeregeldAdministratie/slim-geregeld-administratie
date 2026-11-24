@@ -1,0 +1,5 @@
+# Netlify-headers. Geen wildcard op /downloads/*: daaronder staan ook de
+# downloadpagina's (/downloads/<slug>/), die wel gevonden moeten worden.
+# astro.config.mjs zet bij de build per pdf een regel "X-Robots-Tag: noindex".
+/cockpit/*
+  X-Robots-Tag: noindex

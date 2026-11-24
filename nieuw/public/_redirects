@@ -1,0 +1,66 @@
+# Eén canonieke host: www en http gaan in één stap naar https://slim-geregeld.nl.
+http://www.slim-geregeld.nl/*   https://slim-geregeld.nl/:splat   301!
+https://www.slim-geregeld.nl/*  https://slim-geregeld.nl/:splat   301!
+http://slim-geregeld.nl/*       https://slim-geregeld.nl/:splat   301!
+
+# Schone deelbare URLs voor de DAFT-pagina.
+/daft/request     /daft/#request     301
+/daft/request/    /daft/#request     301
+/daft/pricing     /daft/#pricing     301
+/daft/faq         /daft/#faq         301
+
+# DJTT (Japans verdrag, doel 510) en de verlenging als eigen aanbod. /djft is de
+# eerdere werknaam en stuurt door, net als /daft/japan.
+/djtt/request     /djtt/#request     301
+/djtt/request/    /djtt/#request     301
+/djtt/pricing     /djtt/#pricing     301
+/djtt/faq         /djtt/#faq         301
+/djft             /djtt/             301
+/djft/*           /djtt/:splat       301
+/daft/japan       /djtt/             301
+/daft/japan/      /djtt/             301
+/daft/renewal/request    /daft/renewal/#request    301
+/daft/renewal/pricing    /daft/renewal/#pricing    301
+/renewal          /daft/renewal/     301
+/renewal/         /daft/renewal/     301
+
+# Meetlinks in de DAFT-mails. /start/<naam> gaat via n8n, dat de klik logt en
+# daarna doorstuurt naar het aanvraagformulier. Zo staat er een eigen domein in
+# de mail in plaats van een webhook-URL.
+/start/*   https://n8n.slim-geregeld.nl/webhook/daft-start?r=:splat&m=2   302!
+
+# Oude routes van de React-site (overstap naar de Astro-site, deel 5, 24-11-2026).
+# Elke oude URL krijgt een vaste doorverwijzing naar de pagina die hem vervangt.
+/pakketten                 /tarieven                  301
+/pakketten/*               /tarieven                  301
+/bouw                      /boekhouding-bouw          301
+/bouw/*                    /boekhouding-bouw          301
+/ecommerce                 /boekhouding-webshop       301
+/ecommerce/*               /boekhouding-webshop       301
+/creatief                  /boekhouding-eenmanszaak   301
+/creatief/*                /boekhouding-eenmanszaak   301
+/persoonlijk               /boekhouding-eenmanszaak   301
+/persoonlijk/*             /boekhouding-eenmanszaak   301
+/tech                      /boekhouding-eenmanszaak   301
+/tech/*                    /boekhouding-eenmanszaak   301
+/uniek                     /boekhouding-eenmanszaak   301
+/uniek/*                   /boekhouding-eenmanszaak   301
+/branches                  /#diensten                 301
+/over-kyle                 /over                      301
+/over-ons                  /over                      301
+/reviews                   /over                      301
+/veelgestelde-vragen       /tarieven                  301
+/gratis-tools              /nettocheck                301
+/belastingformulier-2024   /ib/                       301
+# Aanmelden voor Slim: naar het formulier, niet naar de bovenkant van /slim.
+/slim-chatbot              /slim#aanmelden            301
+/slim-chatbot/             /slim#aanmelden            301
+/intake/*                  /intake/                   301
+# Nieuws: de Nederlandse lijst heeft nu drie pagina's; Engelse posts staan op /en/news/.
+/nieuws/4                  /nieuws/                   301
+/nieuws/4/                 /nieuws/                   301
+/nieuws/onderwerp/daft-verlenging    /en/news/        301
+/nieuws/onderwerp/daft-verlenging/   /en/news/        301
+
+# Geen catch-all naar /index.html: een onbekende URL krijgt dist/404.html met
+# een echte status 404 (Netlify doet dat vanzelf).

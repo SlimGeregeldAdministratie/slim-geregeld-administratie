@@ -11,6 +11,13 @@ const KOPIEEN = [
   ['../public/blog/img', 'public/blog/img'],
   ['../content/nieuws/media', 'public/nieuws/media'],
   ['../public/downloads', 'public/downloads'],
+  // Overstap (deel 5): pagina's en bestanden die buiten de Astro-pagina's leven
+  // en op main nog worden bijgewerkt: de DAFT-cockpit, de IB-vragenlijst,
+  // robots.txt en de basis van llms.txt (de build zet er de blogsectie bij).
+  ['../public/cockpit', 'public/cockpit'],
+  ['../public/ib', 'public/ib'],
+  ['../public/robots.txt', 'public/robots.txt'],
+  ['../public/llms.txt', 'public/llms.txt'],
 ];
 
 const B = 'https://slim-geregeld.nl';
@@ -41,6 +48,11 @@ const inhoud = {
           if (existsSync('../public/' + rel) && !existsSync('public/' + rel)) cpSync('../public/' + rel, 'public/' + rel);
         }
       } catch (e) { console.warn('inhoud: nieuwsfoto\'s niet gekopieerd: ' + e.message); }
+      // Oude beelden in de hoofdmap (logo's, reviewplaatjes, og-afbeelding) kunnen
+      // van buiten gelinkt zijn (gedeelde links, mails); die blijven bestaan.
+      for (const naam of existsSync('../public') ? readdirSync('../public') : []) {
+        if (/\.(png|jpe?g|webp|gif)$/i.test(naam) && !existsSync('public/' + naam)) cpSync('../public/' + naam, 'public/' + naam);
+      }
     },
     'astro:build:done': async ({ dir }) => {
       const dist = fileURLToPath(dir);
@@ -51,6 +63,29 @@ const inhoud = {
       const rPad = join(dist, '_redirects');
       const bestaand = existsSync(rPad) ? readFileSync(rPad, 'utf8') : '';
       if (weg.length) writeFileSync(rPad, bestaand + (bestaand && !bestaand.endsWith('\n') ? '\n' : '') + '# Ingetrokken blogartikelen (astro.config.mjs)\n' + weg.join('\n') + '\n');
+
+      // 1b. Pdf's in /downloads/ niet indexeren; de downloadpagina's zelf wel.
+      const dlMap = join(dist, 'downloads');
+      const pdfs = existsSync(dlMap) ? readdirSync(dlMap).filter((f) => f.endsWith('.pdf')) : [];
+      const hPad = join(dist, '_headers');
+      const hBestaand = existsSync(hPad) ? readFileSync(hPad, 'utf8') : '';
+      if (pdfs.length) writeFileSync(hPad, hBestaand + '# Downloads: pdf\'s niet indexeren (astro.config.mjs)\n' + pdfs.map((f) => `/downloads/${f}\n  X-Robots-Tag: noindex`).join('\n') + '\n');
+
+      // 1c. llms.txt: blogsectie met onderwerpen en de nieuwste 20 artikelen.
+      const lPad = join(dist, 'llms.txt');
+      if (existsSync(lPad)) {
+        const { clusterLabel } = await import('./src/lib/blog.mjs');
+        const live = leesBlogs().stukken.filter((s) => s.status === 'live').sort((a, b) => ((b.updated || b.date) > (a.updated || a.date) ? 1 : -1));
+        const taalNaam = { nl: 'Dutch', en: 'English', ja: 'Japanese' };
+        const telling = {};
+        for (const s of live) { telling[s.cluster] ??= {}; telling[s.cluster][s.taal] = (telling[s.cluster][s.taal] || 0) + 1; }
+        const blok = ['## Blog', '', `Articles by Kyle Bouwmeester (Becon 781794) and Miguel Weema. Overviews: [Dutch](${B}/blog/), [English](${B}/en/blog/)${live.some((s) => s.taal === 'ja') ? `, [Japanese](${B}/ja/blog/)` : ''}.`, '', 'Topics:', '',
+          ...Object.keys(telling).sort().map((c) => `- ${clusterLabel(c, 'en')} (${c}): ${Object.entries(telling[c]).map(([t, n]) => `${n} ${taalNaam[t]}`).join(', ')}`),
+          '', 'Newest articles:', '',
+          ...live.slice(0, 20).map((s) => `- [${s.title}](${B}${artikelPad(s)}) (${taalNaam[s.taal]}, ${s.updated || s.date}): ${s.description}`), '', ''].join('\n');
+        const llms = readFileSync(lPad, 'utf8');
+        if (!llms.includes('## Blog')) writeFileSync(lPad, llms.includes('## Contact') ? llms.replace('## Contact', blok + '## Contact') : llms + '\n' + blok);
+      }
 
       // 2. Sitemap uit de gebouwde pagina's zelf: alles met een canonical en zonder
       //    noindex, met de hreflang-regels uit de pagina. Zo kan geen pagina

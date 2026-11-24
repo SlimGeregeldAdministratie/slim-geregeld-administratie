@@ -1,0 +1,10 @@
+# Overstap naar de Astro-site (deel 5, 24-11-2026). Netlify bouwt nu nieuw/ in
+# plaats van de oude Vite/React-site in de hoofdmap. Dit bestand gaat boven de
+# build-instellingen in de Netlify-interface. Terug naar de oude site: dit
+# bestand weghalen (dan gelden weer `npm run build` en `dist` uit de interface).
+[build]
+  command = "npm --prefix nieuw ci && npm --prefix nieuw run build"
+  publish = "nieuw/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
