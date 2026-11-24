@@ -18,7 +18,7 @@ const label = cluster ? clusters[cluster] : null;
 const pad = n === 1 ? basis : `${basis}${n}/`;
 const u = B + pad;
 const achter = n > 1 ? `, pagina ${n}` : '';
-const titel = en ? (n === 1 ? 'News and tips for entrepreneurs in the Netherlands | Slim Geregeld' : `News and tips, page ${n} | Slim Geregeld`) : label ? `${label}: nieuws en tips${achter} | Slim Geregeld` : (n === 1 ? 'Nieuws en belastingtips voor ondernemers | Slim Geregeld' : `Nieuws en belastingtips${achter} | Slim Geregeld`);
+const titel = en ? (n === 1 ? 'News and tips for Dutch entrepreneurs | Slim Geregeld' : `News and tips, page ${n} | Slim Geregeld`) : label ? `${label}: nieuws en tips${achter} | Slim Geregeld` : (n === 1 ? 'Nieuws en belastingtips voor ondernemers | Slim Geregeld' : `Nieuws en belastingtips${achter} | Slim Geregeld`);
 const basisOmschrijving = 'Praktische tips over administratie, ondernemerschap en belastingen van boekhouder Kyle Bouwmeester.';
 const omschrijving = en ? 'Kyle Bouwmeester\'s LinkedIn posts as plain text: practical notes on DAFT, DJTT and running a business in the Netherlands.' : label
   ? `Posts van boekhouder Kyle Bouwmeester over ${label.toLowerCase()}${n > 1 ? ` (pagina ${n} van ${paginas})` : ''}: praktische tips voor ondernemers.`

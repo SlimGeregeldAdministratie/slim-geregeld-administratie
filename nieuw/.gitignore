@@ -6,7 +6,6 @@ public/SGA*
 public/cockpit/
 public/ib/
 public/robots.txt
-public/llms.txt
 public/*.png
 public/*.PNG
 public/*.jpg

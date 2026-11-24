@@ -13,11 +13,10 @@ const KOPIEEN = [
   ['../public/downloads', 'public/downloads'],
   // Overstap (deel 5): pagina's en bestanden die buiten de Astro-pagina's leven
   // en op main nog worden bijgewerkt: de DAFT-cockpit, de IB-vragenlijst,
-  // robots.txt en de basis van llms.txt (de build zet er de blogsectie bij).
+  // en robots.txt. llms.txt staat in nieuw/public (de build zet er de blogsectie bij).
   ['../public/cockpit', 'public/cockpit'],
   ['../public/ib', 'public/ib'],
   ['../public/robots.txt', 'public/robots.txt'],
-  ['../public/llms.txt', 'public/llms.txt'],
 ];
 
 const B = 'https://slim-geregeld.nl';
@@ -87,6 +86,10 @@ const inhoud = {
         if (!llms.includes('## Blog')) writeFileSync(lPad, llms.includes('## Contact') ? llms.replace('## Contact', blok + '## Contact') : llms + '\n' + blok);
       }
 
+      // 1d. SEO-nabewerking: links, metadata, JSON-LD en datums (src/lib/seo-na.mjs).
+      const { seoNabewerking } = await import('./src/lib/seo-na.mjs');
+      const datums = seoNabewerking(dist);
+
       // 2. Sitemap uit de gebouwde pagina's zelf: alles met een canonical en zonder
       //    noindex, met de hreflang-regels uit de pagina. Zo kan geen pagina
       //    vergeten worden en staat er niets in wat niet geïndexeerd mag worden.
@@ -96,7 +99,7 @@ const inhoud = {
         if (/<meta name="robots" content="[^"]*noindex/.test(html)) continue;
         const can = html.match(/<link rel="canonical" href="([^"]+)"/);
         if (!can || !can[1].startsWith(B)) continue;
-        const gewijzigd = html.match(/"dateModified":"(\d{4}-\d{2}-\d{2})/);
+        const gewijzigd = [null, datums[can[1]] || (html.match(/"dateModified":\s*"(\d{4}-\d{2}-\d{2})/) || [])[1]];
         const alt = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)];
         regels.push({ loc: can[1], lastmod: gewijzigd && gewijzigd[1], alt });
       }
