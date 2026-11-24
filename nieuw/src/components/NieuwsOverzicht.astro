@@ -5,10 +5,12 @@
 // onderwerp; een onderwerp met minder dan 3 posts staat op noindex.
 import Basis from '../layouts/Basis.astro';
 import '../styles/blog.css';
-import { B, ONDERWERPEN, alineas, datumMooi, youtubeId, blogVanNieuws, metKyle, kruimelGraaf, ld } from '../lib/inhoud.mjs';
+import { B, ONDERWERPEN, clusterLabel, alineas, datumMooi, youtubeId, blogVanNieuws, metKyle, kruimelGraaf, ld } from '../lib/inhoud.mjs';
 import { videoObject } from '../lib/blog.mjs';
 const { n, paginas, basis, cluster, aanwezig, index, items, rijen, aantalAnder, taal = 'nl' } = Astro.props as any;
 const en = taal === 'en';
+const enLabel = (c: string) => (c === 'nieuws' ? 'News' : clusterLabel(c, 'en'));
+const enClusters = [...new Set(rijen.map((r: any) => r.x.cluster))].sort();
 const L = en ? { home: '/en/', nieuws: 'News', blog: '/en/blog/', tag: 'Blog', bekijk: 'View on LinkedIn', pagina: 'View on the company page', heel: 'Read the full article', dia: (i: number, t: number) => `Slide ${i} of ${t}`, pdf: 'Download the carousel (pdf)', vorige: 'Previous', volgende: 'Next', pag: (n: number, t: number) => `Page ${n} of ${t}`, ookBlog: 'Read the blog too', reacties: (r: number) => r === 1 ? '1 reaction' : `${r} reactions`, ander: 'In Dutch', toon: (k: number) => `Also show the ${k} Dutch posts`, artikelen: 'Articles', tabNieuws: 'News', transcript: 'Transcript' }
   : { home: '/', nieuws: 'Nieuws', blog: '/blog/', tag: 'Blog', bekijk: 'Bekijk op LinkedIn', pagina: 'Bekijk op de bedrijfspagina', heel: 'Lees het hele stuk', dia: (i: number, t: number) => `Dia ${i} van ${t}`, pdf: 'Download de carrousel (pdf)', vorige: 'Vorige', volgende: 'Volgende', pag: (n: number, t: number) => `Pagina ${n} van ${t}`, ookBlog: 'Lees ook de blog', reacties: (r: number) => r === 1 ? '1 reactie op LinkedIn' : `${r} reacties op LinkedIn`, ander: 'In het Engels', toon: (k: number) => k === 1 ? 'Toon ook de Engelse post' : `Toon ook de ${k} Engelse posts`, artikelen: 'Artikelen', tabNieuws: 'Nieuws en tips', transcript: 'Transcript' };
 const { perPagina, clusters } = ONDERWERPEN;
@@ -51,6 +53,12 @@ const graaf = [...metKyle(taal),
   </section>
   <section style="padding-top:8px">
     <div class="wrap"><div>
+      {en && enClusters.length > 1 && (
+        <nav class="blog-filters" aria-label="Topic">
+          <a href="#" data-onderwerp="" aria-current="page">All topics</a>
+          {enClusters.map((c: any) => <a href="#" data-onderwerp={c} data-alleen-ander={rijen.every((r: any) => r.x.cluster !== c || r.ander) ? '' : undefined}>{enLabel(c)}</a>)}
+        </nav>
+      )}
       {!en && (
         <nav class="blog-filters" aria-label="Onderwerp">
           <a href="/nieuws/" aria-current={!cluster ? 'page' : undefined}>Alle onderwerpen</a>
@@ -64,8 +72,8 @@ const graaf = [...metKyle(taal),
           const yt = m?.type === 'video' ? youtubeId(m.src) : null;
           const blog = blogVanNieuws(x);
           return (
-            <article class={`nieuws-post${x.afbeelding && !m ? ' met-foto' : ''}`} lang={(x.taal || 'nl') !== taal ? (x.taal || 'nl') : undefined} data-ander={ander ? '' : undefined} hidden={ander}>
-              <div class="blog-meta">{en ? <span class="blog-label">{clusters[x.cluster]}</span> : <a class="blog-label" href={`/nieuws/onderwerp/${x.cluster}/`}>{clusters[x.cluster]}</a>}{ander && <span class="blog-label taal-label">{L.ander}</span>}<time datetime={x.datum}>{datumMooi(x.datum, taal)}</time>{Number(x.reacties) > 0 && <span class="nieuws-bereik">{L.reacties(Number(x.reacties))}</span>}</div>
+            <article class={`nieuws-post${x.afbeelding && !m ? ' met-foto' : ''}`} lang={(x.taal || 'nl') !== taal ? (x.taal || 'nl') : undefined} data-ander={ander ? '' : undefined} data-cluster={x.cluster} hidden={ander}>
+              <div class="blog-meta">{en ? <span class="blog-label">{enLabel(x.cluster)}</span> : <a class="blog-label" href={`/nieuws/onderwerp/${x.cluster}/`}>{clusters[x.cluster]}</a>}{ander && <span class="blog-label taal-label">{L.ander}</span>}<time datetime={x.datum}>{datumMooi(x.datum, taal)}</time>{Number(x.reacties) > 0 && <span class="nieuws-bereik">{L.reacties(Number(x.reacties))}</span>}</div>
               <div class="nieuws-tekst"><h2>{kopVan(x)}</h2>
               {m?.type === 'carrousel' && (
                 <section aria-label="Carrousel" style="padding:0">
@@ -100,14 +108,29 @@ const graaf = [...metKyle(taal),
 </div>
     </div>
   </section>
-  {aantalAnder > 0 && (
-    <script is:inline>
-      (function () {
-        var v = document.querySelector('[data-nieuws-ander]'); if (!v) return;
-        function zet(aan) { v.checked = aan; document.querySelectorAll('[data-ander]').forEach(function (a) { a.hidden = !aan; }); }
-        try { zet(localStorage.getItem('nieuws-ander-' + v.getAttribute('data-nieuws-ander')) === '1'); } catch (e) {}
-        v.addEventListener('change', function () { zet(v.checked); try { localStorage.setItem('nieuws-ander-' + v.getAttribute('data-nieuws-ander'), v.checked ? '1' : '0'); } catch (e) {} });
-      })();
-    </script>
-  )}
+  <script is:inline>
+    (function () {
+      var v = document.querySelector('[data-nieuws-ander]'), chips = [].slice.call(document.querySelectorAll('[data-onderwerp]'));
+      var st = { ander: false, onderwerp: '' };
+      try { st.ander = !!v && localStorage.getItem('nieuws-ander-' + v.getAttribute('data-nieuws-ander')) === '1'; } catch (e) {}
+      function teken() {
+        if (v) v.checked = st.ander;
+        document.querySelectorAll('.nieuws-post').forEach(function (a) {
+          a.hidden = (a.hasAttribute('data-ander') && !st.ander) || (st.onderwerp && a.getAttribute('data-cluster') !== st.onderwerp);
+        });
+        chips.forEach(function (c) {
+          var k = c.getAttribute('data-onderwerp');
+          if (k === st.onderwerp) c.setAttribute('aria-current', 'page'); else c.removeAttribute('aria-current');
+          c.hidden = c.hasAttribute('data-alleen-ander') && !st.ander;
+        });
+      }
+      if (v) v.addEventListener('change', function () {
+        st.ander = v.checked; if (!st.ander) st.onderwerp = '';
+        try { localStorage.setItem('nieuws-ander-' + v.getAttribute('data-nieuws-ander'), st.ander ? '1' : '0'); } catch (e) {}
+        teken();
+      });
+      chips.forEach(function (c) { c.addEventListener('click', function (e) { e.preventDefault(); st.onderwerp = c.getAttribute('data-onderwerp'); teken(); }); });
+      teken();
+    })();
+  </script>
 </Basis>

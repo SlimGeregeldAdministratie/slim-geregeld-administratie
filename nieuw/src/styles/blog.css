@@ -193,8 +193,8 @@ a.blog-label:hover{background:#dfe8ff}
 /* 23-11-2026 (Kyle): geen hoofdletterlabels en geen accentbalk; gewone kop en lijst. */
 .toc-mobiel p,.toc-zij p{font-size:1rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--inkt)}
 /* Nieuws (24-11-2026): tekst eerst, foto kleiner eronder, minder witregels. */
-.nieuws-post p{margin-top:6px}
-.nieuws-post h2 + p{margin-top:8px}
+.nieuws-post p{margin-top:14px;line-height:1.65}
+.nieuws-post h2 + p{margin-top:10px}
 .nieuws-post .nieuws-foto{display:block;width:100%;height:auto;max-width:520px;border-radius:12px;border:1px solid var(--lijn);margin-top:14px}
 .nieuws-bereik{color:var(--grijs);font-size:.85rem}
 @media (min-width:900px){
