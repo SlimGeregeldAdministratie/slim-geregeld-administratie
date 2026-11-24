@@ -22,3 +22,6 @@
 .aanmeld-form .sjabloon:has(input:checked){border-color:var(--blauw)}
 @media (min-width:640px){.aanmeld-form .rij{grid-template-columns:1fr 1fr}}
 .twee.aanmeld{align-items:start}
+
+.aanmeld-form .sjabloon b{display:block;font-size:.9rem;color:var(--inkt)}
+.aanmeld-form .sjabloon small{display:block;font-weight:400;color:var(--grijs);font-size:.78rem;margin-top:2px}

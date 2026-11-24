@@ -81,7 +81,7 @@ a.blog-label:hover{background:#dfe8ff}
 /* Auteurspagina */
 .auteur-kop{display:flex;align-items:center;gap:16px;margin-top:6px}
 .auteur-kop h1{font-size:clamp(2rem,5.6vw,2.8rem)}
-.feiten{border:1px solid var(--lijn);border-radius:var(--r);padding:20px 22px;margin-top:24px;background:#fff}
+.feiten{border:1px solid var(--lijn);border-radius:var(--r);padding:20px 22px;margin-top:4px;background:#fff}
 .feiten dl{display:grid;gap:8px;margin-top:10px}
 .feiten dl div{display:grid;gap:2px}
 .feiten dt{font-weight:650;color:var(--inkt)}
@@ -190,7 +190,4 @@ a.blog-label:hover{background:#dfe8ff}
 .artikel-faq dt:first-child{border-top:0;margin-top:6px;padding-top:0}
 .artikel-faq dd{color:var(--tekst);margin-top:6px;line-height:1.7}
 /* 23-11-2026 (Kyle): geen hoofdletterlabels en geen accentbalk; gewone kop en lijst. */
-.in-kort{border-left:0;padding:0;margin:6px 0 26px}
-.in-kort b{font-size:1.05rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--inkt)}
-.in-kort ul{padding-left:20px;margin-top:6px}
 .toc-mobiel p,.toc-zij p{font-size:1rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--inkt)}

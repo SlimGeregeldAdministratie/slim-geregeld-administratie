@@ -65,3 +65,8 @@ section:not(.zacht)+section:not(.zacht),section.zacht+section.zacht{padding-top:
 /* Korte intro direct onder een sectiekop mag breder dan de hero-sub, zodat
    een zin als "Vaste prijzen, exclusief btw..." op één regel past. */
 h2 + .sub{max-width:46rem}
+/* Foutmeldingen bij formulieren (public/js/validatie.js) */
+.sg-fout,input.sg-fout,select.sg-fout,textarea.sg-fout{border-color:#dc2626!important;outline:0}
+.veld.sg-fout,fieldset.sg-fout,.sjablonen.sg-fout{border-color:#dc2626}
+.sg-melding{color:#b91c1c;font-size:.85rem;font-weight:500;margin-top:6px;display:flex;gap:6px;align-items:center}
+.sg-melding::before{content:"!";display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#dc2626;color:#fff;font-size:.7rem;font-weight:800;flex:none}

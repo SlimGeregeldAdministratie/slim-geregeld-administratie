@@ -78,7 +78,7 @@ import Basis from '../layouts/Basis.astro';
 
       <aside class="nc-noot">
         <b>Let op</b>
-        <p>Dit is een indicatie op basis van je ondernemingswinst. Andere inkomsten, een fiscale partner, hypotheekrenteaftrek en toeslagen zitten er niet in, dus je echte aanslag kan afwijken. Twijfel je? <a href="https://wa.me/31621311043" target="_blank" rel="noopener">Stuur me een WhatsApp</a>.</p>
+        <p>Dit is een indicatie op basis van je ondernemingswinst. Andere inkomsten, een fiscale partner, hypotheekrenteaftrek en toeslagen zitten er niet in, dus je echte aanslag kan afwijken. Twijfel je? <a href="https://wa.me/31621311043" target="_blank" rel="noopener">Stuur me een WhatsApp</a> bericht.</p>
       </aside>
     </div>
   </section>
@@ -137,8 +137,13 @@ import Basis from '../layouts/Basis.astro';
 .nc input[type=range]{width:100%;accent-color:var(--blauw)}
 .nc-bedrag{text-align:center;color:var(--grijs);margin-top:6px}
 .nc-bedrag b{font-size:1.5rem;color:var(--blauw)}
-.nc-schaal{display:flex;justify-content:space-between;font-size:.78rem;color:var(--grijs)}
-.nc-twee{display:grid;gap:16px}
+.nc-schaal{position:relative;height:1.2em;font-size:.78rem;color:var(--grijs)}
+.nc-schaal span{position:absolute;top:0}
+.nc-schaal span:nth-child(1){left:0}
+/* €500 hoort bij het midden van de schuif (waarde 50 van 100) */
+.nc-schaal span:nth-child(2){left:50%;transform:translateX(-50%)}
+.nc-schaal span:nth-child(3){right:0}
+.nc-twee{display:grid;gap:16px;align-items:end}
 .nc-mail{border:1px solid var(--blauw-rand);background:var(--blauw-t);border-radius:14px;padding:14px 16px}
 .nc-mail b{color:var(--inkt)}
 .nc-mail p{color:var(--tekst);font-size:.92rem;margin-top:4px}

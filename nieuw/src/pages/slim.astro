@@ -144,7 +144,7 @@ const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9];
       var knop = f.querySelector('button'); knop.disabled = true; knop.textContent = 'Even geduld...';
       // Stap 2 stuurt e-mail en telefoon mee, zodat n8n (slim-instellingen) de
       // factuurinstellingen aan deze aanmelding koppelt (zelfde fix als PR #44).
-      try { sessionStorage.setItem('slim-aanmelding', JSON.stringify({ email: f.email.value.trim(), telefoon: f.telefoon.value.trim() })); } catch (x) {}
+      try { sessionStorage.setItem('slim-aanmelding', JSON.stringify({ email: f.email.value.trim(), telefoon: f.telefoon.value.trim(), bedrijfsnaam: f.bedrijfsnaam.value.trim() })); } catch (x) {}
       fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(f)).toString() })
         .then(function(r){ if (!r.ok) throw new Error('http ' + r.status);
           (window.dataLayer = window.dataLayer || []).push({ event: 'formulier_verstuurd', formulier: 'slim-stap1' });

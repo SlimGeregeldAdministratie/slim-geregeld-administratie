@@ -5,105 +5,182 @@
 // 'telefoon', zodat n8n (workflow 0mVaHSHxOxVOlSdC, webhook slim-instellingen) de
 // instellingen aan de juiste aanmelding koppelt. Het btw-nummer is niet verplicht
 // (ondernemers in de KOR hebben er geen op hun factuur nodig).
-// Zelfde Netlify-formulier "slim-chatbot-instellingen" en dezelfde veldnamen.
+// Zelfde Netlify-formulier "slim-chatbot-instellingen" en dezelfde veldnamen;
+// 'template' blijft template1, template2 of template3.
+// Sinds 23-11-2026: drie nieuwe sjablonen (src/lib/factuur.mjs, dezelfde code als
+// straks de pdf in n8n) en een live voorbeeld dat zich vult terwijl je typt.
 import Basis from '../layouts/Basis.astro';
 import '../styles/formulier.css';
-const sjablonen = [['template1', 'Professioneel grijs', '/img/slim/template-1.png'], ['template2', 'Accent geel', '/img/slim/template-2.png'], ['template3', 'Modern blauw', '/img/slim/template-3.png']];
+import { SJABLONEN } from '../lib/factuur.mjs';
 ---
 <Basis titel="Slim instellen, stap 2 | Slim Geregeld Administratie" omschrijving="Factuurinstellingen voor Slim, de WhatsApp-assistent van Slim Geregeld." robots="noindex, nofollow" cta="/slim#aanmelden">
   <section class="si-kop">
     <div class="wrap">
       <span class="tag">Stap 2 van 2</span>
       <h1>Je factuurinstellingen</h1>
-      <p class="sub">Deze gegevens komen automatisch op je facturen en offertes. Alles is later nog aan te passen.</p>
+      <p class="sub">Deze gegevens komen op je facturen en offertes. Rechts zie je meteen hoe dat eruitziet. Alles is later nog aan te passen via Slim.</p>
     </div>
   </section>
   <section style="padding-top:0">
-    <div class="wrap" style="max-width:820px;margin-left:max(20px,calc((100% - 1160px)/2 + 20px))">
-      <form class="aanmeld-form" id="slim-stap2" name="slim-chatbot-instellingen" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="slim-chatbot-instellingen">
-        <input type="hidden" name="email" id="si-email">
-        <input type="hidden" name="telefoon" id="si-telefoon">
-        <p style="display:none"><label>Laat dit leeg: <input name="bot-field"></label></p>
-        <p class="bij" id="si-wie" hidden></p>
+    <div class="wrap si-raster">
+      <div>
+        <form class="aanmeld-form" id="slim-stap2" name="slim-chatbot-instellingen" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="slim-chatbot-instellingen">
+          <input type="hidden" name="email" id="si-email">
+          <input type="hidden" name="telefoon" id="si-telefoon">
+          <p style="display:none"><label>Laat dit leeg: <input name="bot-field"></label></p>
+          <p class="bij" id="si-wie" hidden></p>
 
-        <h3>Bedrijfsgegevens</h3>
-        <label>Zakelijke website <span class="opt">optioneel</span><input name="website" type="text" placeholder="https://jouwbedrijf.nl"></label>
-        <div class="rij">
-          <label>KVK-nummer<input name="kvkNummer" type="text" inputmode="numeric" required placeholder="12345678"></label>
-          <label>Btw-nummer <span class="opt">optioneel</span><input name="btwNummer" type="text" placeholder="NL123456789B01"><small>Leeg laten als je in de KOR zit of geen btw rekent.</small></label>
-        </div>
-        <div class="rij">
-          <label>IBAN<input name="iban" type="text" required autocomplete="off" placeholder="NL91 ABNA 0417 1643 00"></label>
-          <label>Rekening op naam van<input name="rekeningTnv" type="text" required placeholder="Jouw bedrijfsnaam"></label>
-        </div>
-        <label>Adres<input name="adres" type="text" required autocomplete="street-address" placeholder="Straatnaam 123"></label>
-        <div class="rij">
-          <label>Postcode<input name="postcode" type="text" required autocomplete="postal-code" placeholder="1234 AB"></label>
-          <label>Plaats<input name="plaats" type="text" required autocomplete="address-level2" placeholder="Amsterdam"></label>
-        </div>
+          <h3>Je bedrijf</h3>
+          <label>Zakelijke website <span class="opt">optioneel</span><input name="website" type="text" placeholder="jouwbedrijf.nl"></label>
+          <div class="rij">
+            <label>KVK-nummer<input name="kvkNummer" type="text" inputmode="numeric" required placeholder="12345678"></label>
+            <label>Btw-nummer <span class="opt">optioneel</span><input name="btwNummer" type="text" placeholder="NL123456789B01"><small>Leeg laten als je in de KOR zit of geen btw rekent.</small></label>
+          </div>
+          <div class="rij">
+            <label>IBAN<input name="iban" type="text" required autocomplete="off" placeholder="NL91 ABNA 0417 1643 00"></label>
+            <label>Rekening op naam van<input name="rekeningTnv" type="text" required placeholder="Jouw bedrijfsnaam"></label>
+          </div>
+          <label>Adres<input name="adres" type="text" required autocomplete="street-address" placeholder="Straatnaam 123"></label>
+          <div class="rij">
+            <label>Postcode<input name="postcode" type="text" required autocomplete="postal-code" placeholder="1234 AB"></label>
+            <label>Plaats<input name="plaats" type="text" required autocomplete="address-level2" placeholder="Amsterdam"></label>
+          </div>
 
-        <h3>Factuurinstellingen</h3>
-        <div class="rij">
-          <label>Betalingstermijn<select name="betalingstermijn" required><option value="7">7 dagen</option><option value="14" selected>14 dagen</option><option value="30">30 dagen</option></select></label>
-          <label>Geldigheid offertes<select name="geldigheidOffertes" required><option value="14">14 dagen</option><option value="30" selected>30 dagen</option><option value="60">60 dagen</option></select></label>
+          <h3>Afspraken op je facturen</h3>
+          <div class="rij">
+            <label>Betalingstermijn<select name="betalingstermijn" required><option value="7">7 dagen</option><option value="14" selected>14 dagen</option><option value="30">30 dagen</option></select></label>
+            <label>Geldigheid offertes<select name="geldigheidOffertes" required><option value="14">14 dagen</option><option value="30" selected>30 dagen</option><option value="60">60 dagen</option></select></label>
+          </div>
+          <label>Je prijzen zijn<select name="prijzenInclBtw" required><option value="excl" selected>Exclusief btw (meestal bij zakelijke klanten)</option><option value="incl">Inclusief btw (meestal bij particulieren)</option></select></label>
+
+          <h3>Opmaak</h3>
+          <div class="sjablonen" role="radiogroup" aria-label="Opmaak van je facturen">
+            {SJABLONEN.map((s) => (
+              <label class="sjabloon"><input type="radio" name="template" value={'template' + s.nr} checked={s.nr === 1}><img src={`/img/slim/sjabloon-${s.nr}.png`} alt="" width="368" height="520" loading="lazy"><b>{s.naam}</b><small>{s.uitleg}</small></label>
+            ))}
+          </div>
+
+          <a class="naar-voorbeeld" href="#si-voorbeeld">Bekijk het voorbeeld</a>
+          <h3>Eigen teksten <span class="opt">optioneel</span></h3>
+          <p class="uitleg-tekst">Laat je deze leeg, dan zet Slim er de standaardtekst op die je nu in het voorbeeld ziet. Wil je iets anders, typ het dan hier; het voorbeeld past zich meteen aan. Gebruik <code>{'{naam}'}</code> voor de naam van je klant.</p>
+          <label>Betalingsvoorwaarden op je factuur<textarea name="betalingsvoorwaarden" data-voor="factuur" placeholder="Wij verzoeken u vriendelijk het bedrag binnen 14 dagen over te maken op je IBAN ten name van je bedrijf, onder vermelding van het factuurnummer."></textarea></label>
+          <label>Tekst boven je offerte<textarea name="offerteTekstBoven" data-voor="offerte" placeholder="Geachte {naam}, hierbij ontvangt u de prijsopgave voor de onderstaande werkzaamheden."></textarea></label>
+          <label>Tekst onder je offerte<textarea name="offerteTekstOnder" data-voor="offerte" placeholder="We hopen u hiermee voldoende te hebben geïnformeerd en horen graag of u akkoord gaat."></textarea></label>
+          <label>Nog iets wat je kwijt wilt? <span class="opt">optioneel</span><textarea name="extraOpmerkingen" placeholder="Bijzondere wensen voor je facturen, vragen over Slim, alles."></textarea><small>Dit komt niet op je factuur, het is voor mij.</small></label>
+
+          <button class="knop vol" type="submit">Opslaan en activeren</button>
+          <p class="fout" id="si-fout" hidden>Dat lukte niet. Probeer het opnieuw of stuur een WhatsApp naar 06 21311043.</p>
+        </form>
+        <div class="si-klaar" id="si-klaar" hidden>
+          <h2>Dank je, je instellingen zijn opgeslagen</h2>
+          <p class="sub">Binnen 24 uur krijg je een WhatsApp-bericht van Slim om te starten.</p>
+          <a class="knop leeg" href="/slim">Terug naar Slim</a>
         </div>
-        <label>Prijzen<select name="prijzenInclBtw" required><option value="excl" selected>Exclusief btw</option><option value="incl">Inclusief btw</option></select></label>
-
-        <h3>Opmaak</h3>
-        <div class="sjablonen" role="radiogroup" aria-label="Opmaak van je facturen">
-          {sjablonen.map(([id, naam, img], i) => (
-            <label class="sjabloon"><input type="radio" name="template" value={id} checked={i === 0}><img src={img} alt="" width="300" height="424" loading="lazy">{naam}</label>
-          ))}
-        </div>
-
-        <h3>Eigen teksten <span class="opt">optioneel</span></h3>
-        <label>Betalingsvoorwaarden op je factuur<textarea name="betalingsvoorwaarden" placeholder="Bijvoorbeeld: Wij verzoeken u vriendelijk het totale bedrag binnen 14 dagen over te maken onder vermelding van het factuurnummer."></textarea></label>
-        <label>Tekst boven de offerte<textarea name="offerteTekstBoven" placeholder="Bijvoorbeeld: Hierbij ontvangt u de prijsopgave voor de onderstaande diensten."></textarea></label>
-        <label>Tekst onder de offerte<textarea name="offerteTekstOnder" placeholder="Bijvoorbeeld: We hopen u hiermee voldoende geïnformeerd te hebben."></textarea></label>
-        <label>Nog iets wat je kwijt wilt?<textarea name="extraOpmerkingen" placeholder="Bijzondere wensen voor je facturen, vragen over Slim, alles."></textarea></label>
-
-        <button class="knop vol" type="submit">Opslaan en activeren</button>
-        <p class="fout" id="si-fout" hidden>Dat lukte niet. Probeer het opnieuw of stuur een WhatsApp naar 06 21311043.</p>
-      </form>
-      <div class="si-klaar" id="si-klaar" hidden>
-        <h2>Dank je, je instellingen zijn opgeslagen</h2>
-        <p class="sub">Binnen 24 uur krijg je een WhatsApp-bericht van Slim om te starten.</p>
-        <a class="knop leeg" href="/slim">Terug naar Slim</a>
       </div>
+
+      <aside class="si-voorbeeld" id="si-voorbeeld" aria-label="Voorbeeld van je factuur">
+        <div class="si-wissel" role="tablist">
+          <button type="button" data-soort="factuur" aria-pressed="true">Factuur</button>
+          <button type="button" data-soort="offerte" aria-pressed="false">Offerte</button>
+        </div>
+        <div class="si-papier"><iframe id="si-frame" title="Voorbeeld van je factuur" tabindex="-1"></iframe></div>
+        <p class="si-noot">Voorbeeld met een verzonnen klant en regels. Zo ziet je pdf eruit.</p>
+      </aside>
     </div>
   </section>
 </Basis>
 
-<script is:inline>
-(function () {
-  var f = document.getElementById('slim-stap2');
-  // E-mail en telefoon uit stap 1. Zonder (privévenster, of rechtstreeks hier
-  // binnengekomen) koppelt n8n aan de enige aanmelding van het afgelopen uur.
-  var a = {};
-  try { a = JSON.parse(sessionStorage.getItem('slim-aanmelding') || '{}') || {}; } catch (e) {}
-  document.getElementById('si-email').value = a.email || '';
-  document.getElementById('si-telefoon').value = a.telefoon || '';
-  if (a.email) { var w = document.getElementById('si-wie'); w.textContent = 'Voor ' + a.email + (a.telefoon ? ', ' + a.telefoon : '') + '.'; w.hidden = false; }
-  f.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (!f.checkValidity()) { f.reportValidity(); return; }
-    var knop = f.querySelector('button[type=submit]'); knop.disabled = true; knop.textContent = 'Even geduld...';
-    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(f)).toString() })
-      .then(function (r) {
-        if (!r.ok) throw new Error('http ' + r.status);
-        (window.dataLayer = window.dataLayer || []).push({ event: 'formulier_verstuurd', formulier: 'slim-stap2' });
-        try { sessionStorage.removeItem('slim-aanmelding'); } catch (e) {}
-        f.hidden = true; document.getElementById('si-klaar').hidden = false; window.scrollTo({ top: 0 });
-      })
-      .catch(function () { knop.disabled = false; knop.textContent = 'Opslaan en activeren'; document.getElementById('si-fout').hidden = false; });
-  });
-})();
+<script>
+import { factuurHtml } from '../lib/factuur.mjs';
+const f = document.getElementById('slim-stap2') as HTMLFormElement;
+const frame = document.getElementById('si-frame') as HTMLIFrameElement;
+let soort = 'factuur';
+
+// E-mail en telefoon uit stap 1. Zonder (privévenster, of rechtstreeks hier
+// binnengekomen) koppelt n8n aan de enige aanmelding van het afgelopen uur.
+let a: any = {};
+try { a = JSON.parse(sessionStorage.getItem('slim-aanmelding') || '{}') || {}; } catch (e) {}
+(document.getElementById('si-email') as HTMLInputElement).value = a.email || '';
+(document.getElementById('si-telefoon') as HTMLInputElement).value = a.telefoon || '';
+if (a.email) { const w = document.getElementById('si-wie')!; w.textContent = 'Voor ' + a.email + (a.telefoon ? ', ' + a.telefoon : '') + '.'; w.hidden = false; }
+
+const v = (n: string) => ((f.elements.namedItem(n) as HTMLInputElement | null)?.value || '').trim();
+const plusDagen = (n: number) => { const d = new Date(); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+
+function teken() {
+  const termijn = Number(v('betalingstermijn')) || 14;
+  const sjabloon = Number((v('template') || (f.querySelector('input[name=template]:checked') as HTMLInputElement)?.value || 'template1').replace(/\D/g, '')) || 1;
+  const bedrijf = a.bedrijfsnaam || 'Jouw bedrijf';
+  const data = {
+    soort, nummer: soort === 'offerte' ? 'OF-2026-001' : '2026-001', datum: plusDagen(0),
+    verval: plusDagen(termijn), geldigTot: plusDagen(Number(v('geldigheidOffertes')) || 30), termijn,
+    inclBtw: v('prijzenInclBtw') === 'incl',
+    van: { bedrijf, adres: v('adres') || 'Straatnaam 123', postcode: v('postcode') || '1234 AB', plaats: v('plaats') || 'Plaats', email: a.email || '', tel: a.telefoon || '', web: v('website'), kvk: v('kvkNummer') || '12345678', btw: v('btwNummer'), iban: v('iban') || 'NL00 BANK 0123 4567 89', tnv: v('rekeningTnv') || bedrijf },
+    aan: { bedrijf: 'Voorbeeldklant B.V.', naam: 'Sam de Vries', adres: 'Kerkstraat 1', postcode: '1011 AB', plaats: 'Amsterdam' },
+    regels: [{ omschrijving: 'Werkzaamheden volgens afspraak', aantal: 8, prijs: 65, btw: v('btwNummer') ? 21 : 0 }, { omschrijving: 'Materiaal', aantal: 1, prijs: 120, btw: v('btwNummer') ? 21 : 0 }],
+    voorwaarden: v('betalingsvoorwaarden'), tekstBoven: v('offerteTekstBoven'), tekstOnder: v('offerteTekstOnder'),
+  };
+  frame.srcdoc = factuurHtml(data, sjabloon);
+  f.querySelectorAll<HTMLElement>('textarea[data-voor]').forEach((t) => t.closest('label')!.classList.toggle('si-ander', t.dataset.voor !== soort));
+}
+let wacht: number | undefined;
+f.addEventListener('input', () => { clearTimeout(wacht); wacht = window.setTimeout(teken, 150); });
+f.addEventListener('change', teken);
+document.querySelectorAll<HTMLButtonElement>('.si-wissel button').forEach((b) => b.addEventListener('click', () => {
+  soort = b.dataset.soort!;
+  document.querySelectorAll('.si-wissel button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  teken();
+}));
+// Wie in een offertetekst klikt, ziet meteen de offerte.
+f.querySelectorAll<HTMLTextAreaElement>('textarea[data-voor]').forEach((t) => t.addEventListener('focus', () => {
+  if (t.dataset.voor !== soort) (document.querySelector(`.si-wissel [data-soort=${t.dataset.voor}]`) as HTMLButtonElement).click();
+}));
+teken();
+
+// Het A4-blad (794 px breed) verkleinen tot de breedte van het vak.
+const papier = frame.parentElement!;
+const schaal = () => { frame.style.transform = 'scale(' + (papier.clientWidth / 794) + ')'; };
+new ResizeObserver(schaal).observe(papier); schaal();
+
+f.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!f.checkValidity()) return;
+  const knop = f.querySelector('button[type=submit]') as HTMLButtonElement; knop.disabled = true; knop.textContent = 'Even geduld...';
+  const data = new FormData(f);
+  fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data as any).toString() })
+    .then((r) => {
+      if (!r.ok) throw new Error('http ' + r.status);
+      ((window as any).dataLayer = (window as any).dataLayer || []).push({ event: 'formulier_verstuurd', formulier: 'slim-stap2' });
+      try { sessionStorage.removeItem('slim-aanmelding'); } catch (e) {}
+      f.hidden = true; document.getElementById('si-klaar')!.hidden = false; window.scrollTo({ top: 0 });
+    })
+    .catch(() => { knop.disabled = false; knop.textContent = 'Opslaan en activeren'; document.getElementById('si-fout')!.hidden = false; });
+});
 </script>
 
 <style>
 .si-kop{padding:28px 0 20px;background:linear-gradient(180deg,var(--blauw-t),#fff 85%)}
-.si-kop .sub{margin-top:12px}
+.si-kop .sub{margin-top:12px;max-width:42rem}
+.si-raster{display:grid;gap:28px;align-items:start}
 .si-klaar{border:1px solid var(--lijn);border-radius:var(--r-groot);padding:28px;background:#fff}
 .si-klaar .knop{margin-top:16px}
+.si-voorbeeld{display:grid;gap:10px}
+.si-wissel{display:inline-flex;gap:4px;background:var(--zacht);border:1px solid var(--lijn);border-radius:999px;padding:3px;justify-self:start}
+.si-wissel button{font:inherit;font-size:.88rem;font-weight:650;border:0;background:none;color:var(--grijs);border-radius:999px;padding:6px 14px;cursor:pointer}
+.si-wissel button[aria-pressed="true"]{background:#fff;color:var(--inkt);box-shadow:0 1px 3px rgba(15,23,42,.12)}
+/* A4 (210 x 297 mm = 794 x 1123 px) verkleind in een vak dat meeschaalt */
+.si-papier{position:relative;width:100%;aspect-ratio:210/297;border:1px solid var(--lijn);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 14px 40px rgba(15,23,42,.10)}
+.si-papier iframe{position:absolute;left:0;top:0;width:794px;height:1123px;border:0;transform-origin:0 0}
+.si-noot{font-size:.84rem;color:var(--grijs)}
+.uitleg-tekst{font-size:.9rem;color:var(--tekst);margin-top:-4px}
+.uitleg-tekst code{background:var(--zacht);border-radius:5px;padding:1px 5px;font-size:.88em}
+.si-ander{opacity:.55}
+.naar-voorbeeld{font-size:.88rem;color:var(--blauw);font-weight:650;text-decoration:none}
+@media (max-width:999px){.si-voorbeeld{order:-1;scroll-margin-top:80px}.si-papier{max-width:420px}}
+@media (min-width:1000px){.naar-voorbeeld{display:none}}
+@media (min-width:1000px){
+  .si-raster{grid-template-columns:minmax(0,1fr) 400px;gap:40px}
+  .si-voorbeeld{position:sticky;top:96px}
+}
 </style>
