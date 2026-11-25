@@ -25,10 +25,20 @@ const faq: [string, string][] = [
     kruimel="Bookkeeping in English"
     tag="For expats and international freelancers"
     titel="Your Dutch bookkeeping, explained in English"
-    sub="You run a business in the Netherlands, but Dutch tax letters and VAT rules are not your first language. I do your bookkeeping and VAT returns, and explain everything in plain English."
+    sub="For expats with a Dutch eenmanszaak or VOF who are not on a treaty permit. I do your bookkeeping and VAT returns, and explain everything in plain English."
     prijs={{ bedrag: '€95', per: 'a month, excl. VAT', uitleg: 'eenmanszaak or VOF · BV on a fixed quote' }}
     knop={['Get in touch', '#contact']}
   />
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="blok plan-wijs">
+        <h2>On a DAFT or DJTT permit? Choose the Compliance Plan</h2>
+        <p>This page is for expats who run a Dutch business without a treaty permit. With a treaty permit you need more than bookkeeping: your income tax return, a quarterly check of your €4,500 equity and the signed statement for your renewal. The Compliance Plan includes all of that for €79 or €149 a month, so you do not pay €245 for the tax return and €495 for the renewal statement on top.</p>
+        <a class="knop vol" href="/en/compliance-plan/">See the Compliance Plan</a>
+      </div>
+    </div>
+  </section>
 
   <section style="padding-top:0">
     <div class="wrap">
@@ -69,5 +79,6 @@ const faq: [string, string][] = [
   </section>
 
   <Faq titel="Questions about bookkeeping in English" vragen={faq} />
+  <style>.plan-wijs{border-color:var(--blauw-rand);background:var(--blauw-t);margin-bottom:8px}.plan-wijs h2{font-size:1.3rem}.plan-wijs p{color:var(--tekst);margin:8px 0 14px;max-width:48rem}</style>
   <Contactblok taal="en" titel="Bookkeeping in English?" tekst="Tell me briefly what your business does and whether you have an eenmanszaak, VOF or BV. You hear from me within one to three working days." />
 </Basis>
