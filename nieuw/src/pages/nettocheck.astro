@@ -93,6 +93,15 @@ import Basis from '../layouts/Basis.astro';
   var sel = document.getElementById('boekjaar');
   jaren.forEach(function (y) { var o = document.createElement('option'); o.value = String(y); o.textContent = String(y); if (y === j) o.selected = true; sel.appendChild(o); });
 
+  // Berekening en mail via n8n (NettoCheck, sinds 26-11-2026; vervangt Make). Het formulier
+  // gaat daarnaast gewoon naar Netlify, zodat de inzending ook daar bewaard blijft.
+  document.querySelector('form.nc').addEventListener('submit', function (e) {
+    if (e.defaultPrevented) return;
+    try {
+      fetch('https://n8n.slim-geregeld.nl/webhook/nettocheck', { method: 'POST', mode: 'no-cors', keepalive: true, body: new URLSearchParams(new FormData(e.target)) });
+    } catch (x) {}
+  });
+
   // Omzet: 45.000, 45,000 en 45k worden 45000.
   var omzet = document.getElementById('omzet');
   omzet.addEventListener('input', function () {
