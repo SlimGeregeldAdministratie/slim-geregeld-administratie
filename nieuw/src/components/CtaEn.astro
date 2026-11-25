@@ -1,0 +1,32 @@
+---
+/* Afsluitende balk voor de Engelse pagina's: vraag stellen of beginnen.
+   De Engelse formulieren staan op /daft/contact/ en /en/intake/. */
+interface Props { titel?: string; tekst?: string }
+const {
+  titel = 'Questions first? Ask away.',
+  tekst = 'You get a personal answer from me, usually the same day and always within three working days.',
+} = Astro.props;
+---
+<section class="cta-en">
+  <div class="wrap">
+    <div class="vak">
+      <div class="tekst">
+        <img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56" loading="lazy">
+        <div><h2>{titel}</h2><p>{tekst}</p></div>
+      </div>
+      <div class="knoppen">
+        <a class="knop vol" href="/daft/contact/">Ask a question</a>
+        <a class="knop wa" href="https://wa.me/31621311043" target="_blank" rel="noopener">Send a WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.vak{background:var(--inkt);color:#fff;border-radius:24px;padding:28px 22px;display:grid;gap:20px}
+.tekst{display:flex;gap:16px;align-items:flex-start}
+.tekst img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.2)}
+h2{color:#fff;font-size:clamp(1.4rem,3.5vw,1.9rem);margin:0}
+p{color:#b6c0d4;margin-top:6px;max-width:34rem}
+@media (min-width:860px){.vak{grid-template-columns:1fr auto;align-items:center;padding:36px 44px}}
+</style>

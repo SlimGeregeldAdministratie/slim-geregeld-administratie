@@ -1,0 +1,13 @@
+---
+// Officiële Expert-widget van Moneybird: sterren en reviews van het Expert-profiel.
+import { moneybird } from '../data/reviews';
+interface Props { layout?: 'landscape' | 'portrait' }
+const { layout = 'landscape' } = Astro.props;
+---
+<div class="mbw">
+  <div id="moneybird-widget" data-layout={layout} data-adviser={moneybird.adviser}></div>
+</div>
+<script is:inline async src="https://www.moneybird.nl/widget/adviser.js"></script>
+<style>
+.mbw{margin-top:22px;max-width:640px}
+</style>

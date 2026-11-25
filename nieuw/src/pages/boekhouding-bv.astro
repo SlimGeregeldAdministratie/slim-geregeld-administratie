@@ -1,0 +1,86 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import Faq from '../components/Faq.astro';
+import Contactblok from '../components/Contactblok.astro';
+
+const faq: [string, string][] = [
+  ['Wat kost een boekhouder voor een bv?', 'Dat hangt af van wat er speelt: één bv of een holding met werkmaatschappij, wel of geen DGA-loon, hoeveel boekingen. Je krijgt vooraf een vaste prijs, zodat je niet voor verrassingen komt te staan.'],
+  ['Doe je ook de salarisadministratie?', 'Ja, voor het DGA-loon van je bv. Dat loopt via mijn vaste salarispartner: elke maand de loonstrook en de loonaangifte, en aan het eind van het jaar de jaaropgave. Je hoort vooraf wat het kost.'],
+  ['Kun je meedenken over dividend en mijn rekening-courant?', 'Ja. Ik kijk mee naar je rekening-courant met de bv en naar wat slim is: salaris, dividend of geld in de bv laten. Je krijgt een concreet voorstel met de bedragen erbij.'],
+  ['Ik heb een holding en een werkmaatschappij. Kan dat ook?', 'Ja. Ik doe beide administraties en let op de onderlinge boekingen, zoals managementvergoedingen en dividend van werkmaatschappij naar holding.'],
+  ['Moet ik Moneybird gebruiken?', 'Ja, ik werk alleen in Moneybird. Gebruik je nu iets anders, dan zet ik je gegevens over. Je houdt zelf altijd toegang tot je eigen administratie.'],
+  ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
+];
+const service = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  name: 'Boekhouding voor bv en holding',
+  serviceType: 'Boekhouding',
+  provider: { '@type': 'AccountingService', name: 'Slim Geregeld Administratie', url: 'https://slim-geregeld.nl/' },
+  areaServed: { '@type': 'Country', name: 'Nederland' },
+};
+---
+<Basis
+  titel="Boekhouder bv en holding | Vaste prijs vooraf | Slim Geregeld"
+  omschrijving="Boekhouding, btw, jaarrekening, Vpb en DGA-loon voor je bv of holding, met een boekhouder die meedenkt over salaris en dividend. Vaste prijs vooraf."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(service)} />
+  <Paginakop
+    kruimel="Boekhouding bv"
+    tag="BV en holding"
+    titel="Boekhouding voor je bv, met iemand die meedenkt"
+    sub="Boekhouding, btw, jaarrekening en Vpb voor je bv of holding. Plus het DGA-loon, en advies over salaris en dividend met de bedragen erbij."
+    prijs={{ bedrag: 'Op maat', per: 'vaste prijs vooraf', uitleg: 'afhankelijk van je structuur en het aantal boekingen' }}
+    knop={['Vraag je prijs aan', '#contact']}
+    foto={{ src: '/img/kyle-bureau.jpg', alt: 'Kyle Bouwmeester aan zijn bureau met de cijfers op twee schermen', pos: '30% 50%' }}
+  />
+
+  <section>
+    <div class="wrap">
+      <h2>Voor wie?</h2>
+      <div class="grid3 vier">
+        <div class="blok"><h3>DGA met één bv</h3><p>Je hebt een bv voor je eigen werk en wilt dat de cijfers, het loon en de aangiftes gewoon kloppen.</p></div>
+        <div class="blok"><h3>Holding en werkmaatschappij</h3><p>Twee administraties die op elkaar aansluiten, met de onderlinge boekingen goed geregeld.</p></div>
+        <div class="blok"><h3>Overstappers</h3><p>Je hebt al een boekhouder, maar mist meedenken of snelheid. Ik neem het over, ook midden in het jaar.</p></div>
+        <div class="blok"><h3>Van eenmanszaak naar bv</h3><p>Je overweegt de stap of hebt hem net gezet. Ik zet de nieuwe administratie goed neer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>Wat je krijgt</h2>
+        <ul class="vinkjes">
+          <li>Boekhouding en btw-aangifte in Moneybird</li>
+          <li>Jaarrekening en deponering bij de KvK</li>
+          <li>Aangifte vennootschapsbelasting</li>
+          <li>DGA-loon via mijn vaste salarispartner</li>
+          <li>Meedenken over salaris, dividend en je rekening-courant</li>
+          <li>Slim op WhatsApp voor facturen, offertes en bonnetjes</li>
+        </ul>
+      </div>
+      <div class="blok uitleg">
+        <h3>Je prijs, vooraf</h3>
+        <p>Een bv is nooit standaard. Daarom kijk ik eerst naar je situatie: hoeveel boekingen, wel of geen holding, wel of geen loon. Daarna krijg je één vaste prijs per maand. Geen uurtje-factuurtje.</p>
+        <a class="meer" href="#contact">Vraag je prijs aan →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <GoogleReviews eerst={['Benthe Lokhorst', 'Edwin Postma']} />
+    </div>
+  </section>
+
+  <Faq vragen={faq} />
+  <Contactblok titel="Vraag je prijs aan" tekst="Vertel kort hoe je bv in elkaar zit: één bv of een holding, wel of geen DGA-loon. Binnen een tot drie werkdagen heb je een vaste prijs." vinkjes={['Vrijblijvend, je zit nergens aan vast', 'Overstappen midden in het jaar kan', 'Ook als je de bv nog moet oprichten']} />
+</Basis>
+
+<style>
+.uitleg h3{margin-bottom:4px}
+@media (min-width:760px) and (max-width:1099px){.grid3.vier{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
+</style>

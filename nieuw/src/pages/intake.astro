@@ -1,0 +1,371 @@
+---
+// Nederlandse intake: overgenomen van de React-site (src/components/IntakeForm.tsx).
+// Zelfde Netlify-formulier "intake", dezelfde veldnamen en dezelfde waarden, zodat
+// de verwerking erachter niets merkt. Dezelfde routes als het oude formulier:
+//   0 gegevens > al Moneybird? dan 9 > 10
+//   0 > 1 eerder gefactureerd? ja: 2 > 5, nee: 3 (> 4 bij eigen teksten) > 5
+//   5 > 6 overdracht (geen: 10, toegang: 7 > 10, zelf: 8 > 10)
+// Nieuw: wie geen boekhoudprogramma heeft slaat stap 6 over, en de peildatums
+// (31 december, 1 januari) rekenen mee met het jaar.
+// Vooraf invullen werkt nog steeds met #v=<base64url van JSON> (intake_link.py).
+import Basis from '../layouts/Basis.astro';
+import '../styles/intake-in.css';
+const nu = new Date();
+const vorigJaar = nu.getFullYear() - 1;
+const ditJaar = nu.getFullYear();
+const anders = 'Anders…';
+const radio = (naam: string, opties: string[], verplicht = true) => ({ naam, opties, verplicht });
+---
+<Basis titel="Intake voor nieuwe klanten | Slim Geregeld Administratie" omschrijving="Intake voor nieuwe klanten van Slim Geregeld Administratie." robots="noindex, nofollow" cta="/#contact">
+  <section class="in-kop">
+    <div class="wrap">
+      <span class="tag">Intake</span>
+      <h1>Welkom bij Slim Geregeld</h1>
+      <p class="sub">Een paar vragen, zodat ik je administratie goed kan opzetten. Invullen duurt ongeveer tien minuten, en je ziet alleen de vragen die voor jou gelden.</p>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap in-grid">
+      <form id="intake" class="in" name="intake" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="intake">
+        <p style="display:none"><label>Laat dit leeg: <input name="bot-field"></label></p>
+        <input type="hidden" name="moneybirdGeenBankAkkoord" value="" id="akkoord-veld">
+        <p class="in-vooraf" id="vooraf" hidden>Wat je me al hebt verteld, heb ik alvast ingevuld. Kijk het even na en vul de rest aan.</p>
+
+        <!-- 0. Gegevens -->
+        <fieldset data-stap="0">
+          <legend>Jij en je bedrijf</legend>
+          <div class="in-info">
+            <b>Handig om bij de hand te hebben</b>
+            <ul><li>Toegang tot je e-mail, om een eerdere factuur of offerte door te sturen</li><li>Je mobiele telefoon, voor de Moneybird-app</li><li>Je KVK-nummer, btw-nummer en zakelijke IBAN</li><li>Toegang tot je huidige boekhoudprogramma, als je dat hebt</li></ul>
+          </div>
+          <div class="twee-in">
+            <div class="veld"><label for="fullName">Je naam (voornaam en achternaam)</label><input id="fullName" name="fullName" type="text" required autocomplete="name"></div>
+            <div class="veld"><label for="birthDate">Je geboortedatum</label><input id="birthDate" name="birthDate" type="date" required></div>
+          </div>
+          <div class="veld"><label for="businessName">Naam van je onderneming</label><input id="businessName" name="businessName" type="text" required autocomplete="organization"></div>
+          <div class="veld"><label>Rechtsvorm</label>
+            {['Eenmanszaak (ZZP)', 'Besloten Vennootschap (BV)', 'Vennootschap onder firma (VOF)', anders].map((o, i) => <label class="keuze"><input type="radio" name="legalForm" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="legalFormOther" data-bij="legalForm" placeholder="Welke rechtsvorm?">
+          </div>
+          <div class="twee-in">
+            <div class="veld"><label for="businessEmail">Zakelijk e-mailadres</label><input id="businessEmail" name="businessEmail" type="email" required autocomplete="email"></div>
+            <div class="veld"><label for="phoneNumber">Telefoonnummer (WhatsApp)<span class="bij">Slim, de WhatsApp-assistent, werkt op dit nummer.</span></label><input id="phoneNumber" name="phoneNumber" type="tel" required autocomplete="tel"></div>
+          </div>
+          <div class="veld"><label for="website">Zakelijke website <span class="opt">optioneel</span></label><input id="website" name="website" type="text"></div>
+          <div class="veld"><label for="currentBookkeeping">Werk je al met een boekhoudprogramma?</label>
+            <select id="currentBookkeeping" name="currentBookkeeping" required>
+              <option value="">Kies...</option>
+              {['Nee', 'Moneybird', 'e-Boekhouden.nl', 'Exact Online', 'Rompslomp', 'Tellow', 'SnelStart', 'Informer', 'Silvasoft', 'Visma eAccounting', 'Yuki', anders].map((o) => <option value={o}>{o === 'Nee' ? 'Nee, nog niet' : o === anders ? 'Een ander programma' : o}</option>)}
+            </select>
+            <input class="in-anders" type="text" name="currentBookkeepingOther" data-bij="currentBookkeeping" placeholder="Welk programma?">
+          </div>
+        </fieldset>
+
+        <!-- 1. Eerder gefactureerd? -->
+        <fieldset data-stap="1">
+          <legend>Je facturen</legend>
+          <div class="veld"><label>Heb je eerder (zelf of via een boekhoudprogramma) een factuur of offerte naar een klant gemaild?
+            <span class="bij">Dan neem ik je gegevens, opmaak en teksten daaruit over en sla je een hoop vragen over.</span></label>
+            <label class="keuze"><input type="radio" name="sentInvoiceBefore" value="Ja" required> Ja</label>
+            <label class="keuze"><input type="radio" name="sentInvoiceBefore" value="Nee"> Nee</label>
+          </div>
+        </fieldset>
+
+        <!-- 2. Voorbeeld doorsturen -->
+        <fieldset data-stap="2">
+          <legend>Je eerdere factuur of offerte</legend>
+          <div class="in-info">
+            <b>Stuur de mail door naar intake.slimgeregeld@gmail.com</b>
+            <p>Stuur de e-mail die je eerder naar je klant stuurde door, met bijlage en mailtekst. Heb je zowel een factuur als een offerte, stuur ze dan allebei. Daaruit neem ik over: je bedrijfsgegevens (KVK, btw en IBAN), je huisstijl en logo, de opmaak, je teksten en je betalingstermijn.</p>
+          </div>
+          <div class="veld"><label>Wat heb je doorgestuurd?</label>
+            {['Ik heb alleen een factuur doorgestuurd > gebruik die stijl voor mijn facturen', 'Ik heb alleen een offerte doorgestuurd > gebruik die stijl voor mijn offertes', 'Ik heb beide doorgestuurd > gebruik die stijl voor mijn facturen én offertes', anders].map((o, i) => <label class="keuze"><input type="radio" name="documentsForwarded" value={o} required={i === 0}> {o.replace(' > ', ', ')}</label>)}
+            <input class="in-anders" type="text" name="documentsForwardedOther" data-bij="documentsForwarded" placeholder="Licht toe">
+          </div>
+          <div class="veld"><label for="changesNeeded">Wil je op basis van dat voorbeeld nog iets aanpassen?</label><textarea id="changesNeeded" name="changesNeeded" rows="3" required placeholder="Bijvoorbeeld een nieuw adres of een andere betalingstermijn. Niets? Typ dan: nee."></textarea></div>
+          <div class="veld"><label for="vatNumber">Je omzetbelastingnummer
+            <span class="bij">Te vinden in Mijn Belastingdienst Zakelijk, onder Omzetbelasting, Overzicht aangiften (rechtsboven). Het staat nooit op een factuur.</span></label><input id="vatNumber" name="vatNumber" type="text" required></div>
+        </fieldset>
+
+        <!-- 3. Gegevens voor facturen -->
+        <fieldset data-stap="3">
+          <legend>Gegevens voor je facturen</legend>
+          <p class="hint">Hiermee richt ik je facturen en offertes in Moneybird in, in jouw stijl.</p>
+          <div class="twee-in">
+            <div class="veld"><label for="kvkNumber">KVK-nummer</label><input id="kvkNumber" name="kvkNumber" type="text" inputmode="numeric" required></div>
+            <div class="veld"><label for="btwNumber">Btw-nummer</label><input id="btwNumber" name="btwNumber" type="text" required></div>
+          </div>
+          <div class="veld"><label for="businessIban">Zakelijke IBAN</label><input id="businessIban" name="businessIban" type="text" required autocomplete="off"></div>
+          <div class="veld"><label>Je standaard betalingstermijn</label>
+            {['7 dagen', '14 dagen', '30 dagen', '60 dagen', anders].map((o, i) => <label class="keuze"><input type="radio" name="paymentTerm" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="paymentTermOther" data-bij="paymentTerm" placeholder="Welke termijn?">
+          </div>
+          <div class="veld"><label>Hoe factureer je meestal?</label>
+            {['Aan bedrijven, exclusief btw', 'Aan particulieren, inclusief btw', 'Aan beide groepen, exclusief btw', 'Aan beide groepen, inclusief btw', 'In verband met de KOR, 0% btw', anders].map((o, i) => <label class="keuze"><input type="radio" name="invoicingMethodUsual" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="invoicingMethodUsualOther" data-bij="invoicingMethodUsual" placeholder="Licht toe">
+          </div>
+          <div class="veld"><label>Wil je de teksten op je facturen en offertes persoonlijk maken?</label>
+            <label class="keuze"><input type="radio" name="personalizeText" value="Ja" required> Ja, ik schrijf ze zelf</label>
+            <label class="keuze"><input type="radio" name="personalizeText" value="Nee"> Nee, de standaardteksten zijn prima</label>
+          </div>
+        </fieldset>
+
+        <!-- 4. Eigen teksten -->
+        <fieldset data-stap="4">
+          <legend>Je eigen teksten</legend>
+          <p class="hint">Wil je toch de standaardtekst? Klik dan op "Gebruik deze".</p>
+          {[
+            ['paymentTermsText', 'Betalingsvoorwaarden op je factuur', 'Wij verzoeken u vriendelijk het bovenstaande bedrag van {bedrag} voor {vervaldatum} te voldoen op onze bankrekening onder vermelding van de omschrijving {betalingskenmerk}.\nVoor vragen kunt u contact opnemen per e-mail.'],
+            ['invoiceEmailText', 'E-mailtekst bij een factuur', 'Geachte {naam},\n\nIn de bijlage kunt u factuur {factuurnummer} voor onze diensten vinden. Wij verzoeken u vriendelijk de factuur voor {document.due_date} te voldoen.\n\nMet vriendelijke groet,\n\n{bedrijfsnaam}'],
+            ['quoteHeaderText', 'Tekst boven je offerteregels', 'Geachte {naam},\n\nHierbij ontvangt u van ons de prijsopgave {offertenummer} voor de onderstaande diensten.'],
+            ['quoteFooterText', 'Tekst onder je offerteregels', 'We hopen u hiermee voldoende geïnformeerd te hebben.\n\nMet vriendelijke groet,\n\n{bedrijfsnaam}'],
+            ['quoteEmailText', 'E-mailtekst bij een offerte', 'Geachte {naam},\n\nHierbij ontvangt u van ons een prijsopgave {offertenummer} voor onze diensten.\n\nMet vriendelijke groet,\n\n{bedrijfsnaam}'],
+          ].map(([naam, label, std]) => (
+            <div class="veld"><label for={naam}>{label}</label>
+              <div class="in-std"><pre>{std}</pre><button type="button" class="in-neem" data-voor={naam}>Gebruik deze</button></div>
+              <textarea id={naam} name={naam} rows="5" required data-std={std}></textarea></div>
+          ))}
+        </fieldset>
+
+        <!-- 5. Moneybird -->
+        <fieldset data-stap="5">
+          <legend>Je Moneybird-account</legend>
+          <div class="veld"><label>Zal ik je Moneybird-account voor je aanmaken?<span class="bij">Aanrader, dat is het snelst geregeld. Via mijn link heb je de eerste 120 dagen gratis.</span></label>
+            {['Ja, maak jij het account voor mij aan en geef mij eigenaarstoegang', 'Nee, ik maak zelf een account aan en geef jou toegang als boekhouder', anders].map((o, i) => <label class="keuze"><input type="radio" name="moneybirdAccountSetup" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="moneybirdAccountSetupOther" data-bij="moneybirdAccountSetup" placeholder="Licht toe">
+          </div>
+          <div class="veld" id="kvk-blok"><label>Zal ik je KVK-verificatie in Moneybird regelen?<span class="bij">Nodig als je btw-aangifte vanuit Moneybird wilt doen. Binnen vijf werkdagen krijg je per post een code op je KVK-adres.</span></label>
+            {['Ja, ik wil btw-aangifte doen vanuit Moneybird (aanrader!)', 'Nee, ik zal zelf mijn btw-aangiftes doen', anders].map((o, i) => <label class="keuze"><input type="radio" name="kvkVerification" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="kvkVerificationOther" data-bij="kvkVerification" placeholder="Licht toe">
+          </div>
+          <div class="veld"><label>Welk Moneybird-pakket past bij je administratie?<span class="bij">Het abonnement staat op jouw naam en betaal je rechtstreeks aan Moneybird. Jaarlijks betalen scheelt ongeveer 20%.</span></label>
+            <label class="keuze"><input type="radio" name="moneybirdLicense" value="Groei — €35 p/m" required> <span>Groei, €35 per maand <b>(aanbevolen)</b><small>Automatische bankkoppeling, dus ik leg je boekhouding tegen je bankrekening aan. Tot 50 verwerkte transacties per maand.</small></span></label>
+            <label class="keuze"><input type="radio" name="moneybirdLicense" value="Compleet — €49 p/m"> <span>Compleet, €49 per maand<small>Als elke betaling los binnenkomt en je boven de 50 transacties per maand uitkomt.</small></span></label>
+            <label class="keuze" id="keuze-start"><input type="radio" name="moneybirdLicense" value="Start — €18 p/m"> <span>Start, €18 per maand<small>Geen automatische bankkoppeling. Ik kan je boekhouding doen en je aangiftes indienen, maar niet tegen je bankrekening controleren.</small></span></label>
+            <label class="keuze"><input type="radio" name="moneybirdLicense" value="Ik weet het nog niet / overleg ik graag"> Ik weet het nog niet, ik overleg graag</label>
+            <label class="keuze"><input type="radio" name="moneybirdLicense" value={anders}> Anders</label>
+            <input class="in-anders" type="text" name="moneybirdLicenseOther" data-bij="moneybirdLicense" placeholder="Typ hier je voorkeur">
+            <p class="hint" id="bv-noot" hidden style="margin-top:8px">Voor een BV begint het bij Groei, omdat een jaarrekening zonder bankkoppeling niet te onderbouwen is.</p>
+            <label class="keuze in-let-op" id="start-akkoord" hidden><input type="checkbox" id="akkoord"> Ik weet dat mijn boekhouding op dit pakket niet tegen mijn bankrekening wordt gecontroleerd en dus niet volledig sluitend is.</label>
+          </div>
+          <div class="veld"><label>Heb je de Moneybird-app al op je telefoon?<span class="bij">Daarmee scan je bonnetjes en zie je je facturen. Download hem voor <a href="https://apps.apple.com/nl/app/moneybird-boekhouding/id1169487040" target="_blank" rel="noopener">iPhone</a> of <a href="https://play.google.com/store/apps/details?id=com.moneybird.android&pli=1" target="_blank" rel="noopener">Android</a>; inloggen doe je later met de gegevens die je van mij krijgt.</span></label>
+            <label class="keuze"><input type="radio" name="moneybirdAppDownloaded" value="Ja, ik heb de app (nu) gedownload" required> Ja, ik heb de app (nu) gedownload</label>
+            <label class="keuze"><input type="radio" name="moneybirdAppDownloaded" value={anders}> Anders</label>
+            <input class="in-anders" type="text" name="moneybirdAppDownloadedOther" data-bij="moneybirdAppDownloaded" placeholder="Licht toe">
+          </div>
+        </fieldset>
+
+        <!-- 6. Overdracht -->
+        <fieldset data-stap="6">
+          <legend>Overstappen vanuit je huidige programma</legend>
+          <p class="hint">Om je administratie foutloos over te zetten heb ik een paar gegevens nodig. Je kunt me tijdelijk toegang geven (aanrader, dan regel ik alles), of ze zelf verzamelen en mailen.</p>
+          <div class="veld"><label>Hoe wil je de overdracht aanleveren?</label>
+            <label class="keuze"><input type="radio" name="transferMethod" value="Ik geef jullie (tijdelijk) toegang tot mijn bestaande boekhoudprogramma" required> Ik geef je tijdelijk toegang tot mijn huidige programma</label>
+            <label class="keuze"><input type="radio" name="transferMethod" value="Ik verzamel de gegevens zelf en mail ze naar intake.slimgeregeld@gmail.com"> Ik verzamel de gegevens zelf en mail ze naar intake.slimgeregeld@gmail.com</label>
+            <label class="keuze"><input type="radio" name="transferMethod" value="Ik heb geen bestaande boekhoudprogramma"> Ik heb toch geen bestaand boekhoudprogramma</label>
+          </div>
+        </fieldset>
+
+        <!-- 7. Toegang geven -->
+        <fieldset data-stap="7">
+          <legend>Ik regel de overdracht</legend>
+          <div class="in-info"><b>Voeg intake.slimgeregeld@gmail.com toe als gebruiker</b>
+            <p>Log in bij je huidige boekhoudprogramma en voeg dit adres toe. Ik exporteer dan zelf je openstaande facturen per 31 december {vorigJaar}, je bankstand per 1 januari {ditJaar}, je btw-positie, je balans en je klanten- en leverancierslijst.</p></div>
+          <div class="veld"><label>Heb je me toegevoegd?</label>
+            <label class="keuze"><input type="radio" name="accessConfirmation" value="Ik heb jullie toegevoegd aan mijn administratie op intake.slimgeregeld@gmail.com" required> Ja, ik heb intake.slimgeregeld@gmail.com toegevoegd</label>
+            <label class="keuze"><input type="radio" name="accessConfirmation" value={anders}> Anders</label>
+            <input class="in-anders" type="text" name="accessConfirmationOther" data-bij="accessConfirmation" placeholder="Licht toe">
+          </div>
+        </fieldset>
+
+        <!-- 8. Zelf aanleveren -->
+        <fieldset data-stap="8">
+          <legend>Je levert de gegevens zelf aan</legend>
+          <p class="hint">Mail alles naar intake.slimgeregeld@gmail.com, gerust in één mail, als export, lijst, pdf of screenshot.</p>
+          <div class="veld"><label>Openstaande verkoop- en inkoopfacturen per 31 december {vorigJaar}<span class="bij">Factuurnummer, datum, bedrag inclusief btw, klant of leverancier, en betaald of niet.</span></label>
+            {['Nee, ik zie dat ik geen openstaande verkoop- & inkoopfacturen had per 31 december', 'Ja, ik heb je alle openstaande verkoop- & inkoopfacturen gemaild.', anders].map((o, i) => <label class="keuze"><input type="radio" name="outstandingInvoices" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="outstandingInvoicesOther" data-bij="outstandingInvoices" placeholder="Licht toe"></div>
+          <div class="veld"><label>Je bankstand per 31 december {vorigJaar}<span class="bij">Rekeningnummer en saldo, gerust als bankoverzicht of screenshot.</span></label>
+            {['Ja, ik heb het overzicht van mijn bankstand gemaild.', anders].map((o, i) => <label class="keuze"><input type="radio" name="bankBalance" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="bankBalanceOther" data-bij="bankBalance" placeholder="Licht toe"></div>
+          <div class="veld"><label>Je btw-positie per 31 december {vorigJaar}<span class="bij">De btw-aangifte over het vierde kwartaal, of een balansrapport met de te betalen of te vorderen btw.</span></label>
+            {['Ja, ik heb de BTW-aangifte van Q4 of een balansrapport gemaild.', anders].map((o, i) => <label class="keuze"><input type="radio" name="btwPosition" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="btwPositionOther" data-bij="btwPosition" placeholder="Licht toe"></div>
+          <div class="veld"><label>Een begin- of eindbalans per 31 december {vorigJaar} <span class="opt">optioneel, wel handig</span></label>
+            {['Ja, ik heb je een begin- of eindbalans per 31 december gemaild.', 'Nee, deze kan ik niet vinden en mail ik niet.', anders].map((o) => <label class="keuze"><input type="radio" name="balanceSheet" value={o}> {o}</label>)}
+            <input class="in-anders" type="text" name="balanceSheetOther" data-bij="balanceSheet" placeholder="Licht toe"></div>
+          <div class="veld"><label>Een klanten- of leverancierslijst <span class="opt">optioneel</span><span class="bij">Naam, e-mail, adres en IBAN van vaste klanten of leveranciers.</span></label>
+            {['Ja, ik heb alle relevante contacten gemaild.', 'Nee, deze kan ik niet vinden en mail ik niet.', anders].map((o) => <label class="keuze"><input type="radio" name="customerSupplierList" value={o}> {o}</label>)}
+            <input class="in-anders" type="text" name="customerSupplierListOther" data-bij="customerSupplierList" placeholder="Licht toe"></div>
+        </fieldset>
+
+        <!-- 9. Al in Moneybird -->
+        <fieldset data-stap="9">
+          <legend>Je werkt al met Moneybird</legend>
+          <p class="hint">Mooi. Dan neem ik je administratie over zoals hij is, en vallen de meeste vragen weg.</p>
+          <div class="veld"><label>Heb je me toegevoegd als boekhouder?<span class="bij">In Moneybird: Instellingen, Beheer jouw administratie, Gebruikers, Gebruiker uitnodigen, rol Boekhouder. E-mailadres: kyle@slim-geregeld.nl.</span></label>
+            {['Ja, ik heb je (nu) toegevoegd', anders].map((o, i) => <label class="keuze"><input type="radio" name="moneybirdBookkeeperAccess" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="moneybirdBookkeeperAccessOther" data-bij="moneybirdBookkeeperAccess" placeholder="Licht toe"></div>
+          <div class="veld"><label for="apiToken">Je API-token, zodat Slim aan je administratie gekoppeld wordt
+            <span class="bij">Maak hem aan via Instellingen, Uitbreidingen, Externe applicaties, API-token aanmaken. Geef hem een naam en toegang tot alle onderdelen, sla op en plak hem hier.</span></label>
+            <input id="apiToken" name="apiToken" type="text" required autocomplete="off" placeholder="Plak hier je API-token"></div>
+          <div class="veld"><label>Heb je de Moneybird-app al op je telefoon?<span class="bij">Download hem voor <a href="https://apps.apple.com/nl/app/moneybird-boekhouding/id1169487040" target="_blank" rel="noopener">iPhone</a> of <a href="https://play.google.com/store/apps/details?id=com.moneybird.android&pli=1" target="_blank" rel="noopener">Android</a> en log in met je bestaande gegevens.</span></label>
+            {['Ja, ik heb de app (nu) gedownload', anders].map((o, i) => <label class="keuze"><input type="radio" name="moneybirdAppDownloadedExisting" value={o} required={i === 0}> {o}</label>)}
+            <input class="in-anders" type="text" name="moneybirdAppDownloadedExistingOther" data-bij="moneybirdAppDownloadedExisting" placeholder="Licht toe"></div>
+        </fieldset>
+
+        <!-- 10. Vervolg -->
+        <fieldset data-stap="10">
+          <legend>Wat er nu gebeurt</legend>
+          <ul class="vinkjes">
+            <li>Binnen vijf werkdagen staat je administratie ingericht in Moneybird. Heb je nog geen account, dan maak ik het aan en krijg je je inloggegevens zodra alles klaarstaat.</li>
+            <li>Je krijgt Slim, de WhatsApp-assistent: klanten toevoegen, facturen en offertes maken, bonnetjes verwerken, vragen stellen en direct contact met mij.</li>
+            <li>Zelf koppel je daarna je bankrekening aan Moneybird en verifieer je je KVK. Je krijgt een korte video waarin precies staat hoe.</li>
+          </ul>
+          <p class="hint" style="margin:0">Pas als je op "Verstuur" klikt, komen je gegevens bij mij binnen.</p>
+        </fieldset>
+
+        <div class="in-nav"><button type="button" class="knop leeg" id="terug">Vorige</button><button type="button" class="knop vol" id="verder">Volgende</button><button type="submit" class="knop vol" id="verstuur">Verstuur</button></div>
+        <p class="in-melding" id="melding" role="status"></p>
+      </form>
+      <aside class="in-zij">
+        <div class="ikzelf ikzelf2"><b>Je antwoord komt van mij</b><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="48" height="48"><span><span>Kyle Bouwmeester</span><span>Becon-geregistreerd boekhouder</span></span></div>
+        <a class="knop wa" href="https://wa.me/31621311043" target="_blank" rel="noopener">Vraag? Stuur een WhatsApp</a>
+      </aside>
+    </div>
+  </section>
+</Basis>
+
+<script is:inline>
+(function () {
+  var form = document.getElementById('intake');
+  var stappen = {};
+  form.querySelectorAll('fieldset[data-stap]').forEach(function (f) { stappen[f.getAttribute('data-stap')] = f; });
+  var melding = document.getElementById('melding'), terug = document.getElementById('terug'), verder = document.getElementById('verder'), verstuur = document.getElementById('verstuur');
+  var kop = document.createElement('div'); kop.className = 'in-stapkop'; form.insertBefore(kop, form.querySelector('fieldset'));
+  var waarde = function (n) { var el = form.querySelector('[name="' + n + '"]:checked') || form.querySelector('select[name="' + n + '"]'); return el ? el.value : ''; };
+
+  // Route zoals het oude formulier, steeds opnieuw berekend uit de antwoorden.
+  function route() {
+    var r = ['0'];
+    var bk = waarde('currentBookkeeping');
+    if (bk === 'Moneybird') return r.concat(['9', '10']);
+    r.push('1');
+    var eerder = waarde('sentInvoiceBefore');
+    if (eerder === 'Ja') r.push('2');
+    else { r.push('3'); if (waarde('personalizeText') === 'Ja') r.push('4'); }
+    r.push('5');
+    if (bk !== 'Nee') {
+      r.push('6');
+      var w = waarde('transferMethod');
+      if (w.indexOf('toegang') > -1) r.push('7');
+      else if (w.indexOf('verzamel') > -1) r.push('8');
+    }
+    r.push('10');
+    return r;
+  }
+
+  // Kleine slimmigheden: "Anders"-velden alleen bij Anders, Start niet voor een BV,
+  // het akkoord alleen bij Start, en de KVK-verificatie vervalt bij 0% btw (KOR).
+  function bijwerken() {
+    form.querySelectorAll('.in-anders').forEach(function (inp) {
+      var aan = waarde(inp.getAttribute('data-bij')) === 'Anders…';
+      inp.hidden = !aan; inp.required = aan; if (!aan) inp.value = '';
+    });
+    var bv = waarde('legalForm') === 'Besloten Vennootschap (BV)';
+    document.getElementById('keuze-start').hidden = bv;
+    document.getElementById('bv-noot').hidden = !bv;
+    if (bv && waarde('moneybirdLicense') === 'Start — €18 p/m') form.querySelector('input[name="moneybirdLicense"]').checked = true;
+    var start = waarde('moneybirdLicense') === 'Start — €18 p/m';
+    var akkoord = document.getElementById('akkoord');
+    document.getElementById('start-akkoord').hidden = !start; akkoord.required = start;
+    if (!start) akkoord.checked = false;
+    document.getElementById('akkoord-veld').value = akkoord.checked ? 'ja' : '';
+    var kor = waarde('invoicingMethodUsual') === 'In verband met de KOR, 0% btw';
+    document.getElementById('kvk-blok').hidden = kor;
+    if (waarde('currentBookkeeping') === 'Nee') {
+      var g = form.querySelector('input[name="transferMethod"][value="Ik heb geen bestaande boekhoudprogramma"]'); if (g) g.checked = true;
+    }
+  }
+
+  var huidig = '0';
+  function toon(id, scroll) {
+    huidig = id;
+    var r = route(), n = r.indexOf(id);
+    Object.keys(stappen).forEach(function (k) { stappen[k].hidden = k !== id; });
+    kop.innerHTML = '<span>Stap ' + (n + 1) + ' van ' + r.length + '</span><b>' + stappen[id].querySelector('legend').textContent + '</b><i><em style="width:' + Math.round((n + 1) / r.length * 100) + '%"></em></i>';
+    terug.style.visibility = n === 0 ? 'hidden' : 'visible';
+    var laatste = n === r.length - 1;
+    verder.hidden = laatste; verstuur.hidden = !laatste;
+    melding.textContent = ''; melding.className = 'in-melding';
+    if (scroll) kop.scrollIntoView({ block: 'start' });
+  }
+  function eersteFout(f) {
+    var velden = [].slice.call(f.querySelectorAll('input,select,textarea')).filter(function (el) { return !el.closest('[hidden]') && !el.hidden && el.type !== 'hidden'; });
+    for (var i = 0; i < velden.length; i++) if (!velden[i].checkValidity()) return velden[i];
+    return null;
+  }
+  function fout(el) { melding.className = 'in-melding fout'; melding.textContent = 'Beantwoord eerst de vragen in deze stap. Alleen wat optioneel is mag leeg blijven.'; el.focus({ preventScroll: true }); el.scrollIntoView({ block: 'center' }); }
+  verder.addEventListener('click', function () { bijwerken(); var el = eersteFout(stappen[huidig]); if (el) return fout(el); var r = route(); toon(r[r.indexOf(huidig) + 1], true); });
+  terug.addEventListener('click', function () { var r = route(); toon(r[Math.max(0, r.indexOf(huidig) - 1)], true); });
+  form.addEventListener('change', function (e) { bijwerken(); if (e.target.name === 'currentBookkeeping') toon(huidig, false); });
+  form.querySelectorAll('.in-neem').forEach(function (b) { b.addEventListener('click', function () { var t = document.getElementById(b.getAttribute('data-voor')); t.value = t.getAttribute('data-std'); }); });
+
+  // Vooraf invullen: #v=<base64url van JSON> met de veldnamen van het formulier.
+  // Geboortedatum, IBAN en API-token neemt het formulier nooit over.
+  (function () {
+    var m = location.hash.match(/[#&]v=([A-Za-z0-9_-]+)/);
+    if (!m) return;
+    try {
+      var b = m[1].replace(/-/g, '+').replace(/_/g, '/'); while (b.length % 4) b += '=';
+      var ruw = atob(b), bytes = new Uint8Array(ruw.length); for (var i = 0; i < ruw.length; i++) bytes[i] = ruw.charCodeAt(i);
+      var v = JSON.parse(new TextDecoder().decode(bytes));
+      var nooit = { apiToken: 1, businessIban: 1, birthDate: 1 };
+      Object.keys(v).forEach(function (k) {
+        if (nooit[k]) return;
+        if (k === 'moneybirdGeenBankAkkoord') { document.getElementById('akkoord').checked = !!v[k]; return; }
+        var w = String(v[k]);
+        form.querySelectorAll('[name="' + k.replace(/"/g, '') + '"]').forEach(function (el) {
+          if (el.type === 'radio' || el.type === 'checkbox') { if (el.value === w) el.checked = true; }
+          else if (el.type !== 'hidden' && !el.value) el.value = w;
+        });
+      });
+      document.getElementById('vooraf').hidden = false;
+    } catch (e) {}
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  })();
+
+  bijwerken();
+  toon('0', false);
+
+  // Versturen zoals het oude formulier: urlencoded naar Netlify, met alle velden.
+  // Antwoorden uit stappen die niet in de route zitten gaan leeg mee.
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    bijwerken();
+    var r = route();
+    for (var i = 0; i < r.length; i++) { var el = eersteFout(stappen[r[i]]); if (el) { toon(r[i], false); return fout(el); } }
+    var data = new URLSearchParams();
+    var gezien = {};
+    form.querySelectorAll('[name]').forEach(function (el) {
+      var n = el.name; if (gezien[n]) return; gezien[n] = 1;
+      var stap = el.closest('fieldset[data-stap]');
+      var inRoute = !stap || r.indexOf(stap.getAttribute('data-stap')) > -1;
+      var w = el.type === 'radio' ? waarde(n) : el.value;
+      data.append(n, inRoute ? w : '');
+    });
+    verstuur.disabled = true; verstuur.textContent = 'Bezig...';
+    try {
+      var res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data.toString() });
+      if (!res.ok) throw new Error('http ' + res.status);
+      location.href = '/bedankt?formulier=intake';
+    } catch (err) {
+      verstuur.disabled = false; verstuur.textContent = 'Verstuur';
+      melding.className = 'in-melding fout'; melding.textContent = 'Er ging iets mis bij het versturen. Probeer het opnieuw of mail kyle@slim-geregeld.nl.';
+    }
+  });
+})();
+</script>
+
+

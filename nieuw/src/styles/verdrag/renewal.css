@@ -1,0 +1,210 @@
+/* Overgenomen van de oude pagina, alleen binnen .v-renewal. */
+.v-renewal h1,.v-renewal h2,.v-renewal h3,.v-renewal h4,.v-renewal strong,.v-renewal b{color:var(--ink)}
+.v-renewal h1,.v-renewal h2,.v-renewal h3{text-wrap:balance;line-height:1.1;letter-spacing:-.028em;font-weight:800}
+.v-renewal p,.v-renewal li,.v-renewal dd{text-wrap:pretty}
+.v-renewal a{color:var(--blauw);text-decoration:none}
+.v-renewal a:hover{text-decoration:underline}
+.v-renewal img{max-width:100%;height:auto;display:block}
+.v-renewal .container{max-width:1120px;margin:0 auto;padding:0 clamp(1.25rem,5vw,2.5rem)}
+.v-renewal .knop{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+    background:var(--blauw);color:#fff;padding:.8em 1.7em;border-radius:12px;
+    font-weight:650;font-size:.97rem;letter-spacing:-.01em;border:none;cursor:pointer;font-family:inherit;
+    transition:background .15s,transform .15s,box-shadow .15s;white-space:nowrap;}
+.v-renewal .knop:hover{background:var(--blauw-donker);color:#fff;text-decoration:none;transform:translateY(-1px);box-shadow:0 10px 24px rgba(37,99,235,.24)}
+.v-renewal .knop.omlijnd{background:#fff;color:var(--ink);border:1.5px solid var(--rand)}
+.v-renewal .knop.omlijnd:hover{background:var(--bg-zacht);color:var(--ink);border-color:#cbd5e1;box-shadow:none}
+.v-renewal .knop.klein{padding:.62em 1.25em;font-size:.9rem}
+.v-renewal .hero{padding:clamp(3rem,6.5vw,5.5rem) 0 clamp(2.5rem,5vw,4rem);background:linear-gradient(180deg,var(--bg-zacht),#fff 78%)}
+.v-renewal .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+@media(max-width:940px){
+.v-renewal .hero-grid{grid-template-columns:1fr;gap:2.6rem}
+}
+.v-renewal .kicker{display:inline-flex;align-items:center;gap:.5rem;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;color:var(--blauw);font-weight:750;background:var(--blauw-tint);border:1px solid var(--blauw-rand);padding:.42em 1em;border-radius:99px;margin-bottom:1.3rem}
+.v-renewal h1{font-size:clamp(2.1rem,4.4vw,3.35rem)}
+.v-renewal h1 .blauw{color:var(--blauw)}
+.v-renewal .hero p.sub{margin-top:1.15rem;font-size:1.08rem;max-width:34rem}
+.v-renewal .hero-cta{margin-top:2rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+.v-renewal .hero-note{font-size:.85rem;color:var(--muted);margin-top:1rem}
+.v-renewal .doc-wrap{position:relative}
+.v-renewal .doc-label{position:absolute;z-index:2;top:-.7rem;left:1.3rem;background:var(--ink);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:.32em .8em;border-radius:99px}
+.v-renewal .doc{background:#fff;border:1px solid var(--rand);border-radius:var(--r-groot);box-shadow:var(--schaduw-diep);padding:1.7rem 1.6rem 1.5rem;font-size:.86rem;line-height:1.5}
+.v-renewal .doc h4{font-size:1rem;letter-spacing:-.02em}
+.v-renewal .doc .doc-sub{font-size:.76rem;color:var(--muted);margin-top:.1rem}
+.v-renewal .doc hr{border:none;border-top:1px solid var(--rand);margin:1rem 0}
+.v-renewal .doc-rij{display:flex;justify-content:space-between;gap:1rem;padding:.32rem 0;color:var(--ink-2)}
+.v-renewal .doc-rij.kop{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;padding-bottom:.2rem}
+.v-renewal .doc-rij.totaal{border-top:1.5px solid var(--ink);margin-top:.45rem;padding-top:.5rem;font-weight:750;color:var(--ink)}
+.v-renewal .doc-sig{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-top:1.15rem;padding-top:1rem;border-top:1px dashed var(--rand)}
+.v-renewal .doc-sig .naam{font-size:.72rem;color:var(--muted);line-height:1.45}
+.v-renewal .doc-sig .naam b{display:block;color:var(--ink);font-size:.8rem}
+.v-renewal .doc-sig svg{width:104px;height:38px;flex-shrink:0}
+.v-renewal .doc-stempel{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:750;color:var(--blauw);border:1.5px solid var(--blauw-rand);background:var(--blauw-tint);border-radius:8px;padding:.35em .7em;margin-top:.9rem}
+.v-renewal .feiten{border-top:1px solid var(--rand);border-bottom:1px solid var(--rand);background:#fff}
+.v-renewal .feiten-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){
+.v-renewal .feiten-grid{grid-template-columns:repeat(2,1fr)}
+}
+.v-renewal .feit{padding:1.5rem clamp(.6rem,2vw,1.4rem);border-right:1px solid var(--rand)}
+.v-renewal .feit:last-child{border-right:none}
+@media(max-width:820px){
+.v-renewal .feit:nth-child(2n){border-right:none}
+.v-renewal .feit:nth-child(-n+2){border-bottom:1px solid var(--rand)}
+}
+.v-renewal .feit .waarde{font-size:1.28rem;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.2}
+.v-renewal .feit .label{font-size:.83rem;color:var(--muted);margin-top:.15rem}
+.v-renewal section{padding:clamp(3.2rem,6.5vw,5.5rem) 0}
+.v-renewal section.zacht{background:var(--bg-zacht)}
+.v-renewal .sectie-kop{max-width:42rem;margin-bottom:clamp(2rem,4vw,2.8rem)}
+.v-renewal h2{font-size:clamp(1.6rem,3.1vw,2.25rem)}
+.v-renewal .sectie-kop p{margin-top:.85rem;font-size:1.03rem}
+.v-renewal .kaarten{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+@media(max-width:880px){
+.v-renewal .kaarten{grid-template-columns:1fr}
+}
+.v-renewal .kaart{background:#fff;border:1px solid var(--rand);border-radius:var(--r-groot);padding:1.7rem 1.55rem;box-shadow:var(--schaduw)}
+.v-renewal .kaart h3{font-size:1.02rem;margin-bottom:.5rem;font-weight:750}
+.v-renewal .kaart p{font-size:.94rem}
+.v-renewal .kaart .vlag{font-size:1.5rem;line-height:1;margin-bottom:.7rem;display:block}
+.v-renewal .fout-goed{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:780px){
+.v-renewal .fout-goed{grid-template-columns:1fr}
+}
+.v-renewal .fg{border-radius:var(--r-groot);padding:1.5rem;border:1px solid}
+.v-renewal .fg .tag{font-size:.7rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.6rem;display:block}
+.v-renewal .fg p{font-size:.95rem}
+.v-renewal .fg.fout{background:#fef2f2;border-color:#fecaca}
+.v-renewal .fg.fout .tag{color:#b91c1c}
+.v-renewal .fg.goed{background:#f0fdf4;border-color:#bbf7d0}
+.v-renewal .fg.goed .tag{color:#166534}
+.v-renewal .stappen{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;counter-reset:stap}
+@media(max-width:880px){
+.v-renewal .stappen{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+.v-renewal .stappen{grid-template-columns:1fr}
+}
+.v-renewal .stap{position:relative;padding-top:2.9rem}
+.v-renewal .stap::before{counter-increment:stap;content:counter(stap);
+    position:absolute;top:0;left:0;
+    display:inline-flex;align-items:center;justify-content:center;
+    width:2.2rem;height:2.2rem;border-radius:50%;
+    background:var(--ink);color:#fff;font-weight:750;font-size:.95rem;}
+.v-renewal .stap::after{content:"";position:absolute;top:1.1rem;left:2.2rem;right:-1.1rem;height:1px;background:var(--rand)}
+.v-renewal .stap:last-child::after{display:none}
+@media(max-width:880px){
+.v-renewal .stap::after{display:none}
+}
+.v-renewal .stap h3{font-size:.98rem;margin-bottom:.35rem;font-weight:750}
+.v-renewal .stap p{font-size:.92rem}
+.v-renewal .fouten{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:820px){
+.v-renewal .fouten{grid-template-columns:1fr}
+}
+.v-renewal .fout-item{background:#fff;border:1px solid var(--rand);border-radius:var(--r-groot);padding:1.5rem;display:flex;gap:1rem;box-shadow:var(--schaduw)}
+.v-renewal .fout-item .nr{flex-shrink:0;width:1.9rem;height:1.9rem;border-radius:8px;background:#fef2f2;color:#b91c1c;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.v-renewal .fout-item h3{font-size:.97rem;margin-bottom:.3rem;font-weight:750}
+.v-renewal .fout-item p{font-size:.92rem}
+.v-renewal .wie{display:grid;grid-template-columns:auto 1fr;gap:clamp(1.5rem,3.5vw,2.6rem);align-items:center;background:#fff;border:1px solid var(--rand);border-radius:var(--r-xl);padding:clamp(1.7rem,3.5vw,2.6rem);box-shadow:var(--schaduw)}
+@media(max-width:700px){
+.v-renewal .wie{grid-template-columns:1fr}
+}
+.v-renewal .wie .foto{width:150px;height:150px;border-radius:var(--r-groot);overflow:hidden;flex-shrink:0;background:var(--bg-zacht)}
+@media(max-width:700px){
+.v-renewal .wie .foto{width:110px;height:110px}
+}
+.v-renewal .wie .foto img{width:100%;height:100%;object-fit:cover}
+.v-renewal .wie h3{font-size:1.2rem;margin-bottom:.1rem}
+.v-renewal .wie .rol{font-size:.85rem;color:var(--blauw);font-weight:650;margin-bottom:.75rem}
+.v-renewal .wie p{font-size:.97rem}
+.v-renewal .badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.1rem}
+.v-renewal .badge{font-size:.76rem;font-weight:700;background:var(--bg-zacht);color:var(--ink-2);border:1px solid var(--rand);padding:.4em .9em;border-radius:8px}
+.v-renewal .prijzen{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;align-items:stretch}
+@media(max-width:940px){
+.v-renewal .prijzen{grid-template-columns:1fr}
+}
+.v-renewal .prijs{background:#fff;border:1px solid var(--rand);border-radius:var(--r-xl);padding:1.9rem 1.7rem;display:flex;flex-direction:column;box-shadow:var(--schaduw);position:relative}
+.v-renewal .prijs.uitgelicht{border:1.5px solid var(--ink);box-shadow:var(--schaduw-diep)}
+.v-renewal .prijs .tag{position:absolute;top:-.72rem;left:1.7rem;background:var(--ink);color:#fff;font-size:.66rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;padding:.36em .85em;border-radius:99px}
+.v-renewal .prijs .tag.blauw{background:var(--blauw)}
+.v-renewal .prijs .naam{font-weight:750;font-size:1.02rem;color:var(--ink)}
+.v-renewal .prijs .voor{font-size:.85rem;color:var(--muted);margin-top:.15rem}
+.v-renewal .prijs .bedrag{font-size:2.1rem;font-weight:800;letter-spacing:-.035em;color:var(--ink);margin:1rem 0 .1rem;line-height:1}
+.v-renewal .prijs .bedrag small{font-size:.9rem;font-weight:650;color:var(--muted);letter-spacing:0}
+.v-renewal .prijs .per{font-size:.82rem;color:var(--muted);margin-bottom:1.3rem}
+.v-renewal .kop-rij{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.v-renewal .schakel{display:inline-flex;flex:none;background:var(--bg-zacht);border:1px solid var(--rand);border-radius:99px;padding:3px;gap:2px}
+.v-renewal .schakel button{border:0;background:transparent;font:inherit;font-size:.8rem;font-weight:700;color:var(--muted);padding:.34em .7em;border-radius:99px;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s;white-space:nowrap}
+.v-renewal .schakel button:hover{color:var(--ink)}
+.v-renewal .schakel button.aan{background:#fff;color:var(--blauw-donker);box-shadow:0 1px 4px rgba(11,18,32,.13)}
+.v-renewal .prijs .wanneer{font-size:.82rem;color:var(--muted);margin:-.9rem 0 1.3rem;min-height:2.4em}
+.v-renewal .prijs ul{list-style:none;display:grid;gap:.55rem;font-size:.93rem;flex:1;margin-bottom:1.5rem}
+.v-renewal .prijs ul[hidden]{display:none}
+.v-renewal .prijs li{display:flex;gap:.6rem;align-items:flex-start}
+.v-renewal .prijs li::before{content:"";flex-shrink:0;width:1.05rem;height:1.05rem;margin-top:.32rem;border-radius:50%;background:var(--blauw-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/.72rem no-repeat}
+.v-renewal .prijs-voet{font-size:.88rem;color:var(--muted);margin-top:1.5rem;max-width:44rem}
+.v-renewal .faq{max-width:52rem}
+.v-renewal .faq details{border-bottom:1px solid var(--rand);padding:1.15rem 0}
+.v-renewal .faq details:first-child{border-top:1px solid var(--rand)}
+.v-renewal .faq summary{font-weight:700;font-size:1rem;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1.2rem;letter-spacing:-.015em}
+.v-renewal .faq summary::-webkit-details-marker{display:none}
+.v-renewal .faq summary::after{content:"";flex-shrink:0;width:1.1rem;height:1.1rem;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center/contain no-repeat}
+.v-renewal .faq details[open] summary::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E")}
+.v-renewal .faq details p{margin-top:.75rem;font-size:.96rem;max-width:44rem}
+.v-renewal .vraagblok{background:#fff;border:1px solid var(--rand);border-radius:var(--r-xl);padding:clamp(1.6rem,3.5vw,2.5rem);max-width:50rem;box-shadow:var(--schaduw)}
+.v-renewal .opt{font-weight:500;font-size:.78rem;color:var(--muted)}
+.v-renewal .veld{margin-bottom:1.05rem}
+.v-renewal .veld label{display:block;font-size:.86rem;font-weight:650;color:var(--ink-2);margin-bottom:.4rem}
+.v-renewal .veld input,.v-renewal .veld textarea,.v-renewal .veld select{width:100%;border:1.5px solid var(--rand);border-radius:11px;padding:.72em .95em;
+    font:inherit;font-size:.95rem;background:var(--bg-zacht);color:var(--ink);
+    transition:border-color .15s,background .15s;}
+.v-renewal .veld input::placeholder{color:#9ca3af}
+.v-renewal .veld input:focus,.v-renewal .veld textarea:focus,.v-renewal .veld select:focus{outline:none;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.v-renewal .veld textarea{resize:vertical;min-height:5em}
+.v-renewal .veld-rij{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:620px){
+.v-renewal .veld-rij{grid-template-columns:1fr}
+}
+.v-renewal .hp{position:absolute;left:-9999px;top:-9999px}
+.v-renewal .vraag-voet{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:.6rem}
+.v-renewal .vraag-voet .privacy{font-size:.8rem;color:var(--muted);flex:1;min-width:12rem}
+.v-renewal .melding{display:none;border-radius:11px;padding:.9rem 1.15rem;font-size:.93rem;margin-top:1.1rem}
+.v-renewal .melding.ok{display:block;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.v-renewal .melding.fout{display:block;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.v-renewal .stap-balk{display:flex;gap:.45rem;margin-bottom:1.7rem}
+.v-renewal .stap-dot{flex:1;font-size:.76rem;font-weight:700;color:var(--muted);padding-bottom:.6rem;border-bottom:2.5px solid var(--rand);transition:color .15s,border-color .15s}
+.v-renewal .stap-dot.actief{color:var(--blauw);border-color:var(--blauw)}
+.v-renewal .stap-dot.klaar{color:var(--ink-2);border-color:var(--blauw-rand)}
+.v-renewal .fstap{display:none;border:none}
+.v-renewal .fstap.actief{display:block}
+.v-renewal .fstap-titel{font-size:1.02rem;font-weight:750;color:var(--ink);margin-bottom:1.1rem;letter-spacing:-.02em}
+.v-renewal .fstap-titel small{display:block;font-weight:500;font-size:.85rem;color:var(--muted);margin-top:.2rem;letter-spacing:0}
+.v-renewal .checklist{display:grid;gap:0;border:1.5px solid var(--rand);border-radius:12px;overflow:hidden;background:var(--bg-zacht)}
+.v-renewal .checklist label{display:flex;gap:.75rem;align-items:flex-start;padding:.85em 1em;border-bottom:1px solid var(--rand);cursor:pointer;font-size:.93rem;font-weight:500;color:var(--ink-2);margin:0;transition:background .12s}
+.v-renewal .checklist label:last-child{border-bottom:none}
+.v-renewal .checklist label:hover{background:#fff}
+.v-renewal .checklist input{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.22rem;accent-color:var(--blauw)}
+.v-renewal .checklist label.aan{background:#fff;color:var(--ink);font-weight:600}
+.v-renewal .checklist small{display:block;font-weight:400;font-size:.82rem;color:var(--muted);margin-top:.1rem}
+.v-renewal .keuze{display:grid;gap:.6rem}
+.v-renewal .keuze label{display:flex;gap:.8rem;align-items:flex-start;border:1.5px solid var(--rand);border-radius:12px;padding:1em 1.1em;cursor:pointer;background:var(--bg-zacht);transition:border-color .15s,background .15s}
+.v-renewal .keuze label:hover{border-color:#cbd5e1;background:#fff}
+.v-renewal .keuze label.aan{border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.v-renewal .keuze input{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.25rem;accent-color:var(--blauw)}
+.v-renewal .keuze .k-naam{font-weight:700;font-size:.95rem;color:var(--ink);display:block}
+.v-renewal .keuze .k-uitleg{font-size:.85rem;color:var(--muted);display:block;margin-top:.1rem}
+.v-renewal .keuze .k-prijs{font-weight:750;font-size:.95rem;color:var(--blauw);white-space:nowrap;margin-left:auto;padding-left:.6rem}
+.v-renewal .keuze .k-prijs.door{text-decoration:line-through;color:var(--muted)}
+.v-renewal .keuze .k-gratis{display:block;font-size:.74rem;font-weight:700;color:#166534;text-align:right}
+.v-renewal .addon{margin-top:.7rem;border:1.5px dashed var(--blauw-rand);background:var(--blauw-tint);border-radius:12px}
+.v-renewal .addon label{display:flex;gap:.8rem;align-items:flex-start;padding:1em 1.1em;cursor:pointer;margin:0}
+.v-renewal .addon > label input[type="checkbox"]{width:1.1rem;height:1.1rem;flex-shrink:0;margin-top:.25rem;accent-color:var(--blauw)}
+.v-renewal .addon .a-naam{font-weight:700;font-size:.95rem;color:var(--ink);display:block}
+.v-renewal .addon .a-uitleg{font-size:.85rem;color:var(--ink-2);display:block;margin-top:.15rem}
+.v-renewal .addon.aan{border-style:solid;border-color:var(--blauw);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.v-renewal .verborgen{display:none}
+.v-renewal .hint{font-size:.84rem;color:var(--ink-2);background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:.65em .9em;margin-top:.5rem}
+.v-renewal .hint b{color:var(--ink)}
+.v-renewal .tussen-cta{background:var(--ink);color:#cbd5e1}
+.v-renewal .tussen-cta-binnen{display:flex;align-items:center;justify-content:space-between;gap:1.2rem 2rem;flex-wrap:wrap;padding-top:1.6rem;padding-bottom:1.6rem}
+.v-renewal .tussen-cta b{display:block;color:#fff;font-size:1.15rem;letter-spacing:-.02em}
+.v-renewal .tussen-cta span{font-size:.93rem}

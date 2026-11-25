@@ -1,0 +1,22 @@
+---
+/* Scores met bron (Google, Moneybird) plus Becon. Gebruikt in Paginakop en op de
+   overgenomen verdragspagina's. */
+import { google, moneybird } from '../data/reviews';
+import { G } from '../data/iconen';
+interface Props { taal?: 'nl' | 'en' | 'ja' }
+const { taal = 'nl' } = Astro.props;
+const becon = taal === 'ja' ? '登録簿記士' : taal === 'en' ? 'bookkeeper' : 'boekhouder';
+const aantal = taal === 'ja' ? '件' : '';
+---
+<div class="bewijs">
+  <a href={google.profiel} target="_blank" rel="noopener"><span set:html={G} /><b>{google.score}</b><span class="ster">★★★★★</span><span>({google.aantal}{aantal})</span><span class="visually-hidden">Google-reviews</span></a>
+  <a href={moneybird.profiel} target="_blank" rel="noopener"><img src="/img/moneybird.svg" alt="" width="16" height="16"><b>{moneybird.score}</b><span class="ster">★★★★★</span><span>({moneybird.aantal}{aantal})</span><span class="visually-hidden">Moneybird-reviews</span></a>
+  <span class="becon"><b>Becon</b> {becon}</span>
+</div>
+
+<style>
+.bewijs{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.bewijs>*{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--lijn);border-radius:999px;padding:5px 10px;font-size:.8rem;color:var(--grijs);text-decoration:none}
+.bewijs b{color:var(--inkt)}
+.bewijs .ster{color:#f5a524;letter-spacing:1px;font-size:.72rem}
+</style>

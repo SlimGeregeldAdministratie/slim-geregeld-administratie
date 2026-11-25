@@ -1,0 +1,56 @@
+---
+/* Kleine vaste elementen uit de oude site, in nieuwe vorm:
+   - WhatsApp-knop rechtsonder (was een pop-up na 30 s; nu een rustige knop),
+     verborgen zolang de cookiebanner open staat.
+   - Op Nederlandse pagina's een dunne balk voor bezoekers met een niet-Nederlandse
+     browsertaal, met een link naar de Engelse kant (was de TreatyBalk). Wegklikbaar. */
+interface Props { taal: 'nl' | 'en' | 'ja' }
+const { taal } = Astro.props;
+const wa = taal === 'nl' ? 'Vraag het Kyle via WhatsApp' : 'Message Kyle on WhatsApp';
+---
+<a class="wa-knop" href="https://wa.me/31621311043" target="_blank" rel="noopener" aria-label={wa} title={wa}>
+  <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.9-3.9-1.9-6 0-5.9 4.9-10.7 11-10.7s11 4.8 11 10.7-4.9 10.9-10.9 10.9zm6-8c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.6-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5 0-.6-.1-.2-.8-1.8-1-2.5-.3-.7-.5-.6-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 5 2.9 1.1 3.5.9 4.1.8.6-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.1-.3-.2-.6-.4z"/></svg>
+</a>
+
+{taal === 'nl' && (
+  <div class="en-balk" hidden>
+    <span>Looking for English? <span class="lang">DAFT, DJTT and bookkeeping in English.</span></span>
+    <a href="/en/">English →</a>
+    <button type="button" aria-label="Close">×</button>
+  </div>
+)}
+
+<script is:inline>
+/* WhatsApp: direct naar Kyle, met een klaargezet bericht dat zegt op welke pagina
+   de bezoeker zat. Geldt voor alle wa.me-links naar 31621311043 op de pagina. */
+document.addEventListener('DOMContentLoaded',function(){
+  var nl=document.documentElement.lang!=='en'&&document.documentElement.lang!=='ja';
+  var pad=location.pathname.replace(/\/$/,'')||'/';
+  var naam=(document.title.split(' | ')[0]||'').trim();
+  var waar=pad==='/'?(nl?'de homepage':'the homepage'):(nl?'de pagina "'+naam+'"':'the page "'+naam+'"');
+  var tekst=nl?'Hoi Kyle, ik kom via '+waar+' op slim-geregeld.nl. Mijn vraag: ':'Hi Kyle, I found you via '+waar+' on slim-geregeld.nl. My question: ';
+  document.querySelectorAll('a[href^="https://wa.me/31621311043"]').forEach(function(a){
+    a.href='https://wa.me/31621311043?text='+encodeURIComponent(tekst);
+    a.addEventListener('click',function(){window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'whatsapp_klik',pagina:pad});});
+  });
+});
+(function(){
+  var b=document.querySelector('.en-balk'); if(!b) return;
+  var l=(navigator.languages&&navigator.languages[0])||navigator.language||'nl';
+  var weg=false; try{weg=sessionStorage.getItem('sg_en_balk')==='weg'}catch(e){}
+  if(!/^nl/i.test(l) && !weg){ b.hidden=false; }
+  b.querySelector('button').addEventListener('click',function(){b.hidden=true;try{sessionStorage.setItem('sg_en_balk','weg')}catch(e){}});
+})();
+</script>
+
+<style>
+.wa-knop{position:fixed;right:16px;bottom:16px;z-index:40;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:transform .15s}
+.wa-knop:hover{transform:scale(1.06)}
+:global(body:has(#sg-consent)) .wa-knop{display:none}
+.en-balk{position:relative;z-index:25;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;background:var(--inkt);color:#e2e8f0;font-size:.85rem;padding:7px 44px 7px 16px;text-align:center;line-height:1.35}
+.en-balk[hidden]{display:none}
+.en-balk a{color:#fff;font-weight:700;text-decoration:none}
+.en-balk button{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#cbd5e1;font-size:1.3rem;cursor:pointer;width:32px;height:32px}
+.en-balk .lang{display:none}
+@media (min-width:640px){.wa-knop{right:24px;bottom:24px}.en-balk{position:sticky;top:62px}.en-balk .lang{display:inline}}
+</style>

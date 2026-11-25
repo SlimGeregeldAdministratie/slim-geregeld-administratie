@@ -1,0 +1,65 @@
+---
+interface Props { taal: 'nl' | 'en' | 'ja'; alternatief: { nl?: string; en?: string; ja?: string }; cta?: string }
+const { taal, alternatief, cta } = Astro.props;
+
+const MENU = {
+  nl: { items: [['Diensten', '/#diensten'], ['Tarieven', '/tarieven'], ['Slim', '/slim'], ['Over', '/over'], ['Blog', '/blog/'], ['Contact', '/contact']], cta: ['Kennismaken', '/#contact'], home: '/' },
+  en: { items: [['DAFT', '/daft/'], ['Japan (DJTT)', '/djtt/'], ['Renewal', '/daft/renewal/'], ['Pricing', '/en/pricing/'], ['About', '/en/about/'], ['Blog', '/en/blog/']], cta: ['Get started', '/en/#choose'], home: '/en/' },
+  ja: { items: [['DJTT', '/djtt/ja/'], ['料金', '/djtt/ja/#pricing'], ['よくある質問', '/djtt/ja/#faq']], cta: ['お申し込み', '/djtt/ja/#request'], home: '/djtt/ja/' },
+}[taal];
+const talen = [
+  ['nl', 'NL', alternatief.nl ?? '/'],
+  ['en', 'EN', alternatief.en ?? '/en/'],
+  ['ja', '日本語', alternatief.ja ?? '/djtt/ja/'],
+];
+const pad = Astro.url.pathname;
+---
+<header class="kop">
+  <div class="wrap kop-in">
+    <a class="merk" href={MENU.home}><img src="/img/logo.png" alt="" width="34" height="34"><span class="naam">Slim Geregeld<small>Administratie</small></span></a>
+    <nav class="hoofd" aria-label={taal === 'nl' ? 'Hoofdmenu' : 'Main menu'}>
+      {MENU.items.map(([t, h]) => <a href={h} aria-current={pad === h ? 'page' : undefined}>{t}</a>)}
+    </nav>
+    <div class="rechts">
+      <div class="taal" aria-label="Taal">
+        {talen.map(([code, label, href]) => code === taal ? <b lang={code}>{label}</b> : <a href={href} lang={code} hreflang={code}>{label}</a>)}
+      </div>
+      <a class="knop vol cta" href={cta ?? MENU.cta[1]}>{MENU.cta[0]}</a>
+      <details class="menu">
+        <summary aria-label="Menu"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></summary>
+        <div class="lade">
+          {MENU.items.map(([t, h]) => <a href={h}>{t}</a>)}
+          <div class="lade-taal">{talen.map(([code, label, href]) => code === taal ? <b lang={code}>{label}</b> : <a href={href} lang={code} hreflang={code}>{label}</a>)}</div>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+.kop{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--lijn)}
+.kop-in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+.merk{display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none;font-weight:750;letter-spacing:-.02em}
+.merk img{width:34px;height:34px}
+.naam{display:flex;flex-direction:column;line-height:1.05}
+.naam small{font-size:.8rem;font-weight:500;letter-spacing:0;color:var(--grijs);margin-top:1px}
+.hoofd{display:none;gap:24px;font-size:.93rem;font-weight:500}
+.hoofd a{text-decoration:none;color:var(--grijs)}
+.hoofd a:hover,.hoofd a[aria-current]{color:var(--inkt)}
+.rechts{display:flex;gap:8px;align-items:center}
+.taal{font-size:.8rem;color:var(--grijs);display:flex;gap:8px}
+.taal a{text-decoration:none}.taal a:hover{color:var(--inkt)}.taal b{color:var(--inkt)}
+.cta{min-height:40px;padding:0 14px;font-size:.9rem}
+.taal{display:none}
+.lade-taal{display:flex;gap:18px;padding-top:14px;font-size:.92rem}
+.lade .lade-taal a{border:0;padding:0}
+.lade-taal{align-items:center}
+@media (min-width:640px){.taal{display:flex}}
+.menu summary{list-style:none;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--lijn)}
+.menu summary::-webkit-details-marker{display:none}
+.lade{display:none;position:absolute;left:0;right:0;top:62px;background:#fff;border-bottom:1px solid var(--lijn);flex-direction:column;padding:8px 20px 20px;box-shadow:0 12px 24px rgba(15,23,42,.06)}
+.menu[open] .lade{display:flex}
+.lade a{padding:13px 0;border-bottom:1px solid var(--zacht);text-decoration:none;font-weight:500}
+.lade .knop{margin-top:14px;border-bottom:0}
+@media (min-width:980px){.hoofd{display:flex}.menu{display:none}}
+</style>

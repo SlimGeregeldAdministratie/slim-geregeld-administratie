@@ -21,6 +21,10 @@ klikken: 0
 klikkenBijgewerkt: 2026-11-16
 status: live
 image: /blog/img/apply-kor-2026-moneybird-deadline.png
+kort:
+  - "You apply through Mijn Belastingdienst Zakelijk; the Tax Administration lists 3 December as the deadline for a 1 January start."
+  - "First calculate how much supplier VAT becomes a cost, and do not choose KOR just because your turnover looks low."
+  - "Change Moneybird only once the decision stands: KOR is not a software task."
 ---
 
 You apply for the Dutch small businesses scheme (kleineondernemersregeling, KOR) through the Tax Administration’s business portal (Mijn Belastingdienst Zakelijk), and its [application page lists 3 December](https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/aanmelden-kor) as the deadline for a 1 January start. For a January 2027 start, use that published date when planning your application in 2026. Separate the application decision from the bookkeeping work you want to do in Moneybird. Before changing your approach, calculate how much value added tax (btw) on business purchases would become a cost under KOR.

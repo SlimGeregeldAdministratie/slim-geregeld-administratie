@@ -1,0 +1,319 @@
+---
+// Eén component voor alle blogroutes: overzicht (met paginering en filter per
+// onderwerp) en artikel. De routes in src/pages/{,en/,ja/}blog/[...pad].astro
+// geven alleen hun taal door.
+import Basis from '../layouts/Basis.astro';
+import BlogKaart from './BlogKaart.astro';
+import '../styles/blog.css';
+import {
+  B, A, T, PER_PAGINA, blogBasis, artikelPad, paginaPad, clusterPad, clusterLabel, clusterHeeftPagina,
+  datumMooi, markdownNaarHtml, metKyle, kruimelGraaf, ld, paginaTitel, liveIn, stukVan, alternatiefVan,
+  overzichtAlternatief, verwantVan, downloadVan, dienstVan,
+} from '../lib/inhoud.mjs';
+import { ORG } from '../lib/entiteiten.mjs';
+
+const p = Astro.props as any;
+const taal = p.taal as 'nl' | 'en' | 'ja';
+const t = T[taal];
+const home: [string, string] = [t.home, t.homePad];
+const abs = (pad: string) => B + pad;
+
+let titel = '', omschrijving = '', robots = 'index, follow', graaf: any[] = [], alternatief = {}, afbeelding: string | undefined, ogType: any = 'website';
+let overzicht: any = null, artikel: any = null;
+
+if (p.soort === 'overzicht') {
+  const { n, paginas, lijst, filter } = p;
+  const pad = filter ? (n === 1 ? clusterPad(taal, filter) : `${clusterPad(taal, filter)}${t.paginaPad}/${n}/`) : paginaPad(taal, n);
+  const vorige = n > 1 ? (filter ? (n === 2 ? clusterPad(taal, filter) : `${clusterPad(taal, filter)}${t.paginaPad}/${n - 1}/`) : paginaPad(taal, n - 1)) : null;
+  const volgende = n < paginas ? (filter ? `${clusterPad(taal, filter)}${t.paginaPad}/${n + 1}/` : paginaPad(taal, n + 1)) : null;
+  const naam = filter ? clusterLabel(filter, taal) : null;
+  const basisTitel = filter ? `${naam} | ${t.blog} | Slim Geregeld` : t.overzichtTitel;
+  titel = n === 1 ? basisTitel : `${basisTitel} (${t.pagina.toLowerCase()} ${n})`;
+  omschrijving = t.overzichtOmschrijving;
+  robots = filter || lijst.length === 0 ? 'noindex, follow' : 'index, follow';
+  alternatief = n === 1 && !filter ? overzichtAlternatief() : {};
+  const deel = lijst.slice((n - 1) * PER_PAGINA, n * PER_PAGINA);
+  const kruimels: [string, string][] = [home, [t.blog, blogBasis(taal)], ...(naam ? [[naam, clusterPad(taal, filter)] as [string, string]] : []), ...(n > 1 ? [[`${t.pagina} ${n}`, pad] as [string, string]] : [])];
+  const u = abs(pad);
+  graaf = [...metKyle(taal), { '@type': 'CollectionPage', '@id': u + '#webpage', url: u, name: titel, description: omschrijving, inLanguage: taal, isPartOf: { '@id': B + '/#website' }, breadcrumb: { '@id': u + '#breadcrumb' },
+    ...(deel.length ? { mainEntity: { '@type': 'ItemList', itemListElement: deel.map((s: any, i: number) => ({ '@type': 'ListItem', position: (n - 1) * PER_PAGINA + i + 1, url: abs(artikelPad(s)), name: s.title })) } } : {}) },
+    kruimelGraaf(u, kruimels)];
+  // "Meest gelezen": rang op klikken per dag sinds publicatie. Getallen komen nooit op de pagina.
+  const gelezen = lijst.some((s: any) => s.klikken != null);
+  const dag = (d: string) => Date.parse(d + 'T00:00:00Z') / 86400000;
+  const vandaag = new Date().toISOString().slice(0, 10);
+  const perDag = (s: any) => s.klikken / Math.max(1, dag(s.klikkenBijgewerkt || vandaag) - dag(s.date));
+  const rang = new Map(lijst.filter((s: any) => s.klikken != null).sort((a: any, b: any) => perDag(b) - perDag(a)).map((s: any, i: number) => [s.slug, i + 1]));
+  // Alleen artikelen in de eigen taal. Artikelen die alleen in de andere taal
+  // bestaan (geen vertaling) zet een knop erbij: op datum tussen de rest, ook
+  // per onderwerp, en met een eigen volgorde "andere taal eerst" (Kyle 24-11-2026).
+  const anderTaal = taal === 'nl' ? 'en' : 'nl';
+  const alleenAnder = taal === 'ja' ? [] : liveIn(anderTaal).filter((x: any) => !alternatiefVan(x)[taal]);
+  const inScope = alleenAnder.filter((x: any) => !filter || x.cluster === filter);
+  const nA = inScope.length;
+  const eigenClusters = new Set(liveIn(taal).map((x: any) => x.cluster));
+  const ander = n === 1 && nA ? { taal: anderTaal, lijst: inScope, label: anderTaal === 'en' ? 'In het Engels' : 'In Dutch',
+    extraClusters: filter ? [] : [...new Set(inScope.map((x: any) => x.cluster))].filter((c) => !eigenClusters.has(c)).sort(),
+    toon: taal === 'nl' ? `Toon ook ${nA === 1 ? 'het Engelse artikel' : 'de ' + nA + ' Engelse artikelen'}` : `Also show ${nA === 1 ? 'the Dutch article' : 'the ' + nA + ' Dutch articles'}`,
+    eerst: taal === 'nl' ? 'Engelse eerst' : 'Dutch first' } : null;
+  overzicht = { n, paginas, lijst, deel, filter, naam, vorige, volgende, gelezen, rang, ander, clusters: [...new Set(liveIn(taal).map((s: any) => s.cluster))].sort() };
+} else {
+  const s = stukVan(taal, p.slug);
+  const a = A[s.author];
+  const pad = artikelPad(s);
+  const u = abs(pad);
+  const { html, koppen } = markdownNaarHtml(s.tekst);
+  const toc = [...koppen, ...(s.faq.length ? [{ id: 'faq', tekst: t.faq }] : [])];
+  const bijgewerkt = s.updated && s.updated !== s.date ? s.updated : null;
+  titel = paginaTitel(s.title);
+  omschrijving = s.description;
+  robots = 'index, follow, max-image-preview:large';
+  alternatief = alternatiefVan(s);
+  afbeelding = s.image || undefined;
+  ogType = 'article';
+  const beeldUrl = s.image ? abs(s.image.split('/').map(encodeURIComponent).join('/')) : null;
+  const kruimels: [string, string][] = [home, [t.blog, blogBasis(taal)], [s.title, pad]];
+  graaf = [...metKyle(taal, a.schema(taal)),
+    { '@type': 'WebPage', '@id': u + '#webpage', url: u, name: s.title, description: s.description, inLanguage: taal, isPartOf: { '@id': B + '/#website' }, breadcrumb: { '@id': u + '#breadcrumb' }, datePublished: s.date, dateModified: s.updated || s.date, ...(beeldUrl ? { primaryImageOfPage: beeldUrl } : {}) },
+    { '@type': 'Article', '@id': u + '#article', headline: s.title.slice(0, 110), description: s.description, inLanguage: taal, datePublished: s.date, dateModified: s.updated || s.date,
+      author: { '@id': a.id }, publisher: { '@id': B + '/#org' }, mainEntityOfPage: { '@id': u + '#webpage' }, articleSection: clusterLabel(s.cluster, taal),
+      ...(s.tags.length ? { keywords: s.tags.join(', ') } : {}), image: beeldUrl || ORG.image },
+    kruimelGraaf(u, kruimels),
+    ...(s.faq.length ? [{ '@type': 'FAQPage', '@id': u + '#faq', inLanguage: taal, isPartOf: { '@id': u + '#webpage' }, mainEntity: s.faq.map((f: any) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }] : [])];
+  // Leestijd: 200 woorden per minuut, afgerond, minimaal 1.
+  const woorden = s.tekst.replace(/[#*_>`\[\]()|-]/g, ' ').split(/\s+/).filter(Boolean).length;
+  const minuten = Math.max(1, Math.round(woorden / 200));
+  artikel = { s, a, html, toc, bijgewerkt, minuten, verwant: verwantVan(s), dl: downloadVan(s), dienst: dienstVan(s) };
+}
+const cta = taal === 'nl' ? '/#contact' : undefined;
+const L = {
+  nl: { kort: 'In het kort', lezen: 'min lezen', meer: 'Lees verder', gratis: 'Gratis', door: 'Door' },
+  en: { kort: 'In short', lezen: 'min read', meer: 'Read more', gratis: 'Free', door: 'By' },
+  ja: { kort: '要点', lezen: '分で読めます', meer: '続きを読む', gratis: '無料', door: '著者' },
+}[taal];
+---
+<Basis titel={titel} omschrijving={omschrijving} taal={taal === 'ja' ? 'ja' : taal} robots={robots} alternatief={alternatief} afbeelding={afbeelding} ogType={ogType} cta={cta}>
+  <script slot="head" type="application/ld+json" set:html={ld(graaf)} />
+  {overzicht?.vorige && <link slot="head" rel="prev" href={abs(overzicht.vorige)} />}
+  {overzicht?.volgende && <link slot="head" rel="next" href={abs(overzicht.volgende)} />}
+
+  {overzicht && (
+    <>
+      <section class="blog-kop">
+        <div class="wrap">
+          <span class="tag">{t.blog}</span>
+          <h1>{overzicht.naam ? `${t.blog}: ${overzicht.naam}` : t.overzichtH1}</h1>
+          <p class="sub">{t.overzichtIntro}</p>
+                    {taal === 'nl' && (
+            <nav class="blog-tabs" aria-label="Blog en nieuws"><a href="/blog/" aria-current="page">Artikelen</a><a href="/nieuws/">Nieuws en tips</a></nav>
+          )}
+          {taal === 'en' && (
+            <nav class="blog-tabs" aria-label="Blog and news"><a href="/en/blog/" aria-current="page">Articles</a><a href="/en/news/">News</a></nav>
+          )}
+        </div>
+      </section>
+      <section style="padding-top:8px">
+        <div class="wrap"><div style="max-width:860px">
+          {overzicht.clusters.length > 1 && (
+            <nav class="blog-filters" aria-label={t.onderwerp}>
+              <a href={blogBasis(taal)} aria-current={!overzicht.filter ? 'page' : undefined}>{t.alleOnderwerpen}</a>
+              {overzicht.clusters.map((c: string) => <a href={clusterPad(taal, c)} aria-current={overzicht.filter === c ? 'page' : undefined}>{clusterLabel(c, taal)}</a>)}
+              {overzicht.ander?.extraClusters.map((c: string) => <a href={'#' + c} data-extra-cluster={c} hidden>{clusterLabel(c, overzicht.ander.taal)}</a>)}
+            </nav>
+          )}
+          {(overzicht.gelezen || overzicht.ander) && (
+            <div class="blog-volgorde" data-volgorde hidden role="group" aria-label={t.volgorde}>
+              <span>{t.volgorde}:</span>
+              <button type="button" data-kies="nieuwste" aria-pressed="true">{t.nieuwste}</button>
+              {overzicht.gelezen && <button type="button" data-kies="gelezen" aria-pressed="false">{t.meestGelezen}</button>}
+              {overzicht.ander && <button type="button" data-kies="ander" aria-pressed="false" hidden>{overzicht.ander.eerst}</button>}
+              {overzicht.ander && <label class="blog-taalknop"><input type="checkbox" data-ander> {overzicht.ander.toon}</label>}
+            </div>
+          )}
+          {overzicht.lijst.length === 0
+            ? <p class="blog-leeg">{t.leeg} <a href={t.leegLink[0]}>{t.leegLink[1]}</a></p>
+            : <ul class="blog-lijst" data-lijst>{overzicht.deel.map((s: any) => <BlogKaart s={s} />)}</ul>}
+          {overzicht.ander && (
+            <template data-ander-lijst>{overzicht.ander.lijst.map((x: any) => <div lang={overzicht.ander.taal} data-label={overzicht.ander.label} data-cluster={x.cluster}><BlogKaart s={x} /></div>)}</template>
+          )}
+          {(overzicht.gelezen || overzicht.ander) && (
+            <template data-alle>{overzicht.lijst.map((s: any) => <div data-rang={overzicht.rang.get(s.slug) || ''} data-cluster={s.cluster}><BlogKaart s={s} /></div>)}</template>
+          )}
+          {overzicht.paginas > 1 && (
+            <nav class="blog-pag" data-paginering aria-label={t.pagina}>
+              {overzicht.vorige ? <a href={overzicht.vorige} rel="prev">← {t.vorige}</a> : <span></span>}
+              <span>{t.pagina} {overzicht.n} / {overzicht.paginas}</span>
+              {overzicht.volgende ? <a href={overzicht.volgende} rel="next">{t.volgende} →</a> : <span></span>}
+            </nav>
+          )}
+</div>
+        </div>
+      </section>
+      {(overzicht.gelezen || overzicht.ander) && (
+        <script is:inline define:vars={{ nieuwTekst: t.nieuw }}>
+          (function () {
+            var box = document.querySelector('[data-volgorde]'), lijst = document.querySelector('[data-lijst]');
+            var eigen = document.querySelector('template[data-alle]'), bron = document.querySelector('template[data-ander-lijst]');
+            var pag = document.querySelector('[data-paginering]'), vink = document.querySelector('[data-ander]');
+            var extra = [].slice.call(document.querySelectorAll('[data-extra-cluster]'));
+            if (!box || !lijst || !eigen) return;
+            var origineel = lijst.innerHTML, st = { volgorde: 'nieuwste', ander: false, cluster: null };
+            try { st.ander = !!vink && localStorage.getItem('blog-ander-' + document.documentElement.lang) === '1'; } catch (e) {}
+            var nieuw = function (d) { return Date.now() - Date.parse(d + 'T00:00:00Z') < 14 * 86400000; };
+            var items = function (tpl, isAnder) {
+              return tpl ? [].slice.call(tpl.content.children).map(function (w) {
+                return { w: w, li: w.firstElementChild, d: w.firstElementChild.getAttribute('data-datum'), r: Number(w.getAttribute('data-rang')) || 1e9, c: w.getAttribute('data-cluster'), a: isAnder };
+              }) : [];
+            };
+            function teken() {
+              box.querySelectorAll('[data-kies]').forEach(function (k) { k.setAttribute('aria-pressed', String(k.getAttribute('data-kies') === st.volgorde)); });
+              var eerst = box.querySelector('[data-kies=ander]'); if (eerst) eerst.hidden = !st.ander;
+              extra.forEach(function (x) { x.hidden = !st.ander; if (st.cluster === x.getAttribute('data-extra-cluster')) x.setAttribute('aria-current', 'page'); else x.removeAttribute('aria-current'); });
+              if (vink) vink.checked = st.ander;
+              var alleLink = document.querySelector('.blog-filters a:not([data-extra-cluster])');
+              if (alleLink && alleLink.getAttribute('href') === location.pathname) { if (st.cluster) alleLink.removeAttribute('aria-current'); else alleLink.setAttribute('aria-current', 'page'); }
+              if (!st.ander && st.volgorde === 'nieuwste') { lijst.innerHTML = origineel; if (pag) pag.hidden = false; return; }
+              var alle = items(eigen, false).concat(st.ander ? items(bron, true) : []);
+              if (st.cluster) alle = alle.filter(function (x) { return x.c === st.cluster; });
+              var opDatum = function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; };
+              if (st.volgorde === 'gelezen') {
+                var jong = alle.filter(function (x) { return nieuw(x.d); }).sort(opDatum);
+                var oud = alle.filter(function (x) { return !nieuw(x.d); }).sort(function (a, b) { return a.r - b.r || opDatum(a, b); });
+                alle = jong.concat(oud);
+              } else if (st.volgorde === 'ander') {
+                alle.sort(function (a, b) { return (b.a - a.a) || opDatum(a, b); });
+              } else alle.sort(opDatum);
+              lijst.innerHTML = '';
+              alle.forEach(function (x) {
+                var kopie = x.li.cloneNode(true), plek = kopie.querySelector('.nieuw-plek');
+                if (st.volgorde === 'gelezen' && nieuw(x.d) && plek) { plek.outerHTML = '<span class="blog-label nieuw">' + nieuwTekst + '</span>'; plek = null; }
+                if (x.a) {
+                  kopie.setAttribute('lang', x.w.getAttribute('lang'));
+                  var lab = document.createElement('span'); lab.className = 'blog-label taal-label'; lab.textContent = x.w.getAttribute('data-label');
+                  var m = kopie.querySelector('.blog-meta'); if (m) m.appendChild(lab);
+                }
+                lijst.appendChild(kopie);
+              });
+              if (pag) pag.hidden = true;
+            }
+            box.hidden = false;
+            box.querySelectorAll('[data-kies]').forEach(function (b) { b.addEventListener('click', function () { st.volgorde = b.getAttribute('data-kies'); teken(); }); });
+            if (vink) vink.addEventListener('change', function () {
+              st.ander = vink.checked; if (!st.ander) { st.cluster = null; if (st.volgorde === 'ander') st.volgorde = 'nieuwste'; }
+              try { localStorage.setItem('blog-ander-' + document.documentElement.lang, st.ander ? '1' : '0'); } catch (e) {}
+              teken();
+            });
+            extra.forEach(function (x) { x.addEventListener('click', function (e) { e.preventDefault(); var c = x.getAttribute('data-extra-cluster'); st.cluster = st.cluster === c ? null : c; teken(); }); });
+            teken();
+          })();
+        </script>
+      )}
+    </>
+  )}
+
+  {artikel && (
+    <>
+      <div class="lees-balk" aria-hidden="true"><i></i></div>
+      <section class="blog-kop">
+        <div class="art-wrap"><div class="art-kop">
+          {clusterHeeftPagina(taal, artikel.s.cluster)
+            ? <a class="blog-label" href={clusterPad(taal, artikel.s.cluster)}>{clusterLabel(artikel.s.cluster, taal)}</a>
+            : <span class="blog-label">{clusterLabel(artikel.s.cluster, taal)}</span>}
+          <h1>{artikel.s.title}</h1>
+          <p class="intro">{artikel.s.description}</p>
+          <div class="door">
+            {artikel.a.foto ? <img class="avatar" src={artikel.a.foto} alt="" width="48" height="48"> : <span class="avatar" aria-hidden="true">{artikel.a.initialen}</span>}
+            <div>
+              <div><a href={artikel.a.url[taal]}><b>{artikel.a.naam}</b></a>, {artikel.a.functie[taal]}</div>
+              <div><time datetime={artikel.s.date}>{datumMooi(artikel.s.date, taal)}</time>
+                {artikel.bijgewerkt && <> · {t.bijgewerkt} <time datetime={artikel.bijgewerkt}>{datumMooi(artikel.bijgewerkt, taal)}</time></>}
+                {' · '}{artikel.minuten} {L.lezen}</div>
+            </div>
+          </div>
+          {alternatief[taal === 'nl' ? 'en' : 'nl'] && <p class="blog-andere-taal"><a href={alternatief[taal === 'nl' ? 'en' : 'nl']} hreflang={taal === 'nl' ? 'en' : 'nl'}>{taal === 'nl' ? 'Lees dit artikel in het Engels' : 'Read this article in Dutch'} →</a></p>}
+        </div></div>
+      </section>
+      <section style="padding-top:0">
+        <div class="art-wrap art-raster">
+          <article class="artikel art-hoofd">
+            {artikel.s.status === 'archief' && <p class="archief">{t.archief} <a href={blogBasis(taal)}>{t.blog}</a></p>}
+            {artikel.s.kort.length > 0 && (
+              <aside class="in-kort" aria-label={L.kort}>
+                <b>{L.kort}</b>
+                <ul>{artikel.s.kort.map((k: string) => <li>{k}</li>)}</ul>
+              </aside>
+            )}
+            {artikel.toc.length >= 2 && (
+              <nav class="toc-mobiel" aria-label={t.inhoud}><p>{t.inhoud}</p>
+                <ol>{artikel.toc.map((k: any) => <li><a href={'#' + k.id}>{k.tekst}</a></li>)}</ol></nav>
+            )}
+            <div class="blog-tekst" set:html={artikel.html} />
+            {artikel.s.faq.length > 0 && (
+              <section class="artikel-faq" aria-labelledby="faq" style="padding:0">
+                <h2 id="faq">{t.faq}</h2>
+                <dl>{artikel.s.faq.map((f: any) => <><dt>{f.q}</dt><dd>{f.a}</dd></>)}</dl>
+              </section>
+            )}
+            {(artikel.dienst || artikel.dl) && (
+              <div class="art-slot">
+                {artikel.dienst && <><b>{artikel.dienst[1]}</b><p>{artikel.dienst[2]}</p>
+                  <a class="knop vol" href={artikel.dienst[0]}>{artikel.dienst[3]}</a></>}
+                {artikel.dl && (
+                  <a class="slot-dl" href={artikel.dl.pad}>
+                    <span><small>{L.gratis}</small>{artikel.dl.kader[1]}</span><span class="pijl" aria-hidden="true">→</span>
+                  </a>
+                )}
+              </div>
+            )}
+            <aside id="auteur" class="auteur-blok" aria-label={t.overAuteur}>
+              {artikel.a.foto ? <img class="avatar groot" src={artikel.a.foto} alt="" width="72" height="72"> : <span class="avatar groot" aria-hidden="true">{artikel.a.initialen}</span>}
+              <div>
+                <div class="klein">{t.overAuteur}</div>
+                <a href={artikel.a.url[taal]}>{artikel.a.naam}</a>
+                <div class="klein">{artikel.a.functie[taal]}</div>
+                <p>{artikel.a.bio[taal]}</p>
+              </div>
+            </aside>
+            {artikel.s.linkedin.length > 0 && (
+              <p class="li-regel">{t.linkedin}: {artikel.s.linkedin.map((l: string, i: number) => <>{i > 0 && ', '}<a href={l} rel="noopener">{t.bekijkLinkedin}{artikel.s.linkedin.length > 1 ? ' ' + (i + 1) : ''}</a></>)}</p>
+            )}
+            {artikel.verwant.length > 0 && (
+              <section class="verwant" style="padding:0">
+                <h2>{t.gerelateerd}</h2>
+                <ul class="blog-lijst">{artikel.verwant.map((s: any) => <BlogKaart s={s} kop="h3" />)}</ul>
+              </section>
+            )}
+          </article>
+          {artikel.toc.length >= 2 && (
+            <aside class="art-zij" aria-label={t.inhoud}>
+              <nav class="toc-zij">
+                <p>{t.inhoud}</p>
+                <ol>{artikel.toc.map((k: any) => <li><a href={'#' + k.id} data-toc={k.id}>{k.tekst}</a></li>)}</ol>
+                <span class="toc-voortgang" aria-hidden="true"><i></i></span>
+              </nav>
+            </aside>
+          )}
+        </div>
+      </section>
+      <script is:inline>
+      (function () {
+        // Leesvoortgang: dunne balk bovenaan en de lijn naast de inhoudsopgave.
+        // De actieve kop in de inhoudsopgave volgt waar je bent.
+        var tekst = document.querySelector('.art-hoofd'), balk = document.querySelector('.lees-balk i'), lijn = document.querySelector('.toc-voortgang i');
+        var links = [].slice.call(document.querySelectorAll('[data-toc]'));
+        var koppen = links.map(function (a) { return document.getElementById(a.getAttribute('data-toc')); }).filter(Boolean);
+        function bij() {
+          var r = tekst.getBoundingClientRect(), h = window.innerHeight;
+          var p = Math.min(1, Math.max(0, (h * 0.3 - r.top) / Math.max(1, r.height - h * 0.5)));
+          if (balk) balk.style.width = (p * 100) + '%';
+          if (lijn) lijn.style.height = (p * 100) + '%';
+          var actief = null;
+          koppen.forEach(function (k) { if (k.getBoundingClientRect().top < h * 0.35) actief = k.id; });
+          links.forEach(function (a) { a.classList.toggle('actief', a.getAttribute('data-toc') === actief); });
+        }
+        window.addEventListener('scroll', bij, { passive: true }); window.addEventListener('resize', bij); bij();
+      })();
+      </script>
+    </>
+  )}
+</Basis>

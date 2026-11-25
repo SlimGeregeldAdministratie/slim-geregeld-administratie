@@ -1,0 +1,13 @@
+public/blog/img/
+public/nieuws/media/
+public/downloads/
+public/SGA*
+# Kopieën uit ../public bij de build (astro.config.mjs)
+public/cockpit/
+public/ib/
+public/robots.txt
+public/*.png
+public/*.PNG
+public/*.jpg
+public/*.JPG
+public/*.jpeg

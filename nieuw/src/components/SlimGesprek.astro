@@ -1,0 +1,240 @@
+---
+/* Geanimeerd WhatsApp-gesprek met Slim, drie korte scenario's om en om; elk past
+   helemaal in het venster. Per branche
+   een eigen variant (standaard, bouw, webshop). Start als het blok in beeld
+   komt (IntersectionObserver), herhaalt zich zolang het in beeld is,
+   respecteert prefers-reduced-motion. Alleen dingen die Slim echt kan.
+   Soorten: '' tekst, bon (foto), spraak (duur|uitgeschreven tekst),
+   fac (vraag|kop|nummer|klant|plaats|r1|b1|r2|b2|r3|b3|bestand|pagina's),
+   lijst (kop|regel|regel§vraag§knop§knop). */
+interface Props { taal?: 'nl' | 'en'; variant?: 'standaard' | 'bouw' | 'webshop' | 'creatief' | 'persoonlijk' | 'ict' }
+const { taal = 'nl', variant = 'standaard' } = Astro.props;
+type Bel = [string, string, string, string];
+const NL: Record<string, Bel[][]> = {
+  standaard: [[
+    ['mij', 'spraak', '0:05|Factuur Studio Noord, acht uur à 65 euro.', '09:14'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-041|Studio Noord|Amsterdam|8 uur × €65,00|€520,00|Btw 21%|€109,20|Totaal|€629,20|Factuur 2026-041.pdf|1 pagina', '09:14'],
+    ['mij', '', 'Ja graag 👍', '09:15'],
+    ['slim', '', '📨 Verstuurd naar Studio Noord.', '09:15'],
+  ], [
+    ['mij', '', 'Wie moet mij nog betalen?', '16:40'],
+    ['slim', 'lijst', '💶 Er staan 2 facturen open:|*Studio Noord* €629,20, vervalt vrijdag|*Bakkerij De Wit* €302,50, 14 dagen te laat§Herinnering sturen aan De Wit?§Verstuur herinnering§Annuleren', '16:40'],
+    ['mij', '', 'Verstuur herinnering', '16:41'],
+    ['slim', '', '📨 Herinnering verstuurd naar info@bakkerijdewit.nl.', '16:41'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Coolblue, monitor', '12:02'],
+    ['slim', '', 'Geboekt: €249,00 kantoorkosten, waarvan €43,21 btw die je terugkrijgt.', '12:02'],
+    ['mij', 'bon', 'Bonnetje Shell, tanken', '18:27'],
+    ['slim', '', 'Geboekt: €78,40 brandstof, waarvan €13,61 btw die je terugkrijgt.', '18:27'],
+  ]],
+  bouw: [[
+    ['mij', 'spraak', '0:06|Factuur De Vries, veertig uur à achtenveertig euro, btw verlegd.', '17:32'],
+    ['slim', 'fac', 'Met btw verlegd. Versturen?|Factuur|2026-044|Bouwbedrijf De Vries|Zaandam|40 uur × €48,00|€1.920,00|Btw verlegd|€0,00|Totaal|€1.920,00|Factuur 2026-044.pdf|1 pagina', '17:32'],
+    ['mij', '', 'Ja graag 👍', '17:33'],
+    ['slim', '', '📨 Verstuurd naar De Vries.', '17:33'],
+  ], [
+    ['mij', '', 'Offerte Jansen is akkoord, maak er een factuur van', '12:05'],
+    ['slim', 'lijst', '📄 Offerte 2026-012 is nu factuur 2026-045:|*Fam. Jansen* schilderwerk|*Totaal* €1.090,00 incl. 9% btw§Versturen?§Versturen§Eerst aanpassen', '12:05'],
+    ['mij', '', 'Versturen', '12:06'],
+    ['slim', '', '📨 Verstuurd naar Fam. Jansen.', '12:06'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Hornbach, kit en schroeven', '07:48'],
+    ['slim', '', 'Geboekt: €86,40 materiaal, waarvan €15,00 btw die je terugkrijgt.', '07:48'],
+    ['mij', 'bon', 'Bonnetje groothandel, kabel', '15:10'],
+    ['slim', '', 'Geboekt: €145,20 materiaal, waarvan €25,20 btw die je terugkrijgt.', '15:10'],
+  ]],
+  webshop: [[
+    ['mij', 'spraak', '0:05|Factuur Concept Store Noord, 24 vazen à 18 euro.', '10:24'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-087|Concept Store Noord|Utrecht|24 × vaas à €18,00|€432,00|Btw 21%|€90,72|Totaal|€522,72|Factuur 2026-087.pdf|1 pagina', '10:24'],
+    ['mij', '', 'Ja graag 👍', '10:25'],
+    ['slim', '', '📨 Verstuurd naar Concept Store Noord.', '10:25'],
+  ], [
+    ['mij', '', 'Hoeveel omzet heb ik dit kwartaal?', '21:14'],
+    ['slim', 'lijst', '📊 Dit kwartaal tot nu toe:|*Omzet* €8.420,15|*Inkoop* €2.310,40', '21:14'],
+    ['mij', '', 'En wat staat er nog open?', '21:15'],
+    ['slim', 'lijst', '💶 Nog open:|*Interieurzaak Mooi* €1.210,00, 12 dagen te laat§Herinnering sturen?§Verstuur herinnering§Annuleren', '21:15'],
+  ], [
+    ['mij', 'bon', 'Factuur groothandel, verzenddozen', '10:21'],
+    ['slim', '', 'Geboekt: €242,00 verpakkingen, waarvan €42,00 btw die je terugkrijgt.', '10:21'],
+    ['mij', 'bon', 'Factuur drukkerij, flyers', '14:52'],
+    ['slim', '', 'Geboekt: €60,50 reclamekosten, waarvan €10,50 btw die je terugkrijgt.', '14:52'],
+  ]],
+  creatief: [[
+    ['mij', 'spraak', '0:05|Factuur Atelier Zuid, fotoshoot twee uur, 250 euro.', '18:05'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-052|Atelier Zuid|Haarlem|Fotoshoot 2 uur|€250,00|Btw 21%|€52,50|Totaal|€302,50|Factuur 2026-052.pdf|1 pagina', '18:05'],
+    ['mij', '', 'Ja graag 👍', '18:06'],
+    ['slim', '', '📨 Verstuurd naar Atelier Zuid.', '18:06'],
+  ], [
+    ['mij', '', 'Offerte Bureau Licht, nieuwe huisstijl, 1200 euro', '10:12'],
+    ['slim', 'lijst', '📄 Offerte 2026-019 staat klaar:|*Bureau Licht* nieuwe huisstijl|*Totaal* €1.452,00 incl. 21% btw§Versturen?§Versturen§Eerst aanpassen', '10:12'],
+    ['mij', '', 'Versturen', '10:13'],
+    ['slim', '', '📨 Verstuurd naar Bureau Licht.', '10:13'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Kamera Express, lens', '14:30'],
+    ['slim', '', 'Geboekt: €1.089,00 apparatuur, waarvan €189,00 btw die je terugkrijgt. De lens schrijf ik af over vijf jaar.', '14:30'],
+    ['mij', 'bon', 'Bonnetje Coolblue, harde schijf', '16:02'],
+    ['slim', '', 'Geboekt: €121,00 apparatuur, waarvan €21,00 btw die je terugkrijgt.', '16:02'],
+  ]],
+  persoonlijk: [[
+    ['mij', 'spraak', '0:05|Factuur Lotte, drie coachsessies à 95 euro.', '19:20'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-031|Lotte de Boer|Amstelveen|3 × coachsessie à €95,00|€285,00|Btw 21%|€59,85|Totaal|€344,85|Factuur 2026-031.pdf|1 pagina', '19:20'],
+    ['mij', '', 'Ja graag 👍', '19:21'],
+    ['slim', '', '📨 Verstuurd naar Lotte de Boer.', '19:21'],
+  ], [
+    ['mij', '', 'Hoeveel kwam er deze maand via de pin binnen?', '20:45'],
+    ['slim', 'lijst', '💳 Pinbetalingen november:|*Uitbetaald door SumUp* €2.184,30|*Transactiekosten* €41,50', '20:45'],
+    ['mij', '', 'En staat er nog iets open?', '20:46'],
+    ['slim', 'lijst', '💶 Nog open:|*Studio Fit* €290,40, 9 dagen te laat§Herinnering sturen?§Verstuur herinnering§Annuleren', '20:46'],
+  ], [
+    ['mij', 'bon', 'Factuur groothandel, haarverf', '09:10'],
+    ['slim', '', 'Geboekt: €181,50 materiaal, waarvan €31,50 btw die je terugkrijgt.', '09:10'],
+    ['mij', 'bon', 'Factuur zaalhuur november', '13:35'],
+    ['slim', '', 'Geboekt: €96,80 huur, waarvan €16,80 btw die je terugkrijgt.', '13:35'],
+  ]],
+  ict: [[
+    ['mij', 'spraak', '0:06|Factuur Nordwerk GmbH in Berlijn, twintig uur à 95 euro.', '17:50'],
+    ['slim', 'fac', 'Btw verlegd, klant in Duitsland. Versturen?|Factuur|2026-061|Nordwerk GmbH|Berlijn|20 uur × €95,00|€1.900,00|Btw verlegd|€0,00|Totaal|€1.900,00|Factuur 2026-061.pdf|1 pagina', '17:50'],
+    ['mij', '', 'Ja graag 👍', '17:51'],
+    ['slim', '', '📨 Verstuurd naar Nordwerk GmbH. Hij komt ook in je opgaaf intracommunautaire prestaties.', '17:51'],
+  ], [
+    ['mij', '', 'Hoeveel omzet heb ik dit kwartaal?', '22:04'],
+    ['slim', 'lijst', '📊 Dit kwartaal tot nu toe:|*Omzet* €21.850,00|*Kosten* €1.940,30', '22:04'],
+    ['mij', '', 'Wie moet mij nog betalen?', '22:05'],
+    ['slim', 'lijst', '💶 Nog open:|*Datahuis B.V.* €4.598,00, vervalt maandag§Herinnering sturen?§Nog niet§Annuleren', '22:05'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Coolblue, laptop', '11:18'],
+    ['slim', '', 'Geboekt: €1.815,00 apparatuur, waarvan €315,00 btw die je terugkrijgt. De laptop schrijf ik af over vijf jaar.', '11:18'],
+    ['mij', 'bon', 'Bonnetje bol, toetsenbord', '15:40'],
+    ['slim', '', 'Geboekt: €121,00 kantoorkosten, waarvan €21,00 btw die je terugkrijgt.', '15:40'],
+  ]],
+};
+const EN: Bel[][] = [[
+    ['mij', 'spraak', '0:05|Invoice for Studio Noord, eight hours at sixty-five euros.', '09:14'],
+    ['slim', 'fac', 'Shall I send it?|Invoice|2026-041|Studio Noord|Amsterdam|8 hours × €65.00|€520.00|VAT 21%|€109.20|Total|€629.20|Invoice 2026-041.pdf|1 page', '09:14'],
+    ['mij', '', 'Yes please 👍', '09:15'],
+    ['slim', '', '📨 Sent to Studio Noord.', '09:15'],
+  ], [
+    ['mij', '', 'Who still owes me money?', '16:40'],
+    ['slim', 'lijst', '💶 2 invoices are open:|*Studio Noord* €629.20, due Friday|*Bakkerij De Wit* €302.50, 14 days overdue§Send De Wit a reminder?§Send reminder§Cancel', '16:40'],
+    ['mij', '', 'Send reminder', '16:41'],
+    ['slim', '', '📨 Reminder sent to info@bakkerijdewit.nl.', '16:41'],
+  ], [
+    ['mij', 'bon', 'Receipt Coolblue, monitor', '12:02'],
+    ['slim', '', 'Booked: €249.00 office costs, including €43.21 VAT you get back.', '12:02'],
+    ['mij', 'bon', 'Receipt Shell, fuel', '18:27'],
+    ['slim', '', 'Booked: €78.40 fuel, including €13.61 VAT you get back.', '18:27'],
+  ]];
+const T = {
+  label: taal === 'en' ? 'Example of WhatsApp conversations with Slim' : 'Voorbeeld van WhatsApp-gesprekken met Slim',
+  g: taal === 'en' ? EN : NL[variant],
+};
+const vet = (t: string) => t.replace(/\*([^*]+)\*/g, '<b>$1</b>');
+const golf = [4,9,6,12,8,14,7,11,5,13,9,6,10,4,8,12,6,9,5,7];
+---
+<div class="tel" role="img" aria-label={T.label}>
+  <div class="scherm">
+    <div class="wakop"><img src="/img/logo.png" alt="" width="34" height="34"><div><b>Slim</b><small>online</small></div></div>
+    {T.g.map((gesprek, gi) => (
+    <div class={`gesprek${gi === 0 ? ' actief' : ''}`} aria-hidden={gi === 0 ? undefined : 'true'}>
+      {gesprek.map(([wie, soort, tekst, tijd], i) => {
+        const t = <span class="t">{tijd}{wie === 'mij' ? ' ✓✓' : ''}</span>;
+        if (soort === 'fac') {
+          const [vraag, kop, nummer, klant, plaats, r1, b1, r2, b2, r3, b3, bestand, pag] = tekst.split('|');
+          return <div class={`b ${wie} doc`} style={`--i:${i}`}>
+            <span class="pdf" aria-hidden="true">
+              <span class="pagina">
+                <span class="p-kop"><b>{kop}</b><span>{nummer}</span></span>
+                <span class="p-aan">{klant}, {plaats}</span>
+                <span class="p-r"><span>{r1}</span><span>{b1}</span></span>
+                <span class="p-r"><span>{r2}</span><span>{b2}</span></span>
+                <span class="p-r tot"><span>{r3}</span><span>{b3}</span></span>
+              </span>
+              <span class="bestand"><i>PDF</i><span><b>{bestand}</b><small>{pag} · 48 kB</small></span></span>
+            </span>
+            <span class="vraag">{vraag}</span>{t}</div>;
+        }
+        if (soort === 'spraak') {
+          const [duur, uit] = tekst.split('|');
+          return <div class={`b ${wie} spraak`} style={`--i:${i}`}>
+            <span class="speler" aria-hidden="true"><i class="play"></i><span class="golf">{golf.map((h) => <span style={`height:${h}px`} />)}</span><span class="duur">{duur}</span></span>
+            <span class="uit">{uit}</span>{t}</div>;
+        }
+        if (soort === 'lijst') {
+          const [deel, vraag, ...knoppen] = tekst.split('§');
+          const [kop, ...regels] = deel.split('|');
+          return <div class={`b ${wie} met-knop`} style={`--i:${i}`}><span class="vraag-k">{kop}<span class="lijst">{regels.map((r) => <span set:html={vet(r)} />)}</span>{vraag && <span class="na-lijst">{vraag}</span>}{t}</span>{knoppen.map((k) => <span class="wa-knop">{k}</span>)}</div>;
+        }
+        return <div class={`b ${wie}`} style={`--i:${i}`}>{soort === 'bon' ? <span class="bon"><i></i>{tekst}</span> : tekst}{t}</div>;
+      })}
+    </div>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+(function(){
+  var el=document.currentScript.previousElementSibling, gs=el.querySelectorAll('.gesprek');
+  var rustig=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!('IntersectionObserver' in window)||rustig){gs[0].classList.add('speel');return;}
+  /* Elk gesprek loopt ~6,5 s, blijft 6 s staan, vervaagt; dan het volgende.
+     Alleen zolang het blok in beeld is; buiten beeld blijft het eindbeeld staan. */
+  var zicht=false, timer=null, nu=-1;
+  function ronde(){
+    if(nu>=0){gs[nu].classList.remove('actief','speel','weg');gs[nu].setAttribute('aria-hidden','true');}
+    nu=(nu+1)%gs.length; var g=gs[nu];
+    g.removeAttribute('aria-hidden'); g.classList.add('actief'); void g.offsetWidth; g.classList.add('speel');
+    timer=setTimeout(function(){
+      if(!zicht){timer=null;return;}
+      g.classList.add('weg');
+      timer=setTimeout(ronde,600);
+    },12500);
+  }
+  new IntersectionObserver(function(e){zicht=e[0].isIntersecting;if(zicht&&!timer)ronde();},{threshold:.35}).observe(el);
+})();
+</script>
+
+<style>
+.tel{max-width:320px;margin:0 auto;border-radius:34px;background:#0b1220;padding:10px;box-shadow:0 30px 60px rgba(16,24,40,.18)}
+.scherm{border-radius:26px;overflow:hidden;background:#efeae2}
+.wakop{background:#075e54;color:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px}
+.wakop img{width:34px;height:34px;border-radius:50%;background:#fff;padding:3px}
+.wakop small{display:block;font-size:.72rem;opacity:.8}
+.gesprek{display:none;transition:opacity .5s;padding:6px 12px 16px;flex-direction:column;justify-content:flex-end;height:484px;overflow:hidden;font-size:.88rem;line-height:1.4}
+.gesprek.actief{display:flex}
+.gesprek.weg{opacity:0}
+.b{--pt:8px;--pb:6px;max-width:84%;padding:0 10px;margin-top:0;max-height:0;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 1px 1px rgba(0,0,0,.08);opacity:0;flex:none}
+.b.mij{align-self:flex-end;background:#d9fdd3}
+.speel .b{animation:in .5s ease forwards;animation-delay:calc(var(--i) * 1.15s + .2s)}
+.t{display:block;text-align:right;font-size:.66rem;color:#667;margin-top:2px}
+.bon{display:block}
+.bon i{display:grid;place-items:center;width:190px;height:64px;border-radius:8px;background:linear-gradient(135deg,#c9d3c4,#a7b4a2);margin:0 -6px 6px}
+.bon i::before{content:"";width:38px;height:54px;border-radius:2px;background:repeating-linear-gradient(#fff 0 6px,#e4e4e4 6px 7px);box-shadow:0 2px 6px rgba(0,0,0,.2);transform:rotate(-4deg)}
+.b.doc{--pt:4px;--pb:6px;padding-left:4px;padding-right:4px;width:84%}
+.pdf{display:block;border-radius:8px;overflow:hidden;background:#f6f6f6}
+.pagina{display:grid;gap:4px;background:#fff;margin:6px 6px 0;padding:8px 10px 10px;border-radius:3px 3px 0 0;box-shadow:0 1px 3px rgba(0,0,0,.12);font-size:.68rem;line-height:1.3;color:#334155}
+.p-kop{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--blauw);padding-bottom:4px}
+.p-kop b{font-size:.85rem;color:#0b1220}
+.p-aan{color:#64748b;margin-bottom:2px}
+.p-r{display:flex;justify-content:space-between;gap:8px}
+.p-r.tot{border-top:1px solid #cbd5e1;padding-top:4px;font-weight:700;color:#0b1220;font-size:.76rem}
+.bestand{display:flex;align-items:center;gap:8px;padding:6px 10px;background:#f0f0f0}
+.bestand i{font-style:normal;font-size:.6rem;font-weight:800;color:#fff;background:#e5483b;border-radius:3px;padding:3px 4px}
+.bestand b{display:block;font-size:.78rem;font-weight:600}
+.bestand small{font-size:.66rem;color:#667}
+.vraag{display:block;padding:6px 6px 0}
+.speler{display:flex;align-items:center;gap:8px;min-width:190px}
+.play{width:0;height:0;border-left:11px solid #54656f;border-top:7px solid transparent;border-bottom:7px solid transparent;flex:none}
+.golf{display:flex;align-items:center;gap:2px;flex:1}
+.golf span{width:3px;border-radius:2px;background:#8aa08a}
+.duur{font-size:.68rem;color:#667}
+.uit{display:block;font-size:.78rem;color:#3b4a54;font-style:italic;margin-top:5px;border-top:1px solid rgba(0,0,0,.06);padding-top:4px}
+.lijst{display:grid;gap:4px;margin-top:6px}
+.lijst span{padding-left:10px;position:relative}
+.lijst span::before{content:"•";position:absolute;left:0}
+.b.met-knop{padding-left:0;padding-right:0;--pb:0px}
+.vraag-k{display:block;padding:0 10px 6px}
+.na-lijst{display:block;margin-top:6px}
+.wa-knop{display:block;text-align:center;color:#027eb5;font-weight:600;padding:8px 10px;border-top:1px solid #e9edef}
+@keyframes in{to{opacity:1;max-height:420px;margin-top:8px;padding-top:var(--pt);padding-bottom:var(--pb)}}
+@media (prefers-reduced-motion:reduce){.b{opacity:1;max-height:none;margin-top:8px;padding-top:var(--pt);padding-bottom:var(--pb)}.speel .b{animation:none}}
+</style>

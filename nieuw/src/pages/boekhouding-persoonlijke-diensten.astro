@@ -1,0 +1,28 @@
+---
+import Branche from '../components/Branche.astro';
+const faq: [string, string][] = [
+  ['Wat kost een boekhouder voor een coach, kapper of trainer?', 'Voor een eenmanszaak of vof €95 per maand excl. btw, met je btw-aangiftes en jaarcijfers erbij. Voor een bv krijg je vooraf een vaste prijs.'],
+  ['Moet ik btw rekenen?', 'Dat hangt af van wat je doet. Coaching valt meestal onder 21%, kappers onder 9%, en sportlessen vaak ook onder 9%. Bepaalde zorg door een BIG-geregistreerde of erkende zorgverlener is vrijgesteld. Ik kijk samen met je welk tarief bij jou hoort.'],
+  ['Mijn klanten betalen vaak met de pin. Hoe gaat dat in de boekhouding?', 'De uitbetalingen van je pinautomaat, zoals SumUp, komen gebundeld binnen. Ik zorg dat ze goed aansluiten op je omzet, inclusief de kosten die de pinaanbieder inhoudt.'],
+  ['Haal ik het urencriterium?', 'Voor de zelfstandigenaftrek moet je minstens 1.225 uur per jaar aan je onderneming werken. Daar telt ook tijd voor administratie, acquisitie en scholing bij mee. Twijfel je, dan rekenen we het samen na.'],
+  ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
+];
+---
+<Branche
+  variant="persoonlijk"
+  kruimel="Boekhouding persoonlijke diensten"
+  tag="Coaches, kappers, therapeuten en trainers"
+  titel="Boekhouder voor coaches, kappers en trainers | Slim Geregeld"
+  omschrijving="Boekhouding voor coaches, kappers, therapeuten en trainers: het juiste btw-tarief of vrijstelling, pinbetalingen en urencriterium. €95 per maand."
+  h1="Boekhouding voor coaches, kappers, therapeuten en trainers"
+  sub="Voor iedereen die met mensen werkt: coaches, kappers, therapeuten, personal trainers en instructeurs. Jij hebt aandacht voor je klanten, ik regel je boekhouding en btw."
+  krijg={['Boekhouding en btw-aangifte per kwartaal', 'Het juiste btw-tarief, of de vrijstelling als die geldt', 'Pinbetalingen en kassa netjes aangesloten', 'Jaarcijfers, klaar voor je aangifte IB', 'Facturen en bonnetjes via WhatsApp met Slim']}
+  eerst={['Christel Pronk', 'Umesh ten Kate', 'Nosh van Campenhout']}
+  faq={faq}
+  contacttekst="Vertel kort wat je doet en hoe je klanten betalen: op factuur, met de pin of allebei. Je hoort binnen een tot drie werkdagen van me."
+>
+  <div class="blok"><h3>21%, 9% of vrijgesteld</h3><p>Coaching, knippen, sportles en therapie hebben elk hun eigen btw-regels. Ik kijk welk tarief bij jou hoort, zodat je niet te veel of te weinig afdraagt.</p></div>
+  <div class="blok"><h3>Pin en kassa</h3><p>Betalen je klanten met de pin, dan komen de uitbetalingen gebundeld binnen. Ik zorg dat dat klopt met je omzet en dat de kosten erin zitten.</p></div>
+  <div class="blok"><h3>Urencriterium</h3><p>Voor de zelfstandigenaftrek telt niet alleen de tijd met klanten. Ook administratie en scholing tellen mee. Ik help je het goed bij te houden.</p></div>
+  <div class="blok"><h3>Tussen twee afspraken</h3><p>Even een factuur sturen of een bonnetje kwijt? Via WhatsApp met Slim regel je het in een minuut, tussen twee klanten door.</p></div>
+</Branche>

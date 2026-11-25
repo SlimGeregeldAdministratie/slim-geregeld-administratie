@@ -1,0 +1,49 @@
+---
+/* Gedeelde opbouw van de branchepagina's (bouw, webshop, creatief, persoonlijke diensten, ict). */
+import Basis from '../layouts/Basis.astro';
+import Paginakop from './Paginakop.astro';
+import SlimGesprek from './SlimGesprek.astro';
+import GoogleReviews from './GoogleReviews.astro';
+import Faq from './Faq.astro';
+import Contactblok from './Contactblok.astro';
+interface Props {
+  kruimel: string; tag: string; titel: string; omschrijving: string; h1: string; sub: string;
+  krijg: string[]; eerst: string[]; faq: [string, string][]; contacttekst: string;
+  variant: 'standaard' | 'bouw' | 'webshop' | 'creatief' | 'persoonlijk' | 'ict';
+}
+const { kruimel, tag, titel, omschrijving, h1, sub, krijg, eerst, faq, contacttekst, variant } = Astro.props;
+---
+<Basis titel={titel} omschrijving={omschrijving}>
+  <Paginakop
+    kruimel={kruimel} tag={tag} titel={h1} sub={sub}
+    prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof · bv op maat' }}
+  >
+    <SlimGesprek slot="rechts" variant={variant} />
+  </Paginakop>
+  <section>
+    <div class="wrap">
+      <h2>Waar ik op let</h2>
+      <div class="grid3 vier"><slot /></div>
+    </div>
+  </section>
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>Wat je krijgt</h2>
+        <p class="sub">Alles voor €95 per maand bij een eenmanszaak of vof. Heb je een bv, dan krijg je vooraf een vaste prijs.</p>
+        <a class="knop vol" href="#contact">Kennismaken</a>
+      </div>
+      <div class="blok krijgblok"><ul class="vinkjes">{krijg.map((k) => <li>{k}</li>)}</ul></div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap"><GoogleReviews eerst={eerst} /></div>
+  </section>
+  <Faq vragen={faq} />
+  <Contactblok tekst={contacttekst} />
+</Basis>
+
+<style>
+.twee .sub{margin:10px 0 20px}
+.krijgblok .vinkjes{margin:0;gap:12px}
+</style>

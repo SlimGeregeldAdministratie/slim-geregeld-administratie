@@ -1,0 +1,41 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Contactblok from '../components/Contactblok.astro';
+---
+<Basis
+  titel="Contact | Slim Geregeld Administratie"
+  omschrijving="Neem contact op met Kyle Bouwmeester van Slim Geregeld Administratie: via WhatsApp, mail of het formulier. Je krijgt binnen een tot drie werkdagen antwoord."
+>
+  <section class="c-kop">
+    <div class="wrap">
+      <h1>Contact</h1>
+      <p class="sub">Een vraag, een prijs of meteen overstappen? Je krijgt binnen een tot drie werkdagen antwoord van mij, meestal al dezelfde dag.</p>
+      <div class="kanalen">
+        <a class="kanaal wa" href="https://wa.me/31621311043" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">💬</span><span><b>WhatsApp</b>06 21311043 · het snelst</span></a>
+        <a class="kanaal mail" href="mailto:kyle@slim-geregeld.nl"><span class="ic" aria-hidden="true">✉️</span><span><b>Mail</b>kyle@slim-geregeld.nl</span></a>
+        <a class="kanaal bel" href="tel:+31621311043"><span class="ic" aria-hidden="true">📞</span><span><b>Bellen</b>06 21311043</span></a>
+      </div>
+    </div>
+  </section>
+  <Contactblok titel="Of laat je gegevens achter" />
+  <section class="gegevens">
+    <div class="wrap">
+      <p><b>Slim Geregeld Administratie</b> · KvK 92596991 · btw NL004963420B24 · Becon-geregistreerd boekhouder</p>
+    </div>
+  </section>
+</Basis>
+
+<style>
+.c-kop{padding:20px 0 36px;background:linear-gradient(180deg,var(--blauw-t),#fff 75%)}
+.c-kop .sub{margin-top:12px}
+.kanalen{display:grid;gap:12px;margin-top:24px}
+.kanaal{--k:var(--blauw);--kt:var(--blauw-t);display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:var(--r);background:#fff;border:1px solid var(--lijn);text-decoration:none;color:var(--tekst);transition:border-color .15s,box-shadow .15s}
+.kanaal:hover{border-color:var(--k);box-shadow:0 8px 24px color-mix(in srgb,var(--k) 14%,transparent)}
+.kanaal b{display:block;color:var(--k);font-size:1.05rem}
+.kanaal .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--kt);font-size:1.3rem;flex:none}
+.kanaal.wa{--k:#128c4a;--kt:#e8f8ee}
+.kanaal.mail{--k:#7c3aed;--kt:#f3edff}
+.kanaal.bel{--k:var(--blauw);--kt:var(--blauw-t)}
+.gegevens{padding:0 0 44px;color:var(--grijs);font-size:.9rem}
+@media (min-width:760px){.c-kop{padding:40px 0 48px}.kanalen{grid-template-columns:repeat(3,1fr)}}
+</style>

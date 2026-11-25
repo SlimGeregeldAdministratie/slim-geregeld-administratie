@@ -1,0 +1,28 @@
+---
+import Branche from '../components/Branche.astro';
+const faq: [string, string][] = [
+  ['Wat kost een boekhouder voor een aannemer of installateur?', 'Voor een eenmanszaak of vof €95 per maand excl. btw, met je btw-aangiftes en jaarcijfers erbij. Voor een bv krijg je vooraf een vaste prijs.'],
+  ['Hoe zit het met btw verlegd?', 'Werk je als onderaannemer in de bouw voor een andere aannemer, dan reken je meestal geen btw maar zet je "btw verlegd" op je factuur, met het btw-nummer van je opdrachtgever. Werk je voor particulieren, dan reken je gewoon btw. Ik check of je facturen kloppen.'],
+  ['Wanneer reken ik 9% btw?', 'Onder meer voor arbeid bij schilderen, stukadoren, behangen en isoleren van woningen die ouder zijn dan twee jaar. Het materiaal valt meestal onder 21%. Twijfel je, app me even.'],
+  ['Kan ik facturen maken vanaf de bouwplaats?', 'Ja. Met Slim maak je via WhatsApp een factuur of offerte: zeg voor wie, wat en hoeveel, en Slim laat hem eerst zien voordat hij verstuurd wordt.'],
+  ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
+];
+---
+<Branche
+  variant="bouw"
+  kruimel="Boekhouding bouw"
+  tag="Bouw en installatie"
+  titel="Boekhouder voor aannemers en installateurs | Slim Geregeld"
+  omschrijving="Boekhouding voor zzp'ers in de bouw en installatie: btw verlegd, 9% of 21%, bonnetjes van de bouwmarkt via WhatsApp. €95 per maand voor eenmanszaak of vof."
+  h1="Boekhouding voor de bouw en installatie"
+  sub="Voor onder andere aannemers, installateurs, elektriciens, schilders en timmerlieden. Na een dag op de steiger of in de meterkast heb je geen zin in papierwerk. Jij maakt de meters, ik regel je boekhouding en btw."
+  krijg={['Boekhouding en btw-aangifte per kwartaal', 'Controle op btw verlegd en het juiste tarief', 'Jaarcijfers, klaar voor je aangifte IB', 'Facturen en offertes via WhatsApp met Slim', 'Vragen tussendoor, zonder dat de meter loopt']}
+  eerst={['Edwin Postma', 'Andries Min']}
+  faq={faq}
+  contacttekst="Vertel kort wat voor werk je doet en voor wie: particulieren, aannemers of allebei. Je hoort binnen een tot drie werkdagen van me."
+>
+  <div class="blok"><h3>Btw verlegd</h3><p>Werk je als onderaannemer voor een andere aannemer, dan zet je "btw verlegd" op je factuur. Voor particulieren reken je gewoon btw. Ik kijk of het klopt.</p></div>
+  <div class="blok"><h3>9% of 21%</h3><p>Schilderen, stukadoren en isoleren in oudere woningen kan onder 9% vallen. Ik let erop dat je het juiste tarief rekent.</p></div>
+  <div class="blok"><h3>Bonnetjes uit de bus</h3><p>Bonnetje van de groothandel of de bouwmarkt? Foto maken, doorappen, klaar. Geen schoenendoos meer, en geen btw die je laat liggen.</p></div>
+  <div class="blok"><h3>Meteen factureren</h3><p>Klus af of meerwerk erbij? Spreek de factuur in vanuit de bus. Slim zet hem klaar, jij tikt op versturen. Zo heb je je geld eerder binnen.</p></div>
+</Branche>

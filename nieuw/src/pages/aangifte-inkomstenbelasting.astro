@@ -1,0 +1,123 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import Faq from '../components/Faq.astro';
+import Contactblok from '../components/Contactblok.astro';
+
+const faq: [string, string][] = [
+  ['Wat kost het laten doen van mijn aangifte inkomstenbelasting?', '€245 excl. btw voor één persoon, of €395 samen met je fiscale partner. Was je het hele jaar klant voor je boekhouding, dan krijg je 15% korting.'],
+  ['Heb je mijn DigiD nodig?', 'Nee. Ik dien je aangifte in via mijn eigen beveiligde aansluiting als boekhouder. Jij geeft alleen akkoord op het concept.'],
+  ['Wanneer moet de aangifte binnen zijn?', 'Uiterlijk 1 mei van het jaar erna. Lever je je gegevens op tijd aan, dan zorg ik dat het lukt. Met uitstel heb je tot 1 september, maar moet je betalen, dan kan er belastingrente bijkomen.'],
+  ['Wat als ik uitstel heb?', 'Vraag je zelf uitstel aan vóór 1 mei, dan heb je tot 1 september. Let wel op: moet je betalen, dan rekent de Belastingdienst belastingrente vanaf 1 juli. Dien je vóór 1 mei in en neemt de Belastingdienst je aangifte over zoals hij is, dan betaal je geen belastingrente. Moet je betalen, lever dan liever vroeg aan.'],
+  ['Hoeveel belastingrente betaal je?', 'In 2026 is de belastingrente 5% per jaar, over het bedrag dat je moet betalen. Die rente loopt vanaf 1 juli tot zes weken na de datum op je aanslag. Moet je bijvoorbeeld €2.000 betalen en loopt de rente drie maanden, dan kost dat ongeveer €25. Het percentage verandert elk jaar. Daarom plan ik aangiftes waarbij je moet betalen zo vroeg mogelijk.'],
+  ['Wat is een voorlopige aanslag?', 'Een voorlopige aanslag is een schatting van de Belastingdienst van wat je over dit jaar gaat betalen of terugkrijgen. Je betaalt dan per maand, in plaats van alles in één keer na je aangifte. Klopt de schatting niet meer, bijvoorbeeld omdat je meer verdient, dan reken ik uit welk bedrag past en help ik je hem aan te passen. Zo voorkom je een flinke rekening achteraf.'],
+  ['Wat als mijn situatie ingewikkelder is?', 'Bij bijvoorbeeld een emigratiejaar, de verkoop van een woning of aandelen in een bv kijk ik eerst wat er nodig is. Je hoort de prijs voordat ik begin.'],
+  ['Hoe lever ik mijn gegevens aan?', 'Je krijgt een vaste link naar een korte vragenlijst, waar je ook je stukken uploadt. Mis ik iets, dan vraag ik het je.'],
+];
+const service = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  name: 'Aangifte inkomstenbelasting',
+  serviceType: 'Belastingaangifte',
+  provider: { '@type': 'AccountingService', name: 'Slim Geregeld Administratie', url: 'https://slim-geregeld.nl/' },
+  areaServed: { '@type': 'Country', name: 'Nederland' },
+  offers: [
+    { '@type': 'Offer', name: 'Eén persoon', price: '245', priceCurrency: 'EUR', description: 'Exclusief btw' },
+    { '@type': 'Offer', name: 'Met fiscale partner', price: '395', priceCurrency: 'EUR', description: 'Exclusief btw' },
+  ],
+};
+---
+<Basis
+  titel="Aangifte inkomstenbelasting laten doen | €245 | Slim Geregeld"
+  omschrijving="Je aangifte inkomstenbelasting laten doen door een Becon-geregistreerd boekhouder: €245 excl. btw, €395 met partner. Eerst een concept, geen DigiD nodig."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(service)} />
+  <Paginakop
+    kruimel="Aangifte inkomstenbelasting"
+    tag="Aangifte IB"
+    titel="Je aangifte inkomstenbelasting, goed en op tijd"
+    sub="Ik doe je aangifte, loop je aftrekposten na en stuur je eerst een concept. Pas na jouw akkoord dien ik hem in. Je DigiD heb ik niet nodig."
+    prijs={{ bedrag: '€245', per: 'per aangifte, excl. btw', uitleg: '€395 samen met je fiscale partner · klant? 15% korting' }}
+    knop={['Aangifte laten doen', '#contact']}
+  >
+    <div slot="rechts" class="concept" aria-label="Voorbeeld van een concept-aangifte">
+      <div class="c-kop"><span>Concept aangifte IB 2025</span><span class="c-label">Wacht op jouw akkoord</span></div>
+      <dl>
+        <div><dt>Winst uit onderneming</dt><dd>€48.200</dd></div>
+        <div><dt>Zelfstandigenaftrek</dt><dd>− €2.470</dd></div>
+        <div><dt>Mkb-winstvrijstelling</dt><dd>− €5.808</dd></div>
+        <div><dt>Hypotheekrente</dt><dd>− €6.120</dd></div>
+      </dl>
+      <div class="c-uit"><span>Je krijgt terug</span><b>€1.240</b></div>
+      <p class="c-stap"><span aria-hidden="true">✓</span>Klopt het? Dan geef je akkoord per mail, en pas dan dien ik hem in.</p>
+      <p class="c-noot">Voorbeeld met verzonnen bedragen.</p>
+    </div>
+  </Paginakop>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <h2>Zo werkt het</h2>
+      <div class="grid3 vier">
+        <div class="blok"><div class="nr">1</div><h3>Vragenlijst</h3><p>Je krijgt een vaste link. Daar vul je een korte vragenlijst in en upload je je stukken.</p></div>
+        <div class="blok"><div class="nr">2</div><h3>Ik maak het concept</h3><p>Ik vul de aangifte in en loop je aftrekposten na. Mis ik iets, dan vraag ik het je.</p></div>
+        <div class="blok"><div class="nr">3</div><h3>Jij geeft akkoord</h3><p>Je krijgt het concept met de uitkomst: wat je terugkrijgt of moet betalen.</p></div>
+        <div class="blok"><div class="nr">4</div><h3>Ik dien hem in</h3><p>Pas na jouw akkoord gaat de aangifte naar de Belastingdienst.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap">
+      <div class="twee boven">
+        <div>
+          <h2>Voor iedereen die aangifte moet doen</h2>
+          <ul class="vinkjes">
+            <li>Zzp'ers met een eenmanszaak of vof</li>
+            <li>DGA's met een bv, voor hun eigen aangifte</li>
+            <li>In loondienst, bijvoorbeeld met een eigen huis of spaargeld</li>
+            <li>Fiscale partners, samen in één keer</li>
+          </ul>
+          <p class="noot">Eigen bedrijf, maar geen boekhouding bij mij? Lever je jaarcijfers aan, of laat mij een financieel jaaroverzicht maken, vanaf €395.</p>
+        </div>
+        <div>
+          <h2>Wat ik nakijk</h2>
+          <ul class="vinkjes">
+            <li>Je ondernemersaftrek: zelfstandigen- en startersaftrek, mkb-winstvrijstelling</li>
+            <li>Investeringsaftrek en het urencriterium</li>
+            <li>De verdeling met je fiscale partner</li>
+            <li>Eigen woning en hypotheekrente</li>
+            <li>Sparen, beleggen en aandelen (box 2 en 3)</li>
+            <li>Overige aftrekposten, zoals giften, zorgkosten en lijfrente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <GoogleReviews eerst={['Christel Pronk', 'Nosh van Campenhout', 'Benthe Lokhorst', 'Dany Cramer']} />
+    </div>
+  </section>
+
+  <Faq vragen={faq} />
+  <Contactblok titel="Aangifte laten doen" tekst="Laat je gegevens achter, dan stuur ik je binnen een tot drie werkdagen de link naar de vragenlijst." vinkjes={['Eerst een concept, dan pas indienen', 'Geen DigiD nodig', 'Vaste prijs, vooraf bekend']} />
+</Basis>
+
+<style>
+.concept{background:#fff;border:1px solid var(--lijn);border-radius:var(--r-groot);box-shadow:var(--schaduw);padding:22px;max-width:440px;margin-left:auto;width:100%}
+.c-kop{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--lijn)}
+.c-label{font-size:.75rem;font-weight:650;color:var(--oranje);background:#fff7ed;border-radius:999px;padding:3px 10px}
+.concept dl{display:grid;gap:8px;margin:14px 0}
+.concept dl div{display:flex;justify-content:space-between;gap:12px;font-size:.95rem}
+.concept dt{color:var(--grijs)}
+.concept dd{font-variant-numeric:tabular-nums}
+.c-uit{display:flex;justify-content:space-between;align-items:baseline;background:#ecfdf3;border-radius:12px;padding:12px 14px}
+.c-uit b{font-size:1.5rem;color:var(--groen)}
+.c-stap{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:.9rem;color:var(--tekst)}
+.c-stap span{color:var(--blauw);font-weight:800}
+.c-noot{font-size:.78rem;color:var(--grijs);margin-top:10px}
+@media (min-width:1000px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
+.boven{align-items:start}
+.noot{color:var(--grijs);margin-top:-6px}
+</style>

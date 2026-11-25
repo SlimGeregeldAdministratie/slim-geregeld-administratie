@@ -41,7 +41,8 @@
     "cluster": "daft-verlenging",
     "toon": false,
     "impressies": 11,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 0
   },
   {
     "id": "urn:li:ugcPost:7529121364872552448",
@@ -95,7 +96,8 @@
     "cluster": "bv-dga",
     "toon": false,
     "impressies": 13,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 0
   },
   {
     "id": "urn:li:share:7526584640921403392",
@@ -111,7 +113,8 @@
     "cluster": "daft-verlenging",
     "toon": true,
     "impressies": 139,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 4
   },
   {
     "id": "urn:li:share:7525859886786699265",
@@ -127,7 +130,8 @@
     "cluster": "bv-dga",
     "toon": true,
     "impressies": 956,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 16
   },
   {
     "id": "urn:li:share:7523435029557923840",
@@ -143,7 +147,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 124,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 5
   },
   {
     "id": "urn:li:share:7520552621313560576",
@@ -159,7 +164,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 243,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 6
   },
   {
     "id": "urn:li:share:7515857764628320257",
@@ -175,7 +181,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 147,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 6
   },
   {
     "id": "urn:li:share:7512973023717781506",
@@ -191,7 +198,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 288,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 8
   },
   {
     "id": "urn:li:share:7479994088646324225",
@@ -207,7 +215,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 451,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 11
   },
   {
     "id": "urn:li:share:7472328071858262017",
@@ -223,7 +232,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 345,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 7
   },
   {
     "id": "urn:li:share:7469774316088524802",
@@ -239,7 +249,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 443,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 8
   },
   {
     "id": "urn:li:share:7464753799866281984",
@@ -255,7 +266,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 436,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 5
   },
   {
     "id": "urn:li:share:7462851775038119937",
@@ -271,7 +283,8 @@
     "cluster": "ib-aangifte",
     "blogSlug": null,
     "impressies": 240,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 10
   },
   {
     "id": "urn:li:share:7460293830991519744",
@@ -287,7 +300,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 196,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 6
   },
   {
     "id": "urn:li:share:7454824618936238080",
@@ -303,7 +317,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 326,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 10
   },
   {
     "id": "urn:li:share:7449537564916568064",
@@ -319,7 +334,8 @@
     "cluster": "ib-aangifte",
     "blogSlug": null,
     "impressies": 270,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 3
   },
   {
     "id": "urn:li:share:7447166303100071937",
@@ -335,7 +351,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 320,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 5
   },
   {
     "id": "urn:li:share:7444469423568125953",
@@ -351,7 +368,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 343,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 14
   },
   {
     "id": "urn:li:share:7441893407922360320",
@@ -367,7 +385,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 300,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 8
   },
   {
     "id": "urn:li:share:7439359043900657665",
@@ -383,7 +402,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 482,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 13
   },
   {
     "id": "urn:li:share:7437121541320028160",
@@ -399,7 +419,8 @@
     "cluster": "ib-aangifte",
     "blogSlug": null,
     "impressies": 346,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 5
   },
   {
     "id": "urn:li:share:7434369881468272640",
@@ -415,7 +436,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 306,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 12
   },
   {
     "id": "urn:li:activity:7432722356348956672",
@@ -447,7 +469,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 391,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 8
   },
   {
     "id": "urn:li:activity:7426901559139016704",
@@ -479,7 +502,8 @@
     "cluster": "bv-dga",
     "blogSlug": null,
     "impressies": 487,
-    "impressiesBijgewerkt": "2026-11-04"
+    "impressiesBijgewerkt": "2026-11-04",
+    "reacties": 9
   },
   {
     "id": "urn:li:activity:7422654869616062464",
@@ -511,7 +535,8 @@
     "cluster": "zzp-btw",
     "blogSlug": null,
     "impressies": 750,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 10
   },
   {
     "id": "urn:li:share:7420044904619319296",
@@ -527,7 +552,8 @@
     "cluster": "jaarwerk",
     "blogSlug": null,
     "impressies": 359,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 8
   },
   {
     "id": "urn:li:activity:7419366881410740224",
@@ -575,7 +601,8 @@
     "cluster": "ib-aangifte",
     "blogSlug": null,
     "impressies": 351,
-    "impressiesBijgewerkt": "2026-11-23"
+    "impressiesBijgewerkt": "2026-11-23",
+    "reacties": 9
   },
   {
     "id": "urn:li:activity:7411904135127781376",

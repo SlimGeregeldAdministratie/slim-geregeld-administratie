@@ -1,0 +1,35 @@
+---
+import Lokaal from '../components/Lokaal.astro';
+const faq: [string, string][] = [
+  ['Zit je echt in de Zaanstreek?', 'Ja. Slim Geregeld Administratie staat ingeschreven in Koog aan de Zaan, en ik werk vanuit Amsterdam en de Zaanstreek.'],
+  ['Moet ik bij je langskomen?', 'Nee, bijna alles gaat via WhatsApp, mail of telefoon. Dat is sneller voor jou en houdt de prijs laag. Wil je elkaar toch een keer zien? Dan spreken we gewoon iets af.'],
+  ['Wat kost een boekhouder in de Zaanstreek?', 'Bij mij €95 per maand excl. btw voor een eenmanszaak of vof, met je btw-aangiftes en jaarcijfers erbij. Voor een bv krijg je vooraf een vaste prijs.'],
+  ['Doe je ook salarisadministratie?', 'Ja, voor het DGA-loon van je bv. Dat loopt via mijn vaste salarispartner: elke maand de loonstrook en de loonaangifte, en aan het eind van het jaar de jaaropgave. Personeel op de loonlijst doe ik niet.'],
+  ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
+];
+---
+<Lokaal
+  foto={{ src: '/img/kyle-2.jpg', alt: 'Kyle Bouwmeester, boekhouder in de Zaanstreek, aan de telefoon' }}
+  plaats="Zaanstreek"
+  titel="Boekhouder Zaanstreek en Zaandam | €95 p/m | Slim Geregeld"
+  omschrijving="Boekhouder voor zzp'ers en kleine bv's in Zaandam, Koog aan de Zaan, Zaandijk en omgeving. Boekhouding, btw en jaarcijfers voor €95 per maand."
+  h1="Boekhouder in de Zaanstreek"
+  sub="Voor zzp'ers en kleine bv's in Zaandam, Koog aan de Zaan, Zaandijk en omgeving. Boekhouding, btw-aangifte en jaarcijfers, met een vaste boekhouder uit de buurt."
+  plaatsen={['Zaandam', 'Koog aan de Zaan', 'Zaandijk', 'Wormerveer', 'Krommenie', 'Assendelft', 'Westzaan', 'Wormer']}
+  faq={faq}
+>
+  <div>
+  <h2>Een boekhouder uit de buurt</h2>
+  <p>Slim Geregeld Administratie staat ingeschreven in Koog aan de Zaan. Ik help ondernemers in de hele Zaanstreek: van schilders en installateurs tot webshops, coaches en creatieven.</p>
+  <p>Je hebt één vaste boekhouder die je kent. Bonnetjes stuur je via WhatsApp, je btw-aangifte gaat elk kwartaal op tijd de deur uit, en je hoort vooraf wat je aan de Belastingdienst moet betalen.</p>
+  </div>
+  <div>
+  <h2>Wat ik voor je doe</h2>
+  <ul>
+    <li>Je boekhouding in Moneybird, door mij gecontroleerd</li>
+    <li>De btw-aangifte per kwartaal</li>
+    <li>Je jaarcijfers en, als je wilt, je aangifte inkomstenbelasting</li>
+    <li>Voor een bv: jaarrekening, Vpb en DGA-loon</li>
+  </ul>
+  </div>
+</Lokaal>

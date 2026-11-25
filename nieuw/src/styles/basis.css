@@ -1,0 +1,78 @@
+/* Huisstijl Slim Geregeld (herbouw). Zelfde tokens als de verdragspagina's
+   (blauw #2563eb, systeemletter), zodat NL en EN één stijl delen. */
+:root{
+  --inkt:#0b1220; --tekst:#334155; --grijs:#55607a; --lijn:#e4e8f0;
+  --bg:#ffffff; --zacht:#f5f7fb;
+  --blauw:#2563eb; --blauw-d:#1d4ed8; --blauw-t:#eef3ff; --blauw-rand:#bfdbfe;
+  --groen:#0f9d58; --oranje:#b45309;
+  --r:16px; --r-groot:20px;
+  --schaduw:0 20px 50px rgba(15,23,42,.08);
+  --font:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{background:var(--bg);color:var(--inkt);font:16px/1.6 var(--font)}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+h1{font-size:clamp(2.1rem,7vw,3.5rem);line-height:1.08;letter-spacing:-.035em;font-weight:800}
+h2{font-size:clamp(1.6rem,4.6vw,2.4rem);line-height:1.15;letter-spacing:-.025em;font-weight:750;margin-bottom:.5rem}
+h3{font-size:1.1rem;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--grijs);font-size:1.08rem;max-width:36rem}
+.tag{display:inline-flex;gap:8px;align-items:center;font-size:.8rem;font-weight:600;color:var(--blauw);background:var(--blauw-t);border-radius:999px;padding:5px 12px;margin-bottom:16px}
+.knop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;font-weight:650;text-decoration:none;border:1.5px solid var(--blauw);font-size:1rem;cursor:pointer;font-family:inherit}
+.knop.vol{background:var(--blauw);color:#fff}
+.knop.vol:hover{background:var(--blauw-d);border-color:var(--blauw-d)}
+.knop.leeg{color:var(--blauw);background:#fff}
+.knop.leeg:hover{background:var(--blauw-t)}
+.knop:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--blauw-rand);outline-offset:2px}
+.knoppen{display:flex;flex-wrap:wrap;gap:10px}
+section{padding:40px 0}
+/* Twee secties met dezelfde achtergrond na elkaar: geen dubbele witruimte. */
+section:not(.zacht)+section:not(.zacht),section.zacht+section.zacht,section:not(.zacht)+script+section:not(.zacht),section.zacht+script+section.zacht,section:not(.zacht)+script+script+section:not(.zacht){padding-top:0}
+.zacht{background:var(--zacht)}
+.grid3{display:grid;gap:14px;margin-top:26px}
+.blok{border:1px solid var(--lijn);border-radius:var(--r);padding:22px;background:#fff;transition:border-color .15s,box-shadow .15s}
+.blok:hover{border-color:var(--blauw-rand);box-shadow:0 8px 24px rgba(37,99,235,.08)}
+.blok p{color:var(--grijs);margin-top:6px}
+.blok .meer{display:inline-block;margin-top:12px;color:var(--blauw);font-weight:650;text-decoration:none}
+.nr{width:34px;height:34px;border-radius:10px;background:var(--blauw-t);color:var(--blauw);font-weight:750;display:grid;place-items:center;margin-bottom:12px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (min-width:760px){
+  section{padding:52px 0}
+  .grid3{grid-template-columns:repeat(3,1fr)}
+}
+
+/* Gedeeld door alle pagina's (herbouw deel 2) */
+.vinkjes{list-style:none;display:grid;gap:8px;margin:18px 0 22px}
+.vinkjes li{padding-left:26px;position:relative}
+.vinkjes li::before{content:"✓";position:absolute;left:0;color:var(--blauw);font-weight:800}
+.knop.wa{background:#25d366;border-color:#25d366;color:#05351a}
+.knop.wa:hover{background:#1ebe5b;border-color:#1ebe5b}
+.lees{max-width:720px}
+.lees p,.lees ul,.lees ol{color:var(--tekst);margin-top:12px}
+.lees h2{margin-top:36px}
+.lees h3{margin-top:24px}
+.lees ul,.lees ol{padding-left:22px;display:grid;gap:6px}
+.lees a{color:var(--blauw)}
+.twee{display:grid;gap:28px;align-items:center}
+.kruimel{font-size:.85rem;color:var(--grijs);margin-bottom:14px}
+.kruimel a{color:var(--grijs);text-decoration:none}
+.kruimel a:hover{color:var(--blauw)}
+@media (min-width:760px){.twee{grid-template-columns:1fr 1fr;gap:56px}.grid3.vier{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.grid3.vier{grid-template-columns:repeat(4,1fr)}}
+/* Korte intro direct onder een sectiekop mag breder dan de hero-sub, zodat
+   een zin als "Vaste prijzen, exclusief btw..." op één regel past. */
+h2 + .sub{max-width:46rem}
+/* Foutmeldingen bij formulieren (public/js/validatie.js) */
+.sg-fout,input.sg-fout,select.sg-fout,textarea.sg-fout{border-color:#dc2626!important;outline:0}
+.veld.sg-fout,fieldset.sg-fout,.sjablonen.sg-fout{border-color:#dc2626}
+.sg-melding{color:#b91c1c;font-size:.85rem;font-weight:500;margin-top:6px;display:flex;gap:6px;align-items:center}
+.sg-melding::before{content:"!";display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#dc2626;color:#fff;font-size:.7rem;font-weight:800;flex:none}
+/* Keuzevelden: eigen pijltje met ruimte tot de rand (Kyle 24-11-2026). Geldt
+   voor elk select op de site, ook in de intakes en formulieren. */
+select{-webkit-appearance:none;-moz-appearance:none;appearance:none;padding-right:42px!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2355607a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 16px center!important;background-size:12px 8px!important}
+select::-ms-expand{display:none}

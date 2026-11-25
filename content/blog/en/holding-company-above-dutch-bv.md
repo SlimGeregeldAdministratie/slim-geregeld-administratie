@@ -21,6 +21,10 @@ klikken: 0
 klikkenBijgewerkt: 2026-11-09
 status: live
 image: /blog/img/holding-company-above-dutch-bv.png
+kort:
+  - "You do not need a holding company just because you run your business through a BV."
+  - "Corporate income tax remains payable, also in a tax group with a holding."
+  - "A holding makes sense for a concrete purpose, such as separating activities, building wealth or preparing a sale, and that purpose must justify the extra cost."
 ---
 
 You do not need a holding company above your Dutch private limited company (besloten vennootschap, or BV) simply because you run a business through a BV. I recommend a holding only when it serves a concrete purpose, such as separating activities, planning where to build business wealth or preparing for a sale. That purpose must justify the added expense and administrative work. Start with what you want the structure to achieve before deciding to create another company.

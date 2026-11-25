@@ -1,0 +1,28 @@
+---
+import Branche from '../components/Branche.astro';
+const faq: [string, string][] = [
+  ['Wat kost een boekhouder voor een fotograaf of ontwerper?', 'Voor een eenmanszaak of vof €95 per maand excl. btw, met je btw-aangiftes en jaarcijfers erbij. Voor een bv krijg je vooraf een vaste prijs.'],
+  ['Mag ik mijn camera of laptop aftrekken?', 'Ja, als je hem voor je werk gebruikt. Kost iets €450 of meer en gaat het een paar jaar mee, dan schrijf je het af over die jaren. De btw krijg je in één keer terug, tenzij je in de KOR zit. Gebruik je het ook privé, dan houden we daar rekening mee.'],
+  ['Is de KOR slim voor mij?', 'Dat hangt af van je klanten en je aankopen. Werk je vooral voor particulieren en koop je weinig dure spullen, dan kan het schelen. Koop je een nieuwe camera of laptop, dan krijg je die btw onder de KOR niet terug. Ik reken het met je door.'],
+  ['Mijn inkomsten wisselen sterk per maand. Hoe weet ik wat ik moet reserveren?', 'Elk kwartaal krijg je een tussenstand van je inkomstenbelasting. Zo zie je wat je opzij moet zetten, ook in een drukke of juist rustige periode.'],
+  ['Kan ik midden in het jaar overstappen?', 'Ja. Ik neem je administratie over vanaf het moment dat het past en zet de rest van het jaar recht.'],
+];
+---
+<Branche
+  variant="creatief"
+  kruimel="Boekhouding creatief"
+  tag="Fotografen, ontwerpers en videomakers"
+  titel="Boekhouder voor fotografen en creatieven | Slim Geregeld"
+  omschrijving="Boekhouding voor fotografen, ontwerpers en videomakers: apparatuur afschrijven, KOR of niet, facturen via WhatsApp. €95 per maand."
+  h1="Boekhouding voor fotografen, ontwerpers en videomakers"
+  sub="Voor onder andere fotografen, grafisch ontwerpers, videomakers en illustratoren. Jij bent bezig met beeld en klanten, ik regel je boekhouding, btw en jaarcijfers."
+  krijg={['Boekhouding en btw-aangifte per kwartaal', 'Apparatuur goed afgeschreven, btw terug waar het kan', 'Elk kwartaal een tussenstand van je inkomstenbelasting', 'Facturen en offertes via WhatsApp met Slim', 'Vragen tussendoor, zonder dat de meter loopt']}
+  eerst={['Jeremy Gomes', 'Dany Cramer', 'Mirte Groen']}
+  faq={faq}
+  contacttekst="Vertel kort wat je maakt en voor wie: bedrijven, particulieren of allebei. Je hoort binnen een tot drie werkdagen van me."
+>
+  <div class="blok"><h3>Apparatuur</h3><p>Camera, lenzen, laptop, software. Ik zorg dat dure spullen goed worden afgeschreven en dat je de btw terugkrijgt waar dat mag.</p></div>
+  <div class="blok"><h3>KOR of niet</h3><p>Werk je vooral voor particulieren, dan kan de kleineondernemersregeling schelen. Koop je veel apparatuur, dan juist niet. Ik reken het voor je door.</p></div>
+  <div class="blok"><h3>Wisselende inkomsten</h3><p>Een drukke zomer, een stille winter. Elk kwartaal zie je wat je opzij moet zetten voor de inkomstenbelasting, zodat de aanslag geen verrassing is.</p></div>
+  <div class="blok"><h3>Factuur na de shoot</h3><p>Shoot klaar? Zeg tegen Slim voor wie en hoeveel. Slim zet de factuur klaar, jij tikt op versturen. Bonnetjes gaan dezelfde weg.</p></div>
+</Branche>

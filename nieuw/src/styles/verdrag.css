@@ -1,0 +1,111 @@
+/* Nieuwe huisstijl over de overgenomen verdragspagina's heen. Wordt na de oude
+   paginastijl geladen, dus bij gelijke specificiteit wint deze. Alleen de look
+   verandert; de opbouw en het formulier blijven zoals ze waren. */
+.verdrag{
+  --ink:var(--inkt); --ink-2:#1f2937; --body:var(--tekst); --muted:var(--grijs);
+  --blauw-donker:var(--blauw-d); --blauw-tint:var(--blauw-t); --bg-zacht:var(--zacht);
+  --rand:var(--lijn); --r-groot:var(--r); --r-xl:18px;
+  --schaduw:none; --schaduw-diep:var(--schaduw-kaart, 0 14px 40px rgba(37,99,235,.10));
+  color:var(--tekst); line-height:1.6;
+}
+.verdrag .container{max-width:1160px;padding:0 20px}
+.verdrag a:hover{text-decoration:none}
+
+/* Secties en koppen zoals de rest van de site */
+.verdrag section{padding:40px 0}
+.verdrag section.zacht{background:var(--zacht)}
+.verdrag h1{font-size:clamp(2.1rem,7vw,3.5rem);line-height:1.08;letter-spacing:-.035em;font-weight:800}
+.verdrag h2{font-size:clamp(1.6rem,4.6vw,2.4rem);line-height:1.15;letter-spacing:-.025em;font-weight:750}
+.verdrag h3{letter-spacing:-.01em;font-weight:700}
+.verdrag .sectie-kop{margin-bottom:24px}
+.verdrag .sectie-kop p{color:var(--grijs);font-size:1.05rem}
+
+/* Hero */
+.verdrag .hero{padding:24px 0 40px;background:linear-gradient(180deg,var(--blauw-t),#fff 75%)}
+.verdrag .hero p.sub{color:var(--grijs);font-size:1.08rem}
+.verdrag .kicker{font-size:.8rem;font-weight:600;letter-spacing:0;text-transform:none;border:0;padding:5px 12px;margin-bottom:16px;background:var(--blauw-t);color:var(--blauw)}
+.verdrag .hero-note{color:var(--grijs)}
+
+/* Knoppen zoals .knop.vol en .knop.leeg */
+.verdrag .knop{min-height:48px;padding:0 20px;border-radius:12px;font-weight:650;font-size:1rem;border:1.5px solid var(--blauw);transition:background .15s,border-color .15s}
+.verdrag .knop:not(.omlijnd){background:var(--blauw);color:#fff}
+.verdrag .knop:not(.omlijnd):hover{background:var(--blauw-d);border-color:var(--blauw-d);transform:none;box-shadow:none}
+.verdrag .knop.omlijnd{background:#fff;color:var(--blauw);border-color:var(--blauw)}
+.verdrag .knop.omlijnd:hover{background:var(--blauw-t);color:var(--blauw);border-color:var(--blauw)}
+.verdrag .knop.klein{min-height:40px;padding:0 16px;font-size:.92rem}
+
+/* Kaarten: rustige rand, hover alleen rand en schaduw */
+.verdrag .kaart:not(.gr-kaart),.verdrag .fout-item,.verdrag .prijs,.verdrag .wie{box-shadow:none;border:1px solid var(--lijn);border-radius:var(--r);transition:border-color .15s,box-shadow .15s}
+.verdrag .kaart:not(.gr-kaart):hover,.verdrag .fout-item:hover,.verdrag .prijs:hover{border-color:var(--blauw-rand);box-shadow:0 8px 24px rgba(37,99,235,.08)}
+.verdrag .prijs{border-radius:18px}
+.verdrag .prijs.uitgelicht{border:2px solid var(--blauw);box-shadow:0 14px 40px rgba(37,99,235,.12)}
+.verdrag .prijs .tag{background:var(--blauw)}
+.verdrag .stap::before{background:var(--blauw-t);color:var(--blauw);border-radius:10px}
+.verdrag .doc{box-shadow:var(--schaduw-diep)}
+
+/* FAQ als losse blokken, zoals op de Nederlandse pagina's */
+.verdrag .faq{display:grid;gap:10px;max-width:780px}
+.verdrag .faq details,.verdrag .faq details:first-child{border:1px solid var(--lijn);border-radius:14px;padding:16px 18px;background:#fff}
+.verdrag .faq summary{font-weight:650;letter-spacing:0}
+.verdrag .faq details p{color:var(--grijs);margin-top:8px}
+
+/* Donkere tussenbalk in dezelfde vorm als het contactblok */
+.verdrag .tussen-cta{background:var(--inkt)}
+
+@media (min-width:760px){
+  .verdrag section{padding:52px 0}
+  .verdrag .hero{padding:48px 0 60px}
+}
+
+/* Grotere foto in het blok "Who signs your balance sheet" */
+@media (min-width:701px){.verdrag:not(.v-contact) .wie{grid-template-columns:auto 1fr}}
+.verdrag:not(.v-contact) .wie .foto{display:block;width:180px;height:240px;border-radius:var(--r)}
+.verdrag:not(.v-contact) .wie .foto img{object-position:50% 30%}
+@media (max-width:700px){.verdrag:not(.v-contact) .wie .foto{width:100%;height:260px}}
+/* Scores in de hero */
+.verdrag .hero .bewijs{margin-top:14px}
+
+/* Hero gelijk aan de Paginakop van de Nederlandse kant */
+.verdrag .hero-grid{grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+@media (max-width:940px){.verdrag .hero-grid{grid-template-columns:1fr;gap:28px}}
+.verdrag h1 .blauw{color:inherit}
+.verdrag .hero p.sub{margin-top:14px;max-width:36rem}
+.verdrag .hero-cta{margin-top:18px;gap:10px}
+.verdrag .hero-cta .knop{flex:1 1 220px}
+.verdrag .hero-note{font-size:.85rem;margin-top:12px}
+.verdrag .pk-foto{position:relative;border-radius:var(--r-groot);overflow:hidden;aspect-ratio:4/5;max-height:500px;box-shadow:var(--schaduw-diep);margin:0}
+.verdrag .pk-foto>img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.verdrag .pk-foto figcaption{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.95);border-radius:14px;padding:8px 14px 8px 8px;font-size:.8rem;color:var(--grijs)}
+.verdrag .pk-foto figcaption img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.verdrag .pk-foto figcaption b{display:block;color:var(--inkt);font-size:.9rem}
+@media (max-width:940px){.verdrag .pk-foto{aspect-ratio:4/3}}
+
+/* Stappen als kaarten met een nummervakje, zoals "Zo werkt het" */
+.verdrag .stappen{gap:14px}
+.verdrag .stap{background:#fff;border:1px solid var(--lijn);border-radius:var(--r);padding:22px;padding-top:68px;transition:border-color .15s,box-shadow .15s}
+.verdrag .stap:hover{border-color:var(--blauw-rand);box-shadow:0 8px 24px rgba(37,99,235,.08)}
+.verdrag .stap::before{top:22px;left:22px;width:34px;height:34px;font-size:1rem}
+.verdrag .stap::after{display:none}
+.verdrag .stap p{color:var(--grijs)}
+
+/* Prijskaarten zoals op /tarieven: label binnen de kaart */
+.verdrag .prijs{padding:24px}
+.verdrag .prijs .tag{position:static;align-self:flex-start;margin-bottom:10px;font-size:.72rem;letter-spacing:.06em;padding:3px 10px}
+.verdrag .prijs .bedrag{font-size:2.3rem}
+
+/* Donkere tussenbalk als afgerond blok, zoals het contactblok */
+.verdrag .tussen-cta{background:transparent;padding:0 0 8px}
+.verdrag .tussen-cta-binnen{background:var(--inkt);border-radius:24px;padding:28px 32px}
+
+/* Duwtje voor een eerste aanvraag, onder "Do you need one" */
+.verdrag .eerste-aanvraag{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-top:18px;padding:18px 22px;border-radius:var(--r);background:var(--blauw-t);border:1px solid var(--blauw-rand)}
+.verdrag .eerste-aanvraag p{margin:0;max-width:44rem;color:var(--tekst)}
+/* Knoppen in de hero: niet uitrekken, ook niet op tussenbreedtes */
+.verdrag .hero-cta .knop{flex:0 1 auto}
+/* "Which of these is you?" op de verlengpagina: nummers blauw, het zijn geen fouten */
+.verdrag.v-renewal #situations .fout-item .nr{background:var(--blauw-t);color:var(--blauw)}
+/* Contactpagina: het profielregeltje is geen kaart */
+.verdrag.v-contact .wie{border:0;border-radius:0;box-shadow:none;padding:0;background:transparent}
+/* Intro onder een sectiekop: niet op 42rem afbreken als het op één regel past
+   (Kyle 23-11-2026, "IND form 7524 lists..." stond op twee regels). */
+.verdrag .sectie-kop{max-width:66rem}

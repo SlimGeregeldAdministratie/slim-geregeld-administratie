@@ -23,6 +23,10 @@ klikken: 0
 klikkenBijgewerkt: 2026-11-09
 status: live
 image: /blog/img/daft-renewal-balance-sheet-requirements.png
+kort:
+  - "For renewal, forms 7035 and 7535 ask for a balance sheet and a profit and loss account over the current and previous financial year."
+  - "A bank statement alone is explicitly not enough, and personal withdrawals reduce your business equity."
+  - "An authorised independent expert must prepare or review the documents; your records can start in a spreadsheet."
 ---
 
 For DAFT renewal, forms 7035 and 7535 ask for a balance sheet (balans) and a profit and loss account (winst-en-verliesrekening) covering the current and previous financial year, prepared or reviewed by an authorised independent expert; a bank statement alone is explicitly insufficient for this [renewal documentation](/daft/renewal/). That means your preparation needs to cover both the position of the business and its results across those periods. The useful question is therefore whether your records can produce those documents.

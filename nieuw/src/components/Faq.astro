@@ -1,0 +1,28 @@
+---
+/* FAQ als uitklapblokken plus FAQPage-gegevens voor Google en AI-zoekmachines. */
+interface Props { vragen: [string, string][]; titel?: string; id?: string }
+const { vragen, titel = 'Veelgestelde vragen', id } = Astro.props;
+const ld = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: vragen.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+---
+<section id={id}>
+  <div class="wrap">
+    <h2>{titel}</h2>
+    <div class="faq">
+      {vragen.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</section>
+
+<style>
+.faq{display:grid;gap:10px;margin-top:22px;max-width:780px}
+.faq details{border:1px solid var(--lijn);border-radius:14px;padding:16px 18px;background:#fff}
+.faq summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blauw);font-weight:700}
+.faq details[open] summary::after{content:"−"}
+.faq p{color:var(--grijs);margin-top:8px}
+</style>

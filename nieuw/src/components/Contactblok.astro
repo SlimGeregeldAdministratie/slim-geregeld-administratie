@@ -1,0 +1,110 @@
+---
+/* Kort contactformulier met WhatsApp ernaast. Netlify-formulier "contact" (NL en EN
+   delen dezelfde velden); veld page laat zien vanaf welke pagina iemand het stuurde. */
+interface Props { titel?: string; tekst?: string; vinkjes?: string[]; taal?: 'nl' | 'en' }
+const { taal = 'nl' } = Astro.props;
+const L = taal === 'en' ? {
+  titel: 'Get your bookkeeping sorted', tekst: 'Leave your details. You hear within one to three working days what I need from you, usually the same day. Prefer to message? That works too.',
+  vinkjes: ['No obligation', 'Switching mid-year is fine', 'Starting out? Also welcome'],
+  ik: 'You get an answer from me', rol: 'Kyle Bouwmeester, Becon-registered bookkeeper', wa: 'Send a WhatsApp', mail: 'Or email', naam: 'Name', email: 'Email address', tel: 'Phone', opt: 'optional',
+  type: 'Type of business', kies: 'Choose', ez: 'Eenmanszaak (sole proprietorship)', vof: 'VOF (partnership)', bv: 'BV or holding', nog: 'None yet, starting soon', anders: 'Other',
+  vraag: 'What can I help you with?', bron: 'How did you find me?', ai: 'ChatGPT or other AI', kennis: 'Through someone I know', waar: 'Where?', verstuur: 'Send',
+  privacy: 'I only use your details to get back to you.', privlink: 'Privacy policy', privhref: '/en/privacy/', bedankt: '/en/thank-you/', bot: 'Leave empty',
+} : {
+  titel: 'Binnen een week geregeld', tekst: 'Laat je gegevens achter. Je hoort binnen een tot drie werkdagen wat ik van je nodig heb, meestal al dezelfde dag. Liever appen? Dat kan ook.',
+  vinkjes: ['Vrijblijvend, je zit nergens aan vast', 'Overstappen midden in het jaar kan', 'Starters zijn ook welkom'],
+  ik: 'Je krijgt antwoord van mij', rol: 'Kyle Bouwmeester, Becon-geregistreerd boekhouder', wa: 'Stuur een WhatsApp', mail: 'Of mail naar', naam: 'Naam', email: 'E-mailadres', tel: 'Telefoon', opt: 'optioneel',
+  type: 'Type onderneming', kies: 'Kies', ez: 'Eenmanszaak', vof: 'Vof', bv: 'BV of holding', nog: 'Nog geen, ik start binnenkort', anders: 'Anders',
+  vraag: 'Waar kan ik je mee helpen?', bron: 'Hoe heb je me gevonden?', ai: 'ChatGPT of andere AI', kennis: 'Via iemand die ik ken', waar: 'Waar dan?', verstuur: 'Verstuur',
+  privacy: 'Ik gebruik je gegevens alleen om contact met je op te nemen.', privlink: 'Privacybeleid', privhref: '/privacybeleid', bedankt: '/bedankt', bot: 'Niet invullen',
+};
+const { titel = L.titel, tekst = L.tekst, vinkjes = L.vinkjes } = Astro.props;
+const WA = 'https://wa.me/31621311043';
+const pagina = Astro.url.pathname;
+---
+  <section class="contactsectie">
+    <div class="wrap">
+      <div class="contact">
+        <div class="c-tekst">
+          <h2>{titel}</h2>
+          <p>{tekst}</p>
+          <div class="ikzelf"><img src="/img/kyle-profiel.jpg" alt="Kyle Bouwmeester" width="56" height="56"><span><b>{L.ik}</b>{L.rol}</span></div>
+          <ul class="c-vink">{vinkjes.map((v) => <li>{v}</li>)}</ul>
+          <a class="knop wa" href={WA} target="_blank" rel="noopener">{L.wa}</a>
+          <p class="klein">{L.mail} <a href="mailto:kyle@slim-geregeld.nl">kyle@slim-geregeld.nl</a></p>
+        </div>
+        <form id="contact" class="formulier" name="contact" method="POST" action={L.bedankt} data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <input type="hidden" name="page" value={pagina}>
+          <p class="visually-hidden"><label>{L.bot} <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <label>{L.naam}<input name="name" required autocomplete="name"></label>
+          <label>{L.email}<input type="email" name="email" required autocomplete="email"></label>
+          <label>{L.tel} <span class="opt">{L.opt}</span><input type="tel" name="phone" autocomplete="tel"></label>
+          <label>{L.type}
+            <select name="businessType" required>
+              <option value="" disabled selected>{L.kies}</option>
+              <option value="eenmanszaak">{L.ez}</option>
+              <option value="vof">{L.vof}</option>
+              <option value="bv">{L.bv}</option>
+              <option value="nog-geen">{L.nog}</option>
+              <option value="anders">{L.anders}</option>
+            </select>
+          </label>
+          <label class="breed">{L.vraag} <span class="opt">{L.opt}</span><textarea name="situation" rows="3"></textarea></label>
+          <label class="breed">{L.bron} <span class="opt">{L.opt}</span>
+            <select name="source">
+              <option value="" selected>{L.kies}</option>
+              <option>Google</option>
+              <option value="ChatGPT of andere AI">{L.ai}</option>
+              <option>Moneybird</option>
+              <option>LinkedIn</option>
+              <option value="Via iemand die ik ken">{L.kennis}</option>
+              <option value="anders">{L.anders}</option>
+            </select>
+          </label>
+          <label class="breed anders-veld">{L.waar} <span class="opt">{L.opt}</span><input name="sourceOther" autocomplete="off"></label>
+          <button class="knop vol breed" type="submit">{L.verstuur}</button>
+          <p class="breed klein">{L.privacy} <a href={L.privhref}>{L.privlink}</a></p>
+        </form>
+        <script is:inline>
+          /* Een link met data-vraag (bijv. op tarieven) vult de vraag alvast in. */
+          document.addEventListener('click', function (e) {
+            var a = e.target.closest && e.target.closest('a[data-vraag]');
+            if (!a) return;
+            var t = document.querySelector('#contact textarea[name="situation"]');
+            if (t && (!t.value || t.dataset.ingevuld === '1')) { t.value = a.dataset.vraag; t.dataset.ingevuld = '1'; }
+          });
+        </script>
+      </div>
+    </div>
+  </section>
+
+<style>
+.contact{background:var(--inkt);color:#fff;border-radius:24px;padding:28px 20px;display:grid;gap:24px}
+.c-tekst p{color:#b6c0d4;margin:10px 0 18px}
+.c-tekst .klein{margin:14px 0 0}
+.c-tekst a:not(.knop){color:#fff}
+.ikzelf{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:.85rem;color:#b6c0d4}
+.ikzelf img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2)}
+.ikzelf b{display:block;color:#fff;font-size:.98rem}
+.c-vink{list-style:none;display:grid;gap:8px;margin:0 0 22px;color:#e2e8f0}
+.c-vink li{padding-left:26px;position:relative}
+.c-vink li::before{content:"✓";position:absolute;left:0;color:#4ade80;font-weight:800}
+.formulier{background:#fff;color:var(--inkt);border-radius:18px;padding:20px;display:grid;gap:14px}
+.formulier label{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 6px;font-weight:600;font-size:.92rem}
+.formulier .opt{font-weight:400;color:var(--grijs);font-size:.8rem}
+.formulier input,.formulier select,.formulier textarea{font:inherit;font-weight:400;border:1px solid #cbd5e1;border-radius:10px;padding:11px 12px;min-height:46px;background:#fff;color:var(--inkt);width:100%;flex-basis:100%}
+.formulier textarea{resize:vertical;min-height:84px}
+.formulier input:focus,.formulier select:focus,.formulier textarea:focus{outline:3px solid var(--blauw-rand);border-color:var(--blauw)}
+.formulier .klein{font-size:.8rem;color:var(--grijs)}
+.formulier .klein a{color:var(--blauw)}
+.formulier .knop{width:100%}
+.anders-veld{display:none !important}
+.formulier:has(select[name=source] option[value=anders]:checked) .anders-veld{display:flex !important}
+@media (min-width:760px){
+  .contact{grid-template-columns:.85fr 1.15fr;padding:44px;gap:44px;align-items:start}
+  .c-tekst{padding-top:8px}
+  .formulier{grid-template-columns:1fr 1fr;padding:26px}
+  .formulier .breed{grid-column:1/-1}
+}
+</style>

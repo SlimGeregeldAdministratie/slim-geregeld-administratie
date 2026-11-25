@@ -47,6 +47,7 @@ Elk bestand begint met YAML tussen twee regels `---`. Daaronder volgt de tekst i
 | `translationKey` | nee, wel aanbevolen | tekst | Zelfde waarde voor de NL-, EN- en JA-versie van één stuk. Zonder dit veld is de slug de sleutel. Per taal mag een sleutel maar één keer voorkomen. |
 | `cluster` | ja | slug | Onderwerpgroep, zie de tabel hieronder. Bepaalt het label, de gerelateerde stukken en de dienstlink. |
 | `tags` | nee | lijst met teksten | Komt als `keywords` in het schema. |
+| `kort` | nee, wel aanbevolen | lijst van 2 tot 4 zinnen | Het kader "In het kort" (EN "In short") bovenaan het artikel in de nieuwe site. Alleen zinnen die in het artikel zelf staan of er direct uit volgen; geen nieuwe bedragen. De oude build negeert het veld. |
 | `faq` | nee | lijst van `{q, a}` | Drie tot vijf vragen. Wordt een FAQ-blok onder het artikel plus FAQPage-schema. Platte tekst, geen markdown. |
 | `status` | ja | `live`, `archief` of `ingetrokken` | Zie "Statussen". Ontbreekt het veld, dan geldt `live` met een waarschuwing. |
 | `image` | nee | pad onder `public/blog/img/` | Bijvoorbeeld `/blog/img/daft-renewal-equity.png`, 1200x628. Komt bovenaan het artikel en als `og:image`. Bestaat het bestand niet, dan bouwt het artikel zonder afbeelding (waarschuwing). |
@@ -111,11 +112,17 @@ Zet tekst met een dubbele punt, aanhalingstekens of een `#` tussen dubbele aanha
 | `daft-verlenging` | DAFT-verlenging / DAFT renewal | `/daft/renewal/` |
 | `daft` | DAFT / DAFT | `/daft/` |
 | `djtt` | DJTT / DJTT | `/djtt/` (Japans: `/djtt/ja/`) |
-| `zzp-btw` | Zzp en btw / VAT for freelancers | NL: `/pakketten`, EN: `/daft/#pricing` (Compliance Plan) |
-| `bv-dga` | BV en DGA / BV and director | NL: `/pakketten`, EN: `/daft/#pricing` |
-| `jaarwerk` | Jaarwerk / Year-end | NL: `/pakketten`, EN: `/daft/#pricing` |
-| `ib-aangifte` | Aangifte inkomstenbelasting / Income tax return | NL: `/pakketten` (IB € 245 excl. btw, fiscale partners € 395 excl. btw), EN: `/daft/#pricing` |
-| `moneybird` | Moneybird / Moneybird | NL: `/pakketten`, EN: `/daft/#pricing` |
+| `zzp-btw` | Zzp en btw / VAT for freelancers | NL: `/tarieven`, EN: `/daft/#pricing` (Compliance Plan) |
+| `bv-dga` | BV en DGA / BV and director | NL: `/boekhouding-bv/`, EN: `/daft/#pricing` |
+| `jaarwerk` | Jaarwerk / Year-end | NL: `/tarieven`, EN: `/daft/#pricing` |
+| `ib-aangifte` | Aangifte inkomstenbelasting / Income tax return | NL: `/aangifte-inkomstenbelasting/` (IB € 245 excl. btw, fiscale partners € 395 excl. btw), EN: `/daft/#pricing` |
+| `moneybird` | Moneybird / Moneybird | NL: `/tarieven`, EN: `/daft/#pricing` |
+| `bouw` | Bouw en installatie / Construction | NL: `/boekhouding-bouw/` |
+| `webshop` | Webshops en bol.com / Webshops | NL: `/boekhouding-webshop/` |
+| `creatief` | Creatieve beroepen / Creative professions | NL: `/boekhouding-creatief/` |
+| `persoonlijke-diensten` | Coaches, kappers en trainers / Personal services | NL: `/boekhouding-persoonlijke-diensten/` |
+| `ict` | ICT en developers / IT and developers | NL: `/boekhouding-ict/` |
+| `slim` | Slim op WhatsApp / Slim on WhatsApp | NL: `/slim/`, EN: `/en/slim/` |
 
 Een nieuw cluster werkt meteen (label = de sleutel, geen dienstlink) en geeft een
 waarschuwing. Label en dienstlink voeg je toe in `CLUSTERS` in `scripts/blog.mjs`.
@@ -201,6 +208,12 @@ Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net al
 | `moneybird` | Moneybird | werken in Moneybird |
 | `daft-verlenging` | DAFT-verlenging | verlenging van een DAFT- of DJTT-vergunning |
 | `djtt` | DJTT | Japanse verdragsondernemers |
+| `bouw` | Bouw en installatie | btw verlegd, 9% of 21%, materiaal, werken voor particulieren of aannemers |
+| `webshop` | Webshops en bol.com | uitbetalingen, OSS-btw, voorraad, retouren |
+| `creatief` | Creatieve beroepen | fotografen, ontwerpers, videomakers: apparatuur, KOR, wisselende inkomsten |
+| `persoonlijke-diensten` | Coaches, kappers en trainers | btw-tarief of vrijstelling, pinbetalingen, urencriterium |
+| `ict` | ICT en developers | buitenlandse klanten, software-abonnementen, eenmanszaak of bv |
+| `slim` | Slim op WhatsApp | wat Slim doet, nieuwe functies, praktijkvoorbeelden |
 | `nieuws` | Praktijknieuws | nieuws over Slim Geregeld zelf, de praktijk, lanceringen |
 
 | Veld | Verplicht | Formaat | Toelichting |
@@ -218,6 +231,7 @@ Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net al
 | `cluster` | ja | sleutel uit de tabel hierboven | Onderwerp van de post. De planner kiest het op de inhoud, zoals bij een blog. Ontbreekt het of is het onbekend, dan komt de post onder `nieuws` (waarschuwing in de build). |
 | `impressies` | nee | heel getal of weglaten | Totaal aantal impressies op LinkedIn op de datum `impressiesBijgewerkt`. De planner werkt dit wekelijks bij via de API (zelfde `id`, item vervangen). Alleen voor "Meest gelezen"; posts zonder getal komen daar achteraan. Wordt niet getoond. |
 | `impressiesBijgewerkt` | bij `impressies` | `JJJJ-MM-DD` | Datum waarop `impressies` is gemeten. Nodig voor impressies per dag; ontbreekt het, dan rekent de build met de builddatum. |
+| `reacties` | nee | heel getal of weglaten | Aantal reacties op LinkedIn. Planner 7 werkt dit wekelijks bij (sinds 24-11-2026). De site toont het bij de post als het groter is dan 0. |
 | `media` | nee | object of weglaten | Carrousel of video bij de post, zie "Media" hieronder. Zonder `media` toont de site `afbeelding`. |
 | `blogSlug` | nee | slug of `null` | Slug van het bijbehorende artikel in dezelfde taal. Gevuld: link "Lees het hele stuk" naar `/blog/<slug>/` (of `/en/blog/<slug>/`). De statische versie toont de link alleen als het artikel bestaat. |
 

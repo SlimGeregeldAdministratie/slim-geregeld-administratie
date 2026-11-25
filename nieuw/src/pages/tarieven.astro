@@ -1,0 +1,104 @@
+---
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import Prijskaarten from '../components/Prijskaarten.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import Faq from '../components/Faq.astro';
+import Contactblok from '../components/Contactblok.astro';
+
+const faq: [string, string][] = [
+  ['Zijn de prijzen inclusief btw?', 'Nee, alle prijzen zijn exclusief 21% btw. Ben je btw-ondernemer, dan trek je die btw gewoon weer af.'],
+  ['Wat kost Moneybird daarnaast?', 'Moneybird staat op jouw naam en kost meestal €15 tot €35 per maand, afhankelijk van hoeveel banktransacties je hebt. Via mijn link heb je de eerste 120 dagen gratis, in plaats van 60.'],
+  ['Zit de aangifte inkomstenbelasting bij de €95?', 'Je jaarcijfers zitten erbij, de aangifte zelf is los: €245, of €395 samen met je fiscale partner. Was je het hele jaar klant, dan krijg je 15% korting.'],
+  ['Wat kost een bv?', 'Dat hangt af van wat er speelt: één bv of een holding met werkmaatschappij, wel of geen DGA-loon, hoeveel boekingen. Je krijgt vooraf een vaste prijs, zodat je niet voor verrassingen komt te staan.'],
+  ['Zit ik ergens aan vast?', 'Nee. Je betaalt per maand en je administratie blijft van jou, in je eigen Moneybird.'],
+  ['Wat kost Slim los?', 'Gebruik je alleen Slim, zonder dat ik je boekhouding doe, dan is het eerste halfjaar gratis en daarna €9,95 per maand. Bij de volledige service zit Slim erbij.'],
+];
+---
+<Basis
+  titel="Tarieven boekhouder zzp en bv | Vaste prijzen | Slim Geregeld"
+  omschrijving="Vaste prijzen excl. btw: volledige service voor eenmanszaak en vof €95 per maand, aangifte IB €245 (€395 met partner), bv op maat met een prijs vooraf."
+>
+  <Paginakop
+    kruimel="Tarieven"
+    tag="Tarieven"
+    titel="Vaste prijzen, vooraf duidelijk"
+    sub="Geen uurtje-factuurtje en geen verrassingen achteraf. Je weet vooraf wat je betaalt. Alle prijzen zijn exclusief btw."
+    prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof, volledige service' }}
+    foto={{ src: '/img/kyle-3.jpg', alt: 'Kyle Bouwmeester op een stoel in een lichte ruimte', pos: '50% 35%' }}
+  />
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <Prijskaarten />
+      <p class="noot">Het Moneybird-abonnement staat op je eigen naam: meestal €15 tot €35 per maand, de eerste 120 dagen gratis via mijn link.</p>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap">
+      <h2>Wat zit erin?</h2>
+      <div class="inhoud">
+        <div class="blok">
+          <h3>Eenmanszaak of vof</h3><p class="pr">€95 per maand</p>
+          <ul class="vinkjes">
+            <li>Moneybird en Slim voor je ingericht</li>
+            <li>Je boekhouding in Moneybird, door mij gecontroleerd</li>
+            <li>Btw-aangifte elk kwartaal, je weet vooraf wat je betaalt</li>
+            <li>Je jaarcijfers, klaar voor je aangifte IB</li>
+            <li>Vragen tussendoor via WhatsApp of mail</li>
+            <li>Slim op WhatsApp voor facturen en bonnetjes</li>
+          </ul>
+        </div>
+        <div class="blok">
+          <h3>BV en holding</h3><p class="pr">Op maat, vaste prijs vooraf</p>
+          <ul class="vinkjes">
+            <li class="alles"><b>Alles van de eenmanszaak</b><span>boekhouding, btw, vragen tussendoor en Slim</span></li>
+            <li>Je jaarrekening, klaar voor de KvK</li>
+            <li>De aangifte vennootschapsbelasting</li>
+            <li>DGA-loon via mijn vaste salarispartner</li>
+            <li>Meedenken over salaris, dividend en je rekening-courant</li>
+            <li>Ook voor een holding met werkmaatschappij</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Los te bestellen</h2>
+      <p class="sub">Ook als ik je boekhouding niet doe.</p>
+      <div class="los">
+        <div class="blok"><h3>Aangifte inkomstenbelasting</h3><p class="pr">€245, of €395 met fiscale partner</p><p>Klant? Dan 15% korting.</p><a class="meer" href="/aangifte-inkomstenbelasting">Meer over de aangifte →</a></div>
+        <div class="blok"><h3>Financieel jaaroverzicht</h3><p class="pr">€395 tot 50 facturen en bonnetjes</p><p>Je balans en winst-en-verliesrekening, bijvoorbeeld voor je aangifte IB. €695 tot 150 stuks; daarboven hoor je de prijs vooraf.</p><a class="meer" href="#contact" data-vraag="Ik wil graag een financieel jaaroverzicht laten maken.">Jaaroverzicht aanvragen →</a></div>
+        <div class="blok"><h3>Jaarrekening en Vpb voor je bv</h3><p class="pr">Vanaf €595 per jaar</p><p>Houd je de boekhouding zelf bij? Dan maak ik je jaarrekening en de aangifte vennootschapsbelasting, ook voor een holding. Je hoort de prijs vooraf.</p><a class="meer" href="#contact" data-vraag="Ik wil graag mijn jaarrekening en Vpb-aangifte laten maken.">Prijs aanvragen →</a></div>
+        <div class="blok"><h3>Achterstand wegwerken</h3><p class="pr">Op maat</p><p>Een of meer jaren achter? Ik kijk eerst wat er ligt en geef je dan een vaste prijs.</p><a class="meer" href="#contact" data-vraag="Ik heb een achterstand in mijn administratie en wil die laten wegwerken.">Prijs aanvragen →</a></div>
+      </div>
+      <p class="noot">Niet inbegrepen: het Moneybird-abonnement, dat op je eigen naam staat.</p>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap">
+      <GoogleReviews titel="Wat klanten zeggen" eerst={['Daan van der Mark', 'Benthe Lokhorst', 'Dany Cramer', 'Mirte Groen']} />
+    </div>
+  </section>
+
+  <Faq vragen={faq} />
+  <Contactblok titel="Vraag je prijs aan" tekst="Vertel kort wat je hebt: eenmanszaak, vof of bv, en wat je nu zelf doet. Binnen een tot drie werkdagen heb je een vaste prijs." />
+</Basis>
+
+<style>
+.inhoud,.los{display:grid;gap:14px;margin-top:22px}
+.noot{margin-top:24px;color:var(--grijs);font-size:.95rem;text-align:center}
+.pr{color:var(--blauw);font-weight:700;margin-top:2px}
+.inhoud .vinkjes{margin-bottom:0}
+.alles{padding-bottom:10px;margin-bottom:2px;border-bottom:1px solid var(--lijn)}
+.alles span{display:block;color:var(--grijs);font-size:.9rem}
+.los .blok{display:flex;flex-direction:column}
+.los .blok p:not(.pr){margin-top:6px}
+.los .meer{margin-top:auto;padding-top:14px}
+@media (min-width:760px){.inhoud{grid-template-columns:1fr 1fr}.los{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.los{grid-template-columns:repeat(4,1fr)}}
+</style>

@@ -1,0 +1,8 @@
+---
+import AuteurPagina from '../../components/AuteurPagina.astro';
+import { AUTEURPADEN } from '../../lib/inhoud.mjs';
+export function getStaticPaths() {
+  return Object.entries(AUTEURPADEN).map(([sleutel, p]: any) => ({ params: { auteur: p.nl.split('/')[2] }, props: { sleutel } }));
+}
+---
+<AuteurPagina sleutel={Astro.props.sleutel} taal="nl" />

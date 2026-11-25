@@ -1,0 +1,77 @@
+---
+/* Kop van een dienstpagina: antwoord en prijs bovenaan, één hoofdknop,
+   WhatsApp, bewijs met bron. Rechts een foto of een eigen slot. */
+import Bewijs from './Bewijs.astro';
+interface Props {
+  tag: string; titel: string; sub: string;
+  prijs?: { bedrag: string; oud?: string; per?: string; uitleg?: string };
+  knop?: [string, string];
+  wa?: boolean;
+  kruimel?: string;
+  foto?: { src: string; alt: string; pos?: string; bijschrift?: boolean } | false;
+  /** Vervang "Hoi" in de titel door een groet op basis van het tijdstip. */
+  groet?: boolean;
+  taal?: 'nl' | 'en';
+}
+const { taal = 'nl', groet = false, tag, titel, sub, prijs, knop = taal === 'en' ? ['Get started', '/en/intake/'] : ['Kennismaken', '#contact'], wa = true, kruimel, foto = { src: '/img/kyle-2.jpg', alt: 'Kyle Bouwmeester aan de telefoon met een klant' } } = Astro.props;
+const WA = 'https://wa.me/31621311043';
+const L = taal === 'en'
+  ? { wa: 'Send a WhatsApp', becon: 'bookkeeper', rol: 'your own bookkeeper' }
+  : { wa: 'Stuur een WhatsApp', becon: 'boekhouder', rol: 'jouw vaste boekhouder' };
+const heeftRechts = foto || Astro.slots.has('rechts');
+const kruimelLd = kruimel && {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://slim-geregeld.nl/' },
+    { '@type': 'ListItem', position: 2, name: kruimel, item: new URL(Astro.url.pathname, 'https://slim-geregeld.nl').href },
+  ],
+};
+---
+<section class="pk-hero">
+  {kruimelLd && <script type="application/ld+json" set:html={JSON.stringify(kruimelLd)} />}
+  <div class={`wrap pk-grid${heeftRechts ? '' : ' smal'}`}>
+    <div>
+      <span class="tag">{tag}</span>
+      <h1 data-groet={groet ? '' : undefined}>{titel}</h1>
+      {groet && <script is:inline>(function(){var h=document.currentScript.previousElementSibling,u=new Date().getHours(),en=/^Hi\b/.test(h.textContent),g=en?(u<12?'Good morning':u<18?'Good afternoon':'Good evening'):(u<12?'Goedemorgen':u<18?'Goedemiddag':'Goedenavond');h.textContent=h.textContent.replace(/^(Hoi|Hi)\b/,g);})();</script>}
+      <p class="sub">{sub}</p>
+      {prijs && <p class="prijsregel"><b>{prijs.bedrag}</b>{prijs.oud && <s>{prijs.oud}</s>}{prijs.per && <span>{prijs.per}</span>}{prijs.uitleg && <span class="pr-uit">{prijs.uitleg}</span>}</p>}
+      <div class="knoppen">
+        <a class="knop vol" href={knop[1]}>{knop[0]}</a>
+        {wa && <a class="knop leeg" href={WA} target="_blank" rel="noopener">{L.wa}</a>}
+      </div>
+      <Bewijs taal={taal} />
+    </div>
+    {Astro.slots.has('rechts') ? <div class="pk-rechts"><slot name="rechts" /></div> : foto && (
+      <figure class="pk-foto">
+        <img src={foto.src} alt={foto.alt} width="933" height="1400" fetchpriority="high" style={foto.pos ? `object-position:${foto.pos}` : undefined}>
+        {foto.bijschrift !== false && <figcaption><img src="/img/kyle-profiel.jpg" alt="" width="40" height="40"><span><b>Kyle Bouwmeester</b>{L.rol}</span></figcaption>}
+      </figure>
+    )}
+  </div>
+</section>
+
+<style>
+.pk-hero{padding:20px 0 36px;background:linear-gradient(180deg,var(--blauw-t),#fff 75%)}
+.pk-grid{display:grid;gap:28px}
+.pk-grid.smal>div{max-width:760px}
+.sub{margin:14px 0 0}
+.prijsregel{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:18px 0 18px;color:var(--grijs);font-size:.95rem}
+.prijsregel b{font-size:1.7rem;color:var(--inkt);letter-spacing:-.02em}
+.prijsregel s{color:#94a3b8}
+.pr-uit{flex-basis:100%;font-size:.85rem}
+.knoppen{margin-top:18px}
+.prijsregel + .knoppen{margin-top:0}
+.knoppen .knop{flex:1 1 220px}
+.pk-grid.smal .knoppen .knop{flex:0 1 240px}
+.pk-foto{position:relative;border-radius:var(--r-groot);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--schaduw)}
+.pk-foto>img{width:100%;height:100%;object-fit:cover;object-position:50% 28%}
+.pk-foto figcaption{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.95);border-radius:14px;padding:8px 14px 8px 8px;font-size:.8rem;color:var(--grijs)}
+.pk-foto figcaption img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.pk-foto figcaption b{display:block;color:var(--inkt);font-size:.9rem}
+@media (min-width:760px){
+  .pk-hero{padding:40px 0 56px}
+  .pk-grid:not(.smal){grid-template-columns:1.1fr .9fr;align-items:center;gap:56px}
+  .pk-foto{aspect-ratio:4/5;max-height:500px}
+}
+</style>

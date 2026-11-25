@@ -1,0 +1,73 @@
+---
+/* Gedeelde opbouw van de plaatspagina's (Zaanstreek, Amsterdam).
+   Elke pagina levert zijn eigen tekst; alleen de opbouw is gedeeld. */
+import Basis from '../layouts/Basis.astro';
+import Paginakop from './Paginakop.astro';
+import Prijskaarten from './Prijskaarten.astro';
+import GoogleReviews from './GoogleReviews.astro';
+import Faq from './Faq.astro';
+import Contactblok from './Contactblok.astro';
+interface Props {
+  plaats: string; titel: string; omschrijving: string; h1: string; sub: string;
+  plaatsen: string[]; faq: [string, string][];
+  foto: { src: string; alt: string; pos?: string };
+}
+const { plaats, titel, omschrijving, h1, sub, plaatsen, faq, foto } = Astro.props;
+const rest = plaatsen.filter((p) => p !== plaats);
+const omgeving = rest.length ? `zoals ${rest.slice(0, -1).join(', ')}${rest.length > 1 ? ' of ' : ''}${rest[rest.length - 1]}` : '';
+const ld = {
+  '@context': 'https://schema.org', '@type': 'AccountingService',
+  '@id': 'https://slim-geregeld.nl/#org',
+  name: 'Slim Geregeld Administratie', url: 'https://slim-geregeld.nl/',
+  telephone: '+31621311043', email: 'kyle@slim-geregeld.nl',
+  priceRange: '€95 per maand',
+  areaServed: plaatsen.map((p) => ({ '@type': 'City', name: p })),
+};
+---
+<Basis titel={titel} omschrijving={omschrijving}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <Paginakop
+    kruimel={`Boekhouder ${plaats}`}
+    tag={`Boekhouder ${plaats}`}
+    titel={h1}
+    sub={sub}
+    prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof, volledige service' }}
+    foto={foto}
+  />
+  <section>
+    <div class="wrap">
+      <div class="kolommen"><slot /></div>
+      <div class="blok waar">
+        <div>
+          <h3>Ik help ondernemers in heel Nederland</h3>
+          <p>Bijna alles gaat via WhatsApp, mail of telefoon. Of je nu in {plaats} zit of ergens anders, het werkt overal hetzelfde.</p>
+        </div>
+        <a class="knop vol" href="#contact">Kennismaken</a>
+      </div>
+    </div>
+  </section>
+  <section class="zacht">
+    <div class="wrap">
+      <h2>Tarieven</h2>
+      <p class="sub">Vaste prijzen, exclusief btw. Het Moneybird-abonnement staat op je eigen naam.</p>
+      <Prijskaarten />
+    </div>
+  </section>
+  <section>
+    <div class="wrap"><GoogleReviews /></div>
+  </section>
+  <Faq vragen={faq} />
+  <Contactblok />
+</Basis>
+
+<style>
+.kolommen{display:grid;gap:8px 56px}
+.kolommen :global(h2){margin-top:0;font-size:clamp(1.35rem,3vw,1.6rem)}
+.kolommen :global(p),.kolommen :global(ul){color:var(--tekst);margin-top:12px}
+.kolommen :global(ul){padding-left:22px;display:grid;gap:6px}
+.kolommen :global(a){color:var(--blauw)}
+.kolommen > :global(div + div){margin-top:28px}
+.waar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:32px;background:var(--blauw-t);border-color:var(--blauw-rand)}
+.waar p{color:var(--tekst);margin-top:4px}
+@media (min-width:760px){.kolommen{grid-template-columns:1fr 1fr}.kolommen > :global(div + div){margin-top:0}}
+</style>

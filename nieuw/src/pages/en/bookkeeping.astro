@@ -1,0 +1,84 @@
+---
+// Boekhouding in het Engels voor expats zonder verdragsvergunning (24-11-2026).
+import Basis from '../../layouts/Basis.astro';
+import Paginakop from '../../components/Paginakop.astro';
+import Faq from '../../components/Faq.astro';
+import GoogleReviews from '../../components/GoogleReviews.astro';
+import Contactblok from '../../components/Contactblok.astro';
+
+const faq: [string, string][] = [
+  ['What does an English-speaking bookkeeper cost?', 'For an eenmanszaak or VOF €95 a month excluding VAT, the same as for Dutch clients. That includes your bookkeeping, the quarterly VAT returns and your annual figures. A BV gets a fixed price agreed upfront.'],
+  ['Is everything really in English?', 'Yes. Emails, WhatsApp, questions and explanations are in English. The Tax Administration itself only works in Dutch, so I translate what matters for you and handle the filing.'],
+  ['Is my income tax return included?', 'Your annual figures are included, the income tax return itself is separate: €245, or €395 together with your tax partner. As a year-round client you get 15% off.'],
+  ['Do I need Moneybird?', 'Your books run in Moneybird, in your own name, so you always keep access. It usually costs €15 to €35 a month depending on your bank transactions. Through my link the first 120 days are free.'],
+  ['I am on a DAFT or DJTT permit. Is this for me?', 'Then the Compliance Plan fits better: it includes the equity checks and the documents for your renewal.'],
+  ['Can I switch in the middle of the year?', 'Yes. I take over your bookkeeping from the moment it suits you and put the rest of the year right.'],
+];
+---
+<Basis
+  titel="English-speaking bookkeeper in the Netherlands | Slim Geregeld"
+  omschrijving="Bookkeeping in English for expats with a Dutch eenmanszaak or VOF: your books in Moneybird, quarterly VAT returns and annual figures. €95 a month excl. VAT."
+  taal="en"
+>
+  <Paginakop
+    taal="en"
+    kruimel="Bookkeeping in English"
+    tag="For expats and international freelancers"
+    titel="Your Dutch bookkeeping, explained in English"
+    sub="For expats with a Dutch eenmanszaak or VOF who are not on a treaty permit. I do your bookkeeping and VAT returns, and explain everything in plain English."
+    prijs={{ bedrag: '€95', per: 'a month, excl. VAT', uitleg: 'eenmanszaak or VOF · BV on a fixed quote' }}
+    knop={['Get in touch', '#contact']}
+  />
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="blok plan-wijs">
+        <h2>On a DAFT or DJTT permit? Choose the Compliance Plan</h2>
+        <p>This page is for expats who run a Dutch business without a treaty permit. With a treaty permit you need more than bookkeeping: your income tax return, a quarterly check of your €4,500 equity and the signed statement for your renewal. The Compliance Plan includes all of that for €79 or €149 a month, so you do not pay €245 for the tax return and €495 for the renewal statement on top.</p>
+        <a class="knop vol" href="/en/compliance-plan/">See the Compliance Plan</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>What I take off your hands</h2>
+      <div class="grid3 vier">
+        <div class="blok"><h3>VAT returns</h3><p>Every quarter I prepare and file your VAT return. You see the amount before it goes in, and you know when to pay.</p></div>
+        <div class="blok"><h3>Your books in Moneybird</h3><p>Bank transactions, invoices and receipts, checked and booked. Send a receipt by WhatsApp and it is done.</p></div>
+        <div class="blok"><h3>Annual figures</h3><p>A clear overview of your year, ready for your income tax return. No surprises in spring.</p></div>
+        <div class="blok"><h3>Questions in between</h3><p>A letter from the Tax Administration you do not understand? Send a photo and I tell you what it means and what to do.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>Good to know as an expat</h2>
+        <p class="sub">The Dutch system has a few things that catch newcomers out. I keep an eye on them for you.</p>
+      </div>
+      <ul class="vinkjes">
+        <li>VAT on invoices to clients abroad, inside and outside the EU</li>
+        <li>The small business scheme (KOR), and when it does not pay off</li>
+        <li>The hours criterion for the self-employed deduction</li>
+        <li>Setting money aside for income tax, with a quarterly estimate</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Also need your income tax return?</h2>
+      <p class="sub">I do your Dutch income tax return in English too, for €245, or €395 with your tax partner. <a href="/en/income-tax-return/">How the tax return works →</a></p>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap"><GoogleReviews taal="en" /></div>
+  </section>
+
+  <Faq titel="Questions about bookkeeping in English" vragen={faq} />
+  <style>.plan-wijs{border-color:var(--blauw-rand);background:var(--blauw-t);margin-bottom:8px}.plan-wijs h2{font-size:1.3rem}.plan-wijs p{color:var(--tekst);margin:8px 0 14px;max-width:48rem}</style>
+  <Contactblok taal="en" titel="Bookkeeping in English?" tekst="Tell me briefly what your business does and whether you have an eenmanszaak, VOF or BV. You hear from me within one to three working days." />
+</Basis>

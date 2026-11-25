@@ -1,0 +1,114 @@
+---
+/* Reviewblok: Google en Moneybird door elkaar, met per kaart de bron.
+   Scores bovenaan; die kunnen live worden bijgewerkt via data-live (n8n),
+   met de waarden uit reviews.ts als terugval. */
+import { google, moneybird, reviews } from '../data/reviews';
+interface Props { taal?: 'nl' | 'en' | 'ja'; titel?: string; max?: number; eerst?: string[] }
+/* eerst: namen van reviews die bij deze pagina passen; die komen vooraan. */
+const { taal = 'nl', titel, max = 9, eerst = [] } = Astro.props;
+const T = taal === 'ja'
+  ? { titel: 'お客様の声', op: { google: 'Google', moneybird: 'Moneybird' }, reviews: '件のレビュー', meer: '続きを読む', vertaald: '', vertaaldMb: '' }
+  : taal === 'en'
+  ? { titel: 'What clients say', op: { google: 'Google', moneybird: 'Moneybird' }, reviews: 'reviews', meer: 'Read more', vertaald: 'Translated by Google', vertaaldMb: 'Translated from Dutch' }
+  : { titel: 'Wat klanten zeggen', op: { google: 'Google', moneybird: 'Moneybird' }, reviews: 'reviews', meer: 'Lees verder', vertaald: '', vertaaldMb: '' };
+const rang = (n: string) => { const i = eerst.indexOf(n); return i < 0 ? 99 : i; };
+/* NL: alleen Nederlandse reviews. EN: eerst de Engelse originelen, daarna de
+   Nederlandse met een vertaling van Google (met label). */
+const lijst = reviews
+  .filter((r) => (taal === 'nl' ? r.taal === 'nl' : taal === 'ja' ? r.taal === 'en' : r.taal === 'en' || !!r.vertaling))
+  .map((r, i) => ({ r: { ...r, vertaald: taal === 'en' && r.taal === 'nl', tekst: taal === 'en' && r.taal === 'nl' ? r.vertaling! : r.tekst }, i }))
+  .sort((a, b) => rang(a.r.naam) - rang(b.r.naam) || Number(a.r.vertaald) - Number(b.r.vertaald) || a.i - b.i)
+  .map((x) => x.r).slice(0, max);
+const EN: Record<string, string> = { 'consultant, bv': 'consultant, BV', 'online marketeer': 'online marketer', 'evenementen': 'events', 'bouwbedrijf': 'construction', 'timmerman': 'carpenter', 'aangifte inkomstenbelasting': 'income tax return', 'visual en motion designer': 'visual and motion designer', "zzp'er, aangifte IB": 'freelancer, income tax return', 'evenementen en logistiek': 'events and logistics' };
+/* Initiaal van een anonieme review: A, in beide talen. */
+const branche = (b?: string) => (b && taal === 'en' ? EN[b] ?? b : b);
+const regel = (r: { branche?: string; bedrijf?: string; naam: string }) => [branche(r.branche), r.bedrijf !== r.naam ? r.bedrijf : ''].filter(Boolean).join(' · ');
+const sterren = (n: number) => '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
+const G = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`;
+const MB = `<img class="mb-logo" src="/img/moneybird.svg" alt="" width="18" height="18">`;
+---
+<div class="gr">
+  <div class="gr-kop">
+    <h2>{titel ?? T.titel}</h2>
+    <div class="scores">
+      <a class="score" href={google.profiel} target="_blank" rel="noopener" data-bron="google">
+        <span class="g" set:html={G} /><span class="cijfer" data-veld="score">{google.score}</span><span class="ster" aria-hidden="true">★★★★★</span><span class="aantal"><span data-veld="aantal">{google.aantal}</span> {T.reviews}</span><span class="visually-hidden">Google</span>
+      </a>
+      <a class="score" href={moneybird.profiel} target="_blank" rel="noopener" data-bron="moneybird">
+        <Fragment set:html={MB} /><span class="cijfer" data-veld="score">{moneybird.score}</span><span class="ster" aria-hidden="true">★★★★★</span><span class="aantal"><span data-veld="aantal">{moneybird.aantal}</span> {T.reviews}</span><span class="visually-hidden">Moneybird</span>
+      </a>
+    </div>
+  </div>
+  <div class="gr-baan">
+  <div class="gr-lijst" tabindex="0" aria-label={T.titel}>
+    {lijst.map((r) => (
+      <figure class="kaart gr-kaart">
+        <div class="gr-wie">
+          {r.foto ? <img src={r.foto} alt="" width="44" height="44" loading="lazy"> : <span class="init">{r.naam[0]}</span>}
+          <div><b>{r.naam === 'Anoniem' && taal === 'en' ? 'Anonymous' : r.naam === 'Anoniem' && taal === 'ja' ? '匿名' : r.naam}</b>{regel(r) && <small>{regel(r)}</small>}</div>
+          {r.bron === 'google' ? <span class="g klein" title="Google" set:html={G} /> : <span title="Moneybird" set:html={MB} />}
+        </div>
+        <div class="st" aria-label={`${r.sterren} van 5 sterren`}>{sterren(r.sterren)}</div>
+        <blockquote>{r.tekst}</blockquote>
+        {r.vertaald && <span class="vertaald">{r.bron === 'google' ? T.vertaald : T.vertaaldMb}</span>}
+        <div class="kaart-voet"><button type="button" class="meer-lezen" hidden>{T.meer}</button><a class="op" href={r.link ?? (r.bron === 'google' ? google.profiel : moneybird.profiel)} target="_blank" rel="noopener" aria-label={`${taal === 'nl' ? 'Bekijk op' : 'View on'} ${T.op[r.bron]}`}>{T.op[r.bron]} ↗</a></div>
+      </figure>
+    ))}
+  </div>
+    <button type="button" class="pijl links" data-r="-1" aria-label={taal === 'nl' ? 'Vorige reviews' : 'Previous reviews'}>‹</button>
+    <button type="button" class="pijl rechts" data-r="1" aria-label={taal === 'nl' ? 'Meer reviews' : 'More reviews'}>›</button>
+  </div>
+</div>
+
+<script is:inline>
+document.querySelectorAll('.gr').forEach(function(gr){
+  var l=gr.querySelector('.gr-lijst'), k=gr.querySelectorAll('.pijl');
+  function stand(){k[0].disabled=l.scrollLeft<8;k[1].disabled=l.scrollLeft+l.clientWidth>=l.scrollWidth-8;}
+  k.forEach(function(b){b.addEventListener('click',function(){l.scrollBy({left:l.clientWidth*b.dataset.r,behavior:'smooth'});});});
+  l.addEventListener('scroll',stand,{passive:true}); stand();
+  /* Lange reviews: 'Lees verder' tonen als de tekst is afgekapt. */
+  gr.querySelectorAll('.gr-kaart').forEach(function(c){
+    var q=c.querySelector('blockquote'), b=c.querySelector('.meer-lezen');
+    if(q.scrollHeight>q.clientHeight+2){b.hidden=false;b.addEventListener('click',function(){q.classList.add('open');b.hidden=true;});}
+  });
+});
+</script>
+
+<style>
+.gr-kop{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.gr-kop h2{margin:0}
+.scores{display:flex;flex-wrap:wrap;gap:8px}
+.score{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--lijn);border-radius:999px;padding:7px 13px;text-decoration:none;box-shadow:0 4px 14px rgba(15,23,42,.05)}
+.score .cijfer{font-weight:800;font-size:1.05rem}
+.score .ster{color:#f5a524;letter-spacing:1px;font-size:.85rem}
+.score .aantal{color:var(--grijs);font-size:.85rem}
+.g{display:inline-flex}
+:global(.mb-logo){width:20px;height:20px;flex:none;display:inline-block}
+.gr-lijst{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 4px;margin-top:22px;-webkit-overflow-scrolling:touch}
+.kaart{flex:0 0 84%;scroll-snap-align:start;background:#fff;border:1px solid var(--lijn);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px}
+.gr-wie{display:flex;align-items:center;gap:10px}
+.gr-wie img,.init{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
+.init{display:grid;place-items:center;background:var(--blauw-t);color:var(--blauw);font-weight:700}
+.gr-wie div{flex:1;min-width:0}
+.gr-wie b{display:block;font-size:.95rem}
+.gr-wie small{display:block;color:var(--grijs);font-size:.8rem;line-height:1.35}
+.st{color:#f5a524;letter-spacing:2px;font-size:.9rem}
+blockquote{color:var(--tekst);font-size:.97rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+blockquote.open{display:block;-webkit-line-clamp:unset;overflow:visible}
+.meer-lezen{white-space:nowrap;background:none;border:0;padding:0;font:inherit;font-size:.85rem;font-weight:600;color:var(--blauw);cursor:pointer}
+.meer-lezen:hover{text-decoration:underline}
+.kaart-voet{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:4px}
+.op{color:var(--grijs);text-decoration:none;font-size:.8rem;font-weight:600;margin-left:auto;white-space:nowrap}
+.op:hover{color:var(--blauw)}
+.vertaald{font-size:.75rem;color:var(--grijs);margin-top:-4px}
+.gr-lijst{scrollbar-width:none}.gr-lijst::-webkit-scrollbar{display:none}
+.gr-baan{position:relative}
+.pijl{display:none;position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid var(--lijn);background:#fff;color:var(--inkt);font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(15,23,42,.12)}
+.pijl.links{left:-14px}.pijl.rechts{right:-14px}
+.pijl:hover:not(:disabled){border-color:var(--blauw);color:var(--blauw)}
+.pijl:disabled{opacity:0;pointer-events:none}
+@media (min-width:760px){
+  .kaart{flex:0 0 calc((100% - 28px) / 3)}
+  .pijl{display:grid;place-items:center}
+}
+</style>

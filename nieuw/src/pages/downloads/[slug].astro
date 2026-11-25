@@ -1,0 +1,8 @@
+---
+import DownloadPagina from '../../components/DownloadPagina.astro';
+import { DOWNLOADS } from '../../lib/inhoud.mjs';
+export function getStaticPaths() {
+  return DOWNLOADS.downloads.map((d: any) => ({ params: { slug: d.nl.pad.split('/')[2] }, props: { d } }));
+}
+---
+<DownloadPagina d={Astro.props.d} taal="nl" />

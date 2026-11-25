@@ -1,0 +1,66 @@
+# Slim Geregeld Administratie
+
+> Dutch bookkeeping practice of Kyle Bouwmeester, a Becon-registered bookkeeper (Becon 781794, KVK 92596991) in the Netherlands. In English, Slim Geregeld prepares and signs the opening balance sheet and the renewal statement for self-employed residence permits under the Dutch-American Friendship Treaty (DAFT) and the Dutch-Japanese Trade Treaty (DJTT). In Dutch, it does bookkeeping, VAT returns and income tax returns for freelancers and small businesses.
+
+Key facts for the treaty route:
+
+- The IND asks for EUR 4,500 of owner's equity (EUR 11,250 for an NV) on a balance sheet signed by an authorised independent external expert. A Becon-registered bookkeeper is on the IND's list of accepted experts.
+- On IND form 7524 the two routes are purpose 453 (Dutch-American Friendship Treaty, known as DAFT) and purpose 510 (Dutch-Japanese Trade Treaty, known as DJTT and sometimes DJFT). Requirements are the same for both.
+- First application: applicants without a Dutch residence permit get the DAFT permit without an opening balance sheet and must register, open a business account and invest the EUR 4,500 within six months of the decision; the IND may then ask for proof. A signed opening balance sheet is still needed for a change of purpose (for example from a knowledge migrant or partner permit) and as that proof. Slim Geregeld prepares it for EUR 495 excluding VAT within five working days, or EUR 595 within 48 hours. Fully remote and in English.
+- Renewal: a balance sheet and profit and loss account for the current and previous financial year; a bank statement alone is not enough. The first permit runs two years, the renewal grants five. The statement is EUR 495 excluding VAT within five working days, or EUR 595 within 48 hours, if the figures exist; writing up missing years is quoted in advance.
+- Compliance Plan: monthly bookkeeping for an eenmanszaak or VOF with a treaty permit, EUR 79 or EUR 149 a month excluding VAT, minimum 12 months, including the balance sheet, the quarterly equity check and the renewal statement.
+- Slim Geregeld does not file US tax returns and does not give legal or immigration advice.
+
+## Treaty permits (English)
+
+- [Treaty services in English](https://slim-geregeld.nl/en/): overview of all services for DAFT and DJTT entrepreneurs, start here
+- [DAFT opening balance sheet](https://slim-geregeld.nl/daft/): for US citizens (IND purpose 453); who needs it, what the IND wants, pricing, FAQ and the request form
+- [DJTT opening balance sheet](https://slim-geregeld.nl/djtt/): for Japanese nationals under the Dutch-Japanese Trade Treaty (IND purpose 510), same requirements and prices
+- [DJTT opening balance sheet, Japanese](https://slim-geregeld.nl/djtt/ja/): the same page in Japanese; the form and all communication are in English
+- [Permit renewal statement](https://slim-geregeld.nl/daft/renewal/): what the IND asks for at renewal under either treaty, pricing and the request form
+- [Compliance Plan](https://slim-geregeld.nl/en/compliance-plan/): monthly bookkeeping in English for treaty entrepreneurs, EUR 79 or EUR 149 a month
+- [Pricing in English](https://slim-geregeld.nl/en/pricing/): all prices for treaty services, and what to do if you are not on a treaty
+- [Slim on WhatsApp, in English](https://slim-geregeld.nl/en/slim/): the bookkeeping assistant on WhatsApp in English
+- [News in English](https://slim-geregeld.nl/en/news/): Kyle's English LinkedIn posts as plain text
+- [Bookkeeping in English](https://slim-geregeld.nl/en/bookkeeping/): for expats with a Dutch eenmanszaak or VOF who are not on a treaty, EUR 95 a month
+- [Dutch income tax return in English](https://slim-geregeld.nl/en/income-tax-return/): EUR 245, or EUR 395 with a tax partner, also the M form for the year you moved to or from the Netherlands; draft first, no DigiD needed
+- [Ask a question](https://slim-geregeld.nl/daft/contact/): contact form, personal reply within one working day
+
+## Bookkeeping (Dutch)
+
+- [Slim Geregeld Administratie](https://slim-geregeld.nl/): bookkeeping, VAT returns and annual figures for zzp'ers and small BVs in Moneybird, EUR 95 a month excluding VAT for a sole trader or VOF
+- [Bookkeeping for a sole trader or VOF](https://slim-geregeld.nl/boekhouding-eenmanszaak/): what is included for EUR 95 a month
+- [Bookkeeping for a BV or holding](https://slim-geregeld.nl/boekhouding-bv/): fixed price agreed upfront, including director's salary and annual accounts
+- [Income tax return](https://slim-geregeld.nl/aangifte-inkomstenbelasting/): EUR 245, or EUR 395 together with a tax partner
+- [Pricing](https://slim-geregeld.nl/tarieven/): all prices for Dutch clients
+- [Bookkeeping per sector](https://slim-geregeld.nl/branches/): construction and installation, webshops, creative professions, personal services and IT
+- [Bookkeeper in Amsterdam](https://slim-geregeld.nl/boekhouder-amsterdam/) and [in the Zaanstreek](https://slim-geregeld.nl/boekhouder-zaanstreek/): local pages
+- [Slim on WhatsApp](https://slim-geregeld.nl/slim/): invoices, quotes and receipts via WhatsApp; free for six months, then EUR 9.95 a month, included with full bookkeeping
+- [NettoCheck](https://slim-geregeld.nl/nettocheck/): free estimate of income tax and net income for a Dutch self-employed person
+- [Free tools and downloads](https://slim-geregeld.nl/gratis-tools/): NettoCheck, Slim and free PDF calculations and checklists
+- [About Kyle Bouwmeester](https://slim-geregeld.nl/over/): the practice and how it works (Dutch)
+- [News](https://slim-geregeld.nl/nieuws/): Kyle's LinkedIn posts in Dutch as plain text, on VAT, the BV, income tax and year-end
+
+## Downloads
+
+- [DAFT renewal checklist](https://slim-geregeld.nl/en/downloads/daft-renewal-checklist/): free PDF on what the IND asks for at renewal
+- [KOR calculation](https://slim-geregeld.nl/en/downloads/kor-calculation/): free PDF to decide whether the Dutch small business scheme pays off
+- [All downloads in English](https://slim-geregeld.nl/en/downloads/) and [in Dutch](https://slim-geregeld.nl/gratis-tools/)
+
+## About the author
+
+- [Kyle Bouwmeester](https://slim-geregeld.nl/en/about/kyle-bouwmeester/): Becon-registered bookkeeper (Becon 781794), Moneybird Expert, owner of Slim Geregeld Administratie
+- [Miguel Weema](https://slim-geregeld.nl/en/about/miguel-weema/): DAFT specialist
+
+## Contact
+
+- Email: kyle@slim-geregeld.nl
+- Phone: +31 6 21 31 10 43
+
+## Sources
+
+- IND application form 7524: https://ind.nl/en/forms/7524.pdf
+- IND appendix 7611 (proof of income): https://ind.nl/en/forms/7611.pdf
+- IND page Residence permit self-employed person: https://ind.nl/en/residence-permits/work/residence-permit-self-employed-person
+
+Last checked: 24 November 2026.

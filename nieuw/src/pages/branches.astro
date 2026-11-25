@@ -1,0 +1,51 @@
+---
+// Overzicht van alle branchepagina's (oude URL /branches, overstap deel 5).
+import Basis from '../layouts/Basis.astro';
+import Paginakop from '../components/Paginakop.astro';
+import Contactblok from '../components/Contactblok.astro';
+const branches: [string, string, string][] = [
+  ['Bouw en installatie', 'Aannemers, installateurs, elektriciens, schilders en timmerlieden. Btw verlegd, 9% of 21%, bonnetjes van de bouwmarkt.', '/boekhouding-bouw'],
+  ['Webshops en bol.com', 'Shopify, WooCommerce en bol.com. Uitbetalingen, retouren en verkopen naar andere EU-landen.', '/boekhouding-webshop'],
+  ['Fotografen en creatieven', 'Fotografen, ontwerpers, videomakers en illustratoren. Apparatuur afschrijven, KOR of niet, wisselende inkomsten.', '/boekhouding-creatief'],
+  ['Coaches, kappers en trainers', 'Coaches, kappers, therapeuten en personal trainers. Het juiste btw-tarief, pinbetalingen en het urencriterium.', '/boekhouding-persoonlijke-diensten'],
+  ['Developers en IT-consultants', 'Developers, IT-consultants en andere tech-zzp\'ers. Buitenlandse klanten, software-abonnementen en de vraag of een bv loont.', '/boekhouding-ict'],
+  ['Alle andere zzp\'ers en bv\'s', 'Marketing, events, zorg, handel of iets heel anders. Met een eenmanszaak, vof of bv ben je net zo welkom.', '/'],
+];
+const regio: [string, string, string][] = [
+  ['Boekhouder in Amsterdam', 'Online geregeld, en langs als dat handig is.', '/boekhouder-amsterdam'],
+  ['Boekhouder in de Zaanstreek', 'Vanuit Koog aan de Zaan, voor ondernemers in de buurt.', '/boekhouder-zaanstreek'],
+];
+---
+<Basis titel="Boekhouding per branche | Slim Geregeld Administratie" omschrijving="Boekhouding afgestemd op je branche: bouw en installatie, webshops, creatieve beroepen, persoonlijke dienstverlening en ICT. €95 per maand.">
+  <Paginakop
+    kruimel="Branches"
+    tag="Voor wie"
+    titel="Boekhouding die past bij jouw werk"
+    sub="Elke branche heeft zijn eigen btw-regels en valkuilen. Kies je branche en zie waar ik op let. Staat die van jou er niet bij? Dan help ik je net zo goed."
+    prijs={{ bedrag: '€95', oud: '€125', per: 'per maand, excl. btw', uitleg: 'eenmanszaak of vof · bv op maat' }}
+  />
+  <section>
+    <div class="wrap">
+      <h2>Kies je branche</h2>
+      <div class="grid3 branches">
+        {branches.map(([h, p, href]) => <a class="blok kaartlink" href={href}><h3>{h}</h3><p>{p}</p><span class="meer">Lees meer →</span></a>)}
+      </div>
+    </div>
+  </section>
+  <section class="zacht">
+    <div class="wrap">
+      <h2>In de buurt</h2>
+      <p class="sub">Alles gaat online, maar ik kom ook langs als dat handig is.</p>
+      <div class="grid3 branches">
+        {regio.map(([h, p, href]) => <a class="blok kaartlink" href={href}><h3>{h}</h3><p>{p}</p><span class="meer">Lees meer →</span></a>)}
+      </div>
+    </div>
+  </section>
+  <Contactblok titel="Staat je branche er niet bij?" tekst="Ik werk voor zzp'ers en kleine bv's in allerlei branches, van marketing en events tot zorg en handel. Vertel kort wat je doet, dan hoor je binnen een tot drie werkdagen van me." />
+</Basis>
+<style>
+.kaartlink{display:block;text-decoration:none;color:inherit}
+.kaartlink h3{color:var(--inkt)}
+@media (min-width:760px){.branches{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.branches{grid-template-columns:repeat(3,1fr)}}
+</style>
