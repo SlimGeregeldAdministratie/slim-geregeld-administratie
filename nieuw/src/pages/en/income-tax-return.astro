@@ -10,7 +10,8 @@ const faq: [string, string][] = [
   ['Do I need to give you my DigiD?', 'No. I file through my own registration as a tax intermediary, after you have approved the draft. You never share your DigiD.'],
   ['The questions are in Dutch. Can I answer in English?', 'Yes. The questionnaire is in English, and you upload your documents there. If something is missing, I ask you in English.'],
   ['I have a business but no bookkeeper. Can you still do it?', 'Yes. Send your annual figures, or I prepare a financial year overview for you first, from €395.'],
-  ['When is the deadline?', 'Normally 1 May for the previous year. If that is tight, I can request an extension for you.'],
+  ['I moved to the Netherlands this year. Which tax return do I need?', 'For the year you moved here (or left) you file the M form, the migration return. It covers the part of the year you lived here and the part you did not. The price is the same: €245, or €395 with your tax partner. If income from abroad needs extra digging, I tell you upfront.'],
+  ['When is the deadline?', 'Normally 1 May for the previous year, and 1 July for the M form in the year you moved. If that is tight, I can request an extension for you.'],
 ];
 const svc = { '@context': 'https://schema.org', '@type': 'Service', name: 'Dutch income tax return in English', serviceType: 'Tax return', provider: { '@id': 'https://slim-geregeld.nl/#org' }, areaServed: { '@type': 'Country', name: 'Netherlands' }, inLanguage: 'en',
   offers: [
@@ -56,6 +57,21 @@ const svc = { '@context': 'https://schema.org', '@type': 'Service', name: 'Dutch
         <li>Salary, mortgage and other deductions</li>
         <li>Savings and investments (box 3)</li>
         <li>The split with your tax partner</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap twee">
+      <div>
+        <h2>Moved here this year? Then it is the M form</h2>
+        <p class="sub">For the year you moved to the Netherlands, or left, you file the M form: one return for the part of the year you lived here and the part you did not. It is due by 1 July. I prepare it for the same price, €245, or €395 with your tax partner.</p>
+      </div>
+      <ul class="vinkjes">
+        <li>Your Dutch income from the date you arrived</li>
+        <li>Income and savings from before the move, where they count</li>
+        <li>Tax credits for the part of the year you lived here</li>
+        <li>Extra digging for foreign income? You hear it upfront</li>
       </ul>
     </div>
   </section>
