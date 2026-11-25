@@ -7,7 +7,7 @@
    Soorten: '' tekst, bon (foto), spraak (duur|uitgeschreven tekst),
    fac (vraag|kop|nummer|klant|plaats|r1|b1|r2|b2|r3|b3|bestand|pagina's),
    lijst (kop|regel|regel§vraag§knop§knop). */
-interface Props { taal?: 'nl' | 'en'; variant?: 'standaard' | 'bouw' | 'webshop' }
+interface Props { taal?: 'nl' | 'en'; variant?: 'standaard' | 'bouw' | 'webshop' | 'creatief' | 'persoonlijk' | 'ict' }
 const { taal = 'nl', variant = 'standaard' } = Astro.props;
 type Bel = [string, string, string, string];
 const NL: Record<string, Bel[][]> = {
@@ -58,6 +58,54 @@ const NL: Record<string, Bel[][]> = {
     ['slim', '', 'Geboekt: €242,00 verpakkingen, waarvan €42,00 btw die je terugkrijgt.', '10:21'],
     ['mij', 'bon', 'Factuur drukkerij, flyers', '14:52'],
     ['slim', '', 'Geboekt: €60,50 reclamekosten, waarvan €10,50 btw die je terugkrijgt.', '14:52'],
+  ]],
+  creatief: [[
+    ['mij', 'spraak', '0:05|Factuur Atelier Zuid, fotoshoot twee uur, 250 euro.', '18:05'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-052|Atelier Zuid|Haarlem|Fotoshoot 2 uur|€250,00|Btw 21%|€52,50|Totaal|€302,50|Factuur 2026-052.pdf|1 pagina', '18:05'],
+    ['mij', '', 'Ja graag 👍', '18:06'],
+    ['slim', '', '📨 Verstuurd naar Atelier Zuid.', '18:06'],
+  ], [
+    ['mij', '', 'Offerte Bureau Licht, nieuwe huisstijl, 1200 euro', '10:12'],
+    ['slim', 'lijst', '📄 Offerte 2026-019 staat klaar:|*Bureau Licht* nieuwe huisstijl|*Totaal* €1.452,00 incl. 21% btw§Versturen?§Versturen§Eerst aanpassen', '10:12'],
+    ['mij', '', 'Versturen', '10:13'],
+    ['slim', '', '📨 Verstuurd naar Bureau Licht.', '10:13'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Kamera Express, lens', '14:30'],
+    ['slim', '', 'Geboekt: €1.089,00 apparatuur, waarvan €189,00 btw die je terugkrijgt. De lens schrijf ik af over vijf jaar.', '14:30'],
+    ['mij', 'bon', 'Bonnetje Coolblue, harde schijf', '16:02'],
+    ['slim', '', 'Geboekt: €121,00 apparatuur, waarvan €21,00 btw die je terugkrijgt.', '16:02'],
+  ]],
+  persoonlijk: [[
+    ['mij', 'spraak', '0:05|Factuur Lotte, drie coachsessies à 95 euro.', '19:20'],
+    ['slim', 'fac', 'Zal ik hem versturen?|Factuur|2026-031|Lotte de Boer|Amstelveen|3 × coachsessie à €95,00|€285,00|Btw 21%|€59,85|Totaal|€344,85|Factuur 2026-031.pdf|1 pagina', '19:20'],
+    ['mij', '', 'Ja graag 👍', '19:21'],
+    ['slim', '', '📨 Verstuurd naar Lotte de Boer.', '19:21'],
+  ], [
+    ['mij', '', 'Hoeveel kwam er deze maand via de pin binnen?', '20:45'],
+    ['slim', 'lijst', '💳 Pinbetalingen november:|*Uitbetaald door SumUp* €2.184,30|*Transactiekosten* €41,50', '20:45'],
+    ['mij', '', 'En staat er nog iets open?', '20:46'],
+    ['slim', 'lijst', '💶 Nog open:|*Studio Fit* €290,40, 9 dagen te laat§Herinnering sturen?§Verstuur herinnering§Annuleren', '20:46'],
+  ], [
+    ['mij', 'bon', 'Factuur groothandel, haarverf', '09:10'],
+    ['slim', '', 'Geboekt: €181,50 materiaal, waarvan €31,50 btw die je terugkrijgt.', '09:10'],
+    ['mij', 'bon', 'Factuur zaalhuur november', '13:35'],
+    ['slim', '', 'Geboekt: €96,80 huur, waarvan €16,80 btw die je terugkrijgt.', '13:35'],
+  ]],
+  ict: [[
+    ['mij', 'spraak', '0:06|Factuur Nordwerk GmbH in Berlijn, twintig uur à 95 euro.', '17:50'],
+    ['slim', 'fac', 'Btw verlegd, klant in Duitsland. Versturen?|Factuur|2026-061|Nordwerk GmbH|Berlijn|20 uur × €95,00|€1.900,00|Btw verlegd|€0,00|Totaal|€1.900,00|Factuur 2026-061.pdf|1 pagina', '17:50'],
+    ['mij', '', 'Ja graag 👍', '17:51'],
+    ['slim', '', '📨 Verstuurd naar Nordwerk GmbH. Hij komt ook in je opgaaf intracommunautaire prestaties.', '17:51'],
+  ], [
+    ['mij', '', 'Hoeveel omzet heb ik dit kwartaal?', '22:04'],
+    ['slim', 'lijst', '📊 Dit kwartaal tot nu toe:|*Omzet* €21.850,00|*Kosten* €1.940,30', '22:04'],
+    ['mij', '', 'Wie moet mij nog betalen?', '22:05'],
+    ['slim', 'lijst', '💶 Nog open:|*Datahuis B.V.* €4.598,00, vervalt maandag§Herinnering sturen?§Nog niet§Annuleren', '22:05'],
+  ], [
+    ['mij', 'bon', 'Bonnetje Coolblue, laptop', '11:18'],
+    ['slim', '', 'Geboekt: €1.815,00 apparatuur, waarvan €315,00 btw die je terugkrijgt. De laptop schrijf ik af over vijf jaar.', '11:18'],
+    ['mij', 'bon', 'Bonnetje bol, toetsenbord', '15:40'],
+    ['slim', '', 'Geboekt: €121,00 kantoorkosten, waarvan €21,00 btw die je terugkrijgt.', '15:40'],
   ]],
 };
 const EN: Bel[][] = [[

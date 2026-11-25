@@ -178,7 +178,7 @@ export function seoNabewerking(dist) {
   if (existsSync(rPad)) {
     writeFileSync(rPad, readFileSync(rPad, 'utf8').split('\n').map((r) => {
       const t = r.trim(); if (!t || t.startsWith('#')) return r;
-      const d = r.split(/\s+/); if (d.length < 3 || !d[1].startsWith('/')) return r;
+      const d = r.split(/\s+/); if (d.length < 3 || !d[1].startsWith('/') || d[0].includes('*')) return r;
       const [basis, rest = ''] = d[1].split(/(?=[#?])/);
       if (!basis.endsWith('/') && !basis.includes(':') && !basis.includes('*') && bestaat.has(basis + '/')) d[1] = basis + '/' + rest;
       return d.join('    ');

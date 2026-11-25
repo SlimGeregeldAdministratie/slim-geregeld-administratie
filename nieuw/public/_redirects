@@ -55,6 +55,21 @@ http://slim-geregeld.nl/*       https://slim-geregeld.nl/:splat   301!
 # Aanmelden voor Slim: naar het formulier, niet naar de bovenkant van /slim.
 /slim-chatbot              /slim#aanmelden            301
 /slim-chatbot/             /slim#aanmelden            301
+# Oude intake-stappen van de React-site (/intake/0 tot en met /intake/12).
+/intake/0                  /intake/                   301
+/intake/1                  /intake/                   301
+/intake/2                  /intake/                   301
+/intake/3                  /intake/                   301
+/intake/4                  /intake/                   301
+/intake/5                  /intake/                   301
+/intake/6                  /intake/                   301
+/intake/7                  /intake/                   301
+/intake/8                  /intake/                   301
+/intake/9                  /intake/                   301
+/intake/10                  /intake/                   301
+/intake/11                  /intake/                   301
+/intake/12                  /intake/                   301
+/intake/*                  /intake                    301
 # Nieuws: de Nederlandse lijst heeft nu drie pagina's; Engelse posts staan op /en/news/.
 /nieuws/4                  /nieuws/                   301
 /nieuws/4/                 /nieuws/                   301

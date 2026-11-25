@@ -1,0 +1,72 @@
+---
+// Nederlandse aangifte inkomstenbelasting in het Engels (24-11-2026).
+import Basis from '../../layouts/Basis.astro';
+import Paginakop from '../../components/Paginakop.astro';
+import Faq from '../../components/Faq.astro';
+import Contactblok from '../../components/Contactblok.astro';
+
+const faq: [string, string][] = [
+  ['What does it cost to have my Dutch tax return done?', '€245 excluding VAT for one person, or €395 together with your tax partner. If I do your bookkeeping all year, you get 15% off.'],
+  ['Do I need to give you my DigiD?', 'No. I file through my own registration as a tax intermediary, after you have approved the draft. You never share your DigiD.'],
+  ['The questions are in Dutch. Can I answer in English?', 'Yes. The questionnaire is in English, and you upload your documents there. If something is missing, I ask you in English.'],
+  ['I have a business but no bookkeeper. Can you still do it?', 'Yes. Send your annual figures, or I prepare a financial year overview for you first, from €395.'],
+  ['When is the deadline?', 'Normally 1 May for the previous year. If that is tight, I can request an extension for you.'],
+];
+const svc = { '@context': 'https://schema.org', '@type': 'Service', name: 'Dutch income tax return in English', serviceType: 'Tax return', provider: { '@id': 'https://slim-geregeld.nl/#org' }, areaServed: { '@type': 'Country', name: 'Netherlands' }, inLanguage: 'en',
+  offers: [
+    { '@type': 'Offer', name: 'One person', price: '245', priceCurrency: 'EUR', description: 'Excluding VAT' },
+    { '@type': 'Offer', name: 'With tax partner', price: '395', priceCurrency: 'EUR', description: 'Excluding VAT' },
+  ] };
+---
+<Basis
+  titel="Dutch income tax return in English | €245 | Slim Geregeld"
+  omschrijving="Your Dutch income tax return in English, filed by a Becon-registered bookkeeper: €245 excl. VAT, €395 with your tax partner. Draft first, no DigiD needed."
+  taal="en"
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(svc)} />
+  <Paginakop
+    taal="en"
+    kruimel="Income tax return"
+    tag="Dutch income tax return"
+    titel="Your Dutch tax return, in English"
+    sub="Fill in a short questionnaire in English, upload your documents and I do the rest. You approve the draft before anything is filed."
+    prijs={{ bedrag: '€245', per: 'per return, excl. VAT', uitleg: '€395 together with your tax partner · year-round client? 15% off' }}
+    knop={['Get in touch', '#contact']}
+  />
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <div class="grid3">
+        <div class="blok"><h3>1. Questionnaire</h3><p>You get a personal link to a short questionnaire in English, where you also upload your documents.</p></div>
+        <div class="blok"><h3>2. Draft</h3><p>I prepare your return and send you the draft with a short explanation of the main amounts.</p></div>
+        <div class="blok"><h3>3. Filed</h3><p>After your approval I file it through my registration as a tax intermediary. No DigiD needed.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht">
+    <div class="wrap twee">
+      <div>
+        <h2>What I look at</h2>
+        <p class="sub">For freelancers with a Dutch business and for employees with income or assets here.</p>
+      </div>
+      <ul class="vinkjes">
+        <li>Profit from your business and the self-employed deductions</li>
+        <li>Salary, mortgage and other deductions</li>
+        <li>Savings and investments (box 3)</li>
+        <li>The split with your tax partner</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Bookkeeping in English too</h2>
+      <p class="sub">With a Dutch eenmanszaak or VOF I can also do your bookkeeping and VAT returns for €95 a month. <a href="/en/bookkeeping/">Bookkeeping in English →</a></p>
+    </div>
+  </section>
+
+  <Faq titel="Questions about the tax return" vragen={faq} />
+  <Contactblok taal="en" titel="Have your tax return done" tekst="Leave your details and I send you the link to the questionnaire within one to three working days." />
+</Basis>

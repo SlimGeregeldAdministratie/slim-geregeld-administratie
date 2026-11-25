@@ -112,11 +112,17 @@ Zet tekst met een dubbele punt, aanhalingstekens of een `#` tussen dubbele aanha
 | `daft-verlenging` | DAFT-verlenging / DAFT renewal | `/daft/renewal/` |
 | `daft` | DAFT / DAFT | `/daft/` |
 | `djtt` | DJTT / DJTT | `/djtt/` (Japans: `/djtt/ja/`) |
-| `zzp-btw` | Zzp en btw / VAT for freelancers | NL: `/pakketten`, EN: `/daft/#pricing` (Compliance Plan) |
-| `bv-dga` | BV en DGA / BV and director | NL: `/pakketten`, EN: `/daft/#pricing` |
-| `jaarwerk` | Jaarwerk / Year-end | NL: `/pakketten`, EN: `/daft/#pricing` |
-| `ib-aangifte` | Aangifte inkomstenbelasting / Income tax return | NL: `/pakketten` (IB € 245 excl. btw, fiscale partners € 395 excl. btw), EN: `/daft/#pricing` |
-| `moneybird` | Moneybird / Moneybird | NL: `/pakketten`, EN: `/daft/#pricing` |
+| `zzp-btw` | Zzp en btw / VAT for freelancers | NL: `/tarieven`, EN: `/daft/#pricing` (Compliance Plan) |
+| `bv-dga` | BV en DGA / BV and director | NL: `/boekhouding-bv/`, EN: `/daft/#pricing` |
+| `jaarwerk` | Jaarwerk / Year-end | NL: `/tarieven`, EN: `/daft/#pricing` |
+| `ib-aangifte` | Aangifte inkomstenbelasting / Income tax return | NL: `/aangifte-inkomstenbelasting/` (IB € 245 excl. btw, fiscale partners € 395 excl. btw), EN: `/daft/#pricing` |
+| `moneybird` | Moneybird / Moneybird | NL: `/tarieven`, EN: `/daft/#pricing` |
+| `bouw` | Bouw en installatie / Construction | NL: `/boekhouding-bouw/` |
+| `webshop` | Webshops en bol.com / Webshops | NL: `/boekhouding-webshop/` |
+| `creatief` | Creatieve beroepen / Creative professions | NL: `/boekhouding-creatief/` |
+| `persoonlijke-diensten` | Coaches, kappers en trainers / Personal services | NL: `/boekhouding-persoonlijke-diensten/` |
+| `ict` | ICT en developers / IT and developers | NL: `/boekhouding-ict/` |
+| `slim` | Slim op WhatsApp / Slim on WhatsApp | NL: `/slim/`, EN: `/en/slim/` |
 
 Een nieuw cluster werkt meteen (label = de sleutel, geen dienstlink) en geeft een
 waarschuwing. Label en dienstlink voeg je toe in `CLUSTERS` in `scripts/blog.mjs`.
@@ -202,6 +208,12 @@ Aantal per pagina en de minimumgrens staan in `src/seo/onderwerpen.json`, net al
 | `moneybird` | Moneybird | werken in Moneybird |
 | `daft-verlenging` | DAFT-verlenging | verlenging van een DAFT- of DJTT-vergunning |
 | `djtt` | DJTT | Japanse verdragsondernemers |
+| `bouw` | Bouw en installatie | btw verlegd, 9% of 21%, materiaal, werken voor particulieren of aannemers |
+| `webshop` | Webshops en bol.com | uitbetalingen, OSS-btw, voorraad, retouren |
+| `creatief` | Creatieve beroepen | fotografen, ontwerpers, videomakers: apparatuur, KOR, wisselende inkomsten |
+| `persoonlijke-diensten` | Coaches, kappers en trainers | btw-tarief of vrijstelling, pinbetalingen, urencriterium |
+| `ict` | ICT en developers | buitenlandse klanten, software-abonnementen, eenmanszaak of bv |
+| `slim` | Slim op WhatsApp | wat Slim doet, nieuwe functies, praktijkvoorbeelden |
 | `nieuws` | Praktijknieuws | nieuws over Slim Geregeld zelf, de praktijk, lanceringen |
 
 | Veld | Verplicht | Formaat | Toelichting |

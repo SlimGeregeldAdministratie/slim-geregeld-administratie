@@ -125,11 +125,24 @@ export const CLUSTERS = {
       ja: ['/djtt/ja/', '開始貸借対照表（DJTT）', '日蘭通商航海条約に基づく滞在許可のための貸借対照表を作成し署名します。€495（税抜）から。', '日本語ページへ'] } },
   'zzp-btw': { label: { nl: 'Zzp en btw', en: 'VAT for freelancers', ja: '個人事業主とVAT' }, dienst: { nl: PAKKETTEN_NL, en: PLAN_EN, ja: PLAN_JA } },
   'bv-dga': { label: { nl: 'BV en DGA', en: 'BV and director', ja: 'BVと取締役' },
-    dienst: { nl: ['/pakketten', 'Een BV in de administratie?', 'Voor BV\'s maakt Kyle een voorstel op maat, met loonadministratie, jaarrekening en de aangifte vennootschapsbelasting.', 'Bekijk de pakketten'], en: PLAN_EN, ja: PLAN_JA } },
+    dienst: { nl: ['/boekhouding-bv/', 'Een BV in de administratie?', 'Voor BV\'s maakt Kyle een voorstel op maat, met loonadministratie, jaarrekening en de aangifte vennootschapsbelasting.', 'Naar boekhouding voor de bv'], en: PLAN_EN, ja: PLAN_JA } },
   jaarwerk: { label: { nl: 'Jaarwerk', en: 'Year-end', ja: '決算' }, dienst: { nl: PAKKETTEN_NL, en: PLAN_EN, ja: PLAN_JA } },
   'ib-aangifte': { label: { nl: 'Aangifte inkomstenbelasting', en: 'Income tax return', ja: '所得税申告' },
-    dienst: { nl: ['/pakketten', 'Aangifte inkomstenbelasting uitbesteden?', 'Voor ondernemers doet Kyle de aangifte inkomstenbelasting voor € 245 excl. btw, of voor € 395 excl. btw als fiscale partners samen.', 'Bekijk de pakketten'], en: PLAN_EN, ja: PLAN_JA } },
+    dienst: { nl: ['/aangifte-inkomstenbelasting/', 'Aangifte inkomstenbelasting uitbesteden?', 'Voor ondernemers doet Kyle de aangifte inkomstenbelasting voor € 245 excl. btw, of voor € 395 excl. btw als fiscale partners samen.', 'Naar de IB-aangifte'], en: PLAN_EN, ja: PLAN_JA } },
   moneybird: { label: { nl: 'Moneybird', en: 'Moneybird', ja: 'Moneybird' }, dienst: { nl: PAKKETTEN_NL, en: PLAN_EN, ja: PLAN_JA } },
+  // Branches en Slim (24-11-2026): artikelen over een branche linken naar de branchepagina.
+  bouw: { label: { nl: 'Bouw en installatie', en: 'Construction', ja: '建設' },
+    dienst: { nl: ['/boekhouding-bouw/', 'Boekhouding voor de bouw', 'Btw verlegd, 9% of 21% en bonnetjes van de bouwmarkt via WhatsApp. €95 per maand voor een eenmanszaak of vof.', 'Naar boekhouding bouw'], en: PLAN_EN, ja: PLAN_JA } },
+  webshop: { label: { nl: 'Webshops en bol.com', en: 'Webshops', ja: 'ネットショップ' },
+    dienst: { nl: ['/boekhouding-webshop/', 'Boekhouding voor je webshop', 'Uitbetalingen van bol.com en Shopify, OSS-btw en voorraad. €95 per maand voor een eenmanszaak of vof.', 'Naar boekhouding webshop'], en: PLAN_EN, ja: PLAN_JA } },
+  creatief: { label: { nl: 'Creatieve beroepen', en: 'Creative professions', ja: 'クリエイター' },
+    dienst: { nl: ['/boekhouding-creatief/', 'Boekhouding voor fotografen en creatieven', 'Apparatuur afschrijven, KOR of niet en facturen na de shoot via WhatsApp. €95 per maand voor een eenmanszaak of vof.', 'Naar boekhouding creatief'], en: PLAN_EN, ja: PLAN_JA } },
+  'persoonlijke-diensten': { label: { nl: 'Coaches, kappers en trainers', en: 'Personal services', ja: '対人サービス' },
+    dienst: { nl: ['/boekhouding-persoonlijke-diensten/', 'Boekhouding voor coaches, kappers en trainers', 'Het juiste btw-tarief of de vrijstelling, pinbetalingen en het urencriterium. €95 per maand voor een eenmanszaak of vof.', 'Naar boekhouding persoonlijke diensten'], en: PLAN_EN, ja: PLAN_JA } },
+  ict: { label: { nl: 'ICT en developers', en: 'IT and developers', ja: 'IT' },
+    dienst: { nl: ['/boekhouding-ict/', 'Boekhouding voor developers en IT-consultants', 'Btw bij buitenlandse klanten, software-abonnementen en de vraag of een bv loont. €95 per maand voor een eenmanszaak of vof.', 'Naar boekhouding ICT'], en: PLAN_EN, ja: PLAN_JA } },
+  slim: { label: { nl: 'Slim op WhatsApp', en: 'Slim on WhatsApp', ja: 'Slim（WhatsApp）' },
+    dienst: { nl: ['/slim/', 'Facturen en bonnetjes via WhatsApp', 'Slim is je boekhoudassistent op WhatsApp. Eerste halfjaar gratis, daarna €9,95 per maand.', 'Probeer Slim'], en: ['/en/slim/', 'Invoices and receipts via WhatsApp', 'Slim is your bookkeeping assistant on WhatsApp. First six months free, then €9.95 a month.', 'Try Slim'], ja: PLAN_JA } },
 };
 export const clusterLabel = (c, taal) => CLUSTERS[c]?.label[taal] || c;
 
