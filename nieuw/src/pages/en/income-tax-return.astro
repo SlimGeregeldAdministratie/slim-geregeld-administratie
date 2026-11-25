@@ -62,17 +62,22 @@ const svc = { '@context': 'https://schema.org', '@type': 'Service', name: 'Dutch
   </section>
 
   <section>
-    <div class="wrap twee">
-      <div>
-        <h2>Moved here this year? Then it is the M form</h2>
-        <p class="sub">For the year you moved to the Netherlands, or left, you file the M form: one return for the part of the year you lived here and the part you did not. It is due by 1 July. I prepare it for the same price, €245, or €395 with your tax partner.</p>
+    <div class="wrap">
+      <div class="mform">
+        <div>
+          <span class="tag">M form</span>
+          <h2>Moved here this year?</h2>
+          <p>For the year you moved to the Netherlands, or left, you file the M form: one return that splits the year in two. It is due by 1 July. Same price: €245, or €395 with your tax partner. If income from abroad needs extra digging, you hear it upfront.</p>
+        </div>
+        <div class="jaar" aria-label="Example: moved to the Netherlands on 1 April">
+          <div class="balk"><span class="voor">Abroad</span><span class="na">In the Netherlands</span></div>
+          <div class="maanden"><span>Jan</span><span><i>1 April: you move</i><i>Dec</i></span></div>
+          <ul>
+            <li><b>Before the move</b> only certain Dutch income and assets count</li>
+            <li><b>After the move</b> all your income, with tax credits for that part of the year</li>
+          </ul>
+        </div>
       </div>
-      <ul class="vinkjes">
-        <li>Your Dutch income from the date you arrived</li>
-        <li>Income and savings from before the move, where they count</li>
-        <li>Tax credits for the part of the year you lived here</li>
-        <li>Extra digging for foreign income? You hear it upfront</li>
-      </ul>
     </div>
   </section>
 
@@ -83,6 +88,18 @@ const svc = { '@context': 'https://schema.org', '@type': 'Service', name: 'Dutch
     </div>
   </section>
 
+  <style>
+.mform{display:grid;gap:24px;border:1px solid var(--blauw-rand);background:var(--blauw-t);border-radius:var(--r-groot);padding:28px}
+.mform h2{margin-top:10px}.mform p{color:var(--tekst);margin-top:10px}
+.jaar{background:#fff;border:1px solid var(--lijn);border-radius:var(--r);padding:18px}
+.balk{display:grid;grid-template-columns:1fr 3fr;border-radius:999px;overflow:hidden;font-size:.82rem;font-weight:650}
+.balk span{padding:8px 12px}.balk .voor{background:#e2e8f0;color:var(--grijs)}.balk .na{background:var(--blauw);color:#fff}
+.maanden{display:grid;grid-template-columns:1fr 3fr;font-size:.78rem;color:var(--grijs);margin-top:6px}
+.maanden span:last-child{display:flex;justify-content:space-between;padding-left:2px}.maanden i{font-style:normal}
+.jaar ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:.92rem;color:var(--tekst)}
+.jaar b{color:var(--inkt)}
+@media (min-width:900px){.mform{grid-template-columns:1.1fr 1fr;align-items:center}}
+</style>
   <Faq titel="Questions about the tax return" vragen={faq} />
   <Contactblok taal="en" titel="Have your tax return done" tekst="Leave your details and I send you the link to the questionnaire within one to three working days." />
 </Basis>
