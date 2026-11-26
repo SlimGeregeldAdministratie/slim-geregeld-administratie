@@ -10,7 +10,8 @@ const { taal = 'nl' } = Astro.props;
 const en = taal === 'en';
 const dl = DOWNLOADS.downloads.filter((d: any) => d[taal]).map((d: any) => ({ ...d[taal], beeld: '/img/downloads/' + d[taal].pdf.split('/').pop().replace(/\.pdf$/, '') + '-1.png' }));
 const tools: [string, string, string, string][] = en
-  ? [['Slim on WhatsApp', 'Your bookkeeping assistant on WhatsApp: invoices and quotes, receipts with a photo, questions about your own numbers. First six months free.', '/en/slim/', 'Try Slim']]
+  ? [['DAFT planner', 'Enter your approval date and get your own timeline: KVK, bank, the €4,500, the KOR, quarterly equity checks and your renewal, with a calendar file.', '/en/daft-planner/', 'Make my plan'],
+     ['Slim on WhatsApp', 'Your bookkeeping assistant on WhatsApp: invoices and quotes, receipts with a photo, questions about your own numbers. First six months free.', '/en/slim/', 'Try Slim']]
   : [['NettoCheck', 'Vijf korte vragen en je krijgt per mail een schatting van je inkomstenbelasting en wat je netto overhoudt als zelfstandige.', '/nettocheck', 'Doe de NettoCheck'],
      ['Slim op WhatsApp', 'Je boekhoudassistent op WhatsApp: facturen en offertes maken, bonnetjes boeken met een foto en vragen over je eigen cijfers. Eerste halfjaar gratis.', '/slim', 'Probeer Slim']];
 const T = en
