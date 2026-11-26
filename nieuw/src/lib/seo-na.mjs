@@ -81,6 +81,15 @@ const DIENSTEN = {
   '/boekhouding-ict/': { offers: per(95, 'MON'), name: 'Boekhouding developers en IT-consultants', serviceType: 'Boekhouding' },
 };
 let headDatum = null;
+// 26-11-2026: Google wil bij een ProfilePage een datum mét tijd en tijdzone (Search Console:
+// "Ongeldige datum/tijd-waarde voor 'dateModified'"). 2026-11-26 wordt 2026-11-26T12:00:00+01:00.
+const metTijd = (d) => {
+  const s = String(d || '');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return d;
+  const deel = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Amsterdam', timeZoneName: 'shortOffset' }).formatToParts(new Date(s + 'T12:00:00Z')).find((p) => p.type === 'timeZoneName');
+  const m = String((deel && deel.value) || 'GMT+1').match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+  return s + 'T12:00:00' + (m ? m[1] + m[2].padStart(2, '0') + ':' + (m[3] || '00') : '+01:00');
+};
 const vandaag = () => headDatum || (headDatum = (() => { try { return execFileSync('git', ['log', '-1', '--format=%cs'], { encoding: 'utf8' }).trim(); } catch (e) { return new Date().toISOString().slice(0, 10); } })());
 
 export function seoNabewerking(dist) {
@@ -137,7 +146,7 @@ export function seoNabewerking(dist) {
         const j = JSON.parse(body);
         const n = Array.isArray(j) ? j.map((x) => normaliseerGraaf(x, taal)) : normaliseerGraaf(j, taal);
         const knopen = (Array.isArray(n) ? n : [n]).flatMap((x) => x['@graph'] || [x]);
-        for (const k of knopen) { if (/WebPage|CollectionPage|ProfilePage|AboutPage/.test([].concat(k['@type']).join()) && !k.dateModified) k.dateModified = vandaag(); if (k['@id']) ids.add(k['@id']); if (k.dateModified && !gewijzigd) gewijzigd = String(k.dateModified).slice(0, 10); if (k['@type'] === 'BreadcrumbList') ids.add('#breadcrumb-aanwezig'); if ([].concat(k['@type']).includes('Service')) ids.add('#dienst-aanwezig'); }
+        for (const k of knopen) { if (/WebPage|CollectionPage|ProfilePage|AboutPage/.test([].concat(k['@type']).join()) && !k.dateModified) k.dateModified = vandaag(); if (k['@id']) ids.add(k['@id']); if (k.dateModified && !gewijzigd) gewijzigd = String(k.dateModified).slice(0, 10); if ([].concat(k['@type']).includes('ProfilePage')) { if (k.dateModified) k.dateModified = metTijd(k.dateModified); if (k.dateCreated) k.dateCreated = metTijd(k.dateCreated); } if (k['@type'] === 'BreadcrumbList') ids.add('#breadcrumb-aanwezig'); if ([].concat(k['@type']).includes('Service')) ids.add('#dienst-aanwezig'); }
         return open + JSON.stringify(n).replace(/</g, '\\u003c') + dicht;
       } catch (e) { return m; }
     });
