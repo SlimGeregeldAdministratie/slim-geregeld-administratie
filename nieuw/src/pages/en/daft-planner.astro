@@ -1,0 +1,214 @@
+---
+// DAFT-planner: vul de datum van goedkeuring in en krijg een persoonlijke tijdlijn
+// (BSN, KVK, rekening, storting binnen zes maanden, KOR, kwartaalchecks, IB-aangifte,
+// verlenging) plus een agendabestand. Optioneel twee herinneringen per mail: n8n-flow
+// FmsfTYHIGgC6yiwv (webhook daft-planner) slaat op in de klantensheet, tabblad Planner,
+// en zet de herinneringen als concept klaar in kyle@ (Kyle verstuurt zelf).
+import Basis from '../../layouts/Basis.astro';
+import '../../styles/blog.css';
+import { metKyle, kruimelGraaf, ld } from '../../lib/inhoud.mjs';
+import { SITE } from '../../lib/entiteiten.mjs';
+const B = 'https://slim-geregeld.nl';
+const pad = '/en/daft-planner/';
+const titel = 'DAFT planner: your first six months | Slim Geregeld';
+const omschrijving = 'Enter your DAFT approval date and get your own timeline: KVK, bank, the €4,500, the KOR, quarterly equity checks and your renewal, plus a calendar file.';
+const u = B + pad;
+const graaf = [...metKyle('en'),
+  { '@type': 'WebPage', '@id': u + '#webpage', url: u, name: titel, description: omschrijving, inLanguage: 'en', isPartOf: { '@id': SITE['@id'] }, breadcrumb: { '@id': u + '#breadcrumb' },
+    mainEntity: { '@type': 'WebApplication', name: 'DAFT planner', applicationCategory: 'BusinessApplication', operatingSystem: 'Any', isAccessibleForFree: true, author: { '@id': B + '/#kyle' } } },
+  kruimelGraaf(u, [['Treaty services', '/en/'], ['DAFT planner', pad]])];
+---
+<Basis titel={titel} omschrijving={omschrijving} taal="en">
+  <script slot="head" type="application/ld+json" set:html={ld(graaf)} />
+  <section class="blog-kop">
+    <div class="wrap">
+      <span class="tag">Free tool</span>
+      <h1 style="font-size:clamp(2rem,5.6vw,2.8rem)">DAFT planner: your first six months and your renewal</h1>
+      <p class="sub" style="margin-top:14px">Enter the date your DAFT or DJTT permit was approved. You get your own timeline for the KVK, your business account and the €4,500, the decisions to make early, and the date to start your renewal. Save it to your calendar, or let me remind you.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:8px">
+    <div class="wrap pl-raster">
+      <form id="pl-invoer" class="blok pl-invoer" novalidate>
+        <h2>Your dates</h2>
+        <label for="pl-goed">Date your permit was approved</label>
+        <input id="pl-goed" type="date" required>
+        <label for="pl-eind">Date your permit ends <span class="opt">optional</span></label>
+        <input id="pl-eind" type="date">
+        <p class="klein">Left empty, the planner takes two years after approval, the usual length of a first DAFT permit. Check the card from the IND.</p>
+        <fieldset class="pl-gedaan">
+          <legend>Already done</legend>
+          <label class="vink"><input type="checkbox" value="bsn"> <span>BSN (registered at the municipality)</span></label>
+          <label class="vink"><input type="checkbox" value="kvk"> <span>KVK registration</span></label>
+          <label class="vink"><input type="checkbox" value="bank"> <span>Business bank account</span></label>
+          <label class="vink"><input type="checkbox" value="storting"> <span>€4,500 deposited</span></label>
+        </fieldset>
+        <button class="knop vol" type="submit">Show my plan</button>
+        <p class="fout" id="pl-fout" hidden role="alert">Please enter the date your permit was approved.</p>
+      </form>
+
+      <div id="pl-uitkomst" hidden>
+        <div class="pl-kop">
+          <h2>Your plan</h2>
+          <button class="knop" type="button" id="pl-ics">Add to my calendar (.ics)</button>
+        </div>
+        <ol class="pl-lijst" id="pl-lijst"></ol>
+        <p class="klein">General planning based on IND and Belastingdienst rules as of November 2026 and my own practice. Your own situation can differ; ask if you are not sure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="zacht" id="pl-herinner-blok" hidden>
+    <div class="wrap pl-raster">
+      <div>
+        <h2>Want two reminders?</h2>
+        <p>I send you one email four months after your approval, when two months are left for the KVK, your account and the €4,500, and one six months before your permit ends, when it is time to prepare the renewal. Nothing else, unless you tick the newsletter box.</p>
+        <p class="dl-door"><img src="/img/kyle-profiel.jpg" alt="" width="36" height="36">Kyle Bouwmeester, Becon-registered bookkeeper. I prepare and sign DAFT and DJTT balance sheets.</p>
+      </div>
+      <div class="dl-form">
+        <form id="pl-herinner" novalidate>
+          <label for="pl-naam">Name</label><input id="pl-naam" type="text" autocomplete="name" maxlength="120" required>
+          <label for="pl-email">Email address</label><input id="pl-email" type="email" autocomplete="email" required>
+          <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="pl-website">Website</label><input id="pl-website" type="text" tabindex="-1" autocomplete="off"></div>
+          <label class="vink"><input id="pl-ok" type="checkbox" required> <span>Email me the two reminders for my dates</span></label>
+          <label class="vink"><input id="pl-nb" type="checkbox"> <span>Also send me the monthly newsletter</span></label>
+          <p class="klein">I use your details only for these reminders and, if you tick it, the newsletter. Read the <a href="/en/privacy/">privacy policy</a>.</p>
+          <button class="knop vol" type="submit">Remind me</button>
+          <p class="fout" id="pl-hfout" hidden role="alert">Please fill in your name, a valid email address and tick the reminder box.</p>
+        </form>
+        <div id="pl-klaar" hidden role="status"><p style="color:var(--inkt);font-weight:700">Done. You will hear from me at the two moments in your plan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>When you need me</h2>
+      <div class="grid3 pl-kaarten">
+        <a class="blok kaartlink" href="/daft/"><h3>Opening balance sheet</h3><p>Signed proof of your €4,500 for the IND, from €495 excluding VAT in five working days.</p><span class="meer">DAFT balance sheet →</span></a>
+        <a class="blok kaartlink" href="/en/compliance-plan/"><h3>Compliance Plan</h3><p>Monthly bookkeeping in English from €79 a month, balance sheet and renewal statement included, equity checked every quarter.</p><span class="meer">See the plan →</span></a>
+        <a class="blok kaartlink" href="/daft/renewal/"><h3>Renewal</h3><p>Balance sheet and profit and loss account for last year and this year so far, signed. From €495 excluding VAT.</p><span class="meer">DAFT renewal →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+  (function () {
+    var WEBHOOK = 'https://n8n.slim-geregeld.nl/webhook/daft-planner';
+    var invoer = document.getElementById('pl-invoer');
+    var stappen = [];
+    var data = null;
+    function iso(d) { return d.toISOString().slice(0, 10); }
+    function dag(s) { return new Date(s + 'T12:00:00Z'); }
+    function plusM(s, m) { var d = dag(s); d.setUTCMonth(d.getUTCMonth() + m); return iso(d); }
+    function plusD(s, n) { var d = dag(s); d.setUTCDate(d.getUTCDate() + n); return iso(d); }
+    function mooi(s) { return dag(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); }
+    function vandaag() { return iso(new Date()); }
+    function kwartaalNa(s) { var d = dag(s); var q = Math.floor(d.getUTCMonth() / 3) + 1; var j = d.getUTCFullYear(); if (q === 4) { j++; q = 0; } return j + '-' + String(q * 3 + 1).padStart(2, '0') + '-01'; }
+    function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+    invoer.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var goed = document.getElementById('pl-goed').value;
+      var eind = document.getElementById('pl-eind').value || (goed ? plusM(goed, 24) : '');
+      var fout = document.getElementById('pl-fout');
+      if (!goed || eind <= goed) { fout.hidden = false; return; }
+      fout.hidden = true;
+      var gedaan = [].map.call(invoer.querySelectorAll('.pl-gedaan input:checked'), function (i) { return i.value; });
+      var g = function (k) { return gedaan.indexOf(k) >= 0; };
+      var deadline = plusM(goed, 6);
+      var nu = vandaag();
+      // KOR: aanmelding vier weken voor het kwartaal waarin hij moet ingaan.
+      var korStart = kwartaalNa(nu > goed ? nu : goed);
+      while (plusD(korStart, -28) < nu) korStart = kwartaalNa(korStart);
+      var startJaar = Number((g('kvk') ? nu : goed).slice(0, 4));
+      var eersteCheck = kwartaalNa(g('storting') ? (nu > goed ? nu : goed) : deadline);
+      stappen = [
+        { k: 'BSN', t: 'Register at your municipality (gemeente) to get your BSN. The KVK and the bank both ask for it.', d: '', af: g('bsn'), dl: '' },
+        { k: 'KVK registration', t: 'Register your business with the KVK. Book the appointment as soon as you have your BSN.', d: '', af: g('kvk'), dl: '' },
+        { k: 'Business bank account', t: 'bunq is usually the fastest: fully online, often within a few days. Rabobank takes longer and works with an appointment.', d: '', af: g('bank'), dl: '' },
+        { k: 'Deposit the €4,500', t: 'Deposit the investment last, on the business account, and keep the statement. The €4,500 is owner\'s equity: a loan does not count, a gift does with a written confirmation.', d: deadline, af: g('storting'), dl: 'Deadline' },
+        { k: 'Opening balance sheet', t: 'After the deposit, a signed opening balance sheet is the proof the IND can ask for after six months, and the starting point for your renewal.', d: '', af: false, dl: '', link: ['/daft/', 'Get it signed, from €495'] },
+        { k: 'Decide on the KOR', t: 'The small business scheme: no VAT on your invoices and no VAT returns, but no VAT back on your costs either. Registration must arrive at least four weeks before the quarter it starts.', d: plusD(korStart, -28), af: false, dl: 'Register by', extra: 'to start on ' + mooi(korStart) },
+        { k: 'Check your equity every quarter', t: 'Private withdrawals and a first-year loss can push your equity below €4,500 before the renewal. Check it at the end of every quarter.', d: plusD(eersteCheck, -1), af: false, dl: 'First check', link: ['/en/compliance-plan/', 'Done for you on the Compliance Plan'] },
+        { k: 'Income tax return', t: 'Your first Dutch income tax return covers the year you started. It is due on 1 May of the following year.', d: (startJaar + 1) + '-05-01', af: false, dl: 'Due' },
+        { k: 'Prepare your renewal', t: 'The IND asks for a balance sheet and a profit and loss account for last year and this year so far, signed by an authorised expert. A bank statement will not do. Start three to nine months before your permit ends.', d: plusM(eind, -9), af: false, dl: 'Start between', extra: 'and ' + mooi(plusM(eind, -3)), link: ['/daft/renewal/', 'DAFT renewal, from €495'] },
+        { k: 'Permit ends', t: 'Your renewal application must be in before this date.', d: eind, af: false, dl: 'Ends' }
+      ];
+      var html = stappen.map(function (s) {
+        var wanneer = s.af ? '<span class="pl-af">Done</span>' : (s.d ? '<span class="pl-datum">' + s.dl + ' ' + mooi(s.d) + (s.extra ? ' ' + esc(s.extra) : '') + '</span>' : '<span class="pl-datum">As soon as possible</span>');
+        return '<li class="' + (s.af ? 'af' : '') + '"><div><strong>' + esc(s.k) + '</strong>' + wanneer + '</div><p>' + esc(s.t) + '</p>' + (s.link ? '<a href="' + s.link[0] + '">' + esc(s.link[1]) + ' →</a>' : '') + '</li>';
+      }).join('');
+      document.getElementById('pl-lijst').innerHTML = html;
+      document.getElementById('pl-uitkomst').hidden = false;
+      document.getElementById('pl-herinner-blok').hidden = false;
+      document.getElementById('pl-uitkomst').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      data = { goedkeuring: goed, verloopt: eind, gedaan: gedaan };
+      (window.dataLayer = window.dataLayer || []).push({ event: 'planner_gebruikt' });
+    });
+
+    document.getElementById('pl-ics').addEventListener('click', function () {
+      var stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+      var r = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Slim Geregeld//DAFT planner//EN', 'CALSCALE:GREGORIAN'];
+      stappen.filter(function (s) { return s.d && !s.af; }).forEach(function (s, i) {
+        var d = s.d.replace(/-/g, ''); var e = plusD(s.d, 1).replace(/-/g, '');
+        var oms = (s.t + (s.link ? ' https://slim-geregeld.nl' + s.link[0] : '')).replace(/[,;]/g, function (c) { return '\\' + c; });
+        r.push('BEGIN:VEVENT', 'UID:daft-planner-' + i + '-' + d + '@slim-geregeld.nl', 'DTSTAMP:' + stamp, 'DTSTART;VALUE=DATE:' + d, 'DTEND;VALUE=DATE:' + e, 'SUMMARY:DAFT: ' + s.k, 'DESCRIPTION:' + oms, 'BEGIN:VALARM', 'TRIGGER:-P7D', 'ACTION:DISPLAY', 'DESCRIPTION:DAFT: ' + s.k, 'END:VALARM', 'END:VEVENT');
+      });
+      r.push('END:VCALENDAR');
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([r.join('\r\n')], { type: 'text/calendar' }));
+      a.download = 'daft-planner.ics'; document.body.appendChild(a); a.click(); a.remove();
+      (window.dataLayer = window.dataLayer || []).push({ event: 'planner_agenda' });
+    });
+
+    var hf = document.getElementById('pl-herinner');
+    hf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var naam = document.getElementById('pl-naam').value.trim();
+      var email = document.getElementById('pl-email').value.trim();
+      var fout = document.getElementById('pl-hfout');
+      if (!data || !naam || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !document.getElementById('pl-ok').checked) { fout.hidden = false; return; }
+      fout.hidden = true;
+      var knop = hf.querySelector('button'); knop.disabled = true; knop.textContent = 'One moment...';
+      var b = (window.sgBron && window.sgBron()) || {};
+      var body = { naam: naam, email: email, goedkeuring: data.goedkeuring, verloopt: data.verloopt, gedaan: data.gedaan, herinneringen: true,
+        nieuwsbrief: document.getElementById('pl-nb').checked, website: document.getElementById('pl-website').value, bron: location.origin + location.pathname, via: b.via || '' };
+      if (/[?&]droog=true\b/.test(location.search)) body.droog = true;
+      fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+        .then(function (r) { return r.json().then(function (j) { return { s: r.status, j: j }; }); })
+        .then(function (a) {
+          if (!a.j || !a.j.ok) throw new Error(a.j && a.j.fout || 'mislukt');
+          hf.hidden = true; document.getElementById('pl-klaar').hidden = false;
+          (window.dataLayer = window.dataLayer || []).push({ event: 'formulier_verstuurd', formulier: 'planner' });
+        })
+        .catch(function () { fout.textContent = 'That did not work. Please try again or email kyle@slim-geregeld.nl.'; fout.hidden = false; knop.disabled = false; knop.textContent = 'Remind me'; });
+    });
+  })();
+  </script>
+</Basis>
+<style is:global>
+.pl-raster{display:grid;gap:28px}
+@media (min-width:900px){.pl-raster{grid-template-columns:minmax(280px,380px) 1fr;align-items:start}}
+.pl-invoer label{display:block;font-weight:600;margin:12px 0 4px}
+.pl-invoer input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--lijn);border-radius:8px;font:inherit}
+.pl-invoer .opt{font-weight:400;color:var(--grijs,#6b7280);font-size:.85rem}
+.pl-gedaan{border:0;padding:0;margin:14px 0}
+.pl-gedaan legend{font-weight:600;margin-bottom:4px}
+.pl-gedaan .vink{font-weight:400;margin:6px 0}
+.pl-invoer .knop{margin-top:10px;width:100%}
+.pl-kop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pl-lijst{list-style:none;padding:0;margin:12px 0;counter-reset:pl}
+.pl-lijst li{counter-increment:pl;position:relative;padding:14px 14px 14px 52px;border:1px solid var(--lijn);border-radius:10px;margin-bottom:10px;background:#fff}
+.pl-lijst li::before{content:counter(pl);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;background:var(--blauw-t);color:var(--blauw);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.pl-lijst li.af{opacity:.6}
+.pl-lijst li.af::before{content:'✓'}
+.pl-lijst li div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pl-lijst li p{margin:6px 0 4px}
+.pl-datum{font-weight:600;color:var(--blauw);font-size:.9rem}
+.pl-af{font-weight:600;color:#15803d;font-size:.9rem}
+.kaartlink{display:block;text-decoration:none;color:inherit}
+.kaartlink h3{color:var(--inkt)}
+@media (min-width:760px){.pl-kaarten{grid-template-columns:repeat(3,1fr)}}
+</style>
