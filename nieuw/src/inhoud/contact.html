@@ -107,15 +107,14 @@
 
   // Onderwerp alvast goed zetten vanaf de DJTT- en verlengingspagina (?over=djft).
   var over=document.getElementById('v-over');
-  var via='';
+  // Bron van de bezoeker uit bron.js (partner, advertentie of verwijzing, 90 dagen).
+  var bron=(window.sgBron&&window.sgBron())||{via:'',landing:'',gclid:''};
+  var via=bron.via;
+  var partner=(window.sgBronPartner&&window.sgBronPartner())||'';
   try{
     var p=new URLSearchParams(location.search);
     var o=(p.get('over')||'').toLowerCase();
     if(over.querySelector('option[value="'+o+'"]')) over.value=o;
-    // Partnerlink ?via=<partner>, ook als die eerder in deze sessie binnenkwam.
-    var v=(p.get('via')||'').toLowerCase();
-    if(/^[a-z0-9-]{2,30}$/.test(v)) sessionStorage.setItem('sg_via',v);
-    via=sessionStorage.getItem('sg_via')||'';
   }catch(e){}
 
   // Hoe iemand hier terechtkwam, zelfde keuzes als het aanvraagformulier.
@@ -136,7 +135,7 @@
     if(q){ gevondenLabel.innerHTML=q[0]; gevondenTekst.placeholder=q[1]; }
     else { gevondenTekst.value=''; }
   });
-  if(via){
+  if(partner){
     gevonden.value='adviseur';
     gevonden.dispatchEvent(new Event('change'));
   }
@@ -164,6 +163,8 @@
         gevonden:gevonden.value,
         gevondenTekst:gevondenTekst.value.trim(),
         via:via,
+        landing:bron.landing,
+        gclid:bron.gclid,
         website2:document.getElementById('v-website2').value
       })});
       if(!r.ok)throw new Error('status '+r.status);

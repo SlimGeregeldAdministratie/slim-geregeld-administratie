@@ -2,8 +2,55 @@
  "_uitleg": "Downloadpagina's met formulier (scripts/blog.mjs, bouwDownloads). De pdf's staan in public/downloads/. Het formulier post naar de n8n-webhook; die antwoordt met de downloadlink. Contract: ~/slim-geregeld-documenten/tools/content-engine/downloads-contract.md.",
  "webhook": "https://n8n.slim-geregeld.nl/webhook/download-aanvraag",
  "antwoordVeld": "url",
- "gewijzigd": "2026-11-06",
+ "gewijzigd": "2026-11-26",
  "downloads": [
+  {
+   "sleutel": "daft-start-checklist",
+   "clusters": [
+    "daft",
+    "djtt"
+   ],
+   "nl": {
+    "pad": "/downloads/daft-start-checklist/",
+    "pdf": "/downloads/daft-start-checklist-nl.pdf",
+    "titel": "Checklist DAFT goedgekeurd: eerste zes maanden | Slim Geregeld",
+    "omschrijving": "Gratis checklist na je DAFT- of DJTT-goedkeuring: de volgorde voor BSN, KVK, bank en de €4.500, en hoe je je verlenging veilig houdt.",
+    "h1": "Checklist: DAFT goedgekeurd, je eerste zes maanden",
+    "intro": "Sinds april 2024 keurt de IND de meeste DAFT-aanvragen goed zonder openingsbalans. Daarna heb je zes maanden voor de KVK, een zakelijke rekening en je investering. Deze checklist zet de volgorde en de valkuilen op een rij.",
+    "inhoud": [
+     "De volgorde die werkt: BSN, KVK, zakelijke rekening en als laatste de storting",
+     "Welke bank meestal het snelst is",
+     "Wat wel en niet meetelt voor de €4.500 eigen vermogen",
+     "Keuzes die je vroeg maakt: de KOR, apparatuur uit de VS en je urenregistratie",
+     "Hoe je je verlenging vanaf het eerste jaar veilig houdt, met een rekenvoorbeeld"
+    ],
+    "voorWie": "Voor ondernemers met een nieuwe DAFT- of DJTT-vergunning, of die de goedkeuring binnenkort verwachten.",
+    "kader": [
+     "Download de checklist",
+     "Gratis checklist voor je eerste zes maanden na de DAFT- of DJTT-goedkeuring, als pdf."
+    ]
+   },
+   "en": {
+    "pad": "/en/downloads/daft-first-six-months-checklist/",
+    "pdf": "/downloads/daft-start-checklist-en.pdf",
+    "titel": "DAFT approved: first six months checklist | Slim Geregeld",
+    "omschrijving": "Free checklist after your DAFT or DJTT approval: the order for BSN, KVK, bank and the €4,500, what counts as owner's equity, and how to keep your renewal safe.",
+    "h1": "Checklist: DAFT approved, your first six months",
+    "intro": "Since April 2024 the IND approves most DAFT applications without an opening balance sheet. You then have six months for the KVK, a business bank account and your investment. This checklist puts the order and the pitfalls on one page.",
+    "inhoud": [
+     "The order that works: BSN, KVK, business bank account and the deposit last",
+     "Which bank is usually the fastest",
+     "What does and does not count towards the €4,500 of owner's equity",
+     "Decisions to make early: the KOR, equipment from the US and your hours log",
+     "How to keep your renewal safe from year one, with a worked example"
+    ],
+    "voorWie": "For entrepreneurs with a new DAFT or DJTT permit, or who expect their approval soon.",
+    "kader": [
+     "Download the checklist",
+     "Free checklist for your first six months after DAFT or DJTT approval, as a PDF."
+    ]
+   }
+  },
   {
    "sleutel": "daft-verlenging-checklist",
    "clusters": [
