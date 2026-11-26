@@ -6,6 +6,7 @@ import Basis from '../layouts/Basis.astro';
 import '../styles/blog.css';
 import { B, DOWNLOADS, metKyle, kruimelGraaf, ld } from '../lib/inhoud.mjs';
 import { SITE } from '../lib/entiteiten.mjs';
+import { readFileSync, existsSync } from 'node:fs';
 interface Props { d: any; taal: 'nl' | 'en' }
 const { d, taal } = Astro.props;
 const x = d[taal];
@@ -23,9 +24,12 @@ const u = B + x.pad;
 // Voorbeeld: pagina 1 van de pdf als afbeelding (public/img/downloads/<naam>-1.png,
 // gemaakt met sips). De rest van de pdf krijg je pas via het formulier.
 const voorbeeld = '/img/downloads/' + x.pdf.split('/').pop().replace(/\.pdf$/, '') + '-1.png';
+// Aantal pagina's uit de pdf zelf tellen (build draait in nieuw/, de pdf's staan in ../public/downloads).
+const pdfBestand = ['public' + x.pdf, '../public' + x.pdf].find((f) => existsSync(f));
+const paginas = pdfBestand ? (readFileSync(pdfBestand).toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length : 0;
 const K = taal === 'nl'
-  ? { kop: 'Een kijkje in de pdf', pagina: 'Pagina 1 van 2. De volledige pdf krijg je direct na het formulier.', knop: 'Ontvang de hele pdf' }
-  : { kop: 'A look inside', pagina: 'Page 1 of 2. You get the full PDF right after the form.', knop: 'Get the full PDF' };
+  ? { kop: 'Een kijkje in de pdf', pagina: (paginas > 1 ? 'Pagina 1 van ' + paginas + '. ' : '') + 'De volledige pdf krijg je direct na het formulier.', knop: 'Ontvang de hele pdf' }
+  : { kop: 'A look inside', pagina: (paginas > 1 ? 'Page 1 of ' + paginas + '. ' : '') + 'You get the full PDF right after the form.', knop: 'Get the full PDF' };
 const graaf = [...metKyle(taal),
   { '@type': 'WebPage', '@id': u + '#webpage', url: u, name: x.titel, description: x.omschrijving, inLanguage: taal, isPartOf: { '@id': SITE['@id'] },
     breadcrumb: { '@id': u + '#breadcrumb' }, dateModified: DOWNLOADS.gewijzigd,
