@@ -91,15 +91,12 @@
   document.querySelectorAll('input[name="soort"]').forEach(function(r){
     r.addEventListener('change',wisselSoort);
   });
-  // Partnerlink: /daft/?via=<partner>. De bron wordt bewaard voor deze sessie
-  // (ook als iemand eerst de verlengingspagina bekijkt) en gaat mee met de
-  // aanvraag, zodat per verwijzer te tellen is wat er binnenkomt.
-  var via='';
-  try{
-    var viaUrl=(new URLSearchParams(location.search).get('via')||'').toLowerCase();
-    if(/^[a-z0-9-]{2,30}$/.test(viaUrl)) sessionStorage.setItem('sg_via',viaUrl);
-    via=sessionStorage.getItem('sg_via')||'';
-  }catch(e){}
+  // Bron van de bezoeker (bron.js, 90 dagen bewaard): partnerlink ?via=<partner>,
+  // advertentie (ads, ads-us) of verwijzing (ref-google, ref-chatgpt). Gaat mee
+  // met de aanvraag, zodat per bron te tellen is wat er binnenkomt.
+  var bron=(window.sgBron&&window.sgBron())||{via:'',landing:'',gclid:''};
+  var via=bron.via;
+  var partner=(window.sgBronPartner&&window.sgBronPartner())||'';
   // Oude links en mails wijzen nog naar /daft/?soort=verlenging#request. Die
   // blijven werken; de verlengingspagina zelf zet de soort vast via data-soort.
   try{
@@ -178,7 +175,7 @@
     else { gevondenTekst.value=''; }
   });
   // Kwam iemand binnen via een partnerlink, dan staat de bron al goed.
-  if(via && !gevonden.value){
+  if(partner && !gevonden.value){
     gevonden.value='adviseur';
     gevonden.dispatchEvent(new Event('change'));
   }
@@ -272,7 +269,7 @@
             naam:naam,email:email,telefoon:(document.getElementById('d-tel')||{}).value||'',
             nationaliteit:(document.getElementById('d-nationaliteit')||{}).value||'',
             website2:(document.getElementById('d-website2')||{}).value||'',
-            pagina:location.pathname,via:via})}).catch(function(){});
+            pagina:location.pathname,via:via,landing:bron.landing,gclid:bron.gclid})}).catch(function(){});
         }
       }catch(e){}
     }
@@ -354,6 +351,8 @@
         gevonden:document.getElementById('d-gevonden').value,
         gevondenTekst:document.getElementById('d-gevonden-tekst').value.trim(),
         via:via,
+        landing:bron.landing,
+        gclid:bron.gclid,
         website2:document.getElementById('d-website2').value
       })});
       if(!r.ok)throw new Error('status '+r.status);

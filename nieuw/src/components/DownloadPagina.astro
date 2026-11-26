@@ -84,6 +84,8 @@ const graaf = [...metKyle(taal),
       var tekst = knop.textContent; knop.disabled = true; knop.textContent = knop.getAttribute('data-bezig'); melding.hidden = true;
       var data = { naam: f.naam.value.trim(), email: f.email.value.trim(), nieuwsbrief: f.nieuwsbrief.checked, website: f.website.value,
         download: f.getAttribute('data-download'), taal: f.getAttribute('data-taal'), bron: location.origin + location.pathname };
+      var b = (window.sgBron && window.sgBron()) || {};
+      if (b.via) { data.bron += ' (via ' + b.via + ')'; data.via = b.via; }
       if (/[?&]droog=true\b/.test(location.search)) data.droog = true;
       fetch(f.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, j: j }; }); })
