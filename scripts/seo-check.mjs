@@ -234,7 +234,7 @@ export function controleerSite(dist = 'dist', { vandaag = new Date().toISOString
     const p = paginas.get(loc.slice(B.length));
     if (!indexeerbaar(p)) { fouten.push(`sitemap: ${loc} is geen indexeerbare pagina met status 200`); continue; }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(lastmod || '') || lastmod > vandaag) fouten.push(`sitemap: ${loc} lastmod "${lastmod}"`);
-    if (p.dateModified && p.dateModified !== lastmod) fouten.push(`sitemap: ${loc} lastmod ${lastmod} is niet dateModified ${p.dateModified}`);
+    if (p.dateModified && String(p.dateModified).slice(0, 10) !== String(lastmod).slice(0, 10)) fouten.push(`sitemap: ${loc} lastmod ${lastmod} is niet dateModified ${p.dateModified}`);
     if (JSON.stringify(alt) !== JSON.stringify(p.h.hreflang)) fouten.push(`sitemap: hreflang van ${loc} wijkt af van de HTML`);
   }
   for (const [pad, p] of paginas) if (indexeerbaar(p) && !smUrls.has(B + pad)) fouten.push(`sitemap: indexeerbare pagina ${pad} ontbreekt`);

@@ -113,7 +113,7 @@ const PLAN_JA = ['/djtt/ja/#pricing', '条約ビザの方の記帳', '月次の�
 export const CLUSTERS = {
   'daft-verlenging': { label: { nl: 'DAFT-verlenging', en: 'DAFT renewal', ja: '滞在許可の更新' },
     dienst: { nl: ['/daft/renewal/', 'Verlenging van je DAFT- of DJTT-vergunning', 'De verlengingsverklaring met balans en winst-en-verliesrekening over twee jaar, opgesteld en getekend door een Becon-boekhouder. Vanaf €495 exclusief btw.', 'Naar de verlenging'],
-      en: ['/daft/renewal/', 'Renewing your DAFT or DJTT permit?', 'The renewal statement with balance sheet and profit and loss account for two years, prepared and signed by a Becon-registered bookkeeper. From €495 excluding VAT.', 'See the renewal statement'],
+      en: ['/daft/renewal/', 'Renewing your DAFT or DJTT permit?', 'The renewal statement with balance sheet and profit and loss account for last year and this year so far, prepared and signed by a Becon-registered bookkeeper. From €495 excluding VAT.', 'See the renewal statement'],
       ja: ['/daft/renewal/', '滞在許可の更新', '2年分の貸借対照表と損益計算書を、Becon登録ブックキーパーが作成し署名します。€495（税抜）から。', '更新について（英語）'] } },
   daft: { label: { nl: 'DAFT', en: 'DAFT', ja: 'DAFT' },
     dienst: { nl: ['/daft/', 'Openingsbalans voor DAFT', 'De openingsbalans voor de verblijfsvergunning onder het Amerikaans-Nederlands vriendschapsverdrag, vanaf €495 exclusief btw.', 'Naar de DAFT-pagina'],
